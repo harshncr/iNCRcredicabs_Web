@@ -1,0 +1,88 @@
+<nav class="navbar navbar-default">
+  <table class="col-sm-12">
+    <tr>
+      <td class="col-lg-4">
+        <div class="navbar-brand"><strong>iNCRediCabs</strong></div>
+        <ul class="nav navbar-nav">
+          <li><a routerLink="/dash">Dashboard</a></li>
+          <!-- <li><a routerLink="/logout">Logout</a></li> -->
+        </ul>
+      </td>
+      <td *ngIf="employee || roster || vendor || reports" class="col-lg-4">
+        <!-- Employee Menu -->
+        <div id="employee_menu" *ngIf="employee">
+          <div class="navbar-brand">Employee</div>
+          <ul id="header-links" class="nav navbar-nav">
+            <li>
+              <span class="hdr-emp">
+                <a routerLink="/employee/add" id="hdr-lnk-emp-add"
+                  (mouseenter)="onMouseEnterLink($event.target)"
+                  (mouseleave)="onMouseLeaveLink($event.target)">
+                  <img id="header-employee-add" src="./assets/img/employee-add.svg">
+                </a>
+                <span class="tooltip-text" id="hdr-lnk-ae">Add Employee</span>
+              </span>
+            </li>
+            <li>
+              <span class="hdr-emp">
+                <a routerLink="/employee/view" id="hdr-lnk-emp-view"
+                  (mouseenter)="onMouseEnterLink($event.target)"
+                  (mouseleave)="onMouseLeaveLink($event.target)">
+                  <img id="header-employee-add" src="./assets/img/employee-view.svg">
+                </a>
+                <span class="tooltip-text" id="hdr-lnk-ve">View Employees</span>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <!-- Roster Menu -->
+        <div id="roster_menu" *ngIf="roster">
+          <div class="navbar-brand"><a routerLink="/roster/go">Roster</a></div>
+          <ul class="nav navbar-nav ">
+            <li><a routerLink="/roster/addRoute">Add Route</a></li>
+            <li><a routerLink="/roster/editroute">Edit Route</a></li>
+            <li><a (click)="emitUpload()" >Upload Roster</a></li>
+          </ul>
+        </div>
+        <!-- Vendor Menu -->
+        <div id="vendor_menu" *ngIf="vendor">
+          <div class="navbar-brand">Vendor</div>
+          <ul class="nav navbar-nav">
+            <li><a href="#">Add Vendor</a></li>
+            <li><a href="#">View / Edit Vendor</a></li>
+          </ul>
+        </div>
+        <!-- Reports Menu -->
+        <div id="reports_menu" *ngIf="reports">
+          <div class="navbar-brand">Reports</div>
+          <ul class="nav navbar-nav">            
+            <li>
+              <a (click)="downloadRequestExcel()">
+                <span class="glyphicon glyphicon-download-alt"></span>
+                Download
+              </a>
+            </li>
+          </ul>
+        </div>
+      </td>
+      <td class="col-lg-2">
+        <ul class="nav navbar-nav">
+          <li>
+            <a routerLink="/unscheduledRequest">
+              <span class="glyphicon glyphicon-exclamation-sign"></span>
+              Request
+            </a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li>
+            <a routerLink="/logout">
+              <span class="glyphicon glyphicon-log-out"></span>
+              Logout
+            </a>
+          </li>
+        </ul> 
+      </td>
+    </tr>
+  </table>
+</nav>

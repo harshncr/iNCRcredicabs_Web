@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="container col-sm-4 col-sm-offset-4">
+    <div *ngIf="showReqStatus && responseJSON.success" class="panel panel-success">
+        <div class="panel-heading">Success!</div>
+        <div class="panel-body">{{ responseJSON.message }}</div>
+    </div>
+    <div *ngIf="showReqStatus && responseJSON.success == false" class="panel panel-danger">
+      <div class="panel-heading">Error!</div>
+      <div class="panel-body">{{ responseJSON.message }}</div>       
+    </div> 
+    <div *ngIf="showReqStatus == false" class="panel panel-default">
+      <div class="panel-heading">
+          <div class="panel-title text-center">
+            New Account Setup
+          </div>
+        </div>
+      <form name="form"  #f="ngForm" (ngSubmit)="onSubmit(f.value)" id="form"
+        class="form-horizontal" enctype="multipart/form-data" method="POST">        
+        <div class="panel-body">
+          <div class="row">
+            <div class="form-group">
+              Enter your QLID:
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="input-group col-sm-4 col-sm-offset-4">
+                <input type="text" class="form-control" name="qlid" [(ngModel)]="qlid">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+</div>

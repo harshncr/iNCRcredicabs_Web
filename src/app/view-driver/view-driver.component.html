@@ -1,0 +1,137 @@
+<header-list></header-list>
+<div class="row">
+  <!--<div class="success">{{message}}</div>-->
+  <div class="col-md-8 col-md-offset-2">
+    <form class="form-horizontal" role="form" #f="ngForm" (ngSubmit)="upd(f.value)">
+      <fieldset>
+
+        <!-- Form Name -->
+        <legend>Driver Details</legend>
+     
+        <!-- Text input-->
+        <div class="form-group">
+          <div class="col-sm-3"> 
+            <b>Driver Name</b> 
+            <br>
+            <input type="text" name="d_name" id="d_name" [(ngModel)]="driver.d_name" class="form-control">
+          
+          </div>
+        
+          <div class="col-sm-3">
+            <b>Driver Contact No</b>
+            <br>
+            <input type="text" name="d_contact_num" id="d_contact_num" [(ngModel)]="driver.d_contact_num"class="form-control">
+          </div>
+
+          <div class="col-sm-3">
+              <b>Driver Type</b>
+              <br>
+              <input type="text" name="driver_type" id="driver_type" [(ngModel)]="driver.driver_type"class="form-control">
+            </div>
+
+            <div class="col-sm-3">
+                <b>License Expiry Date</b> 
+                <br>
+                <input type="text" name="license_exp_date" id="license_exp_date" [(ngModel)]="driver.license_exp_date"class="form-control">
+              </div>
+              
+              <div class="col-sm-3">
+            <b>License</b> 
+            <br>
+            <a href="http://127.0.0.1:8887/{{driver.d_license}}" 
+            target="_blank" >
+            License
+            </a>
+          </div>
+
+          
+          
+          <div class="col-sm-3">
+            <b>Driver Photo</b> 
+            <br>
+            <a href="http://127.0.0.1:8887/{{driver.driver_photo}}" 
+              target="_blank" >
+             Photo
+            </a>
+          </div>
+
+          <div class="col-sm-3">
+            <b>Police Verification</b> 
+            <br>
+            <a href="http://127.0.0.1:8887/{{driver.police_verification}}" 
+            target="_blank" >
+            Police verification
+            </a>
+          </div>
+
+          <div class="col-sm-3">
+            <b>Permanent Address</b> 
+            <br>
+            <input type="text" name="d_permanent_add" id="d_permanent_add" [(ngModel)]="driver.d_permanent_add"class="form-control">
+          </div>
+
+          <div class="col-sm-3">
+            <b>Permanent Addrress Proof</b> 
+            <br>
+            <a href="http://127.0.0.1:8887/{{driver.d_permanent_add_proof}}" 
+             target="_blank" >
+            Permanent Address
+          </a>
+          </div>
+
+          <div class="col-sm-3">
+            <b>Local Address</b> 
+            <br>
+            <input type="text" name="d_permanent_add" id="d_permanent_add" [(ngModel)]="driver.d_permanent_add"class="form-control">
+          </div>
+
+          <div class="col-sm-3">
+            <b>Local Addrress Proof</b> 
+            <br>
+            <a href="http://127.0.0.1:8887/{{driver.d_local_add_proof}}" 
+            target="_blank" >
+            Local Address
+          </a>
+          </div>
+
+        </div>
+
+        <legend>Cab Details</legend>
+        <div class="form-group">
+          <div class="col-sm-3"> 
+            <b>Cab License Plate No</b> 
+            <br>
+            <input type="text" name="cab_license_plate_no" id="cab_license_plate_no" [(ngModel)]="driver.cab_no" class="form-control">
+          
+          </div>
+        </div>
+
+        <legend>Vendor Details</legend>
+        <div class="form-group">
+          
+          <div class="col-sm-3">
+            <b>Vendor Name</b> 
+            <br>
+            <input type="text" name="vendor_name" id="vendor_name" [(ngModel)]="driver.vendor_name"class="form-control">
+          </div>
+        </div>
+
+          
+        
+
+<!-- Command -->
+      <div class="form-group">
+        <div class="col-sm-10 col-sm-offset-0">
+          <button type="button" (click)="searchVen(driver.vendor_id)"  class="btn btn-primary" >View Vendor</button>
+          <button type="button" (click)="searchCab(driver.cab_no)"  class="btn btn-primary" >View Cab</button>
+            <button type="button" routerLink="/update-vendor" class="btn btn-primary" >Edit</button>
+            <button routerLink="/drivre-list" type="submit" class="btn btn-basic">Cancel</button>              
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div><!-- /.col-lg-12 -->
+</div><!-- /.row -->
+    
+

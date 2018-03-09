@@ -1,0 +1,154 @@
+
+.invisible{
+    visibility: hidden;
+}
+
+#over {
+    position: fixed; /* Sit on top of the page content */
+    /* display: none; Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+#box {
+    display: block;
+    position: relative;
+    top:30%;
+    left: 30%;
+    right: 0;
+    bottom: 0;
+    width: 40%;
+    height: 35%;
+   
+  /* margin: 0 auto; */
+  background:white;
+  padding: 67px;
+  border: 1px solid #fff;
+  /* border-radius: 20px/50px; */
+  text-align: center;
+}
+#close
+{
+    display: block;
+    font-size: 120%;
+    margin-right: 15%;
+} 
+#other
+{
+    display: block;
+    font-size: 120%;
+    margin-left:15%;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 21px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(224, 36, 36);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+
+
+/* Tooltip container */
+#tooltip {
+    position: relative;
+    display: inline-block;
+     /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+#tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgb(219, 79, 79);
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+#tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+#tooltip .tooltiptext {
+    width: 120px;
+    bottom: 100%;
+    left: 50%; 
+    margin-left: -60px; 
+    z-index: 1;
+    opacity: 0.75;
+    margin-bottom: -60px;  /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.vdisabled {
+  color: gray;
+  cursor: not-allowed;
+  pointer-events: none;
+ 
+}
+
+.driver-details-panel{
+  display: none;
+}

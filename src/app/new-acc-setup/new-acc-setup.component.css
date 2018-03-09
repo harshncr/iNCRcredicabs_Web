@@ -1,0 +1,16 @@
+.input-group .form-control{
+    border-radius: 5px;
+}
+
+.panel-title{
+    text-align: center;
+}
+
+.panel-body{
+    text-align: center;
+}
+
+.container{
+    margin-top: 10%;
+    margin-bottom: 10%;
+}

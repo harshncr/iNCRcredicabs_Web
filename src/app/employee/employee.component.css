@@ -1,0 +1,12 @@
+.caption{
+    padding: 20px;
+}
+
+.thumbnail:hover{
+    border:#0084ff 1px solid;
+    color: #0084ff;
+}
+
+a, a:hover{
+    text-decoration: none;
+}

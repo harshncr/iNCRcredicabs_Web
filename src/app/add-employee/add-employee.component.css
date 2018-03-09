@@ -1,0 +1,51 @@
+input.form-control{
+    border-radius: 3px;
+}
+
+/* .form-group{
+    margin-bottom: 0px;
+    
+} */
+
+.form-group .row{
+    padding-left: 20px;
+}
+
+#employee-form{
+    /* border-left: #dddddd 1px solid;
+    border-right: #dddddd 1px solid; */
+    padding: 0px 20px;
+    height: 550px;
+    /* width: 900px; */
+    /* overflow-y: auto;
+    overflow-x: hidden; */
+}
+
+legend{
+    margin-bottom: 10px;
+}
+
+.input-label{
+    padding: 0px 0px 0px 5px;
+    font-size: 0.75em;
+    animation: fadein 2s;
+}
+
+.imp{
+    color: #ff0000;
+}
+
+.imp-ph::placeholder{
+    color: #ff4a4a;
+    opacity: 0.75;
+}
+
+.imp-select-option{
+    color: #ff4a4a;
+    opacity: 0.75;
+}
+
+@keyframes fadein{
+    from{ opacity: 0;}
+    to{ opacity: 1;}
+}

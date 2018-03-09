@@ -1,0 +1,189 @@
+<header-list></header-list>
+<div class="row">
+  <!--<div class="success">{{message}}</div>-->
+  <div class="col-md-8 col-md-offset-2">
+    <form class="form-horizontal" role="form" #f="ngForm" (ngSubmit)="upd(f.value)">
+      <fieldset>
+
+        <!-- Form Name -->
+        <legend>Cab Details</legend>
+     
+        <!-- Text input-->
+        <div class="form-group">
+          <div class="col-sm-3"> 
+            <b>Cab License Plate No</b> 
+            <br>
+            <input type="text" name="cab_license_plate_no" id="cab_license_plate_no" [(ngModel)]="cab.cab_no" class="form-control">
+          
+          </div>
+        
+          <div class="col-sm-3">
+            <b>Model</b>
+            <br>
+            <input type="text" name="cab_model" id="cab_model" [(ngModel)]="cab.model"class="form-control">
+          </div>
+          <div class="col-sm-3">
+            <b>Cab Capacity</b>
+            <br>
+             <input type="text" name="cab_type" id="cab_type" [(ngModel)]="cab.cab_type"class="form-control">
+          </div>
+          <div class="col-sm-3">
+              <b>Fuel</b>
+              <br>
+              <input type="text" name="fuel" id="fuel" [(ngModel)]="cab.fuel"class="form-control">
+          </div> 
+          <div class="col-sm-3">
+              <b>Cab Rate</b>
+              <br>
+              <input type="text" name="cab_rate" id="cab_rate" [(ngModel)]="cab.cab_rate"class="form-control">
+          </div>
+          <div class="col-sm-3">
+              <b>Contracted or Owned</b>
+              <br>
+              <input type="text" name="contract_owned" id="contract_owned" [(ngModel)]="cab.contract_owned"class="form-control">
+          </div> 
+          <div class="col-sm-3">
+              <b>Manufacture Date</b>
+              <br>
+              <input type="text" name="date" id="date" [(ngModel)]="cab.manufacture_date"class="form-control">
+          </div>
+
+        </div>
+
+        <legend>Cerificates</legend>
+        <div class="form-group">
+          <div class="col-sm-3">
+            <b>Registration Certificate</b>
+            <br>
+           <!-- <a ng-href="http://127.0.0.1:8887/img.jpeg">link1</a> -->
+           <a href="http://127.0.0.1:8887/{{cab.reg_certi}}" 
+           target="_blank" >
+           Registration Certificate
+          </a>
+              
+            
+          </div>
+          <div class="col-sm-3">
+            <b>Pollution Certificate</b>
+            <br>
+            <a href="http://127.0.0.1:8887/{{cab.poll_certi}}" 
+            target="_blank" >
+              Pollution Certificate
+             </a>
+          </div>
+          <div class="col-sm-3">
+              <b>Fitness Certificate</b>
+              <br>
+              <a href="http://127.0.0.1:8887/{{cab.fit_certi}}" 
+              target="_blank" >
+                Fitness Certificate
+               </a>
+          </div>
+          <div class="col-sm-3">
+              <b>Insurance Certificate</b>
+              <br>
+              <a href="http://127.0.0.1:8887/{{cab.insur_certi}}" 
+              target="_blank" >
+                   Insurance Certificate
+               </a>
+          </div>
+          <div class="col-sm-3">
+                <b>Entry Tax Haryana Certificate</b>
+                <br>
+                <a href="http://127.0.0.1:8887/{{cab.tax_haryana_certi}}" 
+                target="_blank" >
+                       Entry Tax Haryana Certificate
+                 </a>
+          </div>
+          <div class="col-sm-3">
+                  <b>Entry Tax Delhi Certificate</b>
+                  <br>
+                  <a href="http://127.0.0.1:8887/{{cab.tax_delhi_certi}}" 
+                  target="_blank" >
+                         Entry Tax Delhi Certificate
+                   </a>
+          </div>
+          <div class="col-sm-3">
+                    <b>Entry Tax UP Certificate</b>
+                    <br>
+                    <a href="http://127.0.0.1:8887/{{cab.tax_up_certi}}" 
+                    target="_blank" >
+                         Entry Tax UP Certificate
+                     </a>
+          </div>
+        </div>
+
+        <legend>Expiry Dates</legend>
+        <div class="form-group">
+          <div class="col-sm-3">
+                <b>Pollution Cerificate</b>
+                <br>
+                <input type="text" name="poll_exp" id="poll_exp" [(ngModel)]="cab.poll_exp"class="form-control">
+          </div>
+          <div class="col-sm-3">
+              <b>Fitness Cerificate</b>
+              <br>
+              <input type="text" name="fit_exp" id="fit_exp" [(ngModel)]="cab.fit_exp"class="form-control">
+          </div> 
+          <div class="col-sm-3">
+              <b>Insurance Cerificate</b>
+              <br>
+              <input type="text" name="insur_exp" id="insur_exp" [(ngModel)]="cab.insur_exp"class="form-control">
+          </div>
+          <div class="col-sm-3">
+              <b>Tax Entry Haryana Cerificate</b>
+              <br>
+              <input type="text" name="tax_haryana_exp" id="tax_haryana_exp" [(ngModel)]="cab.tax_haryana_exp"class="form-control">
+          </div>
+          <div class="col-sm-3">
+              <b>Tax Entry Delhi Cerificate</b>
+              <br>
+              <input type="text" name="tax_delhi_exp" id="tax_delhi_exp" [(ngModel)]="cab.tax_delhi_exp"class="form-control">
+          </div>  
+          <div class="col-sm-3">
+              <b>Tax Entry UP Cerificate</b>
+              <br>
+              <input type="text" name="tax_up_exp" id="tax_up_exp" [(ngModel)]="cab.tax_up_exp"class="form-control">
+          </div>
+  
+        </div>
+
+        <legend>Driver Details</legend>
+        <div class="form-group">
+          <div class="col-sm-3">
+            <b>Driver Name</b> 
+            <br>
+            <input type="text" name="driver_nmae" id="driver_name" [(ngModel)]="cab.driver_name"class="form-control">
+            </div>
+          <div class="col-sm-3">
+            <b>Driver Contact No</b><br>
+            <input type="text" name="driver_contact_num" id="driver_contact_num" [(ngModel)]="cab.driver_contact_num"class="form-control">
+         </div>
+        </div>
+        <legend>Vendor Details</legend>
+        <div class="form-group">
+          <div class="col-sm-3">
+            <b>Vendor Name</b> 
+            <br>
+            <input type="text" name="vendor_name" id="vendor_name" [(ngModel)]="cab.vendor_name"class="form-control">
+          </div>
+        </div>
+        
+
+<!-- Command -->
+      <div class="form-group">
+        <div class="col-sm-10 col-sm-offset-0">
+            <button type="button" (click)="searchVen(cab.vendor_id)"  class="btn btn-primary" >View Vendor</button>
+            <button type="button"  routerLink="/update-vendor" class="btn btn-primary" >Edit</button>
+            <button type="button" *ngIf="driverPrimary" (click)="addprimarydriver(cab)" class="btn btn-primary" >Add Primary Driver</button>
+            <button type="button" *ngIf="driverSecondary" (click)="addsecondarydriver(cab)" class="btn btn-primary" >Add Secondary Driver</button>
+            <button routerLink="/cab-list" type="submit" class="btn btn-basic">Cancel</button>              
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div><!-- /.col-lg-12 -->
+</div><!-- /.row -->
+    
+

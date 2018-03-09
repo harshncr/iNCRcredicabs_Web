@@ -1,0 +1,91 @@
+
+.panel-heading{
+    padding: 4px 4px 4px 15px;
+}
+
+.panel-heading h3{
+    padding: 10px;
+}
+
+#user-profile-content{
+    /* width: 1000px; */
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+}
+
+#employee-status-active{
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    border: #3c763d 1px solid;
+}
+
+#employee-status-inactive{
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    border: #ce0000 1px solid;
+}
+
+#popup-background{
+    position: fixed;
+    top: 0;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    background: #000000;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    z-index: 20;
+}
+
+#deactivate-popup{
+    position: relative;
+    left: 250px;
+    background: #ffffff;
+    color: #000000;
+    background-clip: padding-box;
+    text-align: center;
+    width: 100%;
+    padding: 40px;
+    margin: 40% 0 60% 35%;
+    opacity: 1;
+    z-index: 101;
+    border-radius: 10px;
+}
+
+.change-status-user-icon{
+    height: 26px;
+    padding: 0px;
+}
+
+.change-status-user-icon-button{
+    padding: 3px 8px;
+}
+
+#popup-content{
+    position: fixed;
+    z-index: 10;
+}
+
+.tooltip-text{
+    display: none;
+    position: absolute;
+    background: #000000;
+    padding: 5px 15px;
+    color: #ffffff;
+    font-weight: bold;
+    z-index: 1;
+    border-radius: 10px;
+    opacity: 0.6;
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}

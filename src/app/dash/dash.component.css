@@ -1,0 +1,54 @@
+a.nav-tabs{
+    color: green;
+    text-decoration: none;
+}
+
+a.nav-tabs:hover{
+    cursor: pointer;
+    /* background-color: greenyellow;  */
+
+}
+button.dash-btn{
+    color: gray;
+}
+
+span.dash-btn:hover{
+    /* box-shadow: 0px 0px 5px #0084ff; */
+    /* border: 1px solid #56adff; */
+}
+
+h3{
+    margin: 0px;
+    padding: 10px;
+}
+
+.caption{
+    padding: 5px;
+}
+
+.thumbnail{
+    /* height:245px; */
+}
+
+.thumbnail .content{
+    padding: 5px 0px 10px 0px;
+}
+
+.button-link{
+    text-decoration: none;
+}
+
+.button-link:hover{
+    text-emphasis: none;
+}
+
+.thumbnail:hover{
+    border:#0084ff 1px solid;
+}
+
+.img-thumbnail{
+    border: none;
+    padding: 0px;
+    width: 128px;
+    height: 128px;
+}

@@ -1,0 +1,176 @@
+<app-header></app-header>
+<!-- panel default-panel -->
+<div id="filter-panel" class="panel default-panel">
+  <div class="panel-body">
+    <div class="form-group">      
+      <form name="form" #f="ngForm" (ngSubmit)="onFilterGo(f.value)" id="form" class="form-horizontal" enctype="multipart/form-data" method="POST">        
+        <div class="form-group">
+          <!-- <div class="col-sm-1">
+              <h3 id="filter-title">Filter</h3>
+          </div> -->
+          <div class="col-sm-3">
+            <select name="filterType" type="" class="form-control" [(ngModel)]="filter.filterType"
+              (change)="onFilterChange()">
+              <option value="" dsisabled selected>Filter By</option>
+              <option value="empQlid">Employee QLID</option>
+              <option value="empName">Employee Name</option>
+              <option value="mgrQlid1">L1 Manager QLID</option>
+              <option value="mgrQlid2">L2 Manager QLID</option>
+              <option value="mgrName1">L1 Manager Name</option>
+              <option value="mgrName2">L2 Manager Name</option>
+              <option value="empPickupArea">Employee Pickup Area</option>
+              <option value="empPin">Employee Postal Code</option>
+              <option value="rolesId">Employee Role</option>
+              <option value="empStatus">Employee Status</option>
+            </select>
+          </div>
+          <div class="col-sm-3" *ngIf="optionsRequired == false">
+            <input type="text" name="filterValue" class="form-control" [(ngModel)]="filter.filterValue">
+          </div>
+          <div class="col-sm-3" *ngIf="optionsRequired">
+            <select name="filterValue" class="form-control" [(ngModel)]="filter.filterValue">
+              <option *ngFor="let opt of options" value="{{opt.value}}">{{ opt.text }}</option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <button type="submit" class="btn btn-default" (click)="onFilterGo">
+              Go
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div id="view-employee" class="row-sm-10 row-lg-10">
+  <!-- <div *ngIf="noResultError" class="alert alert-danger">
+    <strong>Error!</strong> No response returned corresponding to your filter.
+  </div> -->
+  <div *ngIf="showLoading" class="loader-animation">
+    <div class="loader-animation-text text-center">
+      Loading...
+    </div>
+  </div>
+  <div *ngIf="arr">
+    <div *ngFor="let emp of arr;let i = index">
+      <div class="panel panel-info">
+        <div class="panel-heading clearfix">
+          <h4 class="panel-title pull-left" style="padding-top: 7.5px">
+            <strong>
+              {{emp.empFName}} {{ emp.empMName }} {{ emp.empLName }} ({{ emp.empQlid }})
+            </strong>
+          </h4>
+          <div class="panel-title pull-right">
+            <span id="qpb-vd-{{i}}">
+              <button type="button" class="btn btn-default btn-md panel-quick-button"
+                (click)="viewDetails(emp,i)" (mouseenter)="onPanelQuickButtonMouseEnter($event.target)"
+                (mouseleave)="onPanelQuickButtonMouseLeave($event.target)">
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+              </button>
+              <span class="tooltip-text" id="qpb-tt-vd-{{i}}" (click)="onClick()">
+                View Details
+              </span>
+            </span>
+            <span id="qpb-eed-{{i}}" *ngIf="i != undefined">
+              <button type="button" class="btn btn-default btn-md panel-quick-button"
+                (click)="editEmployee(emp, i)" (mouseenter)="onPanelQuickButtonMouseEnter($event.target)"
+                (mouseleave)="onPanelQuickButtonMouseLeave($event.target)">
+                <span class="glyphicon glyphicon-pencil " aria-hidden="true"></span>
+              </button>
+              <span class="tooltip-text" id="qpb-tt-eed-{{i}}">
+                Edit Employee Details
+              </span>
+            </span>
+            <span id="qpb-hqd-{{i}}" *ngIf="empShowQuickDetails != undefined">
+              <button type="button"  class="btn btn-default btn-md panel-quick-button" 
+                *ngIf="empShowQuickDetails[i] == true" (click)="hideQuickDetails(i)"
+                (mouseenter)="onPanelQuickButtonMouseEnter($event.target)"
+                (mouseleave)="onPanelQuickButtonMouseLeave($event.target)">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+              </button>  
+              <span class="tooltip-text" id="qpb-tt-hqd-{{i}}">
+                Hide Quick Details
+              </span>
+            </span>
+            <span id="qpb-sqd-{{i}}" *ngIf="empShowQuickDetails != undefined">
+              <button type="button"  class="btn btn-default btn-md panel-quick-button" 
+                *ngIf="empShowQuickDetails[i] == false" (click)="showQuickDetails(i)"
+                (mouseenter)="onPanelQuickButtonMouseEnter($event.target)"
+                (mouseleave)="onPanelQuickButtonMouseLeave($event.target)">
+                <span class="glyphicon glyphicon-chevron-down"></span>
+              </button>
+              <span class="tooltip-text" id="qpb-tt-sqd-{{i}}">
+                Show Quick Details
+              </span>
+            </span>
+          </div>
+        </div>
+        <!-- *ngIf="empShowQuickDetails[i] == true" -->
+        <div class="panel-body emp-panel-body emp-quick-details" id="qd-{{i}}">
+            <div class="tab-content">
+            <table class="col-sm-10 view-employee-row-table">
+              <tr>
+                <td class="col-sm-2">
+                  <table>
+                    <tr>
+                      <td><strong>Gender:</strong></td>
+                      <td *ngIf="emp.empGender.toUpperCase() == 'M'">Male</td>
+                      <td *ngIf="emp.empGender.toUpperCase() == 'F'">Female</td>
+                    </tr>
+                    <tr>
+                      <td><strong>PIN:</strong></td>
+                      <td>{{ emp.empPin }}</td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="col-sm-3">
+                  <table>
+                    <tr>
+                      <td><strong>Pickup Area:</strong></td>
+                      <td>{{ emp.empPickupArea }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Contact:</strong></td>
+                      <td>{{ emp.empMobNbr }}</td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="col-sm-3">
+                  <table>
+                    <tr>
+                      <td><strong>Zone:</strong></td>
+                      <td>{{ emp.empZone }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Role:</strong></td>
+                      <td>
+                        <span *ngIf="emp.rolesId == null">Employee</span>
+                        <span *ngIf="emp.rolesId == 1">ADMIN</span>
+                        <span *ngIf="emp.rolesId == 2">MANAGER</span>
+                        <span *ngIf="emp.rolesId == 3">EMPLOYEE</span>
+                        <span *ngIf="emp.rolesId == 4">CONTRACTOR</span>
+                        <span *ngIf="emp.rolesId == 5">INTERN</span>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td class="col-sm-3">
+                  <table>
+                    <tr>
+                      <td><strong>L1 Manager QLID:</strong></td>
+                      <td>{{ emp.empMgrQlid1 }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>L2 Manager QLID:</strong></td>
+                      <td>{{ emp.empMgrQlid2 }}</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>  

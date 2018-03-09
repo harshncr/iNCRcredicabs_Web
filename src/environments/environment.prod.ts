@@ -1,0 +1,20 @@
+//// TODO: replace 'localhost:8080' with the production domain name....
+export const environment = {
+  production: true,
+  loginUrl: "http://localhost:8080/NCAB/EmployeeService/login",
+  logoutUrl: "http://localhost:8080/NCAB/EmployeeService/logout",
+  checkLoginUrl: "http://localhost:8080/NCAB/EmployeeService/check-login-status",
+  addEmployeeUrl: "http://localhost:8080/NCAB/EmployeeService/add-employee",
+  activateEmployeeUrl: "http://localhost:8080/NCAB/EmployeeService/activate-employee",
+  deactivateEmployeeUrl: "http://localhost:8080/NCAB/EmployeeService/deactivate-employee",
+  editEmployeeUrl: "http://localhost:8080/NCAB/EmployeeService/edit-employee",
+  viewEmployeeUrl: "http://localhost:8080/NCAB/EmployeeService/view-employee",
+  getManagerByNameUrl: "http://localhost:8080/NCAB/EmployeeService/get-manager-by-name",
+  getAllManagersUrl: "http://localhost:8080/NCAB/EmployeeService/get-all-managers",
+  getAllRolesUrl: "http://localhost:8080/NCAB/EmployeeService/get-all-roles",
+  newAccSetupQlidUrl: "http://localhost:8080/NCAB/EmployeeService/new-acc-setup",
+  forgotpasswordUrl:  "http://localhost:8080/NCAB/EmployeeService/forgot-password",
+  forgotpassSetPasswordUrl:  "http://localhost:8080/NCAB/EmployeeService/forgot-password/set-password",
+  accSetupSetPasswordUrl: "http://localhost:8080/NCAB/EmployeeService/new-acc-setup/set-password",
+  verifyPwdTokenUrl: "http://localhost:8080/NCAB/EmployeeService/verify-pwd-token",
+};

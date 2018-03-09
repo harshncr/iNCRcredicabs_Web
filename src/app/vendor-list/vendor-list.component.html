@@ -1,0 +1,101 @@
+<header-list></header-list>
+
+<!-- <div *ngIf="new" id="over">
+  <div id="box">
+       <b><h4>Are you sure you want to delete this Vendor?</h4></b><br><br>
+      <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-danger"id="other" (click)=delete()> Delete </button>
+      <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary"id="close" (click)=backed()> Close </button>
+  </div>
+</div> -->
+  
+
+<div id="filter-panel" class="panel panel-warning">
+  <div class="panel-heading">
+    <h3 class="panel-title">Filter</h3>
+  </div>
+  <div class="panel-body">
+    <div class="form-group">      
+      <form name="form" #f="ngForm" (ngSubmit)="search()" id="form" class="form-horizontal" enctype="multipart/form-data" method="POST">        
+        <div class="form-group">
+          <!-- <div class="col-sm-1">
+              <h3 id="filter-title">Filter</h3>
+          </div> -->
+          <div class="col-sm-3">
+            <select [(ngModel)]="filterType" name="filterType" type="" class="form-control" >
+              <option value="" dsisabled selected>Filter By</option>
+              
+              <option value="vendor_name">Vendor Name</option>
+              <option value="owner_name">Owner Name</option>
+              <option value="vendor_status">Vendor Status</option>
+              <option value="gst_num">GSTIN Num</option>
+              
+              
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" [(ngModel)]="filterValue"  name="filterValue" class="form-control" >
+          </div>
+          <div class="col-sm-3">
+            <button type="button" (click)="search()" class="btn btn-default">
+              Go
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div *ngFor="let vendor of vendors; let i = index">
+    <div class="panel" [ngClass]="checkStatus(vendor)">
+        <div class="panel-heading ">
+            <div class="panel-title">{{vendor.name}}
+           
+              <div class="pull-right">
+                &nbsp;&nbsp;
+                
+                <span><a [ngClass]="disable(vendor)" (click)="update(vendor)" class="glyphicon glyphicon-pencil" aria-hidden="true"></a>&nbsp;&nbsp;</span>
+                <!-- <button class="btn btn-default"> -->
+                  <span *ngIf="showVenArr[i] == false" class="glyphicon glyphicon-chevron-down" aria-hidden="true" (click)="onShowDetails(i)"></span>
+                <!-- </button> -->
+                <!-- <button> -->
+                <span *ngIf="showVenArr[i] == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true" (click)="onHideDetails(i)"></span>
+                <!-- </button> -->
+                <!-- <span><a [routerLink]=""  (click)="onDeleteClick(vendor)" class="glyphicon glyphicon-trash"  aria-hidden="true"></a>&nbsp;</span> -->
+                
+              </div>
+              <label id="tooltip" class="switch pull-right">
+                  <span [style.background-color]="color(vendor)" class="tooltiptext">{{text(vendor)}}</span>
+                  <span ></span>  
+                  <input (click)="status(vendor)" type="checkbox" [checked]="check(vendor)">
+                  <span class="slider round"></span>
+                  
+              </label>
+            </div>
+           
+           
+        </div>
+        
+        <div class="panel-body vendor-details-panel" id="vd-{{i}}">
+            <ul class="list-group">
+                <li class="list-group-item">Name: {{vendor.name}}</li>
+                <li class="list-group-item">Contact: {{vendor.venContact}}</li>
+                <li class="list-group-item">Bussiness Adress: {{vendor.bussAddr}}</li>
+                <li class="list-group-item">Website: {{vendor.website}}</li>
+                <li class="list-group-item">Owner Name: {{vendor.ownerName}}</li>
+                <li class="list-group-item">Owner Contact: {{vendor.ownerContact}}</li>
+                
+              </ul>
+              <div  class="pull-right">
+                <a [ngClass]="disable(vendor)" [routerLink]=""  (click)="view(vendor)">More <span class="glyphicon glyphicon-forward"></span></a>
+              </div>
+        </div>
+      </div>
+</div>
+<!-- <popup (confirmClick)="yourConfirmEvent()">
+  <h4>{{popupString}}</h4 >
+</popup> -->
+
+
+
+
+

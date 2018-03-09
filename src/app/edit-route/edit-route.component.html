@@ -1,0 +1,63 @@
+<app-header></app-header>
+<div class="panel panel-success" id="filter_box" >
+        <div class="panel-heading clearfix">
+                <h4 class="panel-title pull-left" style="padding-top: 7.5px">
+                            Edit Route Here
+                </h4>
+                
+        </div>        
+    <div class="panel-body" id="filter_body">
+        <div class="row">
+            <!-- Route number Box-->
+            <div class="col-md-2" style="margin-left:10px;">
+                <div class="form-group">
+                    <label style="margin-left:5px;">Enter Route Number</label>
+
+                    <select  name="r_n" [(ngModel)]="rno" class="form-control">
+                            <option value="" selected disabled> Route Number</option>
+
+                            <option *ngFor="let i of route" name="r_n" value="{{i.r_n}}" > {{i.r_n}}</option>
+                       
+                       </select>                </div>
+            </div>
+            <!-- Cab Number Filter Box-->
+            <div class="col-md-2" style="margin-left:10px;">
+                <div class="form-group">
+                    <label style="margin-left:5px;">Enter Cab Number</label>
+
+                    <select [(ngModel)]="cno" name="c_n"  class="form-control">
+                            <option  value="" disabled selected>Cab Number</option>
+
+                            <option *ngFor="let i of cab" value="{{i.c_n}}" > {{i.c_n}}</option>
+                       
+                       </select>                </div>
+            </div>
+            <!-- Shift Time Filter Box-->
+            <div class="col-md-2" style="margin-left:30px;">
+                <div class="form-group">
+                    <label style="margin-left:5px;">Choose Shift </label>
+                    <select  name="s_i" [(ngModel)]="sid" class="form-control">
+                         <option value="" disabled selected> Shift Time</option>
+                         <option value="1">07:00AM to 04:00PM</option>
+                         <option value="2">10:00AM to 07:00PM</option>
+                         <option value="3">12:00PM to 09:00PM</option>
+                    </select>
+                </div>
+            </div>    
+        
+    
+            <!-- Select Basic -->
+            <!-- Button -->
+         
+            <div class="col-md-2" style="margin-top:24px;">
+                <div class="col-md-1">
+                    <button id="singlebutton" (click)="updateroute()" class="btn btn-success" name="singlebutton" >Update route</button>
+                </div>
+            </div>
+    
+            
+        </div>
+    </div> 
+    <!-- form end -->
+   
+</div>

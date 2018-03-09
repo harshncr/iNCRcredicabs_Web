@@ -1,0 +1,173 @@
+<form #f="ngForm" [formGroup]="form">
+
+    <div class="row">
+        <div class="col-md-9 col-md-offset-1">
+          <legend>Scheduled Cab information</legend>
+          <div class="row form-group">
+            <div class="col-sm-4 ">
+                <label>Vendor Name</label>
+              <select formControlName="VendorName" name="VendorName" class="form-control"(change)="log(VendorName)">
+                <option *ngFor="let vendor of vendorNameList" value="{{vendor.vid}}">{{vendor.vname}}</option>
+              </select>
+            <div class="alert alert-danger" *ngIf="VendorName.touched && VendorName.pristine">
+                VendorName can not be empty
+            </div>
+            </div>
+            <div class="col-sm-4 ">
+                <label>Shift Time</label>
+                <select formControlName="ShiftTime" name="ShiftTime" class="form-control" (change)="getAvailableCab(ShiftTime,VendorName)">
+                    <option value="1">07:00AM to 04:00PM</option>
+                    <option value="2">10:00AM to 07:00PM</option>
+                    <option value="3">12:00PM to 09:00PM</option>
+                    <option value="5">Others</option>
+               </select>
+               <div class="alert alert-danger" *ngIf="ShiftTime.touched && ShiftTime.pristine">
+                  ShiftTime can not be empty
+              </div>
+            </div>
+            <div class="col-sm-4 " *ngIf="ShiftTime.dirty">
+                <label>Cab Number</label>
+                <select formControlName="CabNumber" name="CabNumber" class="form-control">
+                    <option value="" dsisabled selected>Cab Number*</option>
+                    <option *ngFor="let cab of cablist">{{cab.cabno}}</option>
+                  </select>
+                  <div class="alert alert-danger" *ngIf="CabNumber.touched && CabNumber.pristine">
+                      Cab Number can not be empty
+                  </div>
+                  <div class="alert alert-danger" *ngIf="CabNumber.touched && CabNumber.invalid && CabNumber.dirty">
+                      Select a valid Cab Number
+                  </div>
+            </div>
+          </div>
+    
+    
+    
+    
+    
+    
+          <div class="row form-group">
+              <div class="col-sm-4 ">
+                  <label>Route Start Date*</label>
+                <input formControlName="RouteStartDate" type="date" name="RouteStartDate" placeholder="Route Start Date*" class="form-control" required>
+                
+                <div class="alert alert-danger" *ngIf="RouteStartDate.touched && RouteStartDate.invalid">
+                    Select a valid Route Start Date
+                </div>
+                <!-- <button class="btn btn-primary" (click)="log(RouteStartDate)">Submit</button>   -->
+              </div>
+              <div class="col-sm-4 ">
+                  <label>Route End Date*</label>
+                <input formControlName="RouteEndDate" type="date" name="RouteEndDate" placeholder="Route End Date*" class="form-control" required>
+                
+                <div class="alert alert-danger" *ngIf="RouteEndDate.touched && RouteEndDate.invalid">
+                    Select a valid Route End Date
+                </div>
+              </div>
+              <div class="col-sm-4 ">
+                  <label>Guard Needed<br>
+                <input formControlName="GuardNeeded" type="checkbox" name="GuardNeeded" placeholder="Gaurd Needed">
+              </label>
+              </div>
+            </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+          <div class="row form-group">
+      
+            <div class="col-sm-4 ">
+                <label>Number Of Employees</label>
+              <input formControlName="NumberOfEmployees" type="text" name="NumberOfEmployees" id="NumberOfEmployees" placeholder="Number Of Employees*"
+                maxlength="1" class="form-control"  (change)="numberofemp(NumberOfEmployees)">
+                <div class="alert alert-danger" *ngIf="NumberOfEmployees.touched&&NumberOfEmployees.invalid">
+                    <div *ngIf="NumberOfEmployees.errors.required"> Number of employees is required
+                    </div>  
+                    <div *ngIf="NumberOfEmployees.errors.cannotcontainspace"> Number of employees can't be empty
+                    </div>   
+                    <div *ngIf="NumberOfEmployees.errors.cannotcontainalphabets"> Number of employees can't contain alphabets
+                    </div>       
+              </div>
+          <!-- <button class="btn btn-primary" (click)=" log(NumberOfEmployees)"></button> -->
+            </div>
+            
+          </div>
+          <div *ngIf="NumberOfEmployees.valid">
+            <legend>Employees information</legend>
+            <div *ngFor="let num of Numbersofemp">
+              <div class="row form-group">
+                <div class="col-sm-3 ">
+                  <label>Qlid</label>
+                    <select required [ngModelOptions]="{standalone: true}" ngModel #qlid="ngModel"  name={{num}}  (change)="createPost(qlid)" (change)="log(qlid)"  class="form-control">
+                        
+                      <option *ngFor="let qlid of qlidlist" >{{qlid.qlid}}</option>
+                      </select>
+
+                    <!-- <input [ngModelOptions]="{standalone: true}" ngModel #qlidd="ngModel" disabled type="hidden"  name={{num}} placeholder="{{employee[num].qlid}}"
+                    maxlength="10" class="form-control"> -->
+
+               <div class="alert alert-danger" *ngIf="qlid .touched && qlid .pristine">
+                  Qlid can not be empty
+              </div>
+                    <!-- <button class="btn btn-primary" (click)=" log(qlid.id)"></button>{{routeexists[num]}} -->
+                </div>
+              </div>
+
+              <div class=" row alert alert-danger " *ngIf="qlid .touched && routeexists[num]">
+                  already exists in a route
+                  <div class=" row">
+
+                  <div class="glyphicon glyphicon-ok col-sm-3" (click)=deactivateemployee(num,f)> Continue</div>
+                  <div class="col-sm-auto "></div>
+                  <div class="glyphicon glyphicon-remove col-sm-3 "> Cancel</div>
+
+                  </div>
+                </div>
+      
+      
+      
+      
+              <div class="row form-group">
+                <div class="col-sm-3 ">
+                  <label>First Name</label>
+                  <input type="text" name="firstname{{num}}" placeholder="{{employee[num].fname}}" class="form-control"
+                    disabled>
+                </div>
+                <div class="col-sm-3 ">
+                  <label>Middle Name</label>
+                  <input type="text" name="middleName{{Numbersofemp[num]}}" placeholder="{{employee[num].mname}}" class="form-control"
+                    disabled>
+                </div>
+                <div class="col-sm-3 ">
+                  <label>Last Name</label>
+                  <input type="text" name="lastName{{Numbersofemp[num]}}" placeholder="{{employee[num].lname}}"  class="form-control"
+                    disabled>
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-sm-3 ">
+                  <label>Contact Number</label>
+                  <input type="text" name="contactNumber{{Numbersofemp[num]}}" placeholder="{{employee[num].ph}}" maxlength="10" class="form-control"
+                    disabled>
+                </div>
+                <div class="col-sm-3 ">
+                  <label>Pickup Area</label>
+                  <input type="text" name="pickupArea{{Numbersofemp[num]}}" placeholder="{{employee[num].parea}}" maxlength="10" class="form-control"
+                    disabled>
+                </div>
+                <div class="col-sm-3 ">
+                    <label>Pickup Time</label>
+                    <input formControlName="PickupTime" type="time" name="PickupTime{{Numbersofemp[num]}}" placeholder="Pickup Time" maxlength="10" class="form-control">
+                  </div>
+              </div>
+            </div>
+            <button class="btn bstn-primary" [disabled]="!f.valid "(click)="submit(f,VendorName)">Submit</button>  
+          </div>
+        </div>
+      </div>
+      
+    </form>

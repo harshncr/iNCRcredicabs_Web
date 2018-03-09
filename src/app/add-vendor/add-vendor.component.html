@@ -1,0 +1,150 @@
+<header-list></header-list>
+<!-- Name Section -->
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+      <div class="success">{{message}}</div>
+    <form class="form-horizontal" role="form" name="myform" >
+      <fieldset>
+
+        <!-- Form Name -->
+        <legend>Personal Information Details</legend>
+       
+        <!-- Text input-->
+        <div class="form-group">
+          <div class="col-sm-3"> 
+          <b>Vendor Name*</b> <input type="text" name="vendor_name" id="vendor_name" [(ngModel)]="vendor_name" placeholder="Vendor Name" class="form-control" required>
+            <span class="text-danger" ng-show="vendor_name.$error.required">{{message1}}</span>
+          </div>
+          
+          <div class="col-sm-3">
+            <b>Business Type*</b>
+            <select name="business_type" id="business_type" [(ngModel)]="business_type"class="form-control">
+              <option value="company">Company</option>
+              <option value="partnership">Partnership</option>
+              <option value="proprietory">Proprietory</option>
+              </select>
+              <span class="text-danger" ng-show="business_type.$error.required">{{message2}}</span>
+          </div>
+          <div class="col-sm-3">
+             <b>Phone Number*</b> <input type="text" name="vendor_contact_num" [(ngModel)]="vendor_contact_num"  placeholder="Phone Number" class="form-control">
+              <span class="text-danger" ng-show="vendor_contact_num.$error.required">{{message3}}</span>
+            </div>
+            <div class="col-sm-3">
+              <b>Email</b><br>
+              <input type="email" name="vendor_mail_id" [(ngModel)]="vendor_mail_id" placeholder="Email" class="form-control">
+              <span class="text-danger" ng-show="vendor_mail_id.$error.required">{{message4}}</span>
+            </div>
+           
+            </div>
+
+        <div class="form-group">
+
+          <div class="col-sm-3">
+            <b>Website</b><input type="text" name="website" [(ngModel)]="website" placeholder="Website" class="form-control">
+          </div>
+          <div class="col-sm-3">
+              <b>Pan Number*</b><input type="text" name="pan_id" [(ngModel)]="pan_id" placeholder="Pan Number" class="form-control">
+              <span class="text-danger" ng-show="pan_id.$error.required">{{message5}}</span>
+            </div>
+            <div class="col-sm-3">
+                <b>Gst Number*</b><input type="text" name="gst_num" [(ngModel)]="gst_num" placeholder="Gst Number" class="form-control">
+                <span class="text-danger" ng-show="gst_num.$error.required">{{message6}}</span>
+              </div>
+              <div class="col-sm-3">
+                <b>Agreement Expiry Date*</b><input type="date" name="agreement_expiry_date" [(ngModel)]="agreement_expiry_date" class="form-control">
+                <span class="text-danger" ng-show="gst_num.$error.required">{{message7}}</span>
+              </div>
+         </div>
+     
+         <div class="form-group">
+          <div class="col-sm-3">
+            <b>Cabs Provided*</b><input type="number" name="cabs_provided" [(ngModel)]="cabs_provided" class="form-control">
+            <span class="text-danger" ng-show="cabs_provided.$error.required">{{message8}}</span>
+          </div>
+         </div>
+        <!-- Text input-->
+        
+<br>
+<!-- Address Section -->
+        <!-- Form Name -->
+        <legend>Address Details</legend>
+        <!-- Text input-->
+        <div class="form-group">
+          <div class="col-sm-9">
+           <b>Business Address*</b> <input type="text" name="business_address" [(ngModel)]="business_address" placeholder="Business Address" class="form-control">
+            <span class="text-danger" ng-show="business_address.$error.required">{{message9}}</span>
+          </div>
+        </div>
+       <br>
+<!-- Emergency Contact Section -->
+        <!-- Form Name -->
+        <legend>Supervisor Information</legend>
+        <!-- Text input-->
+        <div class="form-group">
+          <div class="col-sm-3">
+            <b>Supervisor Name</b><input type="text" name="supervisor_name" [(ngModel)]="supervisor_name" placeholder="Supervisor Name" class="form-control">
+
+          </div>
+          <div class="col-sm-3">
+            <b>Supervisor Contact No.</b><input type="text" name="sup_contact_num" [(ngModel)]="sup_contact_num" placeholder="Supervisor Contact No." class="form-control">
+            <span class="text-danger" ng-show="firstName.$error.required">{{message10}}</span>
+          </div>
+      
+          <div class="col-sm-3">
+              <b>Supervisor Email</b><input type="text" name="sup_mail_id" [(ngModel)]="sup_mail_id" placeholder="Supervisor Email" class="form-control">
+              <span class="text-danger" ng-show="firstName.$error.required">{{message11}}</span>
+            </div>
+          </div>
+          
+<br>
+          <legend>Manager Information</legend>
+        <!-- Text input-->
+        <div class="form-group">
+          <div class="col-sm-3">
+            <b>Manager Name</b><input type="text" name="manager_name" [(ngModel)]="manager_name" placeholder="Manager Name" class="form-control">
+
+          </div>
+          <div class="col-sm-3">
+            <b>Manager Contact No.</b><input type="text" name="manager_contact_num" [(ngModel)]="manager_contact_num" placeholder="Manager Contact No." class="form-control">
+            <span class="text-danger" ng-show="firstName.$error.required">{{message12}}</span>
+          </div>
+      
+          <div class="col-sm-3">
+              <b>Manager Email</b><input type="text" name="manager_mail_id" [(ngModel)]="manager_mail_id" placeholder="Manager Email" class="form-control">
+              <span class="text-danger" ng-show="firstName.$error.required">{{message13}}</span>
+            </div>
+          </div>
+<br>
+          <legend>Owner Information</legend>
+          <!-- Text input-->
+          <div class="form-group">
+            <div class="col-sm-3">
+              <b>Owner Name</b><input type="text" name="owner_name" [(ngModel)]="owner_name" placeholder="Owner Name" class="form-control">
+
+            </div>
+            <div class="col-sm-3">
+              <b>Owner Contact No.</b><input type="text" name="owner_contact_num" [(ngModel)]="owner_contact_num" placeholder="Owner Contact No." class="form-control">
+              <span class="text-danger" ng-show="firstName.$error.required">{{message14}}</span>
+            </div>
+        
+            <div class="col-sm-3">
+                <b>Owner Email</b><input type="text" name="owner_mail_id" [(ngModel)]="owner_mail_id" placeholder="Owner Email" class="form-control">
+                <span class="text-danger" ng-show="firstName.$error.required">{{message15}}</span>
+              </div>
+            </div>
+          
+                <br>
+
+<!-- Command -->
+        <div class="form-group">
+          <div class="col-sm-10 col-sm-offset-0">
+            
+              <button type="button" (click)="add_vendor()" class="btn btn-primary" ng-disabled="myform.$invalid">Save</button>
+              <button type="submit" class="btn btn-basic">Cancel</button>              
+            
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div><!-- /.col-lg-12 -->
+</div><!-- /.row -->

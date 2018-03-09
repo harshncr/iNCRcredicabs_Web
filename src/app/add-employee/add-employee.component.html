@@ -1,0 +1,541 @@
+<!-- Name Section -->
+<app-header></app-header>
+
+<div *ngIf="showSuccess" class="alert alert-success" id="login-success">
+    <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong><span innerHTML="message"></span>
+</div>
+<div *ngIf="showError" class="alert alert-danger" id="login-error">
+  <table>
+    <tr>
+      <td class="col-sm-1"><strong>Error!</strong></td>
+      <td>Employee couldn&apos;t be added to the database! Check the form below for more details.</td>
+    </tr>
+  </table>
+</div>
+
+<div class="row" style="margin-top:20px">
+  <div class="col-md-8 col-md-offset-2" id="employee-form">
+    <form name="myForm" #f="ngForm" (ngSubmit)="onSave(f.value)" class="form-horizontal"
+      role="form" >
+      <fieldset>
+      <!-- Name & Other Information -->
+      <legend>Name and other information</legend>
+      <div class="form-group">
+        <!-- Input Field Labels -->
+        <div class="row">
+          <div class="col-sm-3">
+             <div *ngIf="emp.empQlid != null">
+               <span class="input-label">
+                 <strong>QLID<span class="imp">*</span></strong></span>
+            </div>
+          </div>
+        </div>
+        <!-- Input field row -->
+        <div class="row">
+          <div class="col-sm-3">
+            <input type="text" name="Emp_Qlid" placeholder="QLID*" maxlength="8"
+              class="form-control imp-ph" [(ngModel)]="emp.empQlid"
+              (change)="validate();altered.empQlid=true" required>
+          </div>
+        </div>
+        <!-- Error row -->
+        <div class="row">
+          <!-- Employee QLID -->
+          <div class="col-sm-3">
+            <div *ngIf="formError.empQlid != null && formError.empQlid.error
+                && ( altered.empQlid || saveClicked )"
+              class="text-danger form-error">
+              {{ formError.empQlid.message }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Employee Name -->
+      <div class="form-group">
+        <!-- Input Field Labels -->
+        <div class="row">
+          <div class="col-sm-3">
+            <div *ngIf="emp.empFName != null">
+              <span class="input-label fadeIn">
+                <strong>First Name<span class="imp">*</span></strong>
+              </span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div *ngIf="emp.empMName != null">
+              <span class="input-label"><strong>Middle Name</strong></span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div *ngIf="emp.empLName != null">
+              <span class="input-label">
+                <strong>Last Name<span class="imp">*</span></strong>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- Input field row -->
+        <div class="row">
+          <!-- Employee First Name -->
+          <div class="col-sm-3">
+            <input type="text" name="Emp_FName" placeholder="First Name*" maxlength="15"
+              class="form-control imp-ph" [(ngModel)]="emp.empFName"
+              (change)="validate();altered.empFName=true" required>
+          </div>
+          <!-- Employee Middle Name -->
+          <div class="col-sm-3">
+            <input type="text" name="Emp_MName" placeholder="Middle Name" maxlength="15"
+              class="form-control" [(ngModel)]="emp.empMName"
+              (change)="validate();altered.empMName=true">
+          </div>
+          <!-- Employee Last Name -->
+          <div class="col-sm-3">
+            <input type="text" name="Emp_LName" placeholder="Last Name*" maxlength="15"
+              class="form-control imp-ph" [(ngModel)]="emp.empLName"
+              (change)="validate();altered.empLName=true" required>
+          </div>
+        </div>
+        <!-- Error row -->
+        <div class="row">
+          <!-- Employee First Name Error -->
+          <div class="col-sm-3">
+            <div *ngIf="formError.empFName.error && ( altered.empFName
+                || saveClicked )"
+              class="text-danger form-error">
+              {{ formError.empFName.message }}
+            </div>
+          </div>
+          <!-- Employee Middle Name Error -->
+          <div class="col-sm-3">
+            <div *ngIf="formError.empMName.error && (altered.empMName
+                || saveClicked)"
+              class="text-danger form-error">
+              {{ formError.empMName.message }}
+            </div>
+          </div>
+          <!-- Employee Last Name Error -->
+          <div class="col-sm-3">
+            <div *ngIf="formError.empLName.error && (altered.empLName
+                || saveClicked)"
+              class="text-danger form-error">
+              {{ formError.empLName.message }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+          <!-- Input Field Labels -->
+          <div class="row">
+            <div class="col-sm-3">
+              <div *ngIf="emp.empMobNbr != null">
+                <span class="input-label fadeIn">
+                  <strong>Contact Number<span class="imp">*</span></strong>
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div *ngIf="emp.empGender != ''">
+                <span class="input-label">
+                  <strong>Gender<span class="imp">*</span></strong>
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div *ngIf="emp.rolesId != ''">
+                <span class="input-label">
+                  <strong>Role<span class="imp">*</span></strong>
+                </span>
+              </div>
+            </div>
+          </div>
+        <!-- Input field row -->
+        <div class="row">
+          <!-- Employee Contact no -->
+          <div class="col-sm-3">
+            <input type="text" name="Emp_Mob" placeholder="Contact Number*" maxlength="10"
+              class="form-control imp-ph" maxlength="10" [(ngModel)]="emp.empMobNbr"
+              (change)="validate();altered.empMobNbr=true" required>
+          </div>
+          <!-- Employee Gender -->
+          <div class="col-sm-3">
+            <select type="gender" name ="Emp_Gender" placeholder="Gender*" class="form-control"
+              [(ngModel)]="emp.empGender" (change)="validate();altered.empGender=true" required>
+              <option class="imp-select-option" value="" dsisabled selected>Gender*</option>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
+          </div>
+          <!-- Employee Role -->
+          <div class="col-sm-3">
+            <select type="role" name ="Roles_Id" placeholder="Role*" class="form-control"
+              [(ngModel)]="emp.rolesId" (change)="validate();altered.rolesId=true" required>
+              <option value="" dsisabled selected>Role*</option>
+              <option value="5">Intern</option>
+              <option value="4">Contractor</option>
+              <option value="3">Employee</option>
+              <option value="2">Manager</option>
+              <option value="1">Admin</option>
+            </select>
+          </div>
+        </div>
+        <!-- Error row -->
+        <div class="row">
+          <!-- Employee Contact no Error -->
+          <div class="col-sm-3">
+            <div *ngIf="formError.empMobNbr.error && (altered.empMobNbr
+                || saveClicked)"
+              class="text-danger form-error">
+              {{ formError.empMobNbr.message }}
+            </div>
+          </div>
+          <!-- Employee Gender Error -->
+          <div class="col-sm-3">
+            <div *ngIf="formError.empGender.error && (altered.empGender
+                || saveClicked)"
+              class="text-danger form-error">
+              {{ formError.empGender.message }}
+            </div>
+          </div>
+          <!-- Employee Role Error -->
+          <div class="col-sm-3">
+            <div *ngIf="formError.rolesId.error && (altered.rolesId
+                || saveClicked)"
+              class="text-danger form-error">
+              {{ formError.rolesId.message }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <!-- Input Field Labels -->
+        <div class="row">
+          <div class="col-sm-3">
+            <div *ngIf="emp.empHomeNbr != null">
+              <span class="input-label fadeIn">
+                <strong>Home Phone</strong>
+              </span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div *ngIf="emp.empEmergNbr != null">
+              <span class="input-label">
+                <strong>Emergency Phone Number<span class="imp">*</span></strong>
+              </span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div *ngIf="emp.empBloodGrp != null">
+              <span class="input-label">
+                <strong>Blood Group<span class="imp">*</span></strong>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- Input field row -->
+        <div class="row">
+          <!-- Home Phone No -->
+          <div class="col-sm-3">
+            <input type="text" name="Emp_Home" placeholder="Home Phone" maxlength="10"
+              class="form-control" maxlength="10" [(ngModel)]="emp.empHomeNbr"
+              (change)="validate();altered.empHomeNbr=true">
+          </div>
+          <!-- Emergency Phone No -->
+          <div class="col-sm-3">
+            <input type="text" name="Emp_Emergency" maxlength="10"
+              placeholder="Emergency Ph No*" class="form-control imp-ph" maxlength="10"
+              (change)="validate();altered.empEmergNbr=true" [(ngModel)]="emp.empEmergNbr">
+          </div>
+          <!-- Blood Group -->
+          <div class="col-sm-3">
+            <input type="text" name="Emp_BloodGrp" maxlength="3" placeholder="Blood Group*"
+              class="form-control imp-ph" [(ngModel)]="emp.empBloodGrp"
+              (change)="validate();altered.empBloodGrp=true">
+          </div>
+        </div>
+        <!-- Error row -->
+        <div class="row">
+          <!-- Home Phone No Error -->
+          <div class="col-sm-3">
+            <div *ngIf="formError.empHomeNbr.error && (altered.empHomeNbr
+                || saveClicked)"
+              class="text-danger form-error">
+              {{ formError.empHomeNbr.message }}
+            </div>
+          </div>
+          <!-- Emergency Phone No Error -->
+          <div class="col-sm-3">
+            <div *ngIf="formError.empEmergNbr.error && (altered.empEmergNbr
+                || saveClicked)"
+              class="text-danger form-error">
+              {{ formError.empEmergNbr.message }}
+            </div>
+          </div>
+          <!-- Blood Group Error -->
+          <div class="col-sm-3">
+            <div *ngIf="formError.empBloodGrp.error && (altered.empBloodGrp
+                || saveClicked)"
+              class="text-danger form-error">
+              {{ formError.empBloodGrp.message }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <!-- Input Field Labels -->
+        <div class="row">
+          <div class="col-sm-3">
+            <div *ngIf="selectedManager1 != null">
+              <span class="input-label fadeIn">
+                <strong>Level 1 Manager Name</strong>
+              </span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div *ngIf="emp.empMgrQlid1 != null">
+              <span class="input-label">
+                <strong>Level 1 Manager QLID<span class="imp">*</span></strong>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- Input field row -->
+          <!-- L1 Manager Name -->
+        <div class="row">
+          <div class="col-sm-3">
+            <input list="manager-list" name="manager-name" placeholder="L1 Manager Name"
+              maxlength="100" class="form-control" [(ngModel)]="selectedManager1"
+              (change) = "setManagerQlid1($event.target.value)">
+            <datalist id="manager-list">
+                <option  *ngFor="let mgr of mgrArr"
+                  value="{{mgr.mgrFName}} {{mgr.mgrLName}} : {{mgr.mgrQlid}}"></option>
+            </datalist>
+          </div>
+          <!-- L1 Manager QLID -->
+          <div class="col-sm-3">
+              <input type="text" name="Emp_Mgr_Qlid1" placeholder="L1 Manager QLID*" maxlength="8"
+                class="form-control imp-ph" [(ngModel)]="emp.empMgrQlid1"
+                (change)="onMgrQlid1Change($event.target.value);altered.empMgrQlid1=true">
+          </div>
+        </div>
+        <!-- Error row -->
+        <div class="row">
+          <!-- Manager QLID Error -->
+          <div class="col-sm-3">
+          </div>
+          <div class="col-sm-3">
+            <div *ngIf="formError.empMgrQlid1.error && (altered.empMgrQlid1
+                || saveClicked)"
+              class="text-danger form-error">
+              {{ formError.empMgrQlid1.message }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <!-- Input Field Labels -->
+        <div class="row">
+          <div class="col-sm-3">
+            <div *ngIf="selectedManager2 != null">
+              <span class="input-label fadeIn">
+                <strong>Level 2 Manager Name</strong>
+              </span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div *ngIf="emp.empMgrQlid2 != null">
+              <span class="input-label">
+                <strong>Level 2 Manager QLID<span class="imp">*</span></strong>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- Input field row -->
+          <!-- Manager Name -->
+        <div class="row">
+          <div class="col-sm-3">
+            <input list="manager-list" name="manager-name" placeholder="L2 Manager Name"
+              maxlength="100" class="form-control" [(ngModel)]="selectedManager2"
+              (change) = "setManagerQlid2($event.target.value)">
+            <datalist id="manager-list">
+                <option  *ngFor="let mgr of mgrArr"
+                  value="{{mgr.mgrFName}} {{mgr.mgrLName}} : {{mgr.mgrQlid}}"></option>
+            </datalist>
+          </div>
+          <!-- Manager QLID -->
+          <div class="col-sm-3">
+              <input type="text" name="Emp_Mgr_Qlid2" placeholder="L2 Manager QLID*" maxlength="8"
+                class="form-control imp-ph" [(ngModel)]="emp.empMgrQlid2"
+                (change)="onMgrQlid2Change($event.target.value);altered.empMgrQlid2=true;
+                validate()">
+          </div>
+        </div>
+        <!-- Error row -->
+        <div class="row">
+          <!-- Manager QLID Error -->
+          <div class="col-sm-3">
+          </div>
+          <div class="col-sm-3">
+            <div *ngIf="formError.empMgrQlid2.error && (altered.empMgrQlid2
+                || saveClicked)"
+              class="text-danger form-error">
+              {{ formError.empMgrQlid2.message }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- Address Section -->
+      <!-- Employee Address Details -->
+      <legend>Address Details</legend>
+      <div class="form-group">
+        <!-- Input Field Labels -->
+        <div class="row">
+          <div class="col-sm-3">
+            <div *ngIf="emp.empAddLine1 != null">
+              <span class="input-label fadeIn">
+                <strong>Address Line 1<span class="imp">*</span></strong>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- Input field row -->
+        <div class="row">
+          <!-- Employee Address Line 1 -->
+          <div class="col-sm-9">
+            <input type="text" name="Emp_Address1" maxlength="100"
+              placeholder="Address Line 1*" class="form-control imp-ph"
+              [(ngModel)]="emp.empAddLine1" (change)="validate();altered.empAddLine1=true">
+          </div>
+        </div>
+        <!-- Error row -->
+        <div class="row">
+          <!-- Employee Address Line 1 Error -->
+          <div class="col-sm-9">
+            <div *ngIf="formError.empAddLine1.error && (altered.empAddLine1
+                || saveClicked)"
+              class="text-danger form-error">
+              {{ formError.empAddLine1.message }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <!-- Input Field Labels -->
+        <div class="row">
+          <div class="col-sm-3">
+            <div *ngIf="emp.empAddLine2 != null">
+              <span class="input-label fadeIn">
+                <strong>Address Line 2<span class="imp">*</span></strong>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- Input field row -->
+        <div class="row">
+          <!-- Employee Address Line 2 -->
+          <div class="col-sm-9">
+            <input type="text" name="Emp_Address2" maxlength="100"
+              placeholder="Address Line 2*" class="form-control imp-ph"
+              [(ngModel)]="emp.empAddLine2" (change)="validate();altered.empAddLine2=true">
+          </div>
+        </div>
+        <!-- Error row -->
+        <div class="row">
+          <!-- Employee Address Line 2 Error -->
+          <div class="col-sm-9">
+            <div *ngIf="formError.empAddLine2.error && (altered.empAddLine2
+                || saveClicked)"
+              class="text-danger form-error">
+              {{ formError.empAddLine2.message }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <!-- Input Field Labels -->
+        <div class="row">
+          <div class="col-sm-3">
+            <div *ngIf="emp.empZone != null">
+              <span class="input-label fadeIn">
+                <strong>Zone<span class="imp">*</span></strong>
+              </span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div *ngIf="emp.empPin != null">
+              <span class="input-label fadeIn">
+                <strong>Postal Code (PIN)<span class="imp">*</span></strong>
+              </span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div *ngIf="emp.empPickupArea != null">
+              <span class="input-label fadeIn">
+                <strong>Pickup Area<span class="imp">*</span></strong>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- Input field row -->
+        <div class="row">
+          <!-- Employee Zone -->
+          <div class="col-sm-3">
+            <input type="text" name="Emp_PIN" maxlength="15"
+              placeholder="Zone*" class="form-control imp-ph"
+              [(ngModel)]="emp.empZone" (change)="validate();altered.empZone=true" required>
+          </div>
+          <!-- Employee Postal Code (PIN) -->
+          <div class="col-sm-3">
+            <input type="text" name="Emp_PIN" maxlength="6"
+              placeholder="Postal Code (PIN)*" class="form-control imp-ph"
+              [(ngModel)]="emp.empPin" (change)="validate();altered.empPin=true" required>
+          </div>
+          <!-- Employee Pickup Location -->
+          <div class="col-sm-3">
+            <input type="text" name="Emp_Pickup" maxlength="20"
+              placeholder="Pickup Area*" class="form-control imp-ph"
+              [(ngModel)]="emp.empPickupArea" (change)="validate();altered.empPickupArea=true"
+              required>
+          </div>
+        </div>
+        <!-- Error row -->
+        <div class="row">
+          <!-- Employee Zone Error -->
+          <div class="col-sm-3">
+            <div *ngIf="formError.empZone.error && (altered.empZone
+                || saveClicked)" class="text-danger form-error">
+              {{ formError.empZone.message }}
+            </div>
+          </div>
+          <!-- Employee Postal Code (PIN) Error -->
+          <div class="col-sm-3">
+            <div *ngIf="formError.empPin.error && (altered.empPin
+                || saveClicked)" class="text-danger form-error">
+              {{ formError.empPin.message }}
+            </div>
+          </div>
+          <!-- Employee Pickup Location Error -->
+          <div class="col-sm-3">
+            <div *ngIf="formError.empPickupArea.error && (altered.empPickupArea
+                || saveClicked)"
+              class="text-danger form-error">
+              {{ formError.empPickupArea.message }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Additional Information -->
+      <!-- <legend>Additional Information</legend> -->
+
+<!-- Command -->
+      <div class="form-group">
+        <div class="col-sm-10 col-sm-offset-0">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="reset" class="btn btn-basic" (click)="resetForm()">Reset</button>
+        </div>
+      </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

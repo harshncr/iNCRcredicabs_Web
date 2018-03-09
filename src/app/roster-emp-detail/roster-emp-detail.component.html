@@ -1,0 +1,156 @@
+<app-header></app-header>
+<div class="container">
+  <div class="row">
+    <!-- *ngIf="showDeactivatePopup"  -->
+    <div id="popup-content" class="sm-col-12" *ngIf="showDeactivatePopup">
+      <div id="deactivate-popup" class="">
+        Are You Sure you want to
+        <span *ngIf="emp.empStatus=='A'">
+          deactivate
+        </span>
+        <span *ngIf="emp.empStatus=='I'">
+          activate
+        </span>
+        this Employee?
+        <div>
+          <button class="btn btn-md" (click)="changeStatus()">Yes</button>
+          <button class="btn btn-md" (click)="hidePopup()">No</button>
+        </div>
+      </div>
+      <div id="popup-background">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div id="user-profile-content"
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-lg-offset-2"
+      align="center">
+    <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" > -->
+      <div class="panel panel-info">
+        <div class="panel-heading clearfix">
+          <h3 class="panel-title col-sm-6">User Info<span *ngIf="emp.empFName">: {{ emp?.empFName }} {{ emp?.empLName }}</span></h3>              
+          <div class="panel-title pull-right">
+            <span class="ed-button">
+              <button type="button" class="btn btn-default btn-md" (click)="editEmployee(emp)"
+                (mouseenter)="onMouseEnter($event.target)" (mouseleave)="onMouseLeave($event.target)">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+              </button>
+              <span id="vd-eed" class="tooltip-text">Edit Employee Details</span>
+            </span>
+            <span *ngIf="emp.empStatus.toUpperCase() == 'A'"  class="ed-button">
+              <button type="button" class="btn btn-default btn-md change-status-user-icon-button"
+                (click)="showPopup()"
+                (mouseenter)="onMouseEnter($event.target)" (mouseleave)="onMouseLeave($event.target)">
+                <!-- <span class="glyphicon glyphicon-trash"></span> -->
+                <img src="./assets/img/employee-inactive.svg" class="change-status-user-icon"/>
+              </button>
+              <span id="vd-de" class="tooltip-text">Deactivate Employee</span>
+            </span>
+            <span *ngIf="emp.empStatus.toUpperCase() == 'I'" class="ed-button">
+              <button type="button" class="btn btn-default btn-md change-status-user-icon-button"
+              (click)="showPopup()"
+              (mouseenter)="onMouseEnter($event.target)" (mouseleave)="onMouseLeave($event.target)">
+                <!-- <span class="glyphicon glyphicon-ok"></span> -->
+                <img src="./assets/img/employee-active.svg" class="change-status-user-icon"/>
+              </button>
+              <span id="vd-ae" class="tooltip-text">Activate Employee</span>
+            </span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <!-- <div class="col-md-8 col-lg-8">  </div> -->
+            <div class="col-md-6 col-lg-10 col-md-offset-3 col-lg-offset-1">
+              <table class="table table-user-information">
+                <tbody>
+                  <tr>
+                    <td><b>Status</b></td>
+                    <td>
+                      <b id="employee-status-inactive" *ngIf="emp.empStatus.toUpperCase() == 'I'" class="alert-danger">
+                          Inactive
+                      </b>
+                      <b id="employee-status-active" *ngIf="emp.empStatus.toUpperCase() == 'A'" class="alert-success">
+                          Active
+                      </b>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Qlid:</td>
+                    <td>{{emp?.empQlid}}</td>
+                  </tr>
+                  <tr>
+                    <td>Name:</td>
+                    <td>{{emp?.empFName}} {{ emp?.empMName }} {{emp.empLName}}</td>
+                  </tr>
+                  <tr *ngIf="emp.empGender">
+                    <td>Gender:</td>
+                    <td>
+                      <span *ngIf="emp.empGender == 'M' || emp.empGender == 'm'">
+                        Male
+                      </span>
+                      <span *ngIf="emp.empGender == 'F' || emp.empGender == 'f'">
+                        Female
+                      </span>
+                    </td>
+                  </tr>
+                  <tr *ngIf="emp.rolesId">
+                      <td> Role:</td>
+                      <td> {{ currEmployeeRole }}</td>
+                  </tr>
+                  <tr>
+                    <td> Contact No:</td>
+                    <td> {{ emp?.empMobNbr }}</td>
+                  </tr>
+                  <tr>
+                    <td> Home Phone:</td>
+                    <td> {{ emp?.empHomeNbr }}</td>
+                  </tr>
+                  <tr>
+                      <td> Emergency No:</td>
+                      <td> {{ emp?.empEmergNbr }}</td>
+                  </tr>
+                  <tr>
+                      <td> Blood Group:</td>
+                      <td> {{ emp?.empBloodGrp }}</td>
+                  </tr>
+                  <tr>
+                      <td> L1 Manager QLID:</td>
+                      <td> {{ emp?.empMgrQlid1 }}</td>
+                  </tr>
+                  <tr>
+                      <td> L2 Manager QLID:</td>
+                      <td> {{ emp?.empMgrQlid2 }}</td>
+                  </tr>
+                  <!-- <tr>
+                    <td>DOB:</td>
+                    <td> {{emp?.dob}}</td>
+                  </tr> -->
+                  <tr>
+                    <td>Address Line 1:</td>
+                    <td> {{emp?.empAddLine1}}</td>
+                  </tr>
+                  <tr>
+                    <td>Address Line 2:</td>
+                    <td> {{emp?.empAddLine2}}</td>
+                  </tr>
+                  <tr>
+                    <td>Zone:</td>
+                    <td> {{ emp?.empZone }}</td>
+                  </tr>
+                  <tr>
+                    <td>Postal Code (PIN):</td>
+                    <td> {{ emp?.empPin }}</td>
+                  </tr>
+                  <tr>
+                    <td> Pickup Location:</td>
+                    <td> {{ emp?.empPickupArea }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
