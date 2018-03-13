@@ -8,7 +8,13 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { environment } from '../../environments/environment';
 import { Employee } from '../Model/employee';
 
-import { ApiService, REQUEST_TYPE_GET , REQUEST_TYPE_DELETE , REQUEST_TYPE_POST , REQUEST_TYPE_PUT} from '../Services/api.service';
+import {
+    ApiService,
+    REQUEST_TYPE_GET,
+    REQUEST_TYPE_DELETE,
+    REQUEST_TYPE_POST,
+    REQUEST_TYPE_PUT
+} from '../Services/api.service';
 import { Filter } from '../Model/filter';
 import { MgrRequest } from '../Model/mgrRequest';
 
@@ -51,6 +57,16 @@ export class EmployeeService {
             url: `${environment.viewEmployeeUrl}`,
             headers: this.headers,
             body: JSON.stringify(filter),
+            shouldBlock: true
+        });
+    }
+
+    getEmployeeByQlid(qlid):Observable<any>{
+        return this.apiService.callApiService({
+            requestType: REQUEST_TYPE_POST,
+            url: `${environment.viewEmployeeByQlidUrl}`,
+            headers: this.headers,
+            body: JSON.stringify({qlid: qlid}),
             shouldBlock: true
         });
     }
@@ -118,3 +134,6 @@ export class EmployeeService {
     //     });
     // }
 }
+
+//Sending Excel Data 
+

@@ -11,6 +11,8 @@ import { Manager } from '../Model/manager';
   styleUrls: ['./add-employee.component.css']
 })
 export class AddEmployeeComponent implements OnInit {
+  module = "EMPLOYEE";
+  navLocation = "/ Add Employee";
   emp: Employee;
   showError = false;
   showSuccess = false;

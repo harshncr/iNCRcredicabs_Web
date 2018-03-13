@@ -1,43 +1,87 @@
 <nav class="navbar navbar-default">
   <table class="col-sm-12">
     <tr>
-      <td class="col-lg-4">
-        <div class="navbar-brand"><strong>iNCRediCabs</strong></div>
-        <ul class="nav navbar-nav">
-          <li><a routerLink="/dash">Dashboard</a></li>
-          <!-- <li><a routerLink="/logout">Logout</a></li> -->
-        </ul>
+      <td class="col-lg-5">
+        <div class="navbar-brand"><strong><a routerLink="/dash">iNCRediCabs</a></strong></div>
+        <div>
+          <div class="navbar-brand" *ngIf="employee">
+            Employee
+            <span *ngIf="navLocation">
+              {{ navLocation }}
+            </span>
+          </div>
+          <div class="navbar-brand" *ngIf="roster">
+            Roster
+            <span *ngIf="navLocation">
+              {{ navLocation }}
+            </span>
+          </div>
+          <div class="navbar-brand" *ngIf="reports">
+            Reports
+            <span *ngIf="navLocation">
+              {{ navLocation }}
+            </span>
+          </div>
+          <div class="navbar-brand" *ngIf="vendor">
+            Vendor
+            <span *ngIf="navLocation">
+              {{ navLocation }}
+            </span>
+          </div>
+        </div>
       </td>
-      <td *ngIf="employee || roster || vendor || reports" class="col-lg-4">
+      <td class="col-lg-6">
+        <ul class="nav navbar-nav">
+          <li><span class="separator"></span></li>
+          <li>
+            <a routerLink="/unscheduledRequest">
+              <span class="glyphicon glyphicon-exclamation-sign"></span>
+              Request
+            </a>
+          </li>
+          <li><span class="separator"></span></li>
+        </ul>
         <!-- Employee Menu -->
         <div id="employee_menu" *ngIf="employee">
-          <div class="navbar-brand">Employee</div>
+          
           <ul id="header-links" class="nav navbar-nav">
             <li>
-              <span class="hdr-emp">
+              <!-- <span class="hdr-emp">
                 <a routerLink="/employee/add" id="hdr-lnk-emp-add"
                   (mouseenter)="onMouseEnterLink($event.target)"
                   (mouseleave)="onMouseLeaveLink($event.target)">
                   <img id="header-employee-add" src="./assets/img/employee-add.svg">
                 </a>
                 <span class="tooltip-text" id="hdr-lnk-ae">Add Employee</span>
-              </span>
+              </span> -->
+              <a class="nav-link" routerLink="/employee/add">Add Employee</a>
             </li>
             <li>
-              <span class="hdr-emp">
+              <!-- <span class="hdr-emp">
+                <a routerLink="/employee/mass-upload" id="hdr-lnk-emp-mu"
+                  (mouseenter)="onMouseEnterLink($event.target)"
+                  (mouseleave)="onMouseLeaveLink($event.target)">
+                  <img id="header-employee-mu" src="./assets/img/employee-mass-upload.svg">
+                </a>
+                <span class="tooltip-text" id="hdr-lnk-mu">Add Employee</span>
+              </span> -->
+              <a class="nav-link" routerLink="/employee/mass-upload">Mass Upload</a>
+            </li>
+            <li>
+              <!-- <span class="hdr-emp">
                 <a routerLink="/employee/view" id="hdr-lnk-emp-view"
                   (mouseenter)="onMouseEnterLink($event.target)"
                   (mouseleave)="onMouseLeaveLink($event.target)">
                   <img id="header-employee-add" src="./assets/img/employee-view.svg">
                 </a>
                 <span class="tooltip-text" id="hdr-lnk-ve">View Employees</span>
-              </span>
+              </span> -->
+              <a class="nav-link" routerLink="/employee/view">View Employee</a>
             </li>
           </ul>
         </div>
         <!-- Roster Menu -->
         <div id="roster_menu" *ngIf="roster">
-          <div class="navbar-brand"><a routerLink="/roster/go">Roster</a></div>
           <ul class="nav navbar-nav ">
             <li><a routerLink="/roster/addRoute">Add Route</a></li>
             <li><a routerLink="/roster/editroute">Edit Route</a></li>
@@ -46,7 +90,6 @@
         </div>
         <!-- Vendor Menu -->
         <div id="vendor_menu" *ngIf="vendor">
-          <div class="navbar-brand">Vendor</div>
           <ul class="nav navbar-nav">
             <li><a href="#">Add Vendor</a></li>
             <li><a href="#">View / Edit Vendor</a></li>
@@ -54,7 +97,6 @@
         </div>
         <!-- Reports Menu -->
         <div id="reports_menu" *ngIf="reports">
-          <div class="navbar-brand">Reports</div>
           <ul class="nav navbar-nav">            
             <li>
               <a (click)="downloadRequestExcel()">
@@ -65,16 +107,13 @@
           </ul>
         </div>
       </td>
-      <td class="col-lg-2">
-        <ul class="nav navbar-nav">
-          <li>
-            <a routerLink="/unscheduledRequest">
-              <span class="glyphicon glyphicon-exclamation-sign"></span>
-              Request
-            </a>
-          </li>
-        </ul>
+      <td>
         <ul class="nav navbar-nav pull-right">
+          <li>
+            <span class="separator">
+
+            </span>
+          </li>
           <li>
             <a routerLink="/logout">
               <span class="glyphicon glyphicon-log-out"></span>

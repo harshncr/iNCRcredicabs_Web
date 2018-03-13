@@ -13,6 +13,8 @@ styleUrls: ['./edit-route.component.css']
 
 export class EditRouteComponent implements OnInit {
 
+  module = "roster";
+  navLocation = "/ Edit Route";
 
 public cno="";
 

@@ -4,15 +4,26 @@ nav.navbar{
     margin-bottom: 8px;
 }
 
-#header-employee-add{
+.navbar-brand a, .navbar-brand a:visited{
+    color: #5e5e5e;
+    text-decoration: none;
+}
+
+.navbar-brand a:hover{
+    text-decoration: none;
+    background: #f8f8f8;
+    color: #0d0083;
+}
+
+#header-employee-add, #header-employee-mu{
     height: 42px;
     padding: 0px 10px;
     margin-top: 8px;
 }
 
-#header-links a{
+#header-links a, #nav-request-link{
     display: block;
-    padding: 0px;
+    /* padding: 0px; */
 }
 
 nav a:hover{
@@ -41,4 +52,16 @@ nav a:hover{
     border-width: 5px;
     border-style: solid;
     border-color: transparent transparent black transparent;
+}
+
+a.nav-link, #nav-request-link{
+    display: block;
+    padding: 15px 10px;
+}
+
+.separator{
+    display: block;
+    width: 1px;
+    background: linear-gradient(#f8f8f8,#aaaaaa, #f8f8f8);
+    height: 50px;
 }

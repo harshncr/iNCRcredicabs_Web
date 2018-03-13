@@ -1,0 +1,26 @@
+.loader-container{
+    position:relative;
+    left:-32px;
+    display:block;
+    margin: 50px auto 0px auto;
+    padding: 50px;
+    width: 64px;
+}
+
+.loader-animation-text{text-align: center;margin: 50px auto 0px auto;}
+
+.loader-animation{
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    margin: 0px auto 0px auto;
+    animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin{
+    0%{transform:rotate(0deg);}
+    50%{transform:rotate(250deg);}
+    100%{transform:rotate(360deg);}
+}

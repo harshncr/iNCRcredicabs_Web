@@ -1,5 +1,5 @@
 <!-- <div class="panel panel-info" id="filter_box" *ngIf="loadUploadMenu" > -->
-<app-header (childevent)="showfilter=$event"></app-header>
+<app-header (childevent)="showfilter=$event" [module]="module" [navLocation]="navLocation"></app-header>
 
 <!-- Upload menu -->
 <div class="panel panel-info" id="upload_box" *ngIf="showfilter" >
@@ -16,7 +16,8 @@
                 <input  type="button" class="btn btn-default" value="Upload Roster" (click)="upload()"/>
                 </div>
             </form>
-            <div class="loader1" *ngIf="upload_spinner"></div>    
+            <!-- <div class="loader1" *ngIf="upload_spinner"></div>     -->
+            <app-loader-anim  *ngIf="upload_spinner"></app-loader-anim>
 
         </div>    
     </div>
@@ -110,7 +111,11 @@
 <!-- filter ends -->
 
 <!-- Dynamic view of routes start -->
-<div class="loader" *ngIf="spinner"></div>
+<!-- <div  *ngIf="spinner"></div>><app-loader-anim ></app-loader-anim> -->
+<!-- </div> -->
+<!-- <app-loader-anim  *ngIf="spinner"></app-loader-anim> -->
+<!-- <div class="loader" *ngIf="spinner"></div> -->
+<app-loader-anim [showLoader]="spinner"></app-loader-anim>
 <div *ngFor=" let u of cab_number">
     
     <!-- <div  [class]= "shift_arr[u]==4 ? 'panel panel-warning' : 'panel panel-info'"> -->

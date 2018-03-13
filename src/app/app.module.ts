@@ -74,6 +74,8 @@ import { AddDriverComponent } from './add-driver/add-driver.component';
 import { DriverService } from './driver.service';
 import { DriverUpdateComponent } from './driver-update/driver-update.component';
 import { DriverData } from './driver-list/driverData';
+import { LoaderAnimComponent } from './loader-anim/loader-anim.component';
+import { MassUploadEmployeeComponent } from './mass-upload-employee/mass-upload-employee.component';
 
 
 @NgModule({
@@ -122,7 +124,9 @@ import { DriverData } from './driver-list/driverData';
     CabUpdateComponent,
     AddCabComponent,
     AddDriverComponent,
-    DriverUpdateComponent
+    DriverUpdateComponent,
+    LoaderAnimComponent,
+    MassUploadEmployeeComponent
     
   ],
   imports: [

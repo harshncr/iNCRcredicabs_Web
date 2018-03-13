@@ -12,6 +12,8 @@ import {ActivatedRoute,Params} from '@angular/router';
   providers:[RosterService]
 })
 export class ShowRouteComponent implements OnInit {
+  module = "roster";
+  navLocation = "/ Show Route";
   d=new Date();
 
   constructor(private _http1:RosterService,private elem:ElementRef,private ro:ActivatedRoute) {

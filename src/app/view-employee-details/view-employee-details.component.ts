@@ -2,7 +2,7 @@ import { Component, OnInit,Input } from '@angular/core';
 import { EmployeeData } from '../view-employee/employeeData';
 import { EmployeeService } from '../Services/employee.service';
 import { Employee } from '../Model/employee';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 
 declare var jquery:any;
 declare var $:any;
@@ -15,32 +15,88 @@ declare var $:any;
 
 export class ViewEmployeeDetailsComponent implements OnInit {
   public emp: Employee;
-  showDeactivatePopup = false;
-  error=false;
-  errorMessage = '';
+  ////-------------data for header-------------
+  module                = "employee";
+  navLocation           = "/ View Details";
+  ////-----------------------------------------
+
+  ////-------------data for loader-------------
+  showLoader            = true;
+  loaderText            = "Loading...";
+  ////-----------------------------------------
+
+
+  showDeactivatePopup   = false;
+  error                 = false;
+  errorMessage          = '';
+  employeeLoaded        = false;
+  roleLoaded            = false;
   selectedItem;
   currEmployeeRole;       //// The current employee role
   
   constructor(
     public _employeeData: EmployeeData,
     private employeeService: EmployeeService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     // console.log('aaa'+this._employeeData.getItem());
     this.emp = this._employeeData.getItem();
 
-    this.employeeService.currentEmp.subscribe((emp) => {
-      this.emp = emp;
-      this.initCurrEmployeeRole(this.emp);
-      // console.log(emp);
-    });
-    this.router.events.subscribe((e) => {
-      if(e instanceof NavigationEnd){
-        // this.getEmployeeFromUrl();
-      }
-    });
+    if(this.emp != null && this.emp != undefined){
+      //// if employee data from previous component is initialized,
+      //// initialize employee role based on rolesId
+      
+      this.employeeService.getAllRoles().subscribe((roleData) => {
+        this.currEmployeeRole = roleData[this.emp.rolesId];
+        this.roleLoaded = true;
+        console.log('Roles Loaded!');
+      });
+    }else{
+      this.route.params.subscribe((params) => {
+        let qlid = params['qlid'];
+        this.employeeService.getEmployeeByQlid(qlid).subscribe((data) => {
+          if(data != null && data != undefined){
+            if(data.success){
+              this.emp = data;
+              this.employeeLoaded = true;
+              console.log('Employee loaded!');
+              console.log(this.emp);
+              
+              //// now initialize employee role based on rolesId
+              this.employeeService.getAllRoles().subscribe((roleData) => {
+                this.currEmployeeRole = roleData[this.emp.rolesId];
+                this.roleLoaded = true;
+                console.log('Roles Loaded!');
+              });
+            }else{
+              this.error = true;
+              if(data.message != null){
+                this.errorMessage = data.message;
+              }else{
+                this.errorMessage = 'Couldn\'t find the user with qlid: ' + qlid
+              }
+            }
+          }else{
+            this.error = true;
+            this.errorMessage = 'Error retrieving the data!';
+          }
+        });
+      });
+
+      // this.employeeService.currentEmp.subscribe((emp) => {
+      //   this.emp = emp;
+      //   this.initCurrEmployeeRole(this.emp);
+      //   // console.log(emp);
+      // });
+      // this.router.events.subscribe((e) => {
+      //   if(e instanceof NavigationEnd){
+      //     // this.getEmployeeFromUrl();
+      //   }
+      // });
+    }
   }
 
   //// To initialise the role of the current employee

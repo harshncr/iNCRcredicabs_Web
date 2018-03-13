@@ -1,5 +1,9 @@
-<app-header></app-header>
+<app-header [module]="module"></app-header>
 <div class="container">
+  <app-loader-anim
+    [showLoader] = "showLoader && (employeeLoaded == false || roleLoaded == false)" [loaderText]="loaderText">
+  </app-loader-anim>
+  <!-- <app-loader-anim [showLoader] = "showLoader" [loaderText]="loaderText"></app-loader-anim> -->
   <div class="row">
     <!-- *ngIf="showDeactivatePopup"  -->
     <div id="popup-content" class="sm-col-12" *ngIf="showDeactivatePopup">
@@ -21,8 +25,18 @@
       </div>
     </div>
   </div>
+  <div *ngIf="error && showLoader == false" class="panel panel-danger">
+    <div class="panel-heading clearfix">
+      <div class="panel-title">
+        Error!
+      </div>
+    </div>
+    <div class="panel-body">
+      {{ errorMessage }}
+    </div>
+  </div>
   <div class="row">
-    <div id="user-profile-content"
+    <div *ngIf="emp && employeeLoaded && roleLoaded" id="user-profile-content"
       class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-lg-offset-2"
       align="center">
     <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" > -->

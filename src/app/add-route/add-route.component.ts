@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-route.component.css']
 })
 export class AddRouteComponent implements OnInit {
+  module = "roster";
+  navLocation = "/ Add Route";
 
   display=true;
   Numbers=[];  
