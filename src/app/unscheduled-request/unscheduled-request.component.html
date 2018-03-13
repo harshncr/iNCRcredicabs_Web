@@ -14,11 +14,14 @@
             <option value="Allocated">Allocated</option>
           </select>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <button type="button" (click)="search()" class="btn btn-default">
             Go
           </button>
           <input type="checkbox" id="chk_selectAll" (click)="toggleSelectAll()" /> Select All
+          <button type="button" (click)="allocate()" class="btn btn-default">
+            Allocate
+          </button>
         </div>
       </div>
     </div>
@@ -101,7 +104,7 @@
         </div>
         <div class="col-md-6">
           <strong>End Date:</strong> {{request?.End_Date}}
-          <button class="button pull-right" (click)="allocateRequest(request.Request_ID)">Allocate</button>
+          <!-- <button class="bustton pull-right" (click)="allocateRequest(request.Request_ID)">Allocate</button> -->
         </div>
       </div>
 
