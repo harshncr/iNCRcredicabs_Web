@@ -20,7 +20,15 @@ export class UnscheduledRequestComponent implements OnInit {
   public requests: RequestModel;
   public showReqArr = [];
   public defaultRequest = "Pending";
-  public loader = true;
+  public showNoRecord = false;
+  public tf=false;
+  module = "UnscheduledRequest";
+  navLocation = "/ View Request";
+  ////-------------data for loader-------------
+  public showLoader = true;
+  public loaderText = "Loading...";
+  ////-----------------------------------------
+
 
   constructor(public unscheduledRequestService: UnscheduledRequestService) {
     // console.log("constructor"); 
@@ -31,56 +39,25 @@ export class UnscheduledRequestComponent implements OnInit {
 
     this.unscheduledRequestService.getAllUnscheduledRequest(this.defaultRequest).subscribe(
       (data) => {
-        this.loader = false;
-        this.requests = data;
-        this.initShowDetails(this.requests);
+        this.showLoader = false;
+        if (data.length > 0) {
+          this.showNoRecord = false;
+          this.requests = data;
+          this.initShowDetails(this.requests);
+        } else {
+          this.requests = data;
+          this.showNoRecord = true;
+          console.log("No pending request");
+        }
         // console.log(this.requests);
       });
   }
 
-  allocate() {
-
-    // console.log("allocate");
-    var request_idArr = [];
-
-    $('.requestDiv').find(':checkbox').each(function () {
-      
-      if ($(this).is(':checked')) {
-        // console.log($(this).val());
-        request_idArr.push($(this).val());
-      }
-
-      // console.log("ids in arr"+request_idArr);
-
-    });
-
-    if (request_idArr.length > 0) {
-      this.unscheduledRequestService.doAllocateRequest(request_idArr).subscribe(
-        (data) => {
-          console.log(data);
-          // this.loader = false;
-          // this.requests = data;
-          // this.initShowDetails(this.requests);
-        });
-    } else {
-        alert("No request selected");
-    }
-
-
+  toggleFilter(flag)
+  {
+    console.log(flag);
+      this.tf=flag;
   }
-
-  // allocateRequest(requestID) {
-  //   this.loader = true;
-
-  //   this.unscheduledRequestService.doAllocateRequest(requestID).subscribe(
-  //     (data) => {
-  //       this.loader = false;
-  //       this.requests = data;
-  //       this.initShowDetails(this.requests);
-  //     });
-
-
-  // }
 
   downloadRequestExcel() {
     var downloadReqArr = new Array();
@@ -95,14 +72,57 @@ export class UnscheduledRequestComponent implements OnInit {
     this.unscheduledRequestService.downloadExcel();
   }
 
+  allocate() {
+
+    var request_idArr = [];
+
+    $('.requestDiv').find(':checkbox').each(function () {
+
+      if ($(this).is(':checked')) {
+        // console.log($(this).val());
+        request_idArr.push($(this).val());
+      }
+    });
+
+    if (request_idArr.length > 0) {
+      this.showLoader = true;
+
+      this.unscheduledRequestService.doAllocateRequest(request_idArr).subscribe(
+        (data) => {
+          // console.log(data);
+          this.showLoader = false;
+          if (data.length > 0) {
+            this.showNoRecord = false;
+            this.requests = data;
+            this.initShowDetails(this.requests);
+          } else {
+            this.requests = data;
+            this.showNoRecord = true;
+            console.log("No pending request");
+          }
+        });
+    } else {
+      alert("No request selected");
+    }
+
+
+  }
+
   search() {
     // console.log(this.defaultRequest);
-    this.loader = true;
+    this.showLoader = true;
     this.unscheduledRequestService.getAllUnscheduledRequest(this.defaultRequest).subscribe(
       (data) => {
-        this.loader = false;
-        this.requests = data;
-        this.initShowDetails(this.requests);
+        this.showLoader = false;
+        if (data.length > 0) {
+          this.showNoRecord = false;
+          this.requests = data;
+          this.initShowDetails(this.requests);
+        } else {
+          this.requests = data;
+          this.showNoRecord = true;
+          console.log("No pending request");
+        }
         // console.log(this.requests);
       });
   }

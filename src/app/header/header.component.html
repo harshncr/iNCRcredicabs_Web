@@ -28,6 +28,12 @@
               {{ navLocation }}
             </span>
           </div>
+          <div class="navbar-brand" *ngIf="UnscheduledRequest">
+            Unscheduled Request
+            <span *ngIf="navLocation">
+              {{ navLocation }}
+            </span>
+          </div>
         </div>
       </td>
       <td class="col-lg-6">
