@@ -38,18 +38,49 @@ export class UnscheduledRequestComponent implements OnInit {
       });
   }
 
-  allocateRequest(requestID) {
-    this.loader = true;
+  allocate() {
 
-    this.unscheduledRequestService.doAllocateRequest(requestID).subscribe(
-      (data) => {
-        this.loader = false;
-        this.requests = data;
-        this.initShowDetails(this.requests);
-      });
+    // console.log("allocate");
+    var request_idArr = [];
+
+    $('.requestDiv').find(':checkbox').each(function () {
+      
+      if ($(this).is(':checked')) {
+        // console.log($(this).val());
+        request_idArr.push($(this).val());
+      }
+
+      // console.log("ids in arr"+request_idArr);
+
+    });
+
+    if (request_idArr.length > 0) {
+      this.unscheduledRequestService.doAllocateRequest(request_idArr).subscribe(
+        (data) => {
+          console.log(data);
+          // this.loader = false;
+          // this.requests = data;
+          // this.initShowDetails(this.requests);
+        });
+    } else {
+        alert("No request selected");
+    }
 
 
   }
+
+  // allocateRequest(requestID) {
+  //   this.loader = true;
+
+  //   this.unscheduledRequestService.doAllocateRequest(requestID).subscribe(
+  //     (data) => {
+  //       this.loader = false;
+  //       this.requests = data;
+  //       this.initShowDetails(this.requests);
+  //     });
+
+
+  // }
 
   downloadRequestExcel() {
     var downloadReqArr = new Array();
