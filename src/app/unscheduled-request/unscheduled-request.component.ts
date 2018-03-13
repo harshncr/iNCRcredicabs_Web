@@ -59,6 +59,19 @@ export class UnscheduledRequestComponent implements OnInit {
       this.tf=flag;
   }
 
+  // allocateRequest(requestID) {
+  //   this.loader = true;
+
+  //   this.unscheduledRequestService.doAllocateRequest(requestID).subscribe(
+  //     (data) => {
+  //       this.loader = false;
+  //       this.requests = data;
+  //       this.initShowDetails(this.requests);
+  //     });
+
+
+  // }
+
   downloadRequestExcel() {
     var downloadReqArr = new Array();
 
