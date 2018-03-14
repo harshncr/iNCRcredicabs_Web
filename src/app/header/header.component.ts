@@ -65,8 +65,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
     this.childevent.emit(this.uploadValue);
   }
 
-  headerUpdate(){
-    
+  headerUpdate(){    
     this.employee = false;
     this.roster = false;
     this.reports = false;

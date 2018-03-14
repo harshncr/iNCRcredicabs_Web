@@ -22,8 +22,8 @@ export class UnscheduledRequestComponent implements OnInit {
   public defaultRequest = "Pending";
   public showNoRecord = false;
   public tf=false;
-  public module ;
-  public navLocation;
+  module= "UNSCHEDULEDREQUEST";
+  navLocation = "/ Pending";
   public showAllocateButton=true;
 
   ////-------------data for loader-------------
@@ -39,9 +39,7 @@ export class UnscheduledRequestComponent implements OnInit {
 
   ngOnInit()
    {
-     this.module= "UNSCHEDULEDREQUEST";
-     this.navLocation = "/ Pending";
-  
+     this.showLoader = true;
     this.unscheduledRequestService.getAllUnscheduledRequest(this.defaultRequest).subscribe(
       (data) => {
         this.showLoader = false;
@@ -60,6 +58,7 @@ export class UnscheduledRequestComponent implements OnInit {
 
   toggleFilter(flag)
   {
+
     // console.log(flag);
       this.tf=flag;
   }
@@ -72,7 +71,7 @@ export class UnscheduledRequestComponent implements OnInit {
         downloadReqArr.push($(this).val());
       }
     });
-    console.log(downloadReqArr);
+    // console.log(downloadReqArr);
 
     this.unscheduledRequestService.downloadExcel();
   }
@@ -148,7 +147,7 @@ export class UnscheduledRequestComponent implements OnInit {
     for (var i = 0; i < req.length; ++i) {
       this.showReqArr.push(false);
     }
-        if(this.defaultRequest==="Allocated"){
+  if(this.defaultRequest==="Allocated"){
       this.navLocation="/ Allocated";
       this.showAllocateButton=false;
     }
