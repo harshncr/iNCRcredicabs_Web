@@ -6,8 +6,8 @@
 <div class="panel panel-success" id="filter_box" >
   <div class="panel-heading clearfix">
           <h4 class="panel-title pull-left" style="padding-top: 7.5px">
-                      Filter:
-                    </h4>
+                          Filters:
+                </h4>
           <div class="panel-title pull-right">
                   <button (click)="toggleFilter(!tf)" type="button"  class="btn btn-default btn-md" style="background:white;">
                           <span *ngIf="tf==false" class="glyphicon glyphicon-menu-down" aria-hidden="true" style="float:right;"></span>      
@@ -30,7 +30,7 @@
           Go
         </button>
         <input type="checkbox" id="chk_selectAll" (click)="toggleSelectAll()" /> Select All
-        <button type="button" (click)="allocate()" class="btn btn-default">
+        <button type="button" (click)="allocate()" class="btn btn-default" *ngIf="showAllocateButton"> 
           Allocate
         </button>
       </div>

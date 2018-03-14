@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   roster = false;
   vendor = false;
   reports = false;
+  unscheduledRequest = false;
   router: Router;
   loginService: LoginService;
   unscheduledRequestService:UnscheduledRequestService;
@@ -65,37 +66,30 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   }
 
   headerUpdate(){
+    console.log("in header component  "+this.module+""+this.navLocation);
+    
+    this.employee = false;
+    this.roster = false;
+    this.reports = false;
+    this.vendor = false;
+    this.unscheduledRequest=false;
     if(this.module != null && this.module != undefined){
       switch(this.module.toUpperCase()){
         case 'EMPLOYEE':
           this.employee = true;
-          this.roster = false;
-          this.reports = false;
-          this.vendor = false;
           break;
         case 'VENDOR':
-          this.employee = false;
-          this.roster = false;
-          this.reports = false;
           this.vendor = true;
           break;
         case 'ROSTER':
-          this.employee = false;
           this.roster = true;
-          this.reports = false;
-          this.vendor = false;
           break;
         case 'REPORTS':
-          this.employee = false;
-          this.roster = false;
           this.reports = true;
-          this.vendor = false;
           break;
-        default:
-          this.employee = false;
-          this.roster = false;
-          this.reports = false;
-          this.vendor = false;
+        case 'UNSCHEDULEDREQUEST':
+          this.unscheduledRequest=true;
+          break;
       }
     }
   }
