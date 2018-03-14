@@ -25,6 +25,7 @@ export class UnscheduledRequestComponent implements OnInit {
   module= "UNSCHEDULEDREQUEST";
   navLocation = "/ Pending";
   public showAllocateButton=true;
+  public filterType = '';
 
   ////-------------data for loader-------------
   public showLoader = true;
