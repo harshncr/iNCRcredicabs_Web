@@ -34,7 +34,7 @@ export class UnscheduledRequestComponent implements OnInit {
 
   constructor(public unscheduledRequestService: UnscheduledRequestService) {
     // console.log("constructor"); 
-    this.requests = new RequestModel();
+    // this.requests = new RequestModel();
   }
 
   ngOnInit()
