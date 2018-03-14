@@ -33,6 +33,6 @@ export class RequestModel {
         public Employee_Name?: string,
         public Emp_Mob_Nb?: string,
         public Start_Date?: string,
-        public Approval?: string
+        public Approval?: string,
     ) { }
 }

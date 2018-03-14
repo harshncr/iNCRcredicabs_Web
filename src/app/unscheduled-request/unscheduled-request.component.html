@@ -3,41 +3,50 @@
 
 
 <!-- filter box -->
-<div class="panel panel-success" id="filter_box" >
+<div class="panel panel-success" id="filter_box">
   <div class="panel-heading clearfix">
-          <h4 class="panel-title pull-left" style="padding-top: 7.5px">
-                          Filters:
-                </h4>
-          <div class="panel-title pull-right">
-                  <button (click)="toggleFilter(!tf)" type="button"  class="btn btn-default btn-md" style="background:white;">
-                          <span *ngIf="tf==false" class="glyphicon glyphicon-menu-down" aria-hidden="true" style="float:right;"></span>      
-                          <span *ngIf="tf==true" class="glyphicon glyphicon-menu-up" aria-hidden="true" style="float:right;"></span>      
+    <h4 class="panel-title pull-left" style="padding-top: 7.5px">
+      Filters:
+    </h4>
+    <div class="panel-title pull-right">
+      <button (click)="toggleFilter(!tf)" type="button" class="btn btn-default btn-md" style="background:white;">
+        <span *ngIf="tf==false" class="glyphicon glyphicon-menu-down" aria-hidden="true" style="float:right;"></span>
+        <span *ngIf="tf==true" class="glyphicon glyphicon-menu-up" aria-hidden="true" style="float:right;"></span>
 
-                      </button>                   
-          </div>
-  </div>        
-<div *ngIf="tf" class="panel-body" id="filter_body">
-  <div class="form-group">
-    <div class="form-group">
-      <div class="col-sm-3">
-        <select name="filterType" [(ngModel)]="defaultRequest" class="form-control">
-          <option value="Pending">Pending</option>
-          <option value="Allocated">Allocated</option>
-        </select>
-      </div>
-      <div class="col-sm-4">
-        <button type="button" (click)="search()" class="btn btn-default">
-          Go
-        </button>
-        <input type="checkbox" id="chk_selectAll" (click)="toggleSelectAll()" /> Select All
-        <button type="button" (click)="allocate()" class="btn btn-default" *ngIf="showAllocateButton"> 
-          Allocate
-        </button>
-      </div>
+      </button>
     </div>
   </div>
+  <div *ngIf="tf" class="panel-body" id="filter_body">
+    <div class="form-group">
+      <div class="form-group">
+        <div class="col-sm-3">
+          <select name="filterType" [(ngModel)]="defaultRequest" class="form-control">
+            <option value="Pending">Pending</option>
+            <option value="Allocated">Allocated</option>
+          </select>
+        </div>
 
-      
+        <div class="col-sm-1">
+          <button type="button" (click)="search()" class="btn btn-default">
+            Go
+          </button>
+        </div>
+        <div class="col-sm-3">
+          <input type="checkbox" id="chk_selectAll" (click)="toggleSelectAll()" /> Select All
+          <button type="button" (click)="allocate()" class="btn btn-default" *ngIf="showAllocateButton">
+            Allocate
+          </button>
+        </div>
+        <div class="col-sm-5 form-group">
+          <label for="filterValue" class="col-md-2 control-label"><span>Search:</span></label>
+          <div class=col-md-10>
+            <input type="text" [(ngModel)]="filterValue" name="filterValue" class="form-control" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
   <!-- add reset -->
 </div>
@@ -51,90 +60,92 @@
 </div>
 
 
-  <div *ngFor="let request of requests; let i = index">
-    <div class="panel panel-info">
-      <div class="panel-heading ">
-        <div class="panel-title">
-          <div class="row">
-            <div class="col-md-10 requestDiv">
-              <input type="checkbox" value="{{request?.Request_ID}}" id="chk_rqst_{{i}}" name="chk_rqst" />
-              <strong>{{request?.Employee_Name}} ({{request?.Emp_ID}})</strong>
-            </div>
-            <div class="col-md-2">
-              <div class="pull-right">
-                &nbsp;&nbsp;
-                <span *ngIf="showReqArr[i] == false" class="glyphicon glyphicon-chevron-down" aria-hidden="true" (click)="onShowDetails(i)"></span>
-                <span *ngIf="showReqArr[i] == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true" (click)="onHideDetails(i)"></span>
+<div *ngFor="let request of requests| filter:filterValue; let i = index ">
+  <div class="panel panel-info">
+    <div class="panel-heading ">
+      <div class="panel-title">
+        <div class="row">
+          <div class="col-md-10 requestDiv">
+            <input type="checkbox" value="{{request?.Request_ID}}" id="chk_rqst_{{i}}" name="chk_rqst" />
+            <strong>{{request?.Employee_Name}} ({{request?.Emp_ID}})</strong>
+          </div>
+          <div class="col-md-2">
+            <div class="pull-right">
+              &nbsp;&nbsp;
+              <span *ngIf="showReqArr[i] == false" class="glyphicon glyphicon-chevron-down" aria-hidden="true" (click)="onShowDetails(i)"></span>
+              <span *ngIf="showReqArr[i] == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true" (click)="onHideDetails(i)"></span>
 
-              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="panel-body vendor-details-panel" id="urqst-{{i}}">
-        <div class="row">
-          <div class="col-md-6" *ngIf="request?.Emp_Gender==='M';  else elseBlock">
-            <strong> Gender:</strong> Male
-          </div>
-          <ng-template #elseBlock>
-            <div class="col-md-6">
-              <strong> Gender:</strong>Female
-            </div>
-          </ng-template>
-          <div class="col-md-6">
-            <strong> Contact:</strong> {{request?.Emp_Mob_Nb}}
-          </div>
+    <div class="panel-body vendor-details-panel" id="urqst-{{i}}">
+      <div class="row">
+        <div class="col-md-6" *ngIf="request?.Emp_Gender==='M';  else elseBlock">
+          <strong> Gender:</strong> Male
         </div>
-
-        <div class="row">
+        <ng-template #elseBlock>
           <div class="col-md-6">
-            <strong> Manager Name:</strong> {{request?.Manager_Name}}
+            <strong> Gender:</strong>Female
           </div>
-          <div class="col-md-6">
-            <strong> Request Status:</strong> {{request?.Approval}}
-          </div>
+        </ng-template>
+        <div class="col-md-6">
+          <strong> Contact:</strong> {{request?.Emp_Mob_Nb}}
         </div>
+      </div>
 
-        <div class="row">
-          <div class="col-md-6">
-            <strong>Pickup Location:</strong> {{request?.Source}}
-          </div>
-          <div class="col-md-6">
-            <strong> Drop Location:</strong> {{request?.Destination}}
-          </div>
+      <div class="row">
+        <div class="col-md-6">
+          <strong> Manager Name:</strong> {{request?.Manager_Name}}
         </div>
-
-        <div class="row">
-
-          <div class="col-md-6">
-            <strong>Pickup Time: </strong>{{request?.Start_Time}}
-          </div>
-          <div class="col-md-6">
-            <strong> Drop Time:</strong> {{request?.Start_Time}}
-          </div>
+        <div class="col-md-6">
+          <strong> Request Status:</strong> {{request?.Approval}}
         </div>
+      </div>
 
-        <div class="row">
-
-          <div class="col-md-6">
-            <strong>Start Date: </strong>{{request?.Start_Date}}
-          </div>
-          <div class="col-md-6">
-            <strong>End Date:</strong> {{request?.End_Date}}
-            <!-- <button class="bustton pull-right" (click)="allocateRequest(request.Request_ID)">Allocate</button> -->
-          </div>
+      <div class="row">
+        <div class="col-md-6">
+          <strong>Pickup Location:</strong> {{request?.Source}}
         </div>
+        <div class="col-md-6">
+          <strong> Drop Location:</strong> {{request?.Destination}}
+        </div>
+      </div>
 
-        <div class="row" *ngIf="request?.Cab_no">
+      <div class="row" [ngSwitch]="request?.Other_Address">
 
-          <div class="col-md-6">
-            <strong>Cab no: </strong>{{request?.Cab_no}}
-          </div>
+        <div class="col-md-6" *ngSwitchCase="'OFFICE TO HOME' || 'OFFICE TO OTHERS' || 'HOME TO OTHERS'">
+          <strong>Pickup Time: </strong>{{request?.Start_Time}}
+        </div>
+        <div class="col-md-6" *ngSwitchCase="'HOME TO OFFICE'">
+          <strong>Reaching Time:</strong> {{request?.Start_Time}}
+        </div>
+      </div>
 
+      <div class="row">
+
+        <div class="col-md-6">
+          <strong>Start Date: </strong>{{request?.Start_Date}}
+        </div>
+        <div class="col-md-6">
+          <strong>End Date:</strong> {{request?.End_Date}}
+          <!-- <button class="bustton pull-right" (click)="allocateRequest(request.Request_ID)">Allocate</button> -->
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <strong>Trip Type:</strong> {{request?.Other_Address}}
+        </div>
+        <div class="col-md-6" *ngIf="request?.Cab_no">
+          <strong>Cab no: </strong>{{request?.Cab_no}}
         </div>
 
       </div>
 
     </div>
+
   </div>
+</div>

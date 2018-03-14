@@ -37,7 +37,7 @@ export class ReportComponent implements OnInit {
     this.showDiv = false;
       return;
     }
-    console.log(this.filterType + " " + this.filterValue);
+    // console.log(this.filterType + " " + this.filterValue);
 
     switch (this.filterType) {
 
