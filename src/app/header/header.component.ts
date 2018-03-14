@@ -66,7 +66,6 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   }
 
   headerUpdate(){
-    console.log("in header component  "+this.module+""+this.navLocation);
     
     this.employee = false;
     this.roster = false;

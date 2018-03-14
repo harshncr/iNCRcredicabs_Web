@@ -102,7 +102,7 @@
           </ul>
         </div>
         <!-- Reports Menu -->
-        <div id="reports_menu" *ngIf="reports">
+        <div id="reports_menu" *ngIf="unscheduledRequest">
           <ul class="nav navbar-nav">            
             <li>
               <a (click)="downloadRequestExcel()">
