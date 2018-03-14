@@ -27,6 +27,11 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   @Output() public childevent =new EventEmitter(); 
   @Input() module:string;
   @Input() navLocation: string;
+  @Input() loada:boolean;
+  @Input() loadb:boolean;
+  @Input() loadc:boolean;
+  @Input() loadd:boolean;
+
 
   
   constructor(private _router: Router,

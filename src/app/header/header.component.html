@@ -97,8 +97,24 @@
         <!-- Vendor Menu -->
         <div id="vendor_menu" *ngIf="vendor">
           <ul class="nav navbar-nav">
-            <li><a href="#">Add Vendor</a></li>
-            <li><a href="#">View / Edit Vendor</a></li>
+            <!-- <li><a href="#">Add Vendor</a></li>
+            <li><a href="#">View / Edit Vendor</a></li> -->            
+            <li>
+              <a *ngIf ="loada" routerLink="/add-vendor" class="nav-tabs">Add Vendor</a>
+            </li>
+            <li>
+              <a *ngIf ="loada" routerLink="/relationship" class="nav-tabs">View/Add RelationShip</a>
+            </li>
+            
+            <li><a  *ngIf ="loadb" routerLink="/add-cab" class="nav-tabs" >Add Cab</a></li>
+            <li>
+              <a *ngIf ="loadb" routerLink="/relationship" class="nav-tabs">View/Add RelationShip</a>
+            </li>
+            <li><a  *ngIf = "loadc" routerLink="/add-driver" class="nav-tabs">Add Driver</a></li>
+            <li>
+              <a *ngIf ="loadc" routerLink="/relationship" class="nav-tabs">View/Add RelationShip</a>
+            </li>
+            <li><a  *ngIf = "loadd" routerLink ="/vendor-list"class="nav-tabs"> View Vendor</a></li>
           </ul>
         </div>
         <!-- Reports Menu -->
