@@ -71,14 +71,15 @@ public isShow:boolean=false;
   public cnbr:string;
   public checkingclick:boolean;
   public str:string;
-    ngOnInit() {
+    
+  ngOnInit() {
       this.uploadValue=this.ro.snapshot.params['foo'];
       console.log(this.uploadValue);
       // this.showTime();
        this.gettingPostData();
       //  this.showTime();
-this.showfilter=false;
-this.spinner=true;
+      this.showfilter=false;  
+    this.spinner=true;
   }
   showme(ras):void{
   

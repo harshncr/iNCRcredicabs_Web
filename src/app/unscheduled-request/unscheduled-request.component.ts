@@ -22,8 +22,10 @@ export class UnscheduledRequestComponent implements OnInit {
   public defaultRequest = "Pending";
   public showNoRecord = false;
   public tf=false;
-  module = "UnscheduledRequest";
-  navLocation = "/ View Request";
+  public module ;
+  public navLocation;
+  public showAllocateButton=true;
+
   ////-------------data for loader-------------
   public showLoader = true;
   public loaderText = "Loading...";
@@ -35,8 +37,11 @@ export class UnscheduledRequestComponent implements OnInit {
     this.requests = new RequestModel();
   }
 
-  ngOnInit() {
-
+  ngOnInit()
+   {
+     this.module= "UNSCHEDULEDREQUEST";
+     this.navLocation = "/ Pending";
+  
     this.unscheduledRequestService.getAllUnscheduledRequest(this.defaultRequest).subscribe(
       (data) => {
         this.showLoader = false;
@@ -47,7 +52,7 @@ export class UnscheduledRequestComponent implements OnInit {
         } else {
           this.requests = data;
           this.showNoRecord = true;
-          console.log("No pending request");
+          // console.log("No pending request");
         }
         // console.log(this.requests);
       });
@@ -58,19 +63,6 @@ export class UnscheduledRequestComponent implements OnInit {
     console.log(flag);
       this.tf=flag;
   }
-
-  // allocateRequest(requestID) {
-  //   this.loader = true;
-
-  //   this.unscheduledRequestService.doAllocateRequest(requestID).subscribe(
-  //     (data) => {
-  //       this.loader = false;
-  //       this.requests = data;
-  //       this.initShowDetails(this.requests);
-  //     });
-
-
-  // }
 
   downloadRequestExcel() {
     var downloadReqArr = new Array();
@@ -111,7 +103,7 @@ export class UnscheduledRequestComponent implements OnInit {
           } else {
             this.requests = data;
             this.showNoRecord = true;
-            console.log("No pending request");
+            // console.log("No pending request");
           }
         });
     } else {
@@ -134,10 +126,11 @@ export class UnscheduledRequestComponent implements OnInit {
         } else {
           this.requests = data;
           this.showNoRecord = true;
-          console.log("No pending request");
+          // console.log("No pending request");
         }
         // console.log(this.requests);
       });
+      return;
   }
 
   toggleSelectAll() {
@@ -151,9 +144,13 @@ export class UnscheduledRequestComponent implements OnInit {
   }
 
   initShowDetails(req) {
-    // this.showReqArr = [];
+    
     for (var i = 0; i < req.length; ++i) {
       this.showReqArr.push(false);
+    }
+        if(this.defaultRequest==="Allocated"){
+      this.navLocation="/ Allocated";
+      this.showAllocateButton=false;
     }
     //  console.log(this.showReqArr);
   }

@@ -1,6 +1,13 @@
 
+#filter_body{ 
+    
+    padding-bottom: 0px;
+}
 
-
+#filter_box{
+border: 1px solid lightgray;
+opacity: 0.8;
+}
 /* Show the tooltip text when you mouse over the tooltip container */
 #tooltip:hover .tooltiptext {
     visibility: visible;
