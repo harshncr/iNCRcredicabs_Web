@@ -1,6 +1,6 @@
-<header-list></header-list>
+<app-header [module]="module" [navLocation]="navLocation" [loadb]="loadb"></app-header>
 
-<div id="filter-panel" class="panel panel-warning">
+<!--<div id="filter-panel" class="panel panel-warning">
   <div class="panel-heading">
     <h3 class="panel-title">Filter</h3>
   </div>
@@ -10,7 +10,7 @@
         <div class="form-group">
           <!-- <div class="col-sm-1">
               <h3 id="filter-title">Filter</h3>
-          </div> -->
+          </div> 
           <div class="col-sm-3">
             <select [(ngModel)]="filterType" name="filterType" type="" class="form-control" >
               <option value="" dsisabled selected>Filter By</option>
@@ -34,6 +34,7 @@
     </div>
   </div>
 </div>
+-->
 <div *ngFor="let cab of cabs; let i=index">
     <div class="panel" [ngClass]="checkStatus(cab)">
       <div class="panel-heading ">

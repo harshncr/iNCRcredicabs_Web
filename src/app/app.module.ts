@@ -76,6 +76,8 @@ import { DriverUpdateComponent } from './driver-update/driver-update.component';
 import { DriverData } from './driver-list/driverData';
 import { LoaderAnimComponent } from './loader-anim/loader-anim.component';
 import { MassUploadEmployeeComponent } from './mass-upload-employee/mass-upload-employee.component';
+import { RelationshipFormComponent } from './relationship-form/relationship-form.component';
+import { RelationService } from './relation.service';
 
 
 @NgModule({
@@ -126,7 +128,8 @@ import { MassUploadEmployeeComponent } from './mass-upload-employee/mass-upload-
     AddDriverComponent,
     DriverUpdateComponent,
     LoaderAnimComponent,
-    MassUploadEmployeeComponent
+    MassUploadEmployeeComponent,
+    RelationshipFormComponent
     
   ],
   imports: [
@@ -156,7 +159,8 @@ import { MassUploadEmployeeComponent } from './mass-upload-employee/mass-upload-
    CabData,
    CabService,
    DriverService,
-   DriverData
+   DriverData,
+   RelationService
 
   ],
   bootstrap: [AppComponent]

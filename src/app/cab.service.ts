@@ -11,10 +11,11 @@ export class CabService {
     )
     {}
 
-    getCabs():Observable<any>{
+    getCabs(body):Observable<any>{
         
-        var data;
-        return this._http.post(env.environment.url+'/VendorService/CabDetails','').map((response)=>{
+        var data = body;
+        console.log(JSON.stringify(data));
+        return this._http.post(env.environment.url+'/VendorService/CabDetails',JSON.stringify(body)).map((response)=>{
           return response.json()
         })
         

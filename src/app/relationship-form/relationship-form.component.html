@@ -1,0 +1,17 @@
+
+<app-header [module]="module" [navLocation]="navLocation" [loadd]="loadd"></app-header>
+<div *ngFor="let relation of relations; let i=index">
+    <div class="panel">
+      <table>
+          <tr>
+              <td>{{relation.vendor_name}}</td>
+              <td>{{relation.cab_no}}</td>
+              <td>{{relation.driver_name}}</td>
+              <td>{{relation.license_num}}</td>
+              <td><input type="checkbox"></td>
+            </tr>
+      </table>
+      </div>
+</div>
+<button type="button_add">Add</button>
+<button type="button_save">Save</button>

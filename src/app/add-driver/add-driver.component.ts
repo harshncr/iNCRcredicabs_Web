@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { VendorService } from '../vendor.service';
 import { Router } from '@angular/router';
-import { CabData } from '../cab-list/cabData';
+//import { CabData } from '../cab-list/cabData';
 import { DriverService } from '../driver.service';
 
 //import { cabData } from '../cab-list/cabData';
@@ -14,8 +14,8 @@ import { DriverService } from '../driver.service';
 export class AddDriverComponent implements OnInit {
   validateStatus: boolean;
 
-  public d_type;
-  public first_Name;
+  public driver_license_num;
+  public Name;
   public dPhone_Nbr;
   public local_Address;
   public permanent_Address;
@@ -43,14 +43,15 @@ public message11;
 public new:boolean = false;
 public error:boolean = false;
 public vendor_id;
+public success;
 
-  constructor(private httpService : DriverService,private elem:ElementRef, private route : Router, private cab:CabData) { }
+  constructor(private httpService : DriverService,private elem:ElementRef, private route : Router) { }
 
   ngOnInit() {
     
-    this.c_Plate_Nbr = this.cab.getItem().cab_no;
-    this.d_type=this.cab.getType();
-    this.vendor_id = this.cab.getItem().vendor_id;
+    // this.c_Plate_Nbr = this.cab.getItem().cab_no;
+    // this.d_type=this.cab.getType();
+    // this.vendor_id = this.cab.getItem().vendor_id;
   
 }
 
@@ -60,7 +61,7 @@ public vendor_id;
       let d_comercial_liscence =new FormData();
       let file1=files1[0];
       let filename1 = 'd_comercial_liscence.' + file1.name.split(".")[1];
-      this.d_comercial_liscence = this.dPhone_Nbr + "_" + filename1;
+      this.d_comercial_liscence = this.driver_license_num + "_" + filename1;
       d_comercial_liscence.append('file_upload',file1,this.d_comercial_liscence);
 
 
@@ -68,7 +69,7 @@ public vendor_id;
       let d_police_verification =new FormData();
       let file2=files2[0];
       let filename2 = 'd_police_verification.' + file2.name.split(".")[1];
-      this.d_police_verification = this.dPhone_Nbr + "_" + filename2;
+      this.d_police_verification = this.driver_license_num + "_" + filename2;
       d_police_verification.append('file_upload',file2,this.d_police_verification);
 
 
@@ -76,7 +77,7 @@ public vendor_id;
       let d_local_Address_proof =new FormData();
       let file3=files3[0];
       let filename3 = 'd_local_Address_proof.' + file3.name.split(".")[1];
-      this.d_local_Address_proof = this.dPhone_Nbr + "_" + filename3;
+      this.d_local_Address_proof = this.driver_license_num + "_" + filename3;
       d_local_Address_proof.append('file_upload',file3,this.d_local_Address_proof);
 
 
@@ -85,7 +86,7 @@ public vendor_id;
       let d_permanent_address_proof =new FormData();
       let file4=files4[0];
       let filename4 = 'd_permanent_address_proof.' + file4.name.split(".")[1];
-      this.d_permanent_address_proof = this.dPhone_Nbr + "_" + filename4;
+      this.d_permanent_address_proof = this.driver_license_num + "_" + filename4;
       d_permanent_address_proof.append('file_upload',file4,this.d_permanent_address_proof);
 
 
@@ -93,12 +94,12 @@ public vendor_id;
       let d_photo =new FormData();
       let file5=files5[0];
       let filename5 = 'd_photo.' + file5.name.split(".")[1];
-      this.d_photo = this.dPhone_Nbr + "_" + filename5;
+      this.d_photo = this.driver_license_num + "_" + filename5;
       d_photo.append('file_upload',file5,this.d_photo);
 
 
 
-let body = {"vendor_id": this.vendor_id,"d_type": this.d_type,"first_Name":this.first_Name, "dPhone_Nbr":this.dPhone_Nbr, "local_Address":this.local_Address,"permanent_Address":this.permanent_Address,"c_Plate_Nbr":this.c_Plate_Nbr, "license_exp_date":this.license_exp_date,"d_comercial_liscence":this.d_comercial_liscence,"d_police_verification":this.d_police_verification,"d_local_Address_proof":this.d_local_Address_proof,"d_permanent_address_proof":this.d_permanent_address_proof,"d_photo":this.d_photo}
+let body = {"driver_license_num": this.driver_license_num, "Name":this.Name, "dPhone_Nbr":this.dPhone_Nbr, "local_Address":this.local_Address,"permanent_Address":this.permanent_Address,"c_Plate_Nbr":this.c_Plate_Nbr, "license_exp_date":this.license_exp_date,"d_comercial_liscence":this.d_comercial_liscence,"d_police_verification":this.d_police_verification,"d_local_Address_proof":this.d_local_Address_proof,"d_permanent_address_proof":this.d_permanent_address_proof,"d_photo":this.d_photo}
 console.log(body);
 this.httpService.adddriver(body)
 .subscribe((response)=>{
@@ -115,7 +116,7 @@ for (let i=0;i<5;i++)
 this.httpService.sendfile(file_upload[i]).subscribe();
 }
 console.log("Image Uploaded");
-
+this.success = response._body;
 }
 }
 
@@ -141,8 +142,8 @@ let file4=this.elem.nativeElement.querySelector("#d_permanent_address_proof").fi
 let file5=this.elem.nativeElement.querySelector("#d_photo").files;
 
 
-if(this.first_Name != null){
-  if(this.first_Name.length > 20){
+if(this.Name != null){
+  if(this.Name.length > 20){
     validateStatus = false;
     this.message1 = 'First name cannot exceed 20 characters';
   }
@@ -153,11 +154,7 @@ else{
 }
 
 
-/* if(this.DriverId == null){
-    validateStatus = false;
-    this.message3 = 'Driver ID cannot be empty!';
-}
-*/
+
 
 if(this.dPhone_Nbr != null){
   if(this.dPhone_Nbr.match(mobPattern) == null){
@@ -169,9 +166,9 @@ if(this.dPhone_Nbr != null){
   this.message2 = 'Phone number cannot be empty!';
 }
 
-if(this.local_Address == null){
+if(this.driver_license_num == null){
   validateStatus = false;
-  this.message3 = 'Present Address cannot be empty!';
+  this.message3 = 'Driver License Number cannot be empty!';
 }
 
 if(this.permanent_Address == null){
@@ -272,10 +269,10 @@ this.message11 = '';
 }
 
 
-update(){
-this.new = false;
-//place your code here
-}
+// update(){
+// this.new = false;
+// //place your code here
+// }
 
 close(){
 this.new = false;

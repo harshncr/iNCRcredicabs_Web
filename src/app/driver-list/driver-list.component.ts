@@ -12,7 +12,9 @@ declare var $:any;
   styleUrls: ['./driver-list.component.css']
 })
 export class DriverListComponent implements OnInit {
-
+ loadc=true;
+ module = "vendor";
+ navLocation = "/ View Driver"
   public filterType='';
   public filterValue;
   public drivers=[];

@@ -53,7 +53,7 @@ export class AddVendorComponent {
         console.log(response);
         if(response.status == 200){
           this.message = response._body;
-          this.router.navigate(['vendor-list']);
+          //this.router.navigate(['vendor-list']);
         }
     })
   }else{

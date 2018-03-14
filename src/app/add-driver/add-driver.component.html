@@ -2,6 +2,7 @@
 <!-- Name Section -->
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
+      <div class="success">{{success}}</div>
     <form class="form-horizontal" role="form">
       <fieldset>
 
@@ -9,19 +10,19 @@
    
        
         <!-- Text input-->
-        <legend>Choose Driver Type</legend>
+        <legend>Driver License Number*</legend>
         <div class="form-group">
             <div class="col-sm-5">
-            <input type="radio" value="primary" name="d_type" [(ngModel)]="d_type"> Primary Driver
-            <input type="radio" value="secondary" name="d_type" [(ngModel)]="d_type"> Secondary Driver
-            </div>
+            <p> <b> Driver License Number*</b> </p> <input type="text" name="driver_license_num" [(ngModel)]="driver_license_num" placeholder="Driver License Number" class="form-control"> 
+            <span class="text-danger" ng-show="driver_license_num.$error.required">{{message3}}</span>  
+        </div>
         </div>
    
         <legend>Personal Information Details</legend>
         <div class="form-group">
             <div class="col-sm-3">
-           <p> <b> First Name*</b> </p>  <input type="text" name="first_Name" [(ngModel)]="first_Name" placeholder="First Name" class="form-control">
-            <span class="text-danger" ng-show="first_Name.$error.required">{{message1}}</span>            
+           <p> <b>Name*</b> </p>  <input type="text" name="Name" [(ngModel)]="Name" placeholder="Name" class="form-control">
+            <span class="text-danger" ng-show="Name.$error.required">{{message1}}</span>            
           </div>
               
           <div class="col-sm-3">
@@ -29,26 +30,7 @@
             <span class="text-danger" ng-show="dPhone_Nbr.$error.required">{{message2}}</span>
           </div>
         </div> 
-
-            
-
-        
-<!--
-          <div class="col-sm-3">
-            <input type="text" name="DriverId" [(ngModel)]="DriverId" placeholder="Driver Id" class="form-control">
-            <span class="text-danger" ng-show="DriverId.$error.required">{{message3}}</span>
-          </div>--> 
-          
-          
-
-
-       
-
-       <!--<div class="col-sm-3">
-            <input type="email" name="Email"  [(ngModel)]="Email" placeholder="Email" class="form-control">
-            <span class="text-danger" ng-show="Email.$error.required">{{message5}}</span>
-          </div>
-         -->
+ 
      
         <!-- Text input-->
         
@@ -59,8 +41,7 @@
         <!-- Text input-->
         <div class="form-group">
           <div class="col-sm-9">
-          <p><b>Present Address*</b></p> <input type="text" name="local_Address"  [(ngModel)]="local_Address" placeholder="Present Address" class="form-control">
-            <span class="text-danger" ng-show="local_Address.$error.required">{{message3}}</span>
+          <p><b>Present Address</b></p> <input type="text" name="local_Address"  [(ngModel)]="local_Address" placeholder="Present Address" class="form-control">
           </div>
 
           <div class="col-sm-9">
@@ -135,21 +116,7 @@
 
                       
             
-                      
-                         
-                          <!-- <div class="col-sm-3">
-                            <p><b>Character Certificate Document</b></p> 
-                            <input type="file" name="d_character_certi" file-Model="d_character_certi" placeholder="d_character_certi">
-                          </div>-->
-                          
-                     
-                   
-                        <!--  <div class="col-sm-3">
-                            <p> <b>Medical Certificate Document </b></p>
-                               <input type="file" name="d_medical_certificate" file-Model="d_medical_certificate" placeholder="d_medical_certificate">
-                          </div> -->
-    
-
+                  
 
 <!-- Command -->
         <div class="form-group">
@@ -160,8 +127,8 @@
             
               <div *ngIf="new" id="over">
                 <div id="box">
-                       <b><h4>Do you want to update the Driver?</h4></b><br><br>
-                <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-success"id="other" (click)=update()> Update </button>
+                       <b><h4>Driver Details Already Exists !!!</h4></b><br><br>
+                <!-- <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-success"id="other" (click)=update()> Update </button> -->
                 <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary"id="close" (click)=close()> Close </button>
                 </div>
                 </div>

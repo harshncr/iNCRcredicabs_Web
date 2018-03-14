@@ -1,16 +1,51 @@
 <nav class="navbar navbar-default">
+    <table class="col-sm-12">
+        <tr>
  
     
+            <td class="col-lg-5">  
+              <div class="navbar-brand" routerLink="/dash"><strong>iNCRediCabs</strong></div>
+                 <ul class="nav navbar-nav">
+                    <li>
+                     <span class="separator">
+    
+                     </span>
+                    </li>  
+                    <li><a  class="nav-tabs">Dashboard/{{a}}</a></li>
+    
+                 </ul>
+            </td>
+            <td class="col-lg-5">
+                <ul class="nav navbar-nav">
+                    <li><span class="separator"></span></li>
+                    <li>
+                      <a routerLink="/unscheduledRequest">
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        Request
+                      </a>
+                    </li>
+                    <li><span class="separator"></span></li>
+                  </ul>
+            </td>
       
-  <div class="navbar-brand"><strong>iNCRediCabs</strong></div>
-  <ul class="nav navbar-nav">
-    <li><a routerLink="/dash" class="nav-tabs">Dashboard</a></li>
-    <li><a class="nav-tabs" routerLink="">Logout</a></li>
-  </ul>
+        
+<td>
   <ul class="nav navbar-nav pull-right">
-    <li><a routerLink="/add-vendor" class="nav-tabs">Add Vendor</a></li>
-    <li><a routerLink="/cab-list" class="nav-tabs" >View Cab</a></li>
-    <li><a routerLink="/driver-list" class="nav-tabs">View Driver</a></li>
+    <li>
+      <span class="separator">
+
+      </span>
+    </li>  
+    <li>
+      <a routerLink="">
+          <span class="glyphicon glyphicon-log-out"></span>
+        Logout
+      </a>
+      </li>
   </ul>
+  </td>
+</tr>
+</table>
+       
 
 </nav>

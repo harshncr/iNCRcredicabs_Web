@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CabService } from '../cab.service';
 import { CabData } from './cabData';
 import { Router } from '@angular/router';
+import { VendorData } from '../vendor-list/vendorData';
 
 declare var jquery:any;
 declare var $:any;
@@ -12,13 +13,18 @@ declare var $:any;
   styleUrls: ['./cab-list.component.css']
 })
 export class CabListComponent implements OnInit {
-
+  module = "vendor";
   public filterType='';
   public filterValue;
+  loadb=true;
+  loada=false;
+
+  navLocation = "/ View Cab"
 
   public cabs=[];
   public selectedItem;
 
+  id;
   public cab_num;
   public isDeleted;
   public popupString="";
@@ -28,14 +34,16 @@ export class CabListComponent implements OnInit {
   public message;
   public msgValue;
   
-  constructor(private _cabService: CabService, private _cabData: CabData, private router: Router) { }
+  constructor(private _cabService: CabService, private _cabData: CabData,private _vendors:VendorData, private router: Router) { }
 
   ngOnChanges(){
     console.log("1");
   }
   
   ngOnInit() {
-    this._cabService.getCabs().subscribe(resp=>{
+    this.id=this._vendors.getItem();
+    console.log(this.id);
+    this._cabService.getCabs(this.id).subscribe(resp=>{
       this.cabs = resp.result;
       this.initShowDetails(this.cabs);
           });
@@ -117,7 +125,7 @@ export class CabListComponent implements OnInit {
     if(cab.status == 1){
         this._cabService.enableCab(JSONStr).subscribe((response)=>{
           this.isDeleted=response.result;
-          this._cabService.getCabs().subscribe(resp=>{
+          this._cabService.getCabs(this._vendors).subscribe(resp=>{
             this.cabs=resp.result;
             console.log(this.cabs);
             this.initShowDetails(this.cabs);
@@ -131,7 +139,7 @@ export class CabListComponent implements OnInit {
       //console.log(response);
       this.isDeleted=response.result;
       //this.popupString="The selected entry has been deleted!";  
-      this._cabService.getCabs().subscribe(resp=>{
+      this._cabService.getCabs(this._vendors).subscribe(resp=>{
         this.cabs = resp.result;
         this.initShowDetails(this.cabs);
             });

@@ -1,0 +1,9 @@
+.navbar-brand{
+    cursor: pointer;
+}
+.separator{
+    display: block;
+    width: 1px;
+    background: linear-gradient(#f8f8f8,#aaaaaa, #f8f8f8);
+    height: 50px;
+}

@@ -1,9 +1,9 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 //import { VendorService } from '../vendor.service';
 import { Router } from '@angular/router';
-import { VendorData } from '../vendor-list/vendorData';
+//import { VendorData } from '../vendor-list/vendorData';
 import { CabService } from '../cab.service';
-import { CabData } from '../cab-list/cabData';
+//import { CabData } from '../cab-list/cabData';
 
 @Component({
   selector: 'app-add-cab',
@@ -50,13 +50,10 @@ export class AddCabComponent implements OnInit {
   public message13;
   public message14;
   public new:boolean=false;
-  public vendor_id;
-  constructor(public _cabData:CabData, private httpService : CabService,private elem:ElementRef, private route : Router, private vendor:VendorData) { }
+  public success;
+  constructor(private httpService : CabService,private elem:ElementRef, private route : Router) { }
 
   ngOnInit() {
-    console.log(this.vendor.getItem().id);
-    this.vendor_id = this.vendor.getItem().id;
-    
   }
 
   add_cab(){
@@ -115,7 +112,7 @@ export class AddCabComponent implements OnInit {
       
 
 
-        let body={"vendor_id": this.vendor_id, "onrshp": this.onrshp, "license_plate_number":this.license_plate_number,"model":this.model, "fuel":this.fuel,"type":this.type,  "occupancy":this.occupancy,"cab_rate": this.cab_rate, "Rcert": this.Rcert,"Pcert": this.Pcert,"Fcert": this.Fcert,"icert": this.icert,"entry_tax_haryana_certi": this.entry_tax_haryana_certi,"entry_tax_delhi_certi": this.entry_tax_delhi_certi,"entry_tax_up_certi": this.entry_tax_up_certi,"entry_tax_haryana_exp_date": this.entry_tax_haryana_exp_date,"entry_tax_delhi_exp_date": this.entry_tax_delhi_exp_date,"entry_tax_up_exp_date": this.entry_tax_up_exp_date,"Mdate":this.Mdate, "Pdate":this.Pdate, "Fdate":this.Fdate ,  "idate":this.idate}
+        let body={"onrshp": this.onrshp, "license_plate_number":this.license_plate_number,"model":this.model, "fuel":this.fuel,"type":this.type,  "occupancy":this.occupancy,"cab_rate": this.cab_rate, "Rcert": this.Rcert,"Pcert": this.Pcert,"Fcert": this.Fcert,"icert": this.icert,"entry_tax_haryana_certi": this.entry_tax_haryana_certi,"entry_tax_delhi_certi": this.entry_tax_delhi_certi,"entry_tax_up_certi": this.entry_tax_up_certi,"entry_tax_haryana_exp_date": this.entry_tax_haryana_exp_date,"entry_tax_delhi_exp_date": this.entry_tax_delhi_exp_date,"entry_tax_up_exp_date": this.entry_tax_up_exp_date,"Mdate":this.Mdate, "Pdate":this.Pdate, "Fdate":this.Fdate ,  "idate":this.idate}
        
         console.log(body);
         this.httpService.addcab(body)
@@ -133,14 +130,14 @@ export class AddCabComponent implements OnInit {
                     {
                       this.httpService.sendfile(file_upload[i]).subscribe();
                     }
-                    let c={"cab_no":this.license_plate_number,"vendor_id":this.vendor_id};
-                    this._cabData.setItem(c);
-                    this._cabData.setType("primary");
+                    //let c={"cab_no":this.license_plate_number,"vendor_id":this.vendor_id};
+                    //this._cabData.setItem(c);
+                    //this._cabData.setType("primary");
                     // this._cabData.setCabId(this.license_plate_number);
                     // this._cabData.setVenId(this.vendor_id);
                     console.log("Image Uploaded");
-
-                    this.route.navigate(['add-driver']) ;
+                    this.success = response._body;
+                    //this.route.navigate(['add-driver']) ;
                   }
                 }
         })
@@ -293,10 +290,10 @@ refreshErrorValues(){
   this.message14 = '';
 }
 
-update(){
-  this.new=false;
-//place your code here
-}
+// update(){
+//   this.new=false;
+// //place your code here
+// }
 
 close(){
   this.new=false;

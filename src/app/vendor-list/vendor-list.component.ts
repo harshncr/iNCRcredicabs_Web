@@ -15,7 +15,16 @@ declare var $:any;
   styleUrls: ['./vendor-list.component.css']
 })
 export class VendorListComponent implements OnInit {
+  module = "vendor";  
+  navLocation = "/ View Vendor";
 
+  loada = true;
+
+  showFilterPanel = false;
+  public a=0;
+  showLoading = true;
+  public click = 0;
+  
   public vendors=[];
   public selectedItem;
   public filterType='';
@@ -26,7 +35,11 @@ export class VendorListComponent implements OnInit {
   public tooltipText="disable?";
   public showVenArr = [];
   new:boolean = false;
-  constructor(private _vendorService : VendorService,private router : Router, private _vendorData : VendorData) { }
+ 
+  constructor(private _vendorService : VendorService,private router : Router, private _vendorData : VendorData, ) {
+
+   
+   }
 
   ngOnChanges(){
     console.log("1");
@@ -41,9 +54,14 @@ export class VendorListComponent implements OnInit {
     console.log("2");
     this._vendorService.getVendors().subscribe(resp=>{
       this.vendors = resp.result;
+      if(this.vendors.length != 0)
+      {
+        this.showLoading = false;
+      }
      // console.log(resp.result);
       this.initShowDetails(this.vendors);
           });
+         
         //  debugger;
           //console.log(this.vendors);
           this.isDeleted=false;  
@@ -91,6 +109,14 @@ export class VendorListComponent implements OnInit {
     this._vendorService.searchVendor(JSONStr).subscribe((response)=>{
       this.vendors=response.result;
     });
+  }
+  filt(){
+    if(this.a==1){
+      this.a=this.a-1;
+    }
+    else{
+      this.a=this.a+1;
+    }
   }
 
   onDeleteClick(vendor){
@@ -221,6 +247,15 @@ export class VendorListComponent implements OnInit {
     else
     return "";
   }
+  cabbie(vendor){
+    console.log(vendor.id);
+    this.selectedItem=vendor.id;
+    console.log(this.selectedItem);
+    this._vendorData.setItem(this.selectedItem);
+    this.router.navigate(['cab-list']);
+
+
+  }
 
   initShowDetails(ven){
     this.showVenArr = [];
@@ -231,12 +266,40 @@ export class VendorListComponent implements OnInit {
   }
 
   onShowDetails(i){
+   if(this.click == 0)
+   {
     $('#vd-'+i).slideDown();
     this.showVenArr[i] = true;
+   this.click=this.click+1;
   }
-
-  onHideDetails(i){
+  else{
     $('#vd-'+i).slideUp();
     this.showVenArr[i] = false;
+    this.click = 0;
+
   }
 }
+
+  onHideDetails(i){
+   
+  }
+  onFilterPanelChevronMouseEnter(tgt){
+    $('.filter-panel-heading-button .tooltip-text').show();
+  }
+
+  onFilterPanelChevronMouseLeave(tgt){
+    $('.filter-panel-heading-button .tooltip-text').hide();
+  }
+
+  filterPanelToggle(){
+    if(this.showFilterPanel){
+      $('#filter-panel .panel-body').slideUp();
+      this.showFilterPanel = false;
+    }else{
+      $('#filter-panel .panel-body').slideDown();
+      this.showFilterPanel = true;
+    }
+  }
+}
+
+

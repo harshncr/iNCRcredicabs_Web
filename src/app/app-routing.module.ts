@@ -36,7 +36,7 @@ import { AddDriverComponent }                     from './add-driver/add-driver.
 import { AddCabComponent }                        from './add-cab/add-cab.component';
 import { DriverUpdateComponent }                  from './driver-update/driver-update.component';
 import { MassUploadEmployeeComponent }            from './mass-upload-employee/mass-upload-employee.component';
-
+import { RelationshipFormComponent }                       from  './relationship-form/relationship-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login',   pathMatch: 'full' },
@@ -84,7 +84,8 @@ const routes: Routes = [
   { path: 'add-driver',               component: AddDriverComponent },
   { path: 'add-cab',                  component: AddCabComponent },
   { path: 'driver-list',              component: DriverListComponent },
-  { path: 'driver-update',            component: DriverUpdateComponent }
+  { path: 'driver-update',            component: DriverUpdateComponent },
+  { path: 'relationship',            component:RelationshipFormComponent }
 ];
 
 @NgModule({
