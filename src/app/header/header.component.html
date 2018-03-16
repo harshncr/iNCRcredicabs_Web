@@ -1,149 +1,60 @@
 <nav class="navbar navbar-default">
-  <table class="col-sm-12">
-    <tr>
-      <td class="col-lg-5">
-        <div class="navbar-brand"><strong><a routerLink="/dash">iNCRediCabs</a></strong></div>
-        <div>
-          <div class="navbar-brand" *ngIf="employee">
-            Employee
-            <span *ngIf="navLocation">
-              {{ navLocation }}
-            </span>
-          </div>
-          <div class="navbar-brand" *ngIf="roster">
-            Roster
-            <span *ngIf="navLocation">
-              {{ navLocation }}
-            </span>
-          </div>
-          <div class="navbar-brand" *ngIf="reports">
-            Reports
-            <span *ngIf="navLocation">
-              {{ navLocation }}
-            </span>
-          </div>
-          <div class="navbar-brand" *ngIf="vendor">
-            Vendor
-            <span *ngIf="navLocation">
-              {{ navLocation }}
-            </span>
-          </div>
-          <div class="navbar-brand" *ngIf="unscheduledRequest">
-            Unscheduled Request
-            <span *ngIf="navLocation">
-              {{ navLocation }}
-            </span>
-          </div>
-        </div>
-      </td>
-      <td class="col-lg-6">
-        <ul class="nav navbar-nav">
-          <li><span class="separator"></span></li>
-          <li>
-            <a routerLink="/unscheduledRequest">
-              <span class="glyphicon glyphicon-exclamation-sign"></span>
-              Request
-            </a>
-          </li>
-          <li><span class="separator"></span></li>
-        </ul>
-        <!-- Employee Menu -->
-        <div id="employee_menu" *ngIf="employee">
-          
-          <ul id="header-links" class="nav navbar-nav">
-            <li>
-              <!-- <span class="hdr-emp">
-                <a routerLink="/employee/add" id="hdr-lnk-emp-add"
-                  (mouseenter)="onMouseEnterLink($event.target)"
-                  (mouseleave)="onMouseLeaveLink($event.target)">
-                  <img id="header-employee-add" src="./assets/img/employee-add.svg">
-                </a>
-                <span class="tooltip-text" id="hdr-lnk-ae">Add Employee</span>
-              </span> -->
-              <a class="nav-link" routerLink="/employee/add">Add Employee</a>
-            </li>
-            <li>
-              <!-- <span class="hdr-emp">
-                <a routerLink="/employee/mass-upload" id="hdr-lnk-emp-mu"
-                  (mouseenter)="onMouseEnterLink($event.target)"
-                  (mouseleave)="onMouseLeaveLink($event.target)">
-                  <img id="header-employee-mu" src="./assets/img/employee-mass-upload.svg">
-                </a>
-                <span class="tooltip-text" id="hdr-lnk-mu">Add Employee</span>
-              </span> -->
-              <a class="nav-link" routerLink="/employee/mass-upload">Mass Upload</a>
-            </li>
-            <li>
-              <!-- <span class="hdr-emp">
-                <a routerLink="/employee/view" id="hdr-lnk-emp-view"
-                  (mouseenter)="onMouseEnterLink($event.target)"
-                  (mouseleave)="onMouseLeaveLink($event.target)">
-                  <img id="header-employee-add" src="./assets/img/employee-view.svg">
-                </a>
-                <span class="tooltip-text" id="hdr-lnk-ve">View Employees</span>
-              </span> -->
-              <a class="nav-link" routerLink="/employee/view">View Employee</a>
-            </li>
-          </ul>
-        </div>
-        <!-- Roster Menu -->
-        <div id="roster_menu" *ngIf="roster">
-          <ul class="nav navbar-nav ">
-            <li><a routerLink="/roster/addRoute">Add Route</a></li>
-            <li><a routerLink="/roster/editroute">Edit Route</a></li>
-            <li><a (click)="emitUpload()" >Upload Roster</a></li>
-          </ul>
-        </div>
-        <!-- Vendor Menu -->
-        <div id="vendor_menu" *ngIf="vendor">
-          <ul class="nav navbar-nav">
-            <!-- <li><a href="#">Add Vendor</a></li>
-            <li><a href="#">View / Edit Vendor</a></li> -->            
-            <li>
-              <a *ngIf ="loada" routerLink="/add-vendor" class="nav-tabs">Add Vendor</a>
-            </li>
-            <li>
-              <a *ngIf ="loada" routerLink="/relationship" class="nav-tabs">View/Add RelationShip</a>
-            </li>
-            
-            <li><a  *ngIf ="loadb" routerLink="/add-cab" class="nav-tabs" >Add Cab</a></li>
-            <li>
-              <a *ngIf ="loadb" routerLink="/relationship" class="nav-tabs">View/Add RelationShip</a>
-            </li>
-            <li><a  *ngIf = "loadc" routerLink="/add-driver" class="nav-tabs">Add Driver</a></li>
-            <li>
-              <a *ngIf ="loadc" routerLink="/relationship" class="nav-tabs">View/Add RelationShip</a>
-            </li>
-            <li><a  *ngIf = "loadd" routerLink ="/vendor-list"class="nav-tabs"> View Vendor</a></li>
-          </ul>
-        </div>
-        <!-- Reports Menu -->
-        <div id="reports_menu" *ngIf="unscheduledRequest">
-          <ul class="nav navbar-nav">            
-            <li>
-              <a (click)="downloadRequestExcel()">
-                <span class="glyphicon glyphicon-download-alt"></span>
-                Download
-              </a>
-            </li>
-          </ul>
-        </div>
-      </td>
-      <td>
-        <ul class="nav navbar-nav pull-right">
-          <li>
-            <span class="separator">
-
-            </span>
-          </li>
-          <li>
-            <a routerLink="/logout">
-              <span class="glyphicon glyphicon-log-out"></span>
-              Logout
-            </a>
-          </li>
-        </ul> 
-      </td>
-    </tr>
-  </table>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="navbar-brand"><strong><a routerLink="/dash">iNCRediCabs</a></strong></div>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"
+        (click)="isCollapsed = !isCollapsed">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="incredicabs-navbar-collapse">
+      <ul class="nav navbar-nav navbar-left">
+        <li class="navbar-navlocation" *ngIf="employee">
+          Employee
+          <span *ngIf="navLocation">{{ navLocation }}</span>
+        </li>
+        <li class="navbar-navlocation" *ngIf="roster">
+          Roster
+          <span *ngIf="navLocation">{{ navLocation }}</span>
+        </li>
+        <li class="navbar-navlocation" *ngIf="reports">
+          Reports
+          <span *ngIf="navLocation">{{ navLocation }}</span>
+        </li>
+        <li class="navbar-navlocation" *ngIf="vendor">
+          Vendor
+          <span *ngIf="navLocation">{{ navLocation }}</span>
+        </li>
+        <li class="navbar-navlocation" *ngIf="unscheduledRequest">
+          Unscheduled Request
+          <span *ngIf="navLocation">{{ navLocation }}</span>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a routerLink="/unscheduledRequest"><span class="glyphicon glyphicon-exclamation-sign"></span>Request</a></li>
+        <!-- <li><span class="separator"></span></li> -->
+        <li role="separator" class="divider"></li>
+        <li><a *ngIf="employee" class="nav-link" routerLink="/employee/add">Add Employee</a></li>
+        <li><a *ngIf="employee" class="nav-link" routerLink="/employee/mass-upload">Mass Upload</a></li>
+        <li><a *ngIf="employee" class="nav-link" routerLink="/employee/view">View Employee</a></li>
+        <li><a *ngIf="roster" routerLink="/roster/addRoute">Add Route</a></li>
+        <li><a *ngIf="roster" routerLink="/roster/editroute">Edit Route</a></li>
+        <li><a *ngIf="roster" (click)="emitUpload()" >Upload Roster</a></li>
+        <li><a *ngIf="vendor && loada" routerLink="/add-vendor" class="nav-tabs">Add Vendor</a></li>
+        <li><a *ngIf="vendor && loada" routerLink="/relationship" class="nav-tabs">View/Add RelationShip</a></li>
+        <li><a *ngIf="vendor && loadb" routerLink="/add-cab" class="nav-tabs" >Add Cab</a></li>
+        <li><a *ngIf="vendor && loadb" routerLink="/relationship" class="nav-tabs">View/Add RelationShip</a></li>
+        <li><a *ngIf="vendor && loadc" routerLink="/add-driver" class="nav-tabs">Add Driver</a></li>
+        <li><a *ngIf="vendor && loadc" routerLink="/relationship" class="nav-tabs">View/Add RelationShip</a></li>
+        <li><a *ngIf="vendor && loadd" routerLink ="/vendor-list"class="nav-tabs"> View Vendor</a></li>
+        <li><a *ngIf="unscheduledRequest" (click)="downloadRequestExcel()"><span class="glyphicon glyphicon-download-alt"></span>Download</a></li>
+        <!-- <li *ngIf="employee || roster || vendor || unscheduledRequest"><span class="separator"></span></li> -->
+        <li *ngIf="employee || roster || vendor || unscheduledRequest" role="separator" class="divider"></li>        
+        <li><a routerLink="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+      </ul>
+    </div>
+  </div>
 </nav>

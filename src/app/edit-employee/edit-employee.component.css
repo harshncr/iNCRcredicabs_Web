@@ -1,32 +1,16 @@
-#edit-employee-form{
-    padding: 0px;
-}
+#edit-employee-form{padding: 0px;}
+div.panel-body{padding-top: 10px;}
+.input-label{padding: 0px 0px 0px 5px;font-size: 0.9em;}
+.imp{color: #ff0000;}
+.imp-ph::placeholder{color: #ff4a4a;opacity: 0.75;}
+.imp-select-option{color: #ff4a4a;opacity: 0.75;}
 
-div.panel-body{
-    padding-top: 10px;
-}
-
-.input-label{
-    padding: 0px 0px 0px 5px;
-    font-size: 0.75em;
-    animation: fadein 2s;
-}
-
-.imp{
-    color: #ff0000;
-}
-
-.imp-ph::placeholder{
-    color: #ff4a4a;
-    opacity: 0.75;
-}
-
-.imp-select-option{
-    color: #ff4a4a;
-    opacity: 0.75;
-}
-
-@keyframes fadein{
-    from{ opacity: 0;}
-    to{ opacity: 1;}
+/*
+    The input type="number" is used for inputting
+    data like contact nos and postal codes etc.
+    Spin buttons are not required in this form
+*/
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{
+    -webkit-appearance: none;
 }

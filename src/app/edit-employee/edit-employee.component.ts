@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { EmployeeData } from '../view-employee/employeeData';
-import { EmployeeService } from '../Services/employee.service';
-import { Filter } from '../Model/filter';
-import { Employee } from '../Model/employee';
-import { Location } from '@angular/common';
-import { Manager } from '../Model/manager';
+import { Component, OnInit }  from '@angular/core';
+import { ActivatedRoute }     from '@angular/router';
+import { EmployeeData }       from '../view-employee/employeeData';
+import { EmployeeService }    from '../Services/employee.service';
+import { Filter }             from '../Model/filter';
+import { Employee }           from '../Model/employee';
+import { Location }           from '@angular/common';
+import { Manager }            from '../Model/manager';
 
 @Component({
   selector: 'app-edit-employee',
@@ -13,73 +14,127 @@ import { Manager } from '../Model/manager';
 })
 
 export class EditEmployeeComponent implements OnInit {
+  ////-------------data for header-------------
+  module                = "employee";
+  navLocation           = "/ View Details";
+  ////-----------------------------------------
+
+  ////-------------data for loader-------------
+  showLoader            = true;
+  loaderText            = "Loading...";
+  ////-----------------------------------------
+
   emp: Employee;
-  editDetails = true;
-  noResultError = true;
   filter: Filter;
-  mgr: string = null;
-  mgrArr:Array<Manager> = [];
-  mgrSuggestion = false;
   selectedManager1:string;
   selectedManager2:string;
-  showSuccess = false;
-  showError = false;
-  message = '';
+  mgrArr:Array<Manager> = [];
+  validMgrQlids = [];
+
+  editDetails           = true;
+  noResultError         = true;
+  mgr: string           = null;
+  mgrSuggestion         = false;
+  showSuccess           = false;
+  showError             = false;
+  message               = '';
+  employeeLoaded        = false;
+  manager1Loaded        = false;
+  manager2Loaded        = false;
+  error                 = false;
+  errorMessage          = '';
 
   //// Initialise formError
   formError = {
-    empQlid: {error: false, message: ''},
-    empFName: {error: false, message: ''},
-    empMName: {error: false, message: ''},
-    empLName: {error: false, message: ''},
-    empMobNbr: {error: false, message: ''},
-    empGender: {error: false, message: ''},
-    rolesId: {error: false, message: ''},
-    empMgrQlid1: {error: false, message: ''},
-    empMgrQlid2: {error: false, message: ''},
-    empAddLine1: {error: false, message: ''},
-    empAddLine2: {error: false, message: ''},
-    empZone: {error: false, message: ''},
-    empPin: {error: false, message: ''},
-    empPickupArea: {error: false, message: ''},
-    empHomeNbr: {error: false, message: ''},
-    empEmergNbr: {error: false, message: ''},
-    empBloodGrp: {error: false, message: ''}
+    empQlid:      {error: false, message: ''},
+    empFName:     {error: false, message: ''},
+    empMName:     {error: false, message: ''},
+    empLName:     {error: false, message: ''},
+    empMobNbr:    {error: false, message: ''},
+    empGender:    {error: false, message: ''},
+    rolesId:      {error: false, message: ''},
+    empMgrQlid1:  {error: false, message: ''},
+    empMgrQlid2:  {error: false, message: ''},
+    empAddLine1:  {error: false, message: ''},
+    empAddLine2:  {error: false, message: ''},
+    empZone:      {error: false, message: ''},
+    empPin:       {error: false, message: ''},
+    empPickupArea:{error: false, message: ''},
+    empHomeNbr:   {error: false, message: ''},
+    empEmergNbr:  {error: false, message: ''},
+    empBloodGrp:  {error: false, message: ''}
   };
 
   constructor(
+    private route: ActivatedRoute,
     public _employeeData: EmployeeData,
     public employeeService: EmployeeService,
     public _location: Location
   ){ }
 
   ngOnInit() {
-    this.employeeService.currentEmp.subscribe((emp) => {
-      // emp.empStatus.toUpperCase();
-      this.emp = emp;
-      this.emp.empStatus = this.emp.empStatus.toUpperCase();
-      this.emp.empGender = this.emp.empGender.toUpperCase();
-      // console.log(this.emp);
-    });
-    this.mgrSuggestion = true;
-    this.employeeService.getAllManagers().subscribe((data) => {
-      this.mgrArr = data;
-      // console.log(data);
+    // this.employeeService.currentEmp.subscribe((emp) => {
+    //   // emp.empStatus.toUpperCase();
+    //   this.emp = emp;
+    //   this.emp.empStatus = this.emp.empStatus.toUpperCase();
+    //   this.emp.empGender = this.emp.empGender.toUpperCase();
+    //   // console.log(this.emp);
+    // });
+    this.route.params.subscribe((params)=>{
+      let qlid = params['qlid'];
+      this.employeeService.getEmployeeByQlid(qlid).subscribe((data) => {
+        if(data != null && data != undefined){
+          if(data.success){
+            this.emp = data;
+            console.log('Employee loaded!');
+            console.log(this.emp);            
+            this.employeeLoaded = true;
+            this.mgrSuggestion = true;
+            this.employeeService.getAllManagers().subscribe((data) => {
+              this.mgrArr = data;
+              // console.log(data);
+        
+              //// Set the Manager name 
+              let mgrQlid1, mgrQlid2, mgrName1, mgrName2;
+              for(var i=0; i<this.mgrArr.length; ++i){
+                this.validMgrQlids.push(this.mgrArr[i].mgrQlid);
 
-      //// Set the Manager name 
-      let mgrQlid, mgrIndex;
-      for(var i=0; i<this.mgrArr.length; ++i){
-        if(this.mgrArr[i].mgrQlid == this.emp.empMgrQlid1){
-          mgrQlid = this.emp.empMgrQlid1;
-          mgrIndex = i;
-          break;
+                if(this.mgrArr[i].mgrQlid == this.emp.empMgrQlid1){
+                  mgrQlid1 = this.emp.empMgrQlid1;
+                  mgrName1 = this.mgrArr[i].mgrFName + ' ' + this.mgrArr[i].mgrLName;
+                  this.manager1Loaded = true;
+                }
+                
+                if(this.mgrArr[i].mgrQlid == this.emp.empMgrQlid2){
+                  mgrQlid2 = this.emp.empMgrQlid2;
+                  mgrName2 = this.mgrArr[i].mgrFName + ' ' + this.mgrArr[i].mgrLName;
+                  this.manager2Loaded = true;
+                }
+              }
+        
+              if(this.manager1Loaded){
+                this.selectedManager1 = mgrName1 + ' : ' + mgrQlid1;
+              }
+        
+              if(this.manager2Loaded){
+                this.selectedManager2 = mgrName2 + ' : ' + mgrQlid2;
+              }
+              console.log('Loaded Manager ' + this.selectedManager1 + ' ' + this.selectedManager2);
+            });
+          }else{
+            this.error = true;
+            if(data.message != null){
+              this.errorMessage = data.message;
+            }else{
+              this.errorMessage = 'Couldn\'t find the user with qlid: ' + qlid
+            }
+          }
+        }else{
+          this.error = true;
+          this.errorMessage = 'Error retrieving the data!';
         }
-      }
-
-      if(this.mgrArr[mgrIndex] != null){
-        this.selectedManager1 = this.mgrArr[mgrIndex].mgrFName + ' '
-                + this.mgrArr[mgrIndex].mgrLName + ' : ' + mgrQlid;
-      }
+        this.showLoader = false;
+      });
     });
   }
 
@@ -87,18 +142,17 @@ export class EditEmployeeComponent implements OnInit {
     this._location.back();
   }
 
-  setManagerQlid1(manager){
-    let strArr = manager.split(':');
+  setManagerQlid1(mgr){
+    let strArr = mgr.split(':');
     let mgrQlid1;
-    let mgrQlid2;
     if(strArr){
       mgrQlid1 = strArr[1].replace(/\s/g, '');
     }
     this.emp.empMgrQlid1 = mgrQlid1;
   }
 
-  setManagerQlid2(manager){
-    let strArr = manager.split(':');
+  setManagerQlid2(mgr){
+    let strArr = mgr.split(':');
     let mgrQlid2;
     if(strArr){
       mgrQlid2 = strArr[1].replace(/\s/g, '');
@@ -106,35 +160,80 @@ export class EditEmployeeComponent implements OnInit {
     this.emp.empMgrQlid2 = mgrQlid2;
   }
 
+  onMgrQlid1Change(qlid){
+    let mgrIndex1 = -1;
+    this.emp.empMgrQlid1 = this.emp.empMgrQlid1.toUpperCase();
+
+    for(var i=0; i<this.mgrArr.length; ++i){
+      if(this.mgrArr[i].mgrQlid.toUpperCase() == qlid.toUpperCase()){
+        mgrIndex1 = i;
+        break;
+      }
+    }
+
+    if(mgrIndex1 == -1 || this.mgrArr == null || this.mgrArr == undefined){
+      return;
+    }
+
+    this.selectedManager1 = this.mgrArr[mgrIndex1].mgrFName + ' ' +
+                            this.mgrArr[mgrIndex1].mgrLName + ' : ' +
+                            this.mgrArr[mgrIndex1].mgrQlid;
+  }
+
+  onMgrQlid2Change(qlid){
+    let mgrIndex2 = -1;
+    this.emp.empMgrQlid2 = this.emp.empMgrQlid2.toUpperCase();
+
+    for(var i=0; i<this.mgrArr.length; ++i){
+      if(this.mgrArr[i].mgrQlid.toUpperCase() == qlid.toUpperCase()){
+        mgrIndex2 = i;
+        break;
+      }
+    }
+
+    if(mgrIndex2 == -1 || this.mgrArr == null || this.mgrArr == undefined){
+      return;
+    }
+
+    this.selectedManager2 = this.mgrArr[mgrIndex2].mgrFName + ' ' +
+                            this.mgrArr[mgrIndex2].mgrLName + ' : ' +
+                            this.mgrArr[mgrIndex2].mgrQlid;
+  }
+
   onSave(f){
-    // console.log(this.emp);
     if(this.validate()){
+      this.showLoader = true;
       console.log("From is valid!");
+      delete this.emp['success'];
+      delete this.emp['message'];
       this.employeeService.editEmployee(this.emp).subscribe((data) => {
-        // console.log("!!");
-        // console.log(data);
-        if(data.success == false){
+        if(data.success){
+          this.showSuccess = true;          
+        }else{
+          this.showSuccess = false;          
           this.formError = data;
+          console.log(data);
         }
       });
-      this.showSuccess = true;
       this.showError = false;
       this.message = "Employee successfully added to the Database!";
     }else{
-      console.log("Invalid!!");
       this.showSuccess = false;
       this.showError = true;
       this.message = "Employee could not be added to the Database!";
     }
+
+    this.showLoader = false;
   }
 
   validate(){
     let validateStatus = true;
-    let qlidPattern = /^\w\w\d{6}$/i;
-    let mobPattern = /^\d{10}$/i;
-    let pinPattern = /^\d{6}$/i;
+
+    let qlidPattern     = /^[a-zA-Z]{2}\d{6}$/i;
+    let mobPattern      = /^\d{10}$/i;
+    let pinPattern      = /^\d{6}$/i;
     let bloodGrpPattern = /^(A|B|AB|O|a|b|ab|o)[\\+\\-]$/i;
-    let genderPattern = /^((M|F)|(m|f))$/i;
+    let genderPattern   = /^((M|F)|(m|f))$/i;
 
     let gender = this.emp.empGender;
     
@@ -199,7 +298,8 @@ export class EditEmployeeComponent implements OnInit {
     }
 
     if(this.emp.empMobNbr != null){
-      if(this.emp.empMobNbr.match(mobPattern) == null){
+      // console.log(mobPattern.test(this.emp.empMobNbr));
+      if(mobPattern.test(this.emp.empMobNbr) == false){
         validateStatus = false;
         this.formError.empMobNbr.error = true;
         this.formError.empMobNbr.message = 'Mobile no format invalid!';
@@ -224,11 +324,51 @@ export class EditEmployeeComponent implements OnInit {
         validateStatus = false;
         this.formError.empMgrQlid1.error = true;
         this.formError.empMgrQlid1.message = 'Invalid QLID format!';
+      }else{
+        let isValidManagerQlid = false;
+        for(var i=0; i<this.mgrArr.length; ++i){
+          if(this.emp.empMgrQlid1.toUpperCase() == this.mgrArr[i].mgrQlid.toUpperCase()){
+            isValidManagerQlid = true;
+            break
+          }
+        }
+
+        if(isValidManagerQlid == false){
+          validateStatus = false;
+          this.formError.empMgrQlid1.error = true;
+          this.formError.empMgrQlid1.message = 'Invalid Manager QLID';
+        }
       }
     }else{
       validateStatus = false;
       this.formError.empMgrQlid1.error = true;
-      this.formError.empMgrQlid1.message = 'Manager QLID cannot be empty!'; 
+      this.formError.empMgrQlid1.message = 'L1 Manager QLID cannot be empty!'; 
+    }
+
+    if(this.emp.empMgrQlid2 != null){
+      if(this.emp.empMgrQlid2.match(qlidPattern) == null){
+        validateStatus = false;
+        this.formError.empMgrQlid2.error = true;
+        this.formError.empMgrQlid2.message = 'Invalid QLID format!';
+      }else{
+        let isValidManagerQlid = false;
+        for(var i=0; i<this.mgrArr.length; ++i){
+          if(this.emp.empMgrQlid2.toUpperCase() == this.mgrArr[i].mgrQlid.toUpperCase()){
+            isValidManagerQlid = true;
+            break
+          }
+        }
+
+        if(isValidManagerQlid == false){
+          validateStatus = false;
+          this.formError.empMgrQlid2.error = true;
+          this.formError.empMgrQlid2.message = 'Invalid Manager QLID';
+        }
+      }
+    }else{
+      validateStatus = false;
+      this.formError.empMgrQlid2.error = true;
+      this.formError.empMgrQlid2.message = 'L2 Manager QLID cannot be empty!'; 
     }
 
     if(this.emp.empAddLine1 != null){
@@ -268,7 +408,7 @@ export class EditEmployeeComponent implements OnInit {
     }
 
     if(this.emp.empPin != null){
-      if((this.emp.empPin+"").match(pinPattern) == null){
+      if((this.emp.empPin+'').match(pinPattern) == null){
         validateStatus = false;
         this.formError.empPin.error = true;
         this.formError.empPin.message = 'Invalid Postal Code Pattern!';
@@ -292,7 +432,7 @@ export class EditEmployeeComponent implements OnInit {
     }
 
     if(this.emp.empHomeNbr != null){
-      if(this.emp.empHomeNbr.match(mobPattern) == null){
+      if(mobPattern.test(this.emp.empHomeNbr) == false){
         validateStatus = false;
         this.formError.empHomeNbr.error = true;
         this.formError.empHomeNbr.message = 'Please enter a valid home phone no';
@@ -300,7 +440,7 @@ export class EditEmployeeComponent implements OnInit {
     }
 
     if(this.emp.empEmergNbr != null){
-      if(this.emp.empEmergNbr.match(mobPattern) == null){
+      if(mobPattern.test(this.emp.empEmergNbr) == false){
         validateStatus = false;
         this.formError.empEmergNbr.error = true;
         this.formError.empEmergNbr.message = 'Please enter a valid emergency no';
@@ -327,40 +467,61 @@ export class EditEmployeeComponent implements OnInit {
   }
 
   refreshErrorValues(){
-    this.formError.empQlid.error = false;
-    this.formError.empFName.error = false;
-    this.formError.empMName.error = false;
-    this.formError.empLName.error = false;
-    this.formError.empMobNbr.error = false;
-    this.formError.empGender.error = false;
-    this.formError.rolesId.error = false;
-    this.formError.empMgrQlid1.error = false;
-    this.formError.empMgrQlid2.error = false;
-    this.formError.empAddLine1.error = false;
-    this.formError.empAddLine2.error = false;
-    this.formError.empZone.error = false;
-    this.formError.empPin.error = false;
-    this.formError.empPickupArea.error = false;
-    this.formError.empHomeNbr.error = false;
-    this.formError.empEmergNbr.error = false;
-    this.formError.empBloodGrp.error = false;
+    this.formError.empQlid.error          = false;
+    this.formError.empFName.error         = false;
+    this.formError.empMName.error         = false;
+    this.formError.empLName.error         = false;
+    this.formError.empMobNbr.error        = false;
+    this.formError.empGender.error        = false;
+    this.formError.rolesId.error          = false;
+    this.formError.empMgrQlid1.error      = false;
+    this.formError.empMgrQlid2.error      = false;
+    this.formError.empAddLine1.error      = false;
+    this.formError.empAddLine2.error      = false;
+    this.formError.empZone.error          = false;
+    this.formError.empPin.error           = false;
+    this.formError.empPickupArea.error    = false;
+    this.formError.empHomeNbr.error       = false;
+    this.formError.empEmergNbr.error      = false;
+    this.formError.empBloodGrp.error      = false;
     
-    this.formError.empQlid.message = '';
-    this.formError.empFName.message = '';
-    this.formError.empMName.message = '';
-    this.formError.empLName.message = '';
-    this.formError.empMobNbr.message = '';
-    this.formError.empGender.message = '';
-    this.formError.rolesId.message = '';
-    this.formError.empMgrQlid1.message = '';
-    this.formError.empMgrQlid2.message = '';
-    this.formError.empAddLine1.message = '';
-    this.formError.empAddLine2.message = '';
-    this.formError.empZone.message = '';
-    this.formError.empPin.message = '';
-    this.formError.empPickupArea.message = '';
-    this.formError.empHomeNbr.message = '';
-    this.formError.empEmergNbr.message = '';
-    this.formError.empBloodGrp.message = '';
+    this.formError.empQlid.message        = '';
+    this.formError.empFName.message       = '';
+    this.formError.empMName.message       = '';
+    this.formError.empLName.message       = '';
+    this.formError.empMobNbr.message      = '';
+    this.formError.empGender.message      = '';
+    this.formError.rolesId.message        = '';
+    this.formError.empMgrQlid1.message    = '';
+    this.formError.empMgrQlid2.message    = '';
+    this.formError.empAddLine1.message    = '';
+    this.formError.empAddLine2.message    = '';
+    this.formError.empZone.message        = '';
+    this.formError.empPin.message         = '';
+    this.formError.empPickupArea.message  = '';
+    this.formError.empHomeNbr.message     = '';
+    this.formError.empEmergNbr.message    = '';
+    this.formError.empBloodGrp.message    = '';
+  }
+
+  resetForm(){
+    this.refreshErrorValues();
+    this.emp.empQlid        = '';
+    this.emp.empFName       = '';
+    this.emp.empMName       = '';
+    this.emp.empLName       = '';
+    this.emp.empMobNbr      = '';
+    this.emp.empGender      = '';
+    this.emp.rolesId        = '';
+    this.emp.empMgrQlid1    = '';
+    this.emp.empMgrQlid2    = '';
+    this.emp.empAddLine1    = '';
+    this.emp.empAddLine2    = '';
+    this.emp.empZone        = '';
+    this.emp.empPin         = '';
+    this.emp.empPickupArea  = '';
+    this.emp.empHomeNbr     = '';
+    this.emp.empEmergNbr    = '';
+    this.emp.empBloodGrp    = '';
   }
 }

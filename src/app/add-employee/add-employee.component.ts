@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Employee } from '../Model/employee';
-import { EmployeeService } from '../Services/employee.service';
-import { MgrRequest } from '../Model/mgrRequest';
-import { Manager } from '../Model/manager';
+import { Employee }                 from '../Model/employee';
+import { EmployeeService }          from '../Services/employee.service';
+import { MgrRequest }               from '../Model/mgrRequest';
+import { Manager }                  from '../Model/manager';
 
 
 @Component({
@@ -10,60 +10,71 @@ import { Manager } from '../Model/manager';
   templateUrl: './add-employee.component.html',
   styleUrls: ['./add-employee.component.css']
 })
+
 export class AddEmployeeComponent implements OnInit {
-  module = "EMPLOYEE";
-  navLocation = "/ Add Employee";
+  ////-------------data for header-------------
+  module                  = "EMPLOYEE";
+  navLocation             = "/ Add Employee";
+  ////-----------------------------------------
+
+  ////-------------data for loader-------------
+  showLoader              = true;
+  loaderText              = "Loading...";
+  ////-----------------------------------------
+
+  showError               = false;
+  showSuccess             = false;
+  mgr:string              = null;
+  mgrSuggestion           = false;
+  saveClicked             = false;
+
   emp: Employee;
-  showError = false;
-  showSuccess = false;
-  mgr:string = null;
-  mgrArr:Array<Manager> = [];
   mgrReq:MgrRequest;
-  mgrSuggestion = false;
   selectedManager:string;
   selectedManager1:string;
   selectedManager2:string;
-  saveClicked = false;
+  mgrArr:Array<Manager> = [];
+  // validMgrQlids = [];
 
   //// Stores which fields have been altered by the user....
   altered = {
-    empQlid: false,
-    empFName: false,
-    empMName: false,
-    empLName: false,
-    empMobNbr: false,
-    empGender: false,
-    rolesId: false,
-    empMgrQlid1: false,
-    empMgrQlid2: false,
-    empAddLine1: false,
-    empAddLine2: false,
-    empZone: false,
-    empPin: false,
-    empPickupArea: false,
-    empHomeNbr: false,
-    empEmergNbr: false,
-    empBloodGrp: false
+    empQlid:      false,
+    empFName:     false,
+    empMName:     false,
+    empLName:     false,
+    empMobNbr:    false,
+    empGender:    false,
+    rolesId:      false,
+    empMgrQlid1:  false,
+    empMgrQlid2:  false,
+    empAddLine1:  false,
+    empAddLine2:  false,
+    empZone:      false,
+    empPin:       false,
+    empPickupArea:false,
+    empHomeNbr:   false,
+    empEmergNbr:  false,
+    empBloodGrp:  false
   };
   //// Initialise formError
   formError = {
-    empQlid: {error: false, message: ''},
-    empFName: {error: false, message: ''},
-    empMName: {error: false, message: ''},
-    empLName: {error: false, message: ''},
-    empMobNbr: {error: false, message: ''},
-    empGender: {error: false, message: ''},
-    rolesId: {error: false, message: ''},
-    empMgrQlid1: {error: false, message: ''},
-    empMgrQlid2: {error: false, message: ''},
-    empAddLine1: {error: false, message: ''},
-    empAddLine2: {error: false, message: ''},
-    empZone: {error: false, message: ''},
-    empPin: {error: false, message: ''},
-    empPickupArea: {error: false, message: ''},
-    empHomeNbr: {error: false, message: ''},
-    empEmergNbr: {error: false, message: ''},
-    empBloodGrp: {error: false, message: ''}
+    empQlid:        {error: false, message: ''},
+    empFName:       {error: false, message: ''},
+    empMName:       {error: false, message: ''},
+    empLName:       {error: false, message: ''},
+    empMobNbr:      {error: false, message: ''},
+    empGender:      {error: false, message: ''},
+    rolesId:        {error: false, message: ''},
+    empMgrQlid1:    {error: false, message: ''},
+    empMgrQlid2:    {error: false, message: ''},
+    empAddLine1:    {error: false, message: ''},
+    empAddLine2:    {error: false, message: ''},
+    empZone:        {error: false, message: ''},
+    empPin:         {error: false, message: ''},
+    empPickupArea:  {error: false, message: ''},
+    empHomeNbr:     {error: false, message: ''},
+    empEmergNbr:    {error: false, message: ''},
+    empBloodGrp:    {error: false, message: ''}
   };
 
   message = "";
@@ -78,100 +89,111 @@ export class AddEmployeeComponent implements OnInit {
     this.mgrSuggestion = true;
     this.employeeService.getAllManagers().subscribe((data) => {
       this.mgrArr = data;
+      this.showLoader = false;
     });
-    // console.log(this.formError);
   }
 
-  setManagerQlid1(manager){
-    let strArr = manager.split(':');
+  setManagerQlid1(mgr){
+    let strArr = mgr.split(':');
     let mgrQlid1;
     if(strArr){
       mgrQlid1 = strArr[1].replace(/\s/g, '');
     }
     this.emp.empMgrQlid1 = mgrQlid1;
-    // console.log('in setManagerQlid1()');
   }
 
-  setManagerQlid2(manager){
-    let strArr = manager.split(':');
+  setManagerQlid2(mgr){
+    let strArr = mgr.split(':');
     let mgrQlid2;
     if(strArr){
       mgrQlid2 = strArr[1].replace(/\s/g, '');
     }
     this.emp.empMgrQlid2 = mgrQlid2;
-    // console.log('in setManagerQlid2()');
   }
 
   onMgrQlid1Change(qlid){
-  //   let mgrIndex1 = -1;
+    let mgrIndex1 = -1;
+    this.emp.empMgrQlid1 = this.emp.empMgrQlid1.toUpperCase();
 
-  //   for(var i=0; i<this.mgrArr.length; ++i){
-  //     if(this.mgrArr[i].mgrQlid == qlid){
-  //       mgrIndex1 = i;
-  //       break;
-  //     }
-  //   }
+    for(var i=0; i<this.mgrArr.length; ++i){
+      if(this.mgrArr[i].mgrQlid.toUpperCase() == qlid.toUpperCase()){
+        mgrIndex1 = i;
+        break;
+      }
+    }
 
-  //   // console.log('!!');
+    if(mgrIndex1 == -1 || this.mgrArr == null || this.mgrArr == undefined){
+      return;
+    }
 
-  //   if(mgrIndex1 == -1 || this.mgrArr == null || this.mgrArr == undefined){
-  //     return;
-  //   }
-
-  //   // console.log('!!');
-  //   this.selectedManager1 = this.mgrArr[mgrIndex1].mgrFName + ' ' +
-  //                           this.mgrArr[mgrIndex1].mgrLName + ' : ' +
-  //                           this.mgrArr[mgrIndex1].mgrQlid;
+    this.selectedManager1 = this.mgrArr[mgrIndex1].mgrFName + ' ' +
+                            this.mgrArr[mgrIndex1].mgrLName + ' : ' +
+                            this.mgrArr[mgrIndex1].mgrQlid;
   }
 
   onMgrQlid2Change(qlid){
-  //   let mgrIndex2 = -1;
+    let mgrIndex2 = -1;
+    this.emp.empMgrQlid2 = this.emp.empMgrQlid2.toUpperCase();
 
-  //   for(var i=0; i<this.mgrArr.length; ++i){
-  //     if(this.mgrArr[i].mgrQlid == qlid){
-  //       mgrIndex2 = i;
-  //       break;
-  //     }
-  //   }
+    for(var i=0; i<this.mgrArr.length; ++i){
+      if(this.mgrArr[i].mgrQlid.toUpperCase() == qlid.toUpperCase()){
+        mgrIndex2 = i;
+        break;
+      }
+    }
 
-  //   // console.log('!!');
+    if(mgrIndex2 == -1 || this.mgrArr == null || this.mgrArr == undefined){
+      return;
+    }
 
-  //   if(mgrIndex2 == -1 || this.mgrArr == null || this.mgrArr == undefined){
-  //     return;
-  //   }
-
-  //   // console.log('!!');
-  //   this.selectedManager2 = this.mgrArr[mgrIndex2].mgrFName + ' ' +
-  //                           this.mgrArr[mgrIndex2].mgrLName + ' : ' +
-  //                           this.mgrArr[mgrIndex2].mgrQlid;
+    this.selectedManager2 = this.mgrArr[mgrIndex2].mgrFName + ' ' +
+                            this.mgrArr[mgrIndex2].mgrLName + ' : ' +
+                            this.mgrArr[mgrIndex2].mgrQlid;
   }
 
   onSave(f){
+    this.showLoader = true;
     this.saveClicked = true;
     if(this.validate()){
-      this.showSuccess = true;
-      this.showError = false;
       this.employeeService.addEmployee(this.emp).subscribe((data) => {
         console.log(data);
-        if(data.success == false){
+        if(data.success){
+          this.showSuccess = true;
+          this.showError = false;
+          this.message = "Employee successfully added to the Database!";       
+        }else{
           this.formError = data;
-        }
+          this.showError = true;
+        }        
       });
-      this.message = "Employee successfully added to the Database!";
+      
     }else{
       this.showSuccess = false;
       this.showError = true;
       this.message = "Employee could not be added to the Database!";
     }
+    this.showLoader = false;
+  }
+
+  newEmployee(){
+    this.refreshErrorValues();
+    this.resetAltered();
+    this.resetForm();
+    this.showError               = false;
+    this.showSuccess             = false;
+    this.showLoader              = false;
+    this.selectedManager1        = null;
+    this.selectedManager2        = null;
   }
 
   validate(){
     let validateStatus = true;
-    let qlidPattern = /^\w\w\d{6}$/i;
-    let mobPattern = /^\d{10}$/i;
-    let pinPattern = /^\d{6}$/i;
+
+    let qlidPattern     = /^[a-zA-Z]{2}\d{6}$/i;
+    let mobPattern      = /^\d{10}$/i;
+    let pinPattern      = /^\d{6}$/i;
     let bloodGrpPattern = /^(A|B|AB|O|a|b|ab|o)[\\+\\-]$/i;
-    let genderPattern = /^((M|F)|(m|f))$/i;
+    let genderPattern   = /^((M|F)|(m|f))$/i;
 
     let gender = this.emp.empGender;
     
@@ -236,7 +258,8 @@ export class AddEmployeeComponent implements OnInit {
     }
 
     if(this.emp.empMobNbr != null){
-      if(this.emp.empMobNbr.match(mobPattern) == null){
+      // console.log(mobPattern.test(this.emp.empMobNbr));
+      if(mobPattern.test(this.emp.empMobNbr) == false){
         validateStatus = false;
         this.formError.empMobNbr.error = true;
         this.formError.empMobNbr.message = 'Mobile no format invalid!';
@@ -261,6 +284,20 @@ export class AddEmployeeComponent implements OnInit {
         validateStatus = false;
         this.formError.empMgrQlid1.error = true;
         this.formError.empMgrQlid1.message = 'Invalid QLID format!';
+      }else{
+        let isValidManagerQlid = false;
+        for(var i=0; i<this.mgrArr.length; ++i){
+          if(this.emp.empMgrQlid1.toUpperCase() == this.mgrArr[i].mgrQlid.toUpperCase()){
+            isValidManagerQlid = true;
+            break
+          }
+        }
+
+        if(isValidManagerQlid == false){
+          validateStatus = false;
+          this.formError.empMgrQlid1.error = true;
+          this.formError.empMgrQlid1.message = 'Invalid Manager QLID';
+        }
       }
     }else{
       validateStatus = false;
@@ -273,6 +310,20 @@ export class AddEmployeeComponent implements OnInit {
         validateStatus = false;
         this.formError.empMgrQlid2.error = true;
         this.formError.empMgrQlid2.message = 'Invalid QLID format!';
+      }else{
+        let isValidManagerQlid = false;
+        for(var i=0; i<this.mgrArr.length; ++i){
+          if(this.emp.empMgrQlid2.toUpperCase() == this.mgrArr[i].mgrQlid.toUpperCase()){
+            isValidManagerQlid = true;
+            break
+          }
+        }
+
+        if(isValidManagerQlid == false){
+          validateStatus = false;
+          this.formError.empMgrQlid2.error = true;
+          this.formError.empMgrQlid2.message = 'Invalid Manager QLID';
+        }
       }
     }else{
       validateStatus = false;
@@ -341,7 +392,7 @@ export class AddEmployeeComponent implements OnInit {
     }
 
     if(this.emp.empHomeNbr != null){
-      if(this.emp.empHomeNbr.match(mobPattern) == null){
+      if(mobPattern.test(this.emp.empHomeNbr) == false){
         validateStatus = false;
         this.formError.empHomeNbr.error = true;
         this.formError.empHomeNbr.message = 'Please enter a valid home phone no';
@@ -349,7 +400,7 @@ export class AddEmployeeComponent implements OnInit {
     }
 
     if(this.emp.empEmergNbr != null){
-      if(this.emp.empEmergNbr.match(mobPattern) == null){
+      if(mobPattern.test(this.emp.empEmergNbr) == false){
         validateStatus = false;
         this.formError.empEmergNbr.error = true;
         this.formError.empEmergNbr.message = 'Please enter a valid emergency no';
@@ -376,61 +427,81 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   refreshErrorValues(){
-    this.formError.empQlid.error = false;
-    this.formError.empFName.error = false;
-    this.formError.empMName.error = false;
-    this.formError.empLName.error = false;
-    this.formError.empMobNbr.error = false;
-    this.formError.empGender.error = false;
-    this.formError.rolesId.error = false;
-    this.formError.empMgrQlid1.error = false;
-    this.formError.empMgrQlid2.error = false;
-    this.formError.empAddLine1.error = false;
-    this.formError.empAddLine2.error = false;
-    this.formError.empZone.error = false;
-    this.formError.empPin.error = false;
-    this.formError.empPickupArea.error = false;
-    this.formError.empHomeNbr.error = false;
-    this.formError.empEmergNbr.error = false;
-    this.formError.empBloodGrp.error = false;
+    this.formError.empQlid.error          = false;
+    this.formError.empFName.error         = false;
+    this.formError.empMName.error         = false;
+    this.formError.empLName.error         = false;
+    this.formError.empMobNbr.error        = false;
+    this.formError.empGender.error        = false;
+    this.formError.rolesId.error          = false;
+    this.formError.empMgrQlid1.error      = false;
+    this.formError.empMgrQlid2.error      = false;
+    this.formError.empAddLine1.error      = false;
+    this.formError.empAddLine2.error      = false;
+    this.formError.empZone.error          = false;
+    this.formError.empPin.error           = false;
+    this.formError.empPickupArea.error    = false;
+    this.formError.empHomeNbr.error       = false;
+    this.formError.empEmergNbr.error      = false;
+    this.formError.empBloodGrp.error      = false;
     
-    this.formError.empQlid.message = '';
-    this.formError.empFName.message = '';
-    this.formError.empMName.message = '';
-    this.formError.empLName.message = '';
-    this.formError.empMobNbr.message = '';
-    this.formError.empGender.message = '';
-    this.formError.rolesId.message = '';
-    this.formError.empMgrQlid1.message = '';
-    this.formError.empMgrQlid2.message = '';
-    this.formError.empAddLine1.message = '';
-    this.formError.empAddLine2.message = '';
-    this.formError.empZone.message = '';
-    this.formError.empPin.message = '';
-    this.formError.empPickupArea.message = '';
-    this.formError.empHomeNbr.message = '';
-    this.formError.empEmergNbr.message = '';
-    this.formError.empBloodGrp.message = '';
+    this.formError.empQlid.message        = '';
+    this.formError.empFName.message       = '';
+    this.formError.empMName.message       = '';
+    this.formError.empLName.message       = '';
+    this.formError.empMobNbr.message      = '';
+    this.formError.empGender.message      = '';
+    this.formError.rolesId.message        = '';
+    this.formError.empMgrQlid1.message    = '';
+    this.formError.empMgrQlid2.message    = '';
+    this.formError.empAddLine1.message    = '';
+    this.formError.empAddLine2.message    = '';
+    this.formError.empZone.message        = '';
+    this.formError.empPin.message         = '';
+    this.formError.empPickupArea.message  = '';
+    this.formError.empHomeNbr.message     = '';
+    this.formError.empEmergNbr.message    = '';
+    this.formError.empBloodGrp.message    = '';
   }
 
   resetForm(){
     this.refreshErrorValues();
-    this.emp.empQlid = '';
-    this.emp.empFName = '';
-    this.emp.empMName = '';
-    this.emp.empLName = '';
-    this.emp.empMobNbr = '';
-    this.emp.empGender = '';
-    this.emp.rolesId = '';
-    this.emp.empMgrQlid1 = '';
-    this.emp.empMgrQlid2 = '';
-    this.emp.empAddLine1 = '';
-    this.emp.empAddLine2 = '';
-    this.emp.empZone = '';
-    this.emp.empPin = '';
-    this.emp.empPickupArea = '';
-    this.emp.empHomeNbr = '';
-    this.emp.empEmergNbr = '';
-    this.emp.empBloodGrp = '';
+    this.emp.empQlid        = '';
+    this.emp.empFName       = '';
+    this.emp.empMName       = '';
+    this.emp.empLName       = '';
+    this.emp.empMobNbr      = '';
+    this.emp.empGender      = '';
+    this.emp.rolesId        = '';
+    this.emp.empMgrQlid1    = '';
+    this.emp.empMgrQlid2    = '';
+    this.emp.empAddLine1    = '';
+    this.emp.empAddLine2    = '';
+    this.emp.empZone        = '';
+    this.emp.empPin         = '';
+    this.emp.empPickupArea  = '';
+    this.emp.empHomeNbr     = '';
+    this.emp.empEmergNbr    = '';
+    this.emp.empBloodGrp    = '';
+  }
+
+  resetAltered(){
+    this.altered.empQlid = false;
+    this.altered.empFName = false;
+    this.altered.empMName = false;
+    this.altered.empLName = false;
+    this.altered.empMobNbr = false;
+    this.altered.empGender = false;
+    this.altered.rolesId = false;
+    this.altered.empMgrQlid1 = false;
+    this.altered.empMgrQlid2 = false;
+    this.altered.empAddLine1 = false;
+    this.altered.empAddLine2 = false;
+    this.altered.empZone = false;
+    this.altered.empPin = false;
+    this.altered.empPickupArea = false;
+    this.altered.empHomeNbr = false;
+    this.altered.empEmergNbr = false;
+    this.altered.empBloodGrp = false;
   }
 }

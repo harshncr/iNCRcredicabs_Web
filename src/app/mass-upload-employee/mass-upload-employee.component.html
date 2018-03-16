@@ -1,22 +1,30 @@
-<app-header [module]="module"> </app-header>
-
+<app-header [module]="module" [navLocation]="navLocation"> </app-header>
 <!-- Upload menu -->
 <div class="panel panel-info" id="upload_box" >
-  <!-- <div class="panel-body" id="filter_body" *ngIf="showload"> -->
-
-         <div class="panel-body" id="filter_body">
-                 <div class="row" >
-        <!-- <app-upload-form ></app-upload-form> -->
-        <form>
-             <div class="form-group pull-left" style="margin-left:10%;">
-             <input type="file" id="uploadFile" name="uploadFile" class="btn btn-defualt" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-             </div>
-             <div class="form-group pull-right" style="margin-right:10%;">
-             <input  type="button" class="btn btn-default" value="Upload Employee Data" (click)="upload()"/>
-             </div>
-         </form>
-         <div class="loader1" *ngIf="upload_spinner"></div>    
-
-     </div>    
- </div>
-</div> 
+    <div class="panel-body" id="filter_body">
+        <div id="upload-row" class="row">
+            <form>
+                <div class="form-group pull-left" style="margin-left:10%;">
+                    <input type="file" id="uploadFile" name="uploadFile"
+                        class="btn btn-defualt"
+                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+                </div>
+                <div class="form-group pull-right" style="margin-right:10%;">
+                    <input  type="button" class="btn btn-default" id="upload-button"
+                        value="Upload Employee Data" (click)="upload()"/>
+                </div>
+            </form>
+        </div>    
+    </div>
+</div>
+<div *ngIf="showSuccess" class="alert alert-success">
+    <strong>Success!</strong>
+    {{ message }}
+    <span class="pull-right close-button" (click)="close()">&times;</span>
+</div>
+<div *ngIf="showError" class="alert alert-danger">
+        <strong>Error!</strong>
+        {{ message }}
+    <span class="pull-right close-button" (click)="close()">&times;</span>
+</div>
+<app-loader-anim [showLoader]="showLoader" [loaderText]="loaderText"></app-loader-anim>

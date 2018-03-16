@@ -16,18 +16,26 @@ declare var $ :any;
 })
 
 export class ViewEmployeeComponent implements OnInit {
-  module = "employee";
-  navLocation = "/ View Employee";
-  filter: Filter;
-  showFilterPanel = false;
-  employeeArr: Employee[];
-  showLoader = true;
-  loaderText = "Loading...";
-  noResultError = false;
-  empShowQuickDetails;
-  optionsRequired = false;
+  ////-------------data for header-------------
+  module                  = "employee";
+  navLocation             = "/ View Employee";
+  ////-----------------------------------------
+
+  ////-------------data for loader-------------
+  showLoader              = true;
+  loaderText              = "Loading...";
+  ////-----------------------------------------
+
+  showFilterPanel         = false;
+  noResultError           = false;
+  optionsRequired         = false;
+  rolesCache              = null;
+
   options;
-  rolesCache = null;
+  empShowQuickDetails;
+  
+  employeeArr: Employee[];
+  filter: Filter;
   arr:any=[];
 
   constructor(
@@ -73,7 +81,7 @@ export class ViewEmployeeComponent implements OnInit {
   editEmployee(emp, index){
     this.selectedItem = emp;
     this._employeeData.setItem(this.selectedItem);
-    this.router.navigate(['employee/edit']);
+    this.router.navigate(['employee/edit/'+emp.empQlid]);
     this.employeeService.giveEmployee(emp);
   }
 
