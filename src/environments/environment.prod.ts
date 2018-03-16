@@ -23,4 +23,5 @@ export const environment = {
   employeeRequest:            this.url + "/ReportService/employeereport",
   managerUrl:                 this.url + "/ReportService/managerreport",
   vendorUrl:                  this.url + "/ReportService/vendorreport",
+  downloadRequestExcel:       this.url +"/RequestService/getUExcel",
 };

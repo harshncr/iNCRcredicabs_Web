@@ -20,10 +20,9 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   unscheduledRequest = false;
   router: Router;
   loginService: LoginService;
-  unscheduledRequestService:UnscheduledRequestService;
   public showDownload; 
   public uploadValue:boolean=true;
-  public obj =new UnscheduledRequestComponent(this.unscheduledRequestService);
+
   @Output() public childevent =new EventEmitter(); 
   @Input() module:string;
   @Input() navLocation: string;
@@ -32,14 +31,16 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   @Input() loadc:boolean;
   @Input() loadd:boolean;
 
-
   
   constructor(private _router: Router,
               private _loginService: LoginService,
-	            private _http:RosterService) {
+              private _http:RosterService,
+              private unscheduledRequestComponent:UnscheduledRequestComponent
+            ) {
     			this.router = _router;
     			this.loginService = _loginService;
-    			this.showDownload=true;
+          this.showDownload=true;
+
   }
 
   ngOnInit() {
@@ -61,7 +62,8 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   }
 
   downloadRequestExcel(){
-    this.obj.downloadRequestExcel();
+    this.unscheduledRequestComponent.downloadRequestExcel();
+    
   }
 
   ngAfterViewChecked() {}

@@ -160,7 +160,8 @@ import { RelationService } from './relation.service';
    CabService,
    DriverService,
    DriverData,
-   RelationService
+   RelationService,
+   UnscheduledRequestComponent
 
   ],
   bootstrap: [AppComponent]

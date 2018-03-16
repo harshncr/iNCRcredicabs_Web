@@ -1,72 +1,92 @@
 import { Injectable } from '@angular/core';
-import { Http , Response , RequestOptions , Headers, BrowserXhr } from '@angular/http';
+import { Http, Response, RequestOptions, Headers, BrowserXhr } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import {RequestModel} from '../Model/requestModel';
+import { RequestModel } from '../Model/requestModel';
 import { environment } from '../../environments/environment';
-import { ApiService, REQUEST_TYPE_GET , REQUEST_TYPE_DELETE , REQUEST_TYPE_POST , REQUEST_TYPE_PUT} from '../Services/api.service';
+import { ApiService, REQUEST_TYPE_GET, REQUEST_TYPE_DELETE, REQUEST_TYPE_POST, REQUEST_TYPE_PUT } from '../Services/api.service';
 import { FetchRequest } from '../Model/fetchRequest';
 
 
 @Injectable()
 export class UnscheduledRequestService {
 
-  public req:FetchRequest;
+  public req: FetchRequest;
 
   headers = new Headers({
     'Content-Type': 'application/json',
     'Accept': 'application/json'
   });
 
- 
+  excelHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Accept': 'application/vnd.ms-excel'
+  });
+
+
   constructor(private http: Http, private apiService: ApiService) { }
 
-    getAllUnscheduledRequest(defaultRequest): Observable<any>{
+  getAllUnscheduledRequest(defaultRequest): Observable<any> {
 
-      this.req= new FetchRequest();
-      this.req.Allocated=0;
+    this.req = new FetchRequest();
+    this.req.Allocated = 0;
 
-      if(defaultRequest==="Allocated")
-      {
-          this.req.Allocated=1;
-      }
+    if (defaultRequest === "Allocated") {
+      this.req.Allocated = 1;
+    }
 
-      return this.apiService.callApiService({
+    return this.apiService.callApiService({
       requestType: REQUEST_TYPE_POST,
       url: `${environment.getrequestUrl}`,
       headers: this.headers,
       body: JSON.stringify(this.req),
       shouldBlock: true
-  });
-    
+    });
+
   }
 
-  doAllocateRequest(requestid_Arr): Observable<any>{
+  doAllocateRequest(requestid_Arr): Observable<any> {
     // console.log("in service"+requestid_Arr);
 
     return this.apiService.callApiService({
       requestType: REQUEST_TYPE_POST,
       url: `${environment.allocateRequest}`,
       headers: this.headers,
-      body: "{'Request_ids':["+requestid_Arr+"]}",
+      body: "{'Request_ids':[" + requestid_Arr + "]}",
       shouldBlock: true
-  });
+    });
 
   }
 
-  downloadExcel(){
+  downloadExcelFile(downloadReqArr,defaultRequest): Observable<any> {
 
-    console.log("logged");
-  
+    console.log("in service:downloadExcel()" + downloadReqArr);
+
+    this.req = new FetchRequest();
+    this.req.Allocated = 0;
+
+    if (defaultRequest === "Allocated") {
+      this.req.Allocated = 1;
+    }
+
+    return this.apiService.callApiService({
+      requestType: REQUEST_TYPE_POST,
+      url: `${environment.downloadRequestExcelUrl}`,
+      headers: this.excelHeaders,
+      // headers: this.headers,
+      body: "{'Request_ids':[" + downloadReqArr + "],'Allocated':'"+this.req.Allocated+"'}",
+      shouldBlock: true
+    });
+
   }
-  
-    
-  pending:any=[{
+
+
+  pending: any = [{
     "Request_ID": "1",
     "Emp_Qlid": "WN215649",
-    "Mgr_Qlid": "WN215649", 
-    "Mgr_name": "some name1", 
-    "Gender": "M", 
-    "Name": "Will Smith", 
+    "Mgr_Qlid": "WN215649",
+    "Mgr_name": "some name1",
+    "Gender": "M",
+    "Name": "Will Smith",
     "Shift_ID": "4",
     "Mobile": "9876554321",
     "Rqst_Date_Time": "2001-00-08 03:45:33",
@@ -83,10 +103,10 @@ export class UnscheduledRequestService {
   {
     "Request_ID": "2",
     "Emp_Qlid": "NB398473",
-    "Mgr_Qlid": "WN215649", 
-    "Mgr_name": "some name2", 
-    "Gender": "M", 
-    "Name": "Naveen bansal", 
+    "Mgr_Qlid": "WN215649",
+    "Mgr_name": "some name2",
+    "Gender": "M",
+    "Name": "Naveen bansal",
     "Shift_ID": "4",
     "Mobile": "9876554321",
     "Rqst_Date_Time": "2014-04-00 10:09:37",
@@ -103,10 +123,10 @@ export class UnscheduledRequestService {
   {
     "Request_ID": "3",
     "Emp_Qlid": "VD039682",
-    "Mgr_Qlid": "WN215649", 
-    "Mgr_name": "some name3", 
-    "Gender": "M", 
-    "Name": "van dam", 
+    "Mgr_Qlid": "WN215649",
+    "Mgr_name": "some name3",
+    "Gender": "M",
+    "Name": "van dam",
     "Mobile": "9876554321",
     "Pickup_Address": "sec 8 ,rohini",
     "Shift_ID": "4",
@@ -123,10 +143,10 @@ export class UnscheduledRequestService {
   {
     "Request_ID": "4",
     "Emp_Qlid": "SP285563",
-    "Mgr_Qlid": "WN215649", 
-    "Mgr_name": "some name4", 
-    "Gender": "F", 
-    "Name": "Suman kumari", 
+    "Mgr_Qlid": "WN215649",
+    "Mgr_name": "some name4",
+    "Gender": "F",
+    "Name": "Suman kumari",
     "Mobile": "9876554321",
     "Pickup_Address": "hno. 709, sheesh mahal, azad mkt,",
     "Shift_ID": "4",
@@ -140,14 +160,14 @@ export class UnscheduledRequestService {
     "Other_Address": "hn. 67/8,model town, gurgaon"
   }];
 
- 
-  allocated:any=[{
+
+  allocated: any = [{
     "Request_ID": "1",
     "Emp_Qlid": "WN215649",
-    "Mgr_Qlid": "WN215649", 
-    "Mgr_name": "some name1", 
-    "Gender": "M", 
-    "Name": "Joseph", 
+    "Mgr_Qlid": "WN215649",
+    "Mgr_name": "some name1",
+    "Gender": "M",
+    "Name": "Joseph",
     "Shift_ID": "4",
     "Mobile": "9876554321",
     "Rqst_Date_Time": "2001-00-08 03:45:33",
@@ -159,16 +179,16 @@ export class UnscheduledRequestService {
     "Allocated": "0",
     "Other_Address": "hn. 67/8,model town, gurgaon",
     "Pickup_Address": "North avenue, greater kailash",
-    "Cab_no":"4269"
+    "Cab_no": "4269"
   },
 
   {
     "Request_ID": "2",
     "Emp_Qlid": "NB398473",
-    "Mgr_Qlid": "WN215649", 
-    "Mgr_name": "some name2", 
-    "Gender": "M", 
-    "Name": "Mandeep Singh", 
+    "Mgr_Qlid": "WN215649",
+    "Mgr_name": "some name2",
+    "Gender": "M",
+    "Name": "Mandeep Singh",
     "Shift_ID": "4",
     "Mobile": "9876554321",
     "Rqst_Date_Time": "2014-04-00 10:09:37",
@@ -180,16 +200,16 @@ export class UnscheduledRequestService {
     "Allocated": "0",
     "Other_Address": "hn. 67/8,model town, gurgaon",
     "Pickup_Address": "North avenue, greater kailash",
-    "Cab_no":"1323"
+    "Cab_no": "1323"
   },
 
   {
     "Request_ID": "3",
     "Emp_Qlid": "VD039682",
-    "Mgr_Qlid": "WN215649", 
-    "Mgr_name": "some name3", 
-    "Gender": "F", 
-    "Name": "Sunita Pawar", 
+    "Mgr_Qlid": "WN215649",
+    "Mgr_name": "some name3",
+    "Gender": "F",
+    "Name": "Sunita Pawar",
     "Mobile": "9876554321",
     "Pickup_Address": "sec 8 ,rohini",
     "Shift_ID": "4",
@@ -201,16 +221,16 @@ export class UnscheduledRequestService {
     "Reason": "Fever",
     "Allocated": "0",
     "Other_Address": "North avenue, greater kailash",
-    "Cab_no":"4221"
+    "Cab_no": "4221"
   },
 
   {
     "Request_ID": "4",
     "Emp_Qlid": "SP285563",
-    "Mgr_Qlid": "WN215649", 
-    "Mgr_name": "some name4", 
-    "Gender": "F", 
-    "Name": "Lata Kapor", 
+    "Mgr_Qlid": "WN215649",
+    "Mgr_name": "some name4",
+    "Gender": "F",
+    "Name": "Lata Kapor",
     "Mobile": "9876554321",
     "Pickup_Address": "hno. 709, sheesh mahal, azad mkt,",
     "Shift_ID": "4",
@@ -222,7 +242,7 @@ export class UnscheduledRequestService {
     "Reason": "Marriage",
     "Allocated": "0",
     "Other_Address": "hn. 67/8,model town, gurgaon",
-    "Cab_no":"6772"
+    "Cab_no": "6772"
   }];
 
 }
