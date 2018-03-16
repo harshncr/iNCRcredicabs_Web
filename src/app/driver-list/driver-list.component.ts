@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DriverService } from '../driver.service';
 import { DriverData } from './driverData';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CabData } from '../cab-list/cabData';
+import { VendorData } from '../vendor-list/vendorData';
+import 'rxjs/add/operator/filter';
 
 declare var jquery:any;
 declare var $:any;
@@ -15,6 +18,7 @@ export class DriverListComponent implements OnInit {
  loadc=true;
  module = "vendor";
  navLocation = "/ View Driver"
+ showLoading = true;
   public filterType='';
   public filterValue;
   public drivers=[];
@@ -24,12 +28,31 @@ export class DriverListComponent implements OnInit {
   public tooltipText="disable?";
   public showDriverArr = [];
   public driver_id;
+  public cab_id;
+  public vendor_id;
   new:boolean = false;
-  constructor(private _driverService: DriverService, private _driverData: DriverData, private router: Router) { }
+  cablist = false;
+  constructor(private _driverService: DriverService, private _driverData: DriverData, private router: Router,private _cabData:CabData, private _vendorData:VendorData, private route:ActivatedRoute) { }
 
   ngOnInit() {
-    this._driverService.getDrivers().subscribe(resp=>{
+    this.route.queryParams.filter(params => params.id).subscribe(params=>{
+     
+       this.vendor_id=params.id;
+       console.log(this.vendor_id);
+    })
+    this.route.queryParams.filter(params => params.cab).subscribe(params=>{
+    this.cab_id=params.cab;
+    console.log(this.cab_id);
+    })
+    
+    this._driverService.getDriver(this.cab_id,this.vendor_id).subscribe(resp=>{
       this.drivers = resp.result;
+      if(this.drivers.length !=0)
+      {
+        this.showLoading = false;
+      }
+     
+
       this.initShowDetails(this.drivers);
           });
           this.isDeleted=false;  
@@ -53,17 +76,21 @@ export class DriverListComponent implements OnInit {
     this.router.navigate(['driver-update']);
   }
 
-  search(){
-    if(this.filterType=='')
-    return ;
-    console.log(this.filterType+" "+this.filterValue);
+  driverlist(){
+    // // if(this.filterType=='')
+    // // return ;
+    // // console.log(this.filterType+" "+this.filterValue);
     
-    let JSONStr = "{'request':{'"+this.filterType+"': '"+this.filterValue+"'}}";
-    // console.log(body);
-    this._driverService.searchDriver(JSONStr).subscribe((response)=>{
-      this.drivers=response.result;
-    });
-  }
+    // // let JSONStr = "{'request':{'"+this.filterType+"': '"+this.filterValue+"'}}";
+    // // // console.log(body);
+    // this._driverService.searchDriver(JSONStr).subscribe((response)=>{
+    //   this.drivers=response.result;
+     this._driverService.getDrivers().subscribe(resp=>{
+       this.drivers= resp.result();
+       this.cablist = false;
+     }); 
+    }
+  
 
   checkStatus(driver){
     if(driver.status==1)

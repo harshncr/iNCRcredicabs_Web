@@ -3,6 +3,8 @@ import { CabService } from '../cab.service';
 import { CabData } from './cabData';
 import { Router } from '@angular/router';
 import { VendorData } from '../vendor-list/vendorData';
+import { ActivatedRoute } from '@angular/router';
+import 'rxjs/add/operator/filter';
 
 declare var jquery:any;
 declare var $:any;
@@ -16,6 +18,7 @@ export class CabListComponent implements OnInit {
   module = "vendor";
   public filterType='';
   public filterValue;
+  showLoading = true;
   loadb=true;
   loada=false;
 
@@ -34,17 +37,25 @@ export class CabListComponent implements OnInit {
   public message;
   public msgValue;
   
-  constructor(private _cabService: CabService, private _cabData: CabData,private _vendors:VendorData, private router: Router) { }
+  constructor(private _cabService: CabService, private _cabData: CabData,private _vendors:VendorData, private router: Router, private route:ActivatedRoute ) { }
 
   ngOnChanges(){
     console.log("1");
   }
   
   ngOnInit() {
-    this.id=this._vendors.getItem();
-    console.log(this.id);
+    this.route.queryParams
+      .filter(params => params.id).subscribe(params=>{
+        console.log(params);
+        this.id=params.id;
+      })
+         
     this._cabService.getCabs(this.id).subscribe(resp=>{
       this.cabs = resp.result;
+      if(this.cabs.length != 0)
+      {
+        this.showLoading= false;
+      }
       this.initShowDetails(this.cabs);
           });
           this.isDeleted=false;  
@@ -162,6 +173,14 @@ export class CabListComponent implements OnInit {
   onHideDetails(i){
     $('#cb-'+i).slideUp();
     this.showCabArr[i] = false;
+  }
+  driver(cab){
+    this.selectedItem= cab.cab_no;
+    console.log(this.selectedItem)
+    console.log("upar wale value hai");
+    this._cabData.setItem(this.selectedItem);
+    this.router.navigate(['driver-list'],{queryParams:{cab :this.selectedItem}, queryParamsHandling: 'merge'});
+
   }
 
 

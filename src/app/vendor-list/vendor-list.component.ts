@@ -252,7 +252,7 @@ export class VendorListComponent implements OnInit {
     this.selectedItem=vendor.id;
     console.log(this.selectedItem);
     this._vendorData.setItem(this.selectedItem);
-    this.router.navigate(['cab-list']);
+    this.router.navigate(['cab-list'], {queryParams:{id :vendor.id}});
 
 
   }

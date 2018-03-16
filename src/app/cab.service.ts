@@ -15,7 +15,7 @@ export class CabService {
         
         var data = body;
         console.log(JSON.stringify(data));
-        return this._http.post(env.environment.url+'/VendorService/CabDetails',JSON.stringify(body)).map((response)=>{
+        return this._http.post(env.environment.url+'/VendorService/CabDetails',JSON.stringify({id: body})).map((response)=>{
           return response.json()
         })
         
@@ -34,7 +34,7 @@ export class CabService {
   updateCab(body){
     return this._http.post(env.environment.url+"/VendorService/Updatecab",body).map((response)=>{
       return response.json();
-    })
+    });
   }
   
   enableCab(body){
