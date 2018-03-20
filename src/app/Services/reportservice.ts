@@ -1,10 +1,10 @@
 //reportservice.ts
 import { Injectable } from '@angular/core';
-import { Http , Response , RequestOptions , Headers, BrowserXhr } from '@angular/http';
+import { Http, Response, RequestOptions, Headers, BrowserXhr } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import {RequestModel} from '../Model/requestModel';
+import { RequestModel } from '../Model/requestModel';
 import { environment } from '../../environments/environment';
-import { ApiService, REQUEST_TYPE_GET , REQUEST_TYPE_DELETE , REQUEST_TYPE_POST , REQUEST_TYPE_PUT} from '../Services/api.service';
+import { ApiService, REQUEST_TYPE_GET, REQUEST_TYPE_DELETE, REQUEST_TYPE_POST, REQUEST_TYPE_PUT } from '../Services/api.service';
 
 
 @Injectable()
@@ -17,45 +17,147 @@ export class ReportService {
 
   constructor(private http: Http, private apiService: ApiService) { }
 
- 
-  getEmployeeReport():Observable<any>{
-    
+
+  getEmployeeReport(toDate, fromDate, filterVal): Observable<any> {
+
     return this.apiService.callApiService({
       requestType: REQUEST_TYPE_GET,
       url: `${environment.employeeRequest}`,
       headers: this.headers,
       body: "",
       shouldBlock: true
-  });
-  
-   
-  }
-   
+    });
 
-  getManagerReport():Observable<any>{
-    
+
+  }
+
+  getEmployeeReport1(filterVal): Observable<any> {
+
+    return this.apiService.callApiService({
+      requestType: REQUEST_TYPE_GET,
+      url: `${environment.employeeRequest1}`,
+      headers: this.headers,
+      body: "{'filterVal':["  +  filterVal  +  "]}",
+      shouldBlock: true
+    });
+  }
+
+  getEmployeeReportDetail(toDate, fromDate, filterVal): Observable<any> {
+    return this.apiService.callApiService({
+      requestType: REQUEST_TYPE_GET,
+      url: `${environment.employeeDetailUrl}`,
+      headers: this.headers,
+      body: "",
+      shouldBlock: true
+
+    });
+  }
+
+  getEmployeeReportDetail1(filterVal): Observable<any> {
+    return this.apiService.callApiService({
+      requestType: REQUEST_TYPE_GET,
+      url: `${environment.employeeDetailUrl1}`,
+      headers: this.headers,
+      body: "{'filterVal':["  +  filterVal  +  "]}",
+      shouldBlock: true
+
+    });
+  }
+
+
+  getManagerReport(toDate, fromDate, filterVal): Observable<any> {
+
     return this.apiService.callApiService({
       requestType: REQUEST_TYPE_GET,
       url: `${environment.managerUrl}`,
       headers: this.headers,
       body: "",
       shouldBlock: true
-  });
-  
-   
+    });
+
+
+  }
+  getManagerReport1(filterVal): Observable<any> {
+
+    return this.apiService.callApiService({
+      requestType: REQUEST_TYPE_GET,
+      url: `${environment.managerUrl1}`,
+      headers: this.headers,
+      body: "{'filterVal':["  +  filterVal  +  "]}",
+      shouldBlock: true
+    });
   }
 
-  getVendorReport():Observable<any>{
-    
+  getManagerReportDetail(toDate, fromDate, filterVal): Observable<any> {
+    return this.apiService.callApiService({
+      requestType: REQUEST_TYPE_GET,
+      url: `${environment.managerDetailUrl}`,
+      headers: this.headers,
+      body: "",
+      shouldBlock: true
+    });
+  }
+
+  getManagerReportDetail1(filterVal): Observable<any> {
+    return this.apiService.callApiService({
+      requestType: REQUEST_TYPE_GET,
+      url: `${environment.managerDetailUrl1}`,
+      headers: this.headers,
+      body: "{'filterVal':["  +  filterVal  +  "]}",
+      shouldBlock: true
+    });
+  }
+
+  getVendorReportDetail(toDate, fromDate, filterVal): Observable<any> {
+    return this.apiService.callApiService({
+      requestType: REQUEST_TYPE_GET,
+      url: `${environment.vendorDetailUrl}`,
+      headers: this.headers,
+      body: "",
+      shouldBlock: true
+
+    });
+  }
+
+  getVendorReport(toDate, fromDate, filterVal): Observable<any> {
+
     return this.apiService.callApiService({
       requestType: REQUEST_TYPE_GET,
       url: `${environment.vendorUrl}`,
       headers: this.headers,
       body: "",
       shouldBlock: true
-  });
-  
-   
+    });
+
+
   }
 
+  getVendorReport1(filterVal): Observable<any> {
+
+    return this.apiService.callApiService({
+      requestType: REQUEST_TYPE_GET,
+      url: `${environment.vendorDetailUrl1}`,
+      headers: this.headers,
+      body: "{'filterVal':["  +  filterVal  +  "]}",
+      shouldBlock: true
+    });
+  }
+  
+  getVendorReportDetail1(filterVal): Observable<any> {
+    return this.apiService.callApiService({
+      requestType: REQUEST_TYPE_GET,
+      url: `${environment.vendorDefaultDetailUrl}`,
+      headers: this.headers,
+      body: "{'filterVal':["  +  filterVal  +  "]}",
+      shouldBlock: true
+
+    });
+  }
+
+
+
+
+
+
 }
+

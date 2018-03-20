@@ -7,21 +7,70 @@
     <div class="form-group">
       <form name="form" #f="ngForm" (ngSubmit)="onFilterGo(f.value)" id="form" class="form-horizontal" enctype="multipart/form-data"
         method="POST">
+
         <div class="form-group">
-          <!-- <div class="col-sm-1">
-                <h3 id="filter-title">Filter</h3>
-            </div> -->
-          <div class="col-sm-2">
-            <select [(ngModel)]="filterType" name="filterType" type="" class="form-control" (click)="hideDiv()">
-              <option value="" disabled selected>Filter By</option>
-              <option value="Mgr_Qlid">Manager ID</option>
-              <option value="Emp_FName">Employee Name</option>
-              <option value="vendor_fname">Vendor Name</option>
-            </select>
+          <div class="row">
+            <div class="col-md-3">
+              Type of Reports:
+              <select [(ngModel)]="filterReport" name="filterIt">
+                <option value="Regular_Detailed_ByManager">Regular_Detailed_ByManager</option>
+                <option value="Regular_Detailed_ByVendor">Regular_Detailed_ByVendor</option>
+                <option value="Regular_Detailed_ByEmployee">Regular_Detailed_ByEmployee</option>
+                <option value="Regular_Summary_ByManager">Regular_Summary_ByManager</option>
+                <option value="Regular_Summary_ByVendor">Regular_Summary_ByVendor</option>
+                <option value="Regular_Summary_ByEmployee">Regular_Summary_ByEmployee</option>
+                <option value="Unschedule_Detail_ByManager">Unschedule_Detail_ByManager</option>
+                <option value="Unschedule_Detail_ByVendor">Unschedule_Detail_ByVendor</option>
+                <option value="Unschedule_Detail_ByEmployee">Unschedule_Detail_ByEmployee</option>
+                <option value="Unschedule_Summary_ByManager">Unschedule_Summary_ByManager</option>
+                <option value="Unschedule_Summary_ByVendor">Unschedule_Summary_ByVendor</option>
+                <option value="Unschedule_Summary_ByEmployee">Unschedule_Summary_ByEmployee</option>
+                <option value="Checkin_Checkout">Checkin_Checkout</option>
+                <option value="Transportation_Billing">Transportation_Billing</option>
+              </select>
+            </div>
+
+            <div class="col-md-3">
+              TO:
+              <input type="date" [(ngModel)]="toDate" name="toDate" />
+              <br> FROM:
+              <input type="date" [(ngModel)]="fromDate" name="fromDate" />
+              <br>
+            </div>
+
+            <div class="col-md-6">
+              <div *ngIf="checkItAgain == 'Unschedule_Summary_ByManager'">
+                Manager Name:
+                <input name="filManagerName" type="text" [(ngModel)]="filterMan" name="filterVal">
+              </div>
+
+              <div *ngIf="checkItAgain == 'Unschedule_Summary_ByVendor'">
+                Vendor Name:
+                <input name="filVendorName" type="text" [(ngModel)]="filterVen" name="filterVal">
+              </div>
+              <div *ngIf="checkItAgain == 'Unschedule_Detail_ByEmployee'">
+                Employee Name:
+                <input name="filEmployeeName" type="text" [(ngModel)]="filterEmp" name="filterVal">
+              </div>
+              <div *ngIf="checkItAgain == 'Unschedule_Detail_ByVendor'">
+                Vendor Name:
+                <input type="text" [(ngModel)]="filterVal" name="filterVenDet">
+              </div>
+              <div *ngIf="checkItAgain == 'Unschedule_Detail_ByManager'">
+                Manager Name:
+                <input type="text" [(ngModel)]="filterVal" name="filterManDet">
+              </div>
+
+              <div *ngIf="checkItAgain == 'Unschedule_Summary_ByEmployee'">
+                Employee Name:
+                <input type="text" [(ngModel)]="filterVal" name="filterEmpDet">
+              </div>
+            </div>
+
           </div>
-          <div class="col-sm-3">
-            <input type="text" [(ngModel)]="filterValue" name="filterValue" class="form-control">
-          </div>
+        </div>
+
+        <div class="form-group">
           <div class="col-sm-3">
             Month:
             <select ngModel name="month">
@@ -40,6 +89,7 @@
               <option value="12">December</option>
             </select>
           </div>
+
           <div class="col-sm-3">
             Year:
             <select ngModel name="year">
@@ -47,6 +97,7 @@
               <option value="2018">2018</option>
             </select>
           </div>
+
           <div class="col-sm-1">
             <!-- <button type="button" (click)="search()" class="btn btn-default">
                 Go
@@ -54,17 +105,24 @@
             <button type="submit" class="btn btn-default">
               Go
             </button>
-
           </div>
-
-
         </div>
+
       </form>
     </div>
   </div>
 </div>
+
+<h3>{{checkItAgain}} Reports:</h3>
+
 <div class="panel panel-default">
+
+  <div class="panel-heading">
+    <h3 class="panel-title">Reports</h3>
+  </div>
+
   <div class="panel-body">
+
     <div *ngIf="filterType == 'Mgr_Qlid' && showDiv">
       <table class="table table-bordered table-hover table-stripped">
         <thead>
@@ -94,91 +152,254 @@
       </table>
     </div>
 
-    <div *ngIf="filterType == 'Emp_FName' && showDiv">
+
+    <div *ngIf="checkItAgain == 'Unschedule_Summary_ByManager'">
       <table class="table table-bordered table-hover table-stripped">
         <thead>
           <tr>
-            <th>RequestID</th>
-            <th>Employee Qlid</th>
-            <th>Employee Name</th>
-            <th>Shift</th>
-            <th>Time and date</th>
+            <th>Manager Id</th>
+            <th>Manager Name</th>
+            <th> Number of Employees</th>
             <th>Cost</th>
-            <th>Cab Number</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let report of employeeReport| filter:filterValue ">
+          <tr *ngFor="let report of managerReport |  filter:filterValue">
             <td>
-              {{report?.Request_ID}}
+              {{report?.ManagerId}}
             </td>
             <td>
-              {{report?.Emp_Qlid}}
+              {{report?.ManagerName}}
             </td>
             <td>
-              {{report?.Emp_FName}}
-            </td>
-            <td [ngSwitch]="report?.Shift_ID">
-              <span *ngSwitchCase="'1'||'3'">Scheduled </span>
-              <span *ngSwitchCase="2">Regular </span>
-              <span *ngSwitchCase="4">Unscheduled </span>
-
+              {{report?.NoOfEmployees}}
             </td>
             <td>
-              {{report?.Start_Date_Time}}
-            </td>
-            <td>
-              {{report?.Cab_Cost}}
-            </td>
-            <td>
-              {{report?.Cab_No}}
+              {{report?.TotalCost}}
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div *ngIf="filterType == 'vendor_fname' && showDiv">
-
+    <div *ngIf="checkItAgain == 'Unschedule_Summary_ByVendor'">
       <table class="table table-bordered table-hover table-stripped">
         <thead>
           <tr>
+            <th>Vendor Id</th>
             <th>Vendor Name</th>
-            <th>Type of cab</th>
+            <th> Number of Cabs</th>
             <th>Cost</th>
-            <th>Date and Time</th>
-            <th>Cab number</th>
-            <th>EmployeeQlid</th>
-            <th>RequestID</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let report of vendorReport |  filter:filterValue">
             <td>
-              {{report?.vendor_name}}
+              {{report?.VendorId}}
             </td>
             <td>
-              {{report?.TypeOfCab}}
+              {{report?.VendorName}}
             </td>
             <td>
-              {{report?.Cab_Cost}}
+              {{report?.NoOfCabs}}
             </td>
             <td>
-              {{report?.Rqst_Date_Time}}
-            </td>
-            <td>
-              {{report?.Cab_No}}
-            </td>
-            <td>
-              {{report?.Emp_Qlid}}
-            </td>
-            <td>
-              {{report?.Request_ID}}
+              {{report?.TotalCost}}
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+
+    <div *ngIf="checkItAgain == 'Unschedule_Summary_ByEmployee'">
+      <table class="table table-bordered table-hover table-stripped">
+        <thead>
+          <tr>
+            <th>Employee Id</th>
+            <th>Employee Name</th>
+            <th>Manager name</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of employeeReport |  filter:filterValue">
+            <td>
+              {{report?.EmployeeId}}
+            </td>
+            <td>
+              {{report?.EmployeeName}}
+            </td>
+            <td>
+              {{report?.TotalCost}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="checkItAgain == 'Unschedule_Detail_ByEmployee'">
+      <table class="table table-bordered table-hover table-stripped">
+        <thead>
+          <tr>
+            <th>Employee Name</th>
+            <th>Date and Time</th>
+            <th>Vendor Name</th>
+            <th> Cab Type</th>
+            <th>Trip Type</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Zone</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of employeeReportDet |  filter:filterValue">
+            <td>
+              {{report?.EmployeeName}}
+            </td>
+            <td>
+              {{report?.DateAndTime}}
+            </td>
+            <td>
+              {{report?.VendorName}}
+            </td>
+            <td>
+              {{report?.CabType}}
+            </td>
+            <td>
+              {{report?.TripType}}
+            </td>
+            <td>
+              {{report?.Source}}
+            </td>
+            <td>
+              {{report?.Destination}}
+            </td>
+            <td>
+              {{report?.Zone}}
+            </td>
+            <td>
+              {{report?.Cost}}
+            </td>
+
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="checkItAgain == 'Unschedule_Detail_ByManager'">
+      <table class="table table-bordered table-hover table-stripped">
+        <thead>
+          <tr>
+            <th>Manager Name</th>
+            <th>Manager Id</th>
+            <th>Employee Name</th>
+            <th>Date and Time</th>
+            <th>Vendor Name</th>
+            <th> Cab Type</th>
+            <th>Trip Type</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Zone</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of managerReportDet |  filter:filterValue">
+
+            <td>
+              {{report?.ManagerName}}
+            </td>
+            <td>
+              {{report?.ManagerId}}
+            </td>
+            <td>
+              <td>
+                <td>
+                  {{report?.EmployeeName}}
+                </td>
+                <td>
+                  {{report?.DateAndTime}}
+                </td>
+                <td>
+                  {{report?.VendorName}}
+                </td>
+                <td>
+                  {{report?.CabType}}
+                </td>
+                <td>
+                  {{report?.TripType}}
+                </td>
+                <td>
+                  {{report?.Source}}
+                </td>
+                <td>
+                  {{report?.Destination}}
+                </td>
+                <td>
+                  {{report?.Zone}}
+                </td>
+                <td>
+                  {{report?.Cost}}
+                </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="checkItAgain == 'Unschedule_Detail_ByVendor'">
+      <table class="table table-bordered table-hover table-stripped">
+        <thead>
+          <tr>
+            <th>Vendor Name</th>
+            <th>Employee Name</th>
+            <th>Date and Time</th>
+            <th> Cab Type</th>
+            <th>Trip Type</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Zone</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of vendorReportDet |  filter:filterValue">
+            <td>
+              {{report?.VendorName}}
+            </td>
+            <td>
+              <td>
+                <td>
+                  {{report?.EmployeeName}}
+                </td>
+                <td>
+                  {{report?.DateAndTime}}
+                </td>
+                <td>
+                  {{report?.CabType}}
+                </td>
+                <td>
+                  {{report?.TripType}}
+                </td>
+                <td>
+                  {{report?.Source}}
+                </td>
+                <td>
+                  {{report?.Destination}}
+                </td>
+                <td>
+                  {{report?.Zone}}
+                </td>
+                <td>
+                  {{report?.Cost}}
+                </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
 
     <div class="col-md-9 col-md-offset-2" id="employee-form">
       <form name="myForm" #f="ngForm" (ngSubmit)="onTptCostForm(f.value)" class="form-horizontal" role="form">
@@ -367,8 +588,8 @@
                       <strong>GPS for Shift Cabs
                       </strong>
                     </span>
-                    <input type="text" name="gps_shift_cab" placeholder="GPS Shift Cabs" maxlength="8" class="form-control imp-ph" ngModel
-                     (change)="validate();altered.gps_shift_cab=true"  required>
+                    <input type="text" name="gps_shift_cab" placeholder="GPS Shift Cabs" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.gps_shift_cab=true"
+                      required>
                   </div>
                 </div>
 
@@ -543,8 +764,8 @@
                       <strong>Others Cab Cost
                       </strong>
                     </span>
-                    <input type="text" name="otherCabCost" placeholder="Others Cab Cost" maxlength="15" class="form-control imp-ph" ngModel
-                      (change)="validate();altered.otherCabCost=true" required>
+                    <input type="text" name="otherCabCost" placeholder="Others Cab Cost" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.otherCabCost=true"
+                      required>
                   </div>
                 </div>
                 <!-- Error row -->

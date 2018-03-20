@@ -78,6 +78,7 @@ import { LoaderAnimComponent } from './loader-anim/loader-anim.component';
 import { MassUploadEmployeeComponent } from './mass-upload-employee/mass-upload-employee.component';
 import { RelationshipFormComponent } from './relationship-form/relationship-form.component';
 import { RelationService } from './relation.service';
+import { DashData } from './dash/dashData';
 
 
 @NgModule({
@@ -161,7 +162,8 @@ import { RelationService } from './relation.service';
    DriverService,
    DriverData,
    RelationService,
-   UnscheduledRequestComponent
+   UnscheduledRequestComponent,
+   DashData
 
   ],
   bootstrap: [AppComponent]
