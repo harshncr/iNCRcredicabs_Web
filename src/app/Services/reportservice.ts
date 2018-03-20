@@ -154,6 +154,40 @@ export class ReportService {
     });
   }
 
+  getVendorNames():Observable<any>{
+
+    return this.apiService.callApiService({
+
+      requestType: REQUEST_TYPE_GET,
+      url: `${environment.vendornameUrl}`,
+      headers: this.headers,
+      body: "",
+      shouldBlock: true
+    })
+
+
+  }
+
+
+
+  getBillingSummary(shift_id,vendor_name,FromDate,ToDate):Observable<any>{
+
+
+
+    return this.apiService.callApiService({
+      requestType: REQUEST_TYPE_POST,
+      url: `${environment.billingsummaryUrl}`,
+      headers: this.headers,
+      body: "{'shift_id':"+shift_id+",'vendor_name':"+vendor_name+",'FromDate':"+FromDate+",'ToDate':"+ToDate+"}",
+      shouldBlock:true
+    })
+
+
+
+  }
+
+
+
 
 
 

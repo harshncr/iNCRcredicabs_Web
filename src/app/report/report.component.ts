@@ -8,7 +8,7 @@ import { DashData } from '../dash/dashData';
 import { ReportManagerDetail } from '../Model/ReportEmpDet';
 import { ReportVendorDetail } from '../Model/ReportVendorDetai';
 import { ReportEmpDetail } from '../Model/ReportEmpDetail';
-
+import { VendorBilling } from '../Model/VendorBilling'
 
 @Component({
   selector: 'app-report',
@@ -33,6 +33,9 @@ export class ReportComponent implements OnInit {
   public employeeDetailReport: ReportEmpDetail;
   public vendorDetailReport: ReportVendorDetail;
   public managerDetailReport: ReportManagerDetail;
+  public vname=[];
+
+
 
   // Transportation Cost Report ---Start
 
@@ -99,6 +102,11 @@ export class ReportComponent implements OnInit {
 
     this.checkItAgain = this._dashData.getItem();
     console.log('Check it again :- ' + this.checkItAgain);
+
+    this.reportService.getVendorNames().subscribe((data ) =>{
+      this.vname=data;
+
+  }  )
   }
 
   hideDiv() {
