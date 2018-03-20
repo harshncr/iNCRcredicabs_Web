@@ -20,6 +20,7 @@ export class UnscheduledRequestService {
   excelHeaders = new Headers({
     'Content-Type': 'application/json',
     'Accept': 'application/vnd.ms-excel'
+    // 'Accept': 'application/octet-stream'
   });
 
 

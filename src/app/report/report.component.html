@@ -1,161 +1,864 @@
 <app-header-reportlist></app-header-reportlist>
 <div id="filter-panel" class="panel panel-warning">
-    <div class="panel-heading">
-      <h3 class="panel-title">Filter</h3>
-    </div>
-    <div class="panel-body">
-      <div class="form-group">      
-        <form name="form" #f="ngForm" (ngSubmit)="onFilterGo(f.value)" id="form" class="form-horizontal" enctype="multipart/form-data" method="POST">        
-          <div class="form-group">
-            <!-- <div class="col-sm-1">
+  <div class="panel-heading">
+    <h3 class="panel-title">Filter</h3>
+  </div>
+  <div class="panel-body">
+    <div class="form-group">
+      <form name="form" #f="ngForm" (ngSubmit)="onFilterGo(f.value)" id="form" class="form-horizontal" enctype="multipart/form-data"
+        method="POST">
+        <div class="form-group">
+          <!-- <div class="col-sm-1">
                 <h3 id="filter-title">Filter</h3>
             </div> -->
-            <div class="col-sm-2">
-              <select [(ngModel)]="filterType" name="filterType" type="" class="form-control" (click)="hideDiv()" >
-                <option value="" disabled selected>Filter By</option>
-                <option value="Mgr_Qlid">Manager ID</option>
-                <option value="Emp_FName">Employee Name</option>
-                <option value="vendor_fname">Vendor Name</option>
-              </select>
-            </div>
-            <!-- <div class="col-sm-3">
-              TO:  <input type="date" name="filterValue" >
-              </div>
-              <div class="col-sm-3">
-                  FROM:  <input type="date" name="filterValue" >
-                  </div> -->
-            <div class="col-sm-3">
-              <input type="text" [(ngModel)]="filterValue"  name="filterValue" class="form-control" >
-            </div>
-            <div class="col-sm-1">
-              <button type="button" (click)="search()" class="btn btn-default">
+          <div class="col-sm-2">
+            <select [(ngModel)]="filterType" name="filterType" type="" class="form-control" (click)="hideDiv()">
+              <option value="" disabled selected>Filter By</option>
+              <option value="Mgr_Qlid">Manager ID</option>
+              <option value="Emp_FName">Employee Name</option>
+              <option value="vendor_fname">Vendor Name</option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" [(ngModel)]="filterValue" name="filterValue" class="form-control">
+          </div>
+          <div class="col-sm-3">
+            Month:
+            <select ngModel name="month">
+              <option value=" ">Select</option>
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+            Year:
+            <select ngModel name="year">
+              <option value=" ">Select</option>
+              <option value="2018">2018</option>
+            </select>
+          </div>
+          <div class="col-sm-1">
+            <!-- <button type="button" (click)="search()" class="btn btn-default">
                 Go
-              </button>
+              </button> -->
+            <button type="submit" class="btn btn-default">
+              Go
+            </button>
+
+          </div>
+
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div *ngIf="filterType == 'Mgr_Qlid' && showDiv">
+      <table class="table table-bordered table-hover table-stripped">
+        <thead>
+          <tr>
+            <th>Manager Name</th>
+            <th> Number of Employees</th>
+            <th>Number of cabs</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of managerReport |  filter:filterValue">
+            <td>
+              {{report?.Manager_Name}}
+            </td>
+            <td>
+              {{report?.No_Of_Employees}}
+            </td>
+            <td>
+              {{report?.No_Of_Cabs}}
+            </td>
+            <td>
+              {{report?.Total_Cost}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="filterType == 'Emp_FName' && showDiv">
+      <table class="table table-bordered table-hover table-stripped">
+        <thead>
+          <tr>
+            <th>RequestID</th>
+            <th>Employee Qlid</th>
+            <th>Employee Name</th>
+            <th>Shift</th>
+            <th>Time and date</th>
+            <th>Cost</th>
+            <th>Cab Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of employeeReport| filter:filterValue ">
+            <td>
+              {{report?.Request_ID}}
+            </td>
+            <td>
+              {{report?.Emp_Qlid}}
+            </td>
+            <td>
+              {{report?.Emp_FName}}
+            </td>
+            <td [ngSwitch]="report?.Shift_ID">
+              <span *ngSwitchCase="'1'||'3'">Scheduled </span>
+              <span *ngSwitchCase="2">Regular </span>
+              <span *ngSwitchCase="4">Unscheduled </span>
+
+            </td>
+            <td>
+              {{report?.Start_Date_Time}}
+            </td>
+            <td>
+              {{report?.Cab_Cost}}
+            </td>
+            <td>
+              {{report?.Cab_No}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="filterType == 'vendor_fname' && showDiv">
+
+      <table class="table table-bordered table-hover table-stripped">
+        <thead>
+          <tr>
+            <th>Vendor Name</th>
+            <th>Type of cab</th>
+            <th>Cost</th>
+            <th>Date and Time</th>
+            <th>Cab number</th>
+            <th>EmployeeQlid</th>
+            <th>RequestID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of vendorReport |  filter:filterValue">
+            <td>
+              {{report?.vendor_name}}
+            </td>
+            <td>
+              {{report?.TypeOfCab}}
+            </td>
+            <td>
+              {{report?.Cab_Cost}}
+            </td>
+            <td>
+              {{report?.Rqst_Date_Time}}
+            </td>
+            <td>
+              {{report?.Cab_No}}
+            </td>
+            <td>
+              {{report?.Emp_Qlid}}
+            </td>
+            <td>
+              {{report?.Request_ID}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-9 col-md-offset-2" id="employee-form">
+      <form name="myForm" #f="ngForm" (ngSubmit)="onTptCostForm(f.value)" class="form-horizontal" role="form">
+        <fieldset>
+
+          <legend>Regular cabs</legend>
+
+          <div class="form-group">
+            <!-- Input Field & Labels -->
+            <div class="row">
+              <!-- Toll  for Regular Cabs -->
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Toll for Regular Cabs
+                      </strong>
+                    </span>
+                    <input type="text" name="toll_regular_cab" placeholder="Toll Regular Cabs" maxlength="8" class="form-control imp-ph" ngModel
+                      (change)="validate();altered.toll_regular_cab=true" required>
+                  </div>
+                </div>
+
+                <!-- Error row -->
+                <div class="row">
+                  <!-- Taxes/Toll DND/ GPS for Regular Cabs -->
+                  <div class="col-sm-12">
+                    <div *ngIf="formError.empQlid != null && formError.empQlid.error
+                    && ( altered.empQlid || saveClicked )" class="text-danger form-error">
+                      {{ formError.empQlid.message }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- HR tax for Regular Cabs -->
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>HR tax for Regular Cabs
+                      </strong>
+                    </span>
+                    <input type="text" name="hrtax_regular_cab" placeholder="HR tax Regular Cabs" maxlength="8" class="form-control imp-ph" ngModel
+                      (change)="validate();altered.hrtax_regular_cab=true" required>
+                  </div>
+                </div>
+
+                <!-- Error row -->
+                <div class="row">
+                  <!-- HR tax for Regular Cabs -->
+                  <div class="col-sm-12">
+                    <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+                            && ( altered.empQlid || saveClicked )" class="text-danger form-error">
+                            {{ formError.empQlid.message }}
+                          </div> -->
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- UP tax for Regular Cabs -->
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>UP tax for Regular Cabs
+                      </strong>
+                    </span>
+                    <input type="text" name="uptax_regular_cab" placeholder="UP tax Regular Cabs" maxlength="8" class="form-control imp-ph" ngModel
+                      (change)="validate();altered.uptax_regular_cab=true" required>
+                  </div>
+                </div>
+
+                <!-- Error row -->
+                <div class="row">
+                  <!-- UP tax for Regular Cabs -->
+                  <div class="col-sm-12">
+                    <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+                            && ( altered.empQlid || saveClicked )" class="text-danger form-error">
+                            {{ formError.empQlid.message }}
+                          </div> -->
+                  </div>
+                </div>
+              </div>
+
+
+
+
             </div>
           </div>
-        </form>
-      </div>
-    </div> 
+
+          <div class="form-group">
+            <!-- Input Field & Labels -->
+            <div class="row">
+
+              <!-- Employee Contribution for Regular Cabs  -->
+              <div class="col-md-4">
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Employee Contribution
+                      </strong>
+                    </span>
+                    <input type="text" name="emp_contrib" placeholder="Employee Contribution" maxlength="15" class="form-control imp-ph" ngModel
+                      (change)="validate();altered.emp_contrib=true" required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+                    || saveClicked )" class="text-danger form-error">
+          {{ formError.empFName.message }}
+        </div> -->
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- GPS for Regular Cabs -->
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>GPS for Regular Cabs
+                      </strong>
+                    </span>
+                    <input type="text" name="gps_regular_cab" placeholder="GPS Regular Cabs" maxlength="8" class="form-control imp-ph" ngModel
+                      (change)="validate();altered.gps_regular_cab=true" required>
+                  </div>
+                </div>
+
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div *ngIf="formError.empQlid != null && formError.empQlid.error
+            && ( altered.empQlid || saveClicked )" class="text-danger form-error">
+                      {{ formError.empQlid.message }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+
+          <legend>Shift cabs</legend>
+
+          <div class="form-group">
+            <!-- Input Field & Labels -->
+            <div class="row">
+              <!-- Toll  for Shift Cabs -->
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Toll for Shift Cabs
+                      </strong>
+                    </span>
+                    <input type="text" name="toll_shift_cab" placeholder="Toll Shift Cabs" maxlength="8" class="form-control imp-ph" ngModel
+                      (change)="validate();altered.toll_shift_cab=true" required>
+                  </div>
+                </div>
+
+                <!-- Error row -->
+                <div class="row">
+                  <!-- Toll  for Shift Cabs -->
+                  <div class="col-sm-12">
+                    <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+                      && ( altered.empQlid || saveClicked )" class="text-danger form-error">
+                        {{ formError.empQlid.message }}
+                      </div> -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- GPS for Shift Cabs -->
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>GPS for Shift Cabs
+                      </strong>
+                    </span>
+                    <input type="text" name="gps_shift_cab" placeholder="GPS Shift Cabs" maxlength="8" class="form-control imp-ph" ngModel
+                     (change)="validate();altered.gps_shift_cab=true"  required>
+                  </div>
+                </div>
+
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+          && ( altered.empQlid || saveClicked )" class="text-danger form-error">
+                      {{ formError.empQlid.message }}
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <!-- HR tax for Shift Cabs -->
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>HR tax for Shift Cabs
+                      </strong>
+                    </span>
+                    <input type="text" name="hrtax_shift_cab" placeholder="HR tax Shift Cabs" maxlength="8" class="form-control imp-ph" ngModel
+                      (change)="validate();altered.hrtax_shift_cab=true" required>
+                  </div>
+                </div>
+
+                <!-- Error row -->
+                <div class="row">
+                  <!-- HR tax for Shift Cabs -->
+                  <div class="col-sm-12">
+                    <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+                          && ( altered.empQlid || saveClicked )" class="text-danger form-error">
+                          {{ formError.empQlid.message }}
+                        </div> -->
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- UP tax for Shift Cabs -->
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>UP tax for Shift Cabs
+                      </strong>
+                    </span>
+                    <input type="text" name="uptax_shift_cab" placeholder="UP tax Shift Cabs" maxlength="8" class="form-control imp-ph" ngModel
+                      (change)="validate();altered.uptax_shift_cab=true" required>
+                  </div>
+                </div>
+
+                <!-- Error row -->
+                <div class="row">
+                  <!-- UP tax for Shift Cabs -->
+                  <div class="col-sm-12">
+                    <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+                          && ( altered.empQlid || saveClicked )" class="text-danger form-error">
+                          {{ formError.empQlid.message }}
+                        </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <legend>Unscheduled Cabs</legend>
+
+          <div class="form-group">
+            <div class="row">
+              <!-- Toll  for Unscheduled Cabs -->
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Toll for Unscheduled Cabs
+                      </strong>
+                    </span>
+                    <input type="text" name="toll_unscheduled_cab" placeholder="Toll Unscheduled Cabs" maxlength="8" class="form-control imp-ph"
+                      ngModel (change)="validate();altered.toll_unscheduled_cab=true" required>
+                  </div>
+                </div>
+
+                <!-- Error row -->
+                <div class="row">
+                  <!-- Toll  for Shift Cabs -->
+                  <div class="col-sm-12">
+                    <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+                    && ( altered.empQlid || saveClicked )" class="text-danger form-error">
+                      {{ formError.empQlid.message }}
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <legend>Standby Cabs</legend>
+          <div class="form-group">
+            <div class="row">
+              <!-- StandBy Cab Cost with GST   -->
+              <div class="col-md-4">
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>StandBy Cab Cost with GST
+                      </strong>
+                    </span>
+                    <input type="text" name="standByCost" placeholder="StandBy Cab Cost with GST" maxlength="15" class="form-control imp-ph"
+                      ngModel (change)="validate();altered.standByCost=true" required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+      || saveClicked )" class="text-danger form-error">
+          {{ formError.empFName.message }}
+        </div> -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- StandBy Cab Taxes   -->
+              <div class="col-md-4">
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>StandBy Cab Taxes
+                      </strong>
+                    </span>
+                    <input type="text" name="standByTax" placeholder="StandBy Cab Taxes" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.standByTax=true"
+                      required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+      || saveClicked )" class="text-danger form-error">
+          {{ formError.empFName.message }}
+        </div> -->
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+
+          <legend>Other cabs</legend>
+
+          <div class="form-group">
+
+            <div class="row">
+              <!-- Others Cab Cost  -->
+
+              <div class="col-md-4">
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Others Cab Cost
+                      </strong>
+                    </span>
+                    <input type="text" name="otherCabCost" placeholder="Others Cab Cost" maxlength="15" class="form-control imp-ph" ngModel
+                      (change)="validate();altered.otherCabCost=true" required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+                || saveClicked )" class="text-danger form-error">
+                      {{ formError.empFName.message }}
+                    </div> -->
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <legend>Guard</legend>
+
+          <div class="form-group">
+
+            <!-- Guard Drop Slip Cost with GST Regular Cabs  -->
+
+            <div class="row">
+              <div class="col-md-4">
+
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Escort Guard Cost
+                      </strong>
+                    </span>
+                    <input type="text" name="escortGuardCost" placeholder="Escort Guard Cost" maxlength="15" class="form-control imp-ph" ngModel
+                      (change)="validate();altered.escortGuardCost=true" required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+                        || saveClicked )" class="text-danger form-error">
+                      {{ formError.empFName.message }}
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Escort Guard Drop Duty Cost
+                      </strong>
+                    </span>
+                    <input type="text" name="escortGuardDropDutyCost" placeholder="Escort Guard Drop Duty Cost" maxlength="15" class="form-control imp-ph"
+                      ngModel (change)="validate();altered.escortGuardDropDutyCost=true" required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+                          || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-4">
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Escort Guard Taxes
+                      </strong>
+                    </span>
+                    <input type="text" name="escortGuardTaxes" placeholder="Escort Guard Taxes" maxlength="15" class="form-control imp-ph" ngModel
+                      (change)="validate();altered.escortGuardTaxes=true" required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+                            || saveClicked )" class="text-danger form-error">
+                          {{ formError.empFName.message }}
+                        </div> -->
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+
+
+          </div>
+
+          <legend>Transport Team Expense</legend>
+
+          <div class="form-group">
+            <div class="row">
+              <!-- Transport Team Mob Cost   -->
+              <div class="col-md-4">
+
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Transport Team Mob Cost
+                      </strong>
+                    </span>
+                    <input type="text" name="tptMobCost" placeholder="Transport Team Mob Cost" maxlength="15" class="form-control imp-ph" ngModel
+                      (change)="validate();altered.tptMobCost=true" required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+    || saveClicked )" class="text-danger form-error">
+          {{ formError.empFName.message }}
+        </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <legend>Overall Cost Summary</legend>
+          <div class="form-group">
+
+            <div class="row">
+
+              <!-- Overall UP tax  -->
+              <div class="col-md-4">
+
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Overall UP tax
+                      </strong>
+                    </span>
+                    <input type="text" name="overallUPtax" placeholder="Overall UP tax" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallUPtax=true"
+                      required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+      || saveClicked )" class="text-danger form-error">
+    {{ formError.empFName.message }}
+  </div> -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Overall HR tax  -->
+              <div class="col-md-4">
+
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Overall HR tax
+                      </strong>
+                    </span>
+                    <input type="text" name="overallHRtax" placeholder="Overall HR tax" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallHRtax=true"
+                      required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+        || saveClicked )" class="text-danger form-error">
+      {{ formError.empFName.message }}
+    </div> -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Overall Taxes -->
+              <div class="col-md-4">
+
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Overall Taxes (GST)
+                      </strong>
+                    </span>
+                    <input type="text" name="overallTaxes" placeholder="Overall Taxes" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallTaxes=true"
+                      required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+      || saveClicked )" class="text-danger form-error">
+            {{ formError.empFName.message }}
+          </div> -->
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+
+              <!-- Overall Toll   -->
+              <div class="col-md-4">
+
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Overall Toll
+                      </strong>
+                    </span>
+                    <input type="text" name="overallToll" placeholder="Overall Toll" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallToll=true"
+                      required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+      || saveClicked )" class="text-danger form-error">
+            {{ formError.empFName.message }}
+          </div> -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Overall GPS -->
+              <div class="col-md-4">
+
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Overall GPS
+                      </strong>
+                    </span>
+                    <input type="text" name="overallGPS" placeholder="Overall GPS" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallGPS=true"
+                      required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+                    || saveClicked )" class="text-danger form-error">
+                  {{ formError.empFName.message }}
+                </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <legend>Foreign Exchange Price</legend>
+
+          <div class="form-group">
+            <!-- Input Field & Labels -->
+            <div class="row">
+              <!-- Foreign Exchange Price -->
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Foreign Exchange Price
+                      </strong>
+                    </span>
+                    <input type="text" name="foreignExPrice" placeholder="Foreign Exchange Price" maxlength="8" class="form-control imp-ph" ngModel
+                      (change)="validate();altered.foreignExPrice=true" required>
+                  </div>
+                </div>
+
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div *ngIf="formError.empQlid != null && formError.empQlid.error
+                    && ( altered.empQlid || saveClicked )" class="text-danger form-error">
+                      {{ formError.empQlid.message }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+        </fieldset>
+
+      </form>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-body">
-<div *ngIf ="filterType == 'Mgr_Qlid' && showDiv">
-    <table class="table table-bordered table-hover table-stripped">
-      <thead>
-        <tr>
-          <th>Manager Name</th>
-          <th> Number of Employees</th>
-          <th>Number of cabs</th>
-          <th>Cost</th>
-        </tr>
-      </thead>
-      <tbody >
-        <tr *ngFor="let report of managerReport |  filter:filterValue" >
-          <td>
-            {{report?.Manager_Name}}
-          </td>
-          <td>
-            {{report?.No_Of_Employees}}
-          </td>
-          <td>
-            {{report?.No_Of_Cabs}}
-          </td>
-          <td>
-            {{report?.Total_Cost}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-</div>
 
 
-
-<div *ngIf="filterType == 'Emp_FName' && showDiv">
-  <table class="table table-bordered table-hover table-stripped">
-    <thead>
-      <tr>
-        <th>RequestID</th>
-        <th>Employee Qlid</th>
-        <th>Employee Name</th>
-        <th>Shift</th>
-        <th>Time and date</th>
-        <th>Cost</th>
-        <th>Cab Number</th>
-      </tr>
-    </thead>
-    <tbody >
-      <tr *ngFor="let report of employeeReport| filter:filterValue ">
-        <td>
-          {{report?.Request_ID}}
-        </td>
-        <td>
-          {{report?.Emp_Qlid}}
-        </td>
-        <td>
-          {{report?.Emp_FName}}
-        </td>
-        <td [ngSwitch]="report?.Shift_ID">
-          <span *ngSwitchCase="'1'||'3'">Scheduled </span>
-          <span *ngSwitchCase="2">Regular </span>
-          <span *ngSwitchCase="4">Unscheduled </span>
-          
-        </td>
-        <td>
-          {{report?.Start_Date_Time}}
-        </td>
-        <td>
-          {{report?.Cab_Cost}}
-        </td>
-        <td>
-          {{report?.Cab_No}}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div *ngIf="filterType == 'vendor_fname' && showDiv">
-    
-  <table class="table table-bordered table-hover table-stripped">
-    <thead>
-      <tr>
-        <th>Vendor Name</th>
-        <th>Type of cab</th>
-        <th>Cost</th>
-        <th>Date and Time</th>
-        <th>Cab number</th>
-        <th>EmployeeQlid</th>
-        <th>RequestID</th>
-      </tr>
-    </thead>
-    <tbody >
-      <tr *ngFor="let report of vendorReport |  filter:filterValue">
-        <td>
-          {{report?.vendor_name}}
-        </td>
-        <td>
-          {{report?.TypeOfCab}}
-        </td>
-        <td>
-          {{report?.Cab_Cost}}
-        </td>
-        <td>
-          {{report?.Rqst_Date_Time}}
-        </td>
-        <td>
-          {{report?.Cab_No}}
-        </td>
-        <td>
-          {{report?.Emp_Qlid}}
-        </td>
-        <td>
-          {{report?.Request_ID}}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-</div>
-
-
-
+  </div>

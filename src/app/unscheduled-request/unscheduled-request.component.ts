@@ -4,7 +4,7 @@ import { UnscheduledRequestService } from '../Services/unscheduled-request.servi
 import { HeaderComponent } from '../header/header.component';
 import { Router } from '@angular/router';
 import { LoginService } from '../Services/login.service';
-
+import { saveAs } from 'file-saver';
 
 declare var jquery: any;
 declare var $: any;
@@ -73,12 +73,57 @@ export class UnscheduledRequestComponent implements OnInit {
       }
     });
 
-    // console.log(downloadReqArr);
-  this.unscheduledRequestService.downloadExcelFile(downloadReqArr,this.defaultRequest).subscribe(data=>{
-   console.log(data);
-  });
+    if (downloadReqArr.length > 0) {
+      // this.showLoader = true;
+
+      // console.log(downloadReqArr);
+      this.unscheduledRequestService.downloadExcelFile(downloadReqArr, this.defaultRequest).subscribe(
+        data => {
+          console.log(data);
+          var blob = new Blob(data._body, {
+            // type: 'application/vnd.ms-excel'
+            type: 'application/vnd.ms-excel;charset=charset=utf-8'
+        });
+          console.log(blob);
+          saveAs(blob,"ExcelFile.xls");
+        
+        
+        // saveAs(blob, 'File_Name_With_Some_Unique_Id_Time' + '.xlsx');
+          // console.log(blob);
+          // let options = { type: 'text/csv;charset=utf-8;' };
+          // let filename = 'myfile.csv';
+          // console.log(data._body.substr(1,data._body.length-1));
+          // this.createAndDownloadBlobFile(data._body.substr(0,data._body.length-1), options, filename);
+          //  console.log(data);
+        });
+    } else {
+      alert("No request selected");
+
+    }
   }
-  
+
+  // createAndDownloadBlobFile(body, options, filename) {
+  //   var blob = new Blob(body, options);
+  //   if (navigator.msSaveBlob) {
+  //     // IE 10+
+  //     navigator.msSaveBlob(blob, filename);
+  //   }
+  //   else {
+  //     var link = document.createElement('a');
+  //     // Browsers that support HTML5 download attribute
+  //     if (link.download !== undefined) {
+  //       var url = URL.createObjectURL(blob);
+  //       link.setAttribute("href", url);
+  //       link.setAttribute("download", filename);
+  //       link.style.visibility = 'hidden';
+  //       document.body.appendChild(link);
+  //       link.click();
+  //       document.body.removeChild(link);
+  //     }
+  //   }
+  // }
+
+
   allocate() {
 
     var request_idArr = [];
@@ -153,12 +198,12 @@ export class UnscheduledRequestComponent implements OnInit {
     if (this.defaultRequest === "Allocated") {
       this.navLocation = "/ Allocated";
       this.showAllocateButton = false;
-    }else{
+    } else {
       this.navLocation = "/ Pending";
       this.showAllocateButton = true;
     }
 
-    $('#chk_selectAll').prop('checked',false);
+    $('#chk_selectAll').prop('checked', false);
     //  console.log(this.showReqArr);
   }
 
