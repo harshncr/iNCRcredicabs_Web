@@ -48,7 +48,8 @@ export const environment = {
   employeeRequest: BASE_URL + "/ReportService/employeereportParamSummary",
   employeeRequest1: BASE_URL + "/ReportService/employeereportDefaultDetail",
   employeeDetailUrl: BASE_URL + "/ReportService/employeeReportParamDetail",
-  employeeDetailUrl1: BASE_URL + "/ReportService/employee/DefaultSummary",  managerUrl: BASE_URL + "/ReportService/managerreportParamSummary",
+  employeeDetailUrl1: BASE_URL + "/ReportService/employee/DefaultSummary",
+  managerUrl: BASE_URL + "/ReportService/managerreportParamSummary",
   managerDetailUrl: BASE_URL + "/ReportService/managerReportParamDetail",
   managerUrl1: BASE_URL + "/ReportService/managerreportDefaultSummary",
   managerDetailUrl1: BASE_URL + "/ReportService//managerDetailDefault",
@@ -56,6 +57,10 @@ export const environment = {
   vendorUrl: BASE_URL + "/ReportService/vendorreportParamSummary",
   vendorDefaultDetailUrl: BASE_URL + "/ReportService/vendorreportDefaultDetail",
   vendorDetailUrl: BASE_URL + "/ReportService/vendorReportParamDetail",
-
- 
+  employeeDashUrl:            BASE_URL + "/EmployeeService/employee-dashboard",
+  employeeSetPasswrodUrl:     BASE_URL + "/EmployeeService/change-password",
+  employeeManagerDetailsUrl:  BASE_URL + "/EmployeeService/employee-manager-details",
+  unscheduledRequestUrl:      BASE_URL + "/RequestService/sendRequest",
+  uploadEmployeeExcelUrl:     BASE_URL + "/EmployeeService/UploadFileData",
+  getRoleUrl:                 BASE_URL + "/EmployeeService/get-role"
 };

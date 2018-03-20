@@ -54,9 +54,15 @@ nav a:hover{
     border-color: transparent transparent black transparent;
 }
 
-a.nav-link, #nav-request-link{
+a.nav-link, #nav-request-link, .navbar-navlocation{
     display: block;
     padding: 15px 10px;
+}
+
+.navbar-navlocation{
+    /* font-weight: bold; */
+    color: #666666;
+    font-size: 14px;
 }
 
 .separator{
@@ -65,3 +71,27 @@ a.nav-link, #nav-request-link{
     background: linear-gradient(#f8f8f8,#aaaaaa, #f8f8f8);
     height: 50px;
 }
+
+nav table td{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.collapse.navbar-collapse{
+    padding: 0px;
+}
+
+.glyphicon{
+    margin-right: 5px;
+}
+nav ul{
+    width: inherit;
+}
+
+.navbar-nav{
+    margin: 0px;
+}
+/* 
+nav ul li{
+    max-width: 200px;
+} */

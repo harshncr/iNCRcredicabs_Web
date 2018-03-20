@@ -36,7 +36,10 @@ import { AddDriverComponent }                     from './add-driver/add-driver.
 import { AddCabComponent }                        from './add-cab/add-cab.component';
 import { DriverUpdateComponent }                  from './driver-update/driver-update.component';
 import { MassUploadEmployeeComponent }            from './mass-upload-employee/mass-upload-employee.component';
-import { RelationshipFormComponent }                       from  './relationship-form/relationship-form.component';
+import { RelationshipFormComponent }              from  './relationship-form/relationship-form.component';
+import { EmployeeDashComponent }                  from './employee-dash/employee-dash.component';
+import { EmployeeReqUnschComponent }              from './employee-req-unsch/employee-req-unsch.component';
+import { EmployeeChangePasswordComponent } from './employee-change-password/employee-change-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login',   pathMatch: 'full' },
@@ -54,7 +57,20 @@ const routes: Routes = [
     path:       'employee/view/details/:qlid',
     component:  ViewEmployeeDetailsComponent
   },
+  {
+    path: 'employee/edit/:qlid',
+    component: EditEmployeeComponent
+  },
   { path: 'dash',                     component: DashComponent },
+  { path: 'employee-dash',            component: EmployeeDashComponent },
+  {
+    path:       'employee-dash/unscheduled-cab-request',
+    component:  EmployeeReqUnschComponent
+  },
+  {
+    path:       'employee-dash/change-password',
+    component:  EmployeeChangePasswordComponent
+  },
   { path: 'forgot-password',          component: ForgotPasswordComponent },
   { path: 'employee/view',            component: ViewEmployeeComponent },
   { path: 'employee',                 component: EmployeeComponent },

@@ -1,0 +1,138 @@
+<app-employee-header></app-employee-header>
+
+<app-loader-anim [showLoader]="showLoader" [loaderText]="loaderText"></app-loader-anim>
+<div *ngIf="showError && showLoader == false" class="alert alert-danger">
+    <strong>Error!</strong> {{ errorMessage }}
+</div>
+<div class="container"> 
+    <div class="row">
+        <div *ngIf="emp && showLoader == false" id="user-profile-content"
+            class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-lg-offset-2"
+            align="left">
+            <div class="panel panel-info">             
+                <div class="panel-body">
+                    <div class="row">           
+                        <div class="col-md-8 ">
+                            <div id="user-detail-left" >
+                                <div class="user-detail-heading">
+                                    <small> <b> <u> Name </u> </b> </small>  
+                                </div>
+                                <div class="user-detail-data">                       
+                                    <span class="glyphicon glyphicon-user"></span> 
+                                        {{emp?.empFName}} {{ emp?.empMName }} {{emp?.empLName}} ({{emp?.empQlid}})
+                                    </div>    
+                                    <div class="user-detail-heading">
+                                        <small> <b> <u> Contact no</u> </b> </small>
+                                    </div>
+                                    <div class="user-detail-data"> 
+                                        <span class="glyphicon glyphicon-phone"></span>
+                                            {{ emp?.empMobNbr }}
+                                        </div>
+                                        <div  class="user-detail-heading">
+                                            <small> <b> <u> Address </u> </b> </small>
+                                        </div>
+                                        <div class="user-detail-data">
+                                            <table>
+                                                <tr>
+                                                    <td><span class="glyphicon glyphicon-home"></span></td>
+                                                    <td class="data-col">
+                                                        {{emp?.empAddLine1}}
+                                                        <br />
+                                                        {{emp?.empAddLine2}}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div  class="user-detail-heading">
+                                            <small> <b> <u> Postal Code </u> </b> </small>  
+                                        </div>
+                                        <div class="user-detail-data">
+                                            <img src="assets/img/postbox.svg" alt="..." class="img-thumbnail">
+                                            {{ emp?.empPin }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" id="user-detail-right">
+                                    <div  class="user-detail-heading">
+                                        <small> <b> <u> Pickup Area </u> </b> </small>
+                                    </div>
+                                    <div class="user-detail-data">
+                                        {{ emp?.empPickupArea }}
+                                    </div>
+                                    <div  class="user-detail-heading">
+                                        <small> <b> <u>Zone </u> </b> </small> 
+                                    </div>
+                                    <div class="user-detail-data">
+                                        {{ emp?.empZone }}
+                                    </div>
+                                    <div  class="user-detail-heading">
+                                        <small> <b> <u> L1 Manager </u> </b> </small> 
+                                    </div>
+                                    <div class="user-detail-data">
+                                        <strong>{{ emp.mgr1Name }}</strong>
+                                        ( {{ emp?.empMgrQlid1 }} )
+                                    </div>
+                                    <div  class="user-detail-heading">
+                                        <small> <b> <u> L2 Manager </u> </b> </small>  
+                                    </div>
+                                    <div class="user-detail-data">
+                                        <strong>{{ emp.mgr2Name }}</strong>
+                                        ( {{ emp?.empMgrQlid2 }} )
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="rosterInfo" class="panel panel-info">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title pull-left col-sm-2 text-center">
+                        Roster No:  {{ rosterInfo[0].Route_number }}
+                    </h4>
+                    <div>
+                        <h4 class="panel-title pull-left col-sm-3 text-center">
+                            Shift Time: 
+                            <span *ngIf="rosterInfo[0].shift_id">
+                                <span *ngIf="rosterInfo[0].shift_id == 1">07:00 AM - 04:00 PM</span>
+                                <span *ngIf="rosterInfo[0].shift_id == 2">10:00 AM - 07:00 PM</span>
+                                <span *ngIf="rosterInfo[0].shift_id == 4">12:00 PM - 09:00 PM</span>
+                                <span *ngIf="rosterInfo[0].shift_id == 3">Unsched Shift HR</span>  
+                            </span>
+                        </h4>
+                    </div>
+                    
+                    <h4 class="panel-title pull-left col-sm-2 text-center">
+                        Cab No: {{ rosterInfo[0].Cab_number }}
+                    </h4>
+                    <h4 *ngIf="emp.driverDetails" class="panel-title pull-left col-sm-4 text-center">
+                        Driver Name: {{ emp.driverDetails.driverName }}
+                        (Mob: {{ emp.driverDetails.driverContact }})
+                    </h4>
+                </div>
+                <div *ngFor="let i of emp.rosterInfo" id="rowcss" >
+                    <!-- <div *ngIf="i.Cab_number == rosterInfo.Cab_number"> -->
+                    <div>
+                        <div class="card" id="emp">
+                            <div class="card-block" style="height:68px;">
+                                <button type="button" class="btn btn-default btn-md" style="background:white;">
+                                            <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>  
+                                </button>
+                                <button type="button" class="btn btn-default btn-md" style="background:white;width:250px;"><b>{{i.f_name }} {{i.m_name }} {{i.l_name}}</b> [{{i.Qlid}}]</button>
+                                <br>
+                                <button type="button" class="btn btn-default btn-md" style="background:white;">
+                                        <span class="glyphicon glyphicon-phone" aria-hidden="true" ></span>  
+                            </button>
+                            <button type="button" class="btn btn-default btn-md" style="padding-left:5px;background:white;width:90px;">{{i.e_mob}}</button>
+                                <button type="button" class="btn btn-default btn-md" style="background:white;">
+                                        <span class="glyphicon glyphicon-home" aria-hidden="true" ></span>  
+                                    </button>
+                                <button type="button" class="btn btn-default btn-md" style="background:white;width:110px;">{{i.p_a}}</button>
+                            </div>
+                        </div> 
+                    </div>
+                </div>    
+            </div>
+        </div>
+

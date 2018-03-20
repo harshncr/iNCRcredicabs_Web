@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, AfterContentInit, AfterViewInit, After
 import { Router, NavigationEnd } from '@angular/router';
 import { LoginService } from '../Services/login.service';
 import { UnscheduledRequestService } from '../Services/unscheduled-request.service';
-import {UnscheduledRequestComponent} from '../unscheduled-request/unscheduled-request.component';
+import { UnscheduledRequestComponent } from '../unscheduled-request/unscheduled-request.component';
 import { RosterService } from '../Services/roster.service';
 declare var jquery:any;
 declare var $ :any;
@@ -30,7 +30,6 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   @Input() loadb:boolean;
   @Input() loadc:boolean;
   @Input() loadd:boolean;
-
   
   constructor(private _router: Router,
               private _loginService: LoginService,
@@ -45,20 +44,12 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     this.headerUpdate();
-    // this.router.events.subscribe((e) => {
-    //   if (e instanceof NavigationEnd) {
-    //     this.headerUpdate();
-    //   }
-    // });
-
-    //// TODO: uncomment below lines after session issues are resolved!
         
     // this.loginService.checkLoginStatus().subscribe((data)=>{
     //   if(data['login'] == false){
     //     return this.router.navigateByUrl('/no-session');
     //   }
-    // });
-  
+    // });  
   }
 
   downloadRequestExcel(){
@@ -73,11 +64,11 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   }
 
   headerUpdate(){    
-    this.employee = false;
-    this.roster = false;
-    this.reports = false;
-    this.vendor = false;
-    this.unscheduledRequest=false;
+    // this.employee = false;
+    // this.roster = false;
+    // this.reports = false;
+    // this.vendor = false;
+    // this.unscheduledRequest=false;
     if(this.module != null && this.module != undefined){
       switch(this.module.toUpperCase()){
         case 'EMPLOYEE':

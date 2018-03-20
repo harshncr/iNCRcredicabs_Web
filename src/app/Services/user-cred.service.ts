@@ -68,5 +68,15 @@ export class UserCredService {
             body: JSON.stringify(userCred),
             shouldBlock: true
         });
+    }    
+
+    setPassword(setPass): Observable<any>{
+        return this.apiService.callApiService({
+            requestType: REQUEST_TYPE_POST,
+            url: `${environment.employeeSetPasswrodUrl}`,
+            headers: this.headers,
+            body: JSON.stringify(setPass),
+            shouldBlock: true
+        });
     }
 }

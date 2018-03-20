@@ -1,6 +1,20 @@
 <div class="container">
-    <div id="no-session-pane">
-        Session Expired!<br />
-        <a routerLink="/login">Click here to go back to the login page!</a>
-    </div>
+    <table>
+        <tr>
+            <td>
+                <div class="jumbotron">
+                    <h1>
+                        <div class="glyphicon glyphicon-alert"></div>
+                    </h1>
+                </div>
+            </td>
+            <td>
+                <div class="jumbotron"><h1>Error: No Session!</h1></div>
+                <div id="no-session-pane">
+                    You may not be logged in or your session has expired!<br />
+                    <a routerLink="/login">Click here to go back to the login page!</a>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>

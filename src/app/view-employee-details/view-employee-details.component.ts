@@ -25,7 +25,6 @@ export class ViewEmployeeDetailsComponent implements OnInit {
   loaderText            = "Loading...";
   ////-----------------------------------------
 
-
   showDeactivatePopup   = false;
   error                 = false;
   errorMessage          = '';
@@ -42,16 +41,18 @@ export class ViewEmployeeDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // console.log('aaa'+this._employeeData.getItem());
+    //// Initialiaze employee data from previous component (View Employee)
     this.emp = this._employeeData.getItem();
 
     if(this.emp != null && this.emp != undefined){
       //// if employee data from previous component is initialized,
       //// initialize employee role based on rolesId
-      
+
+      this.employeeLoaded = true;      
       this.employeeService.getAllRoles().subscribe((roleData) => {
         this.currEmployeeRole = roleData[this.emp.rolesId];
         this.roleLoaded = true;
+        this.showLoader = false;
         console.log('Roles Loaded!');
       });
     }else{
@@ -85,17 +86,6 @@ export class ViewEmployeeDetailsComponent implements OnInit {
           }
         });
       });
-
-      // this.employeeService.currentEmp.subscribe((emp) => {
-      //   this.emp = emp;
-      //   this.initCurrEmployeeRole(this.emp);
-      //   // console.log(emp);
-      // });
-      // this.router.events.subscribe((e) => {
-      //   if(e instanceof NavigationEnd){
-      //     // this.getEmployeeFromUrl();
-      //   }
-      // });
     }
   }
 
@@ -124,7 +114,7 @@ export class ViewEmployeeDetailsComponent implements OnInit {
   editEmployee(emp){
     this.selectedItem = emp;
     this._employeeData.setItem(this.selectedItem);
-    this.router.navigate(['employee/edit']);
+    this.router.navigate(['employee/edit/'+emp.empQlid]);
     this.employeeService.giveEmployee(emp);
   }
 

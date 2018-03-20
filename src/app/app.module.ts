@@ -79,6 +79,10 @@ import { MassUploadEmployeeComponent } from './mass-upload-employee/mass-upload-
 import { RelationshipFormComponent } from './relationship-form/relationship-form.component';
 import { RelationService } from './relation.service';
 import { DashData } from './dash/dashData';
+import { EmployeeReqUnschComponent } from './employee-req-unsch/employee-req-unsch.component';
+import { EmployeeDashComponent } from './employee-dash/employee-dash.component';
+import { EmployeeHeaderComponent } from './employee-header/employee-header.component';
+import { EmployeeChangePasswordComponent } from './employee-change-password/employee-change-password.component';
 
 
 @NgModule({
@@ -130,8 +134,11 @@ import { DashData } from './dash/dashData';
     DriverUpdateComponent,
     LoaderAnimComponent,
     MassUploadEmployeeComponent,
-    RelationshipFormComponent
-    
+    RelationshipFormComponent,
+    EmployeeReqUnschComponent,
+    EmployeeDashComponent,
+    EmployeeHeaderComponent,
+    EmployeeChangePasswordComponent
   ],
   imports: [
     BrowserModule,

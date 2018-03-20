@@ -1,0 +1,6 @@
+#upload-row{margin-top:10px;}
+#upload-button{margin-top:4px;}
+input[type=file]::-webkit-file-upload-button{background: #ffffff;padding: 7px 12px;margin-right: 10px;border: 1px solid #cccccc;border-radius: 4px;cursor: pointer;}
+input[type=file]::-webkit-file-upload-button:hover{background: #eeeeee;}
+.close-button{font-weight: bold;font-size: 20px;color: #999999;cursor: pointer;padding: 0px;margin-top: -4px;}
+.close-button:hover{color: #000000;}

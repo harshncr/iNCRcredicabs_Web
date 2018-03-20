@@ -1,0 +1,15 @@
+.red{
+    color:red;
+    }
+.form-area
+{	
+    background-color: #FAFAFA;
+	padding: 10px 40px 60px;
+	margin: 10px 0px 60px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;	
+}
+
+.show-textbox{
+    margin: 10px 0px;
+}

@@ -2,13 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>TodoWeb</title>
+  <title>iNCRediCabs - The NCR cab management portal!</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <script src='https://www.google.com/recaptcha/api.js?onload=onGrecaptchaLoad'
+    async defer></script>
+  <script>
+    grecaptchaLoaded = false;
+    function onGrecaptchaLoad(){
+      grecaptchaLoaded = true;
+    }
+  </script>
 </head>
 <body>
   <app-root></app-root>

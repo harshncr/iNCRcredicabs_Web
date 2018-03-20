@@ -42,6 +42,7 @@ export class EmployeeService {
     }
 
     editEmployee(employee: Employee): Observable<any>{
+        console.log(JSON.stringify(employee));
         return this.apiService.callApiService({
             requestType: REQUEST_TYPE_POST,
             url: `${environment.editEmployeeUrl}`,
@@ -124,6 +125,71 @@ export class EmployeeService {
             shouldBlock: true
         });
     }
+
+    employeeDash(qlid): Observable<any>{
+        return this.apiService.callApiService({
+            requestType: REQUEST_TYPE_POST,
+            url: `${environment.employeeDashUrl}`,
+            headers: this.headers,
+            body: JSON.stringify({empQlid:qlid}),
+            shouldBlock: true
+        });
+    }
+
+    employeeManagerDetails(): Observable<any>{
+        return this.apiService.callApiService({
+            requestType: REQUEST_TYPE_POST,
+            url: `${environment.employeeManagerDetailsUrl}`,
+            headers: this.headers,
+            body: JSON.stringify({}),
+            shouldBlock: true
+        });
+    }
+
+    unscheduledRequest(req): Observable<any>{
+        return this.apiService.callApiService({
+            requestType: REQUEST_TYPE_POST,
+            url: `${environment.employeeManagerDetailsUrl}`,
+            headers: this.headers,
+            body: JSON.stringify(req),
+            shouldBlock: true
+        });
+    }
+
+    getRole(): Observable<any>{
+        return this.apiService.callApiService({
+            requestType: REQUEST_TYPE_POST,
+            url: `${environment.getRoleUrl}`,
+            headers: this.headers,
+            body: JSON.stringify({}),
+            shouldBlock: true
+        });
+    }
+
+    uploadExcel(formData): Observable<any>{
+        // return this.apiService.callApiService({
+        //     requestType: REQUEST_TYPE_POST,
+        //     url: `${environment.employeeManagerDetailsUrl}`,
+        //     headers: this.headers,
+        //     body: JSON.stringify(),
+        //     shouldBlock: true
+        // });
+        return this.http.post(`${environment.uploadEmployeeExcelUrl}`, formData)
+        .map(res => {
+            // this._appStateActions.hideLoaderGraphic(reqObj);
+            return this.getResponseContent(`${environment.uploadEmployeeExcelUrl}`, res);
+        })
+        .catch(err => {
+            // this._appStateActions.hideLoaderGraphic(reqObj);
+            return Observable.throw(err);
+        });
+    }
+
+    sendfile(formData){
+        return this.uploadExcel(formData);
+    }
+
+    
     // checkManager(manager): Observable<any>{
     //     return this.apiService.callApiService({
     //         requestType: REQUEST_TYPE_POST,
@@ -132,7 +198,45 @@ export class EmployeeService {
     //         body: JSON.stringify({manager: manager}),
     //         shouldBlock: true
     //     });
-    // }
+    // }    
+
+    private getResponseContent(url: string, res: Response) {
+        try {
+            let contentType = res.headers.get('content-type');
+            if (contentType && contentType.indexOf(';') !== -1) {
+                // strip the charset declaration to simplify the comparison
+                contentType = contentType.substring(0, contentType.indexOf(';'));
+            }
+            // console.log(`contentType => [${contentType}]`);
+            switch (contentType) {
+
+                case 'application/x-file-download':
+                    return res;
+
+                case 'application/json':
+                    return res.json();
+
+                case 'text/plain':
+                case 'text/html':
+                    return res.text();
+
+                case 'application/vnd.ms-excel':
+                    return res.blob();
+
+                case null:
+                    return null;
+
+                default:
+                    return res.text() ? res.json() : {};
+            }
+        } catch (e) {
+            const resContent = JSON.stringify(res).substr(0, 512);
+             throw (e);
+        }
+        finally {
+            //
+        }
+    }
 }
 
 //Sending Excel Data 
