@@ -39,6 +39,7 @@ import { MassUploadEmployeeComponent }            from './mass-upload-employee/m
 import { RelationshipFormComponent }              from  './relationship-form/relationship-form.component';
 import { EmployeeDashComponent }                  from './employee-dash/employee-dash.component';
 import { EmployeeReqUnschComponent }              from './employee-req-unsch/employee-req-unsch.component';
+import { EmployeeChangePasswordComponent } from './employee-change-password/employee-change-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login',   pathMatch: 'full' },
@@ -65,6 +66,10 @@ const routes: Routes = [
   {
     path:       'employee-dash/unscheduled-cab-request',
     component:  EmployeeReqUnschComponent
+  },
+  {
+    path:       'employee-dash/change-password',
+    component:  EmployeeChangePasswordComponent
   },
   { path: 'forgot-password',          component: ForgotPasswordComponent },
   { path: 'employee/view',            component: ViewEmployeeComponent },

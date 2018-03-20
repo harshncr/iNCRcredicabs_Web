@@ -156,6 +156,16 @@ export class EmployeeService {
         });
     }
 
+    getRole(): Observable<any>{
+        return this.apiService.callApiService({
+            requestType: REQUEST_TYPE_POST,
+            url: `${environment.getRoleUrl}`,
+            headers: this.headers,
+            body: JSON.stringify({}),
+            shouldBlock: true
+        });
+    }
+
     uploadExcel(formData): Observable<any>{
         // return this.apiService.callApiService({
         //     requestType: REQUEST_TYPE_POST,
@@ -174,6 +184,12 @@ export class EmployeeService {
             return Observable.throw(err);
         });
     }
+
+    sendfile(formData){
+        return this.uploadExcel(formData);
+    }
+
+    
     // checkManager(manager): Observable<any>{
     //     return this.apiService.callApiService({
     //         requestType: REQUEST_TYPE_POST,
@@ -182,8 +198,7 @@ export class EmployeeService {
     //         body: JSON.stringify({manager: manager}),
     //         shouldBlock: true
     //     });
-    // }
-    
+    // }    
 
     private getResponseContent(url: string, res: Response) {
         try {

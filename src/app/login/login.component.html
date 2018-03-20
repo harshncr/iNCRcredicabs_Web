@@ -5,7 +5,9 @@
         <strong>Error!</strong> {{ errorMessage }}
     </div>
 
-    <div id="loginbox" class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2"> 
+    <app-loader-anim [showLoader]="showLoader" [loaderText]="loaderText"></app-loader-anim>
+
+    <div *ngIf="showLoader == false" id="loginbox" class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2"> 
       
         <div class="panel panel-default" style="padding-bottom:0px">
             <div class="panel-heading">
@@ -28,7 +30,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <!-- <div class="g-recaptcha col-sm-offset-8 col-sm-offset-2" data-sitekey="6LfobEoUAAAAAMYt5atxvWc-9c_EToqphl3arXsI"></div> -->
+                            <div class="g-recaptcha" data-sitekey="6LfobEoUAAAAAMYt5atxvWc-9c_EToqphl3arXsI"></div>
                             <table>
                                 <tr>
                                     <td class="col-sm-9">

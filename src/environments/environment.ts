@@ -48,7 +48,9 @@ export const environment = {
   managerUrl:                 BASE_URL + "/ReportService/managerreport",
   vendorUrl:                  BASE_URL + "/ReportService/vendorreport",
   employeeDashUrl:            BASE_URL + "/EmployeeService/employee-dashboard",
+  employeeSetPasswrodUrl:     BASE_URL + "/EmployeeService/change-password",
   employeeManagerDetailsUrl:  BASE_URL + "/EmployeeService/employee-manager-details",
   unscheduledRequestUrl:      BASE_URL + "RequestService/sendRequest",
-  uploadEmployeeExcelUrl:     BASE_URL + "/EmployeeService/UploadFileData"
+  uploadEmployeeExcelUrl:     BASE_URL + "/EmployeeService/UploadFileData",
+  getRoleUrl:                 BASE_URL + "/EmployeeService/get-role"
 };

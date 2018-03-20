@@ -69,13 +69,15 @@
                                         <small> <b> <u> L1 Manager </u> </b> </small> 
                                     </div>
                                     <div class="user-detail-data">
-                                    {{ emp?.empMgrQlid1 }}
+                                        <strong>{{ emp.mgr1Name }}</strong>
+                                        ( {{ emp?.empMgrQlid1 }} )
                                     </div>
                                     <div  class="user-detail-heading">
                                         <small> <b> <u> L2 Manager </u> </b> </small>  
                                     </div>
                                     <div class="user-detail-data">
-                                    {{ emp?.empMgrQlid2 }}
+                                        <strong>{{ emp.mgr2Name }}</strong>
+                                        ( {{ emp?.empMgrQlid2 }} )
                                     </div>
                                 </div>
                             </div>
@@ -86,23 +88,27 @@
 
             <div *ngIf="rosterInfo" class="panel panel-info">
                 <div class="panel-heading clearfix">
-                    <h4 class="panel-title pull-left" style="padding-top: 7.5px">
+                    <h4 class="panel-title pull-left col-sm-2 text-center">
                         Roster No:  {{ rosterInfo[0].Route_number }}
                     </h4>
                     <div>
-                        <h4 class="panel-title pull-left" style="padding-top: 7.5px;margin-left:5%;">
+                        <h4 class="panel-title pull-left col-sm-3 text-center">
                             Shift Time: 
                             <span *ngIf="rosterInfo[0].shift_id">
-                                <span *ngIf="rosterInfo[0].shift_id == 1">07:00 AM to 04:00 PM</span>
-                                <span *ngIf="rosterInfo[0].shift_id == 2">10:00 AM to 07:00 PM</span>
-                                <span *ngIf="rosterInfo[0].shift_id == 3">12:00 PM to 09:00 PM</span>
-                                <span *ngIf="rosterInfo[0].shift_id == 4">Unscheduled Shift HR</span>  
+                                <span *ngIf="rosterInfo[0].shift_id == 1">07:00 AM - 04:00 PM</span>
+                                <span *ngIf="rosterInfo[0].shift_id == 2">10:00 AM - 07:00 PM</span>
+                                <span *ngIf="rosterInfo[0].shift_id == 4">12:00 PM - 09:00 PM</span>
+                                <span *ngIf="rosterInfo[0].shift_id == 3">Unsched Shift HR</span>  
                             </span>
                         </h4>
                     </div>
                     
-                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;margin-left:5%;">
+                    <h4 class="panel-title pull-left col-sm-2 text-center">
                         Cab No: {{ rosterInfo[0].Cab_number }}
+                    </h4>
+                    <h4 *ngIf="emp.driverDetails" class="panel-title pull-left col-sm-4 text-center">
+                        Driver Name: {{ emp.driverDetails.driverName }}
+                        (Mob: {{ emp.driverDetails.driverContact }})
                     </h4>
                 </div>
                 <div *ngFor="let i of emp.rosterInfo" id="rowcss" >

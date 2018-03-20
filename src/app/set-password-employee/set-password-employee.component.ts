@@ -11,8 +11,8 @@ declare var $ :any;
   styleUrls: ['./set-password-employee.component.css']
 })
 export class SetPasswordEmployeeComponent implements OnInit {
-  password1?:string;
-  password2?:string;
+  password1?:string = null;
+  password2?:string = null;
   buttonDisabled?:String;
   qlid:string;
   token:string;
@@ -100,6 +100,10 @@ export class SetPasswordEmployeeComponent implements OnInit {
     }
 
     return validateStatus;
+  }
+
+  input(){
+    this.validate();
   }
 
   onInput(f){

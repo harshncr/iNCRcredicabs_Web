@@ -33,12 +33,13 @@ export class EmployeeDashComponent implements OnInit {
   ngOnInit() {
     this.qlid='AP250624';
     this.employeeService.employeeDash(this.qlid).subscribe((data) => {
-      this.responseJSON = data;
+      // this.responseJSON = data;
+      console.log(data);
       if(data.success){
         this.rosterInfo = data.rosterInfo;
-        this.emp = this.responseJSON;
+        this.emp = data;
         console.log(this.emp);
-        console.log(this.rosterInfo);
+        // console.log(this.rosterInfo);
       }else{
         this.showError = true;
         this.errorMessage = 'An error was encountered while fetching your details!';

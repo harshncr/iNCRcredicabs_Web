@@ -147,7 +147,15 @@ opacity: 0.8;
     display: block;
     font-size: 120%;
     margin-left:15%;
-} 
+}
+
+.rstr-head{
+    margin: 7.5px 5px 0px 5px;
+}
+
+.panel-heading{
+    padding: 15px;
+}
 
 
 /* loader */

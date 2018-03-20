@@ -1,4 +1,6 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { RosterService } from '../Services/roster.service';
+import { ElementRef, ViewChild,Input} from '@angular/core';
 import { EmployeeService } from '../Services/employee.service';
 
 @Component({
@@ -19,35 +21,32 @@ export class MassUploadEmployeeComponent implements OnInit {
   showSuccess = false;
   message = '';
 
-  constructor(private elem:ElementRef, private employeeService: EmployeeService) {}
+  constructor(private emp_service:EmployeeService,private elem:ElementRef) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+  upload(){
+    this.showLoader = true;
+    //this.upload_spinner=true;
+    let files=this.elem.nativeElement.querySelector("#uploadFile").files;
+    let formdata = new FormData();
+    let file=files[0];
+    formdata.append('uploadFile', file, file.name);
+    this.emp_service.sendfile(formdata).subscribe((data)=>{
+      if(data.success){
+        console.log('Successfull');
+        this.showSuccess = true;
+        this.showError = false;
+        // this.showLoading = f
+        this.message = data.message;
+      }else{
+        this.showError = true;
+        this.message = 'An error was encountered while uploading. Please try again later....';
+      }
+      console.log(data);
 
-  upload(){   
-    if(this.elem.nativeElement.querySelector("#uploadFile").value != ""){ 
-      this.showLoader = true;
-      let files=this.elem.nativeElement.querySelector("#uploadFile").files;
-      let formdata =new FormData();
-      let file=files[0];
-      formdata.append('uploadFile',file,file.name);
-      this.employeeService.uploadExcel(formdata).subscribe((data)=>{
-        if(data.success){
-          this.showSuccess = true;
-          this.showError = false;
-          this.message = data.message;
-        }else{
-          this.showSuccess = false;
-          this.showError = true;
-          this.message = 'Ann error occured whlie uploading the Excel '
-            +'file, Please try again later!';
-        }
-      });
       this.showLoader = false;
-    }
-
-    this.showError = true;
-    this.showSuccess = false;
-    this.message = 'You must select a file!';
+    });
   }
 
   close(){

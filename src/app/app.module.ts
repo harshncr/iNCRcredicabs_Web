@@ -81,6 +81,7 @@ import { RelationService } from './relation.service';
 import { EmployeeReqUnschComponent } from './employee-req-unsch/employee-req-unsch.component';
 import { EmployeeDashComponent } from './employee-dash/employee-dash.component';
 import { EmployeeHeaderComponent } from './employee-header/employee-header.component';
+import { EmployeeChangePasswordComponent } from './employee-change-password/employee-change-password.component';
 
 
 @NgModule({
@@ -135,7 +136,8 @@ import { EmployeeHeaderComponent } from './employee-header/employee-header.compo
     RelationshipFormComponent,
     EmployeeReqUnschComponent,
     EmployeeDashComponent,
-    EmployeeHeaderComponent
+    EmployeeHeaderComponent,
+    EmployeeChangePasswordComponent
   ],
   imports: [
     BrowserModule,
