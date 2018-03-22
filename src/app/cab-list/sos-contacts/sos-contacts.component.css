@@ -1,0 +1,196 @@
+.panel-heading{
+    padding: 4px 4px 4px 15px;
+}
+
+.panel-heading h3{
+    padding: 10px;
+}
+
+#employee-status-active{
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    border: #3c763d 1px solid;
+}
+
+#employee-status-inactive{
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    border: #ce0000 1px solid;
+}
+.panel-heading {
+    padding: 5px 15px;
+    margin-bottom: 5px;
+}
+#popup-background{
+    position: fixed;
+    top: 0;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    background: #000000;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    z-index: 20;
+}
+
+#deactivate-popup{
+    position: relative;
+    left: 250px;
+    background: #ffffff;
+    color: #000000;
+    background-clip: padding-box;
+    text-align: center;
+    width: 100%;
+    padding: 40px;
+    margin: 40% 0 60% 35%;
+    opacity: 1;
+    z-index: 101;
+    border-radius: 10px;
+}
+
+#deactivate-edit-popup{
+    position: relative;
+    left: -50px;
+    background: #ffffff;
+    color: #000000;
+    background-clip: padding-box;
+    text-align: center;
+    width: 100%;
+    /* padding: 40px; */
+    /* margin: 40% 0 60% 35%; */
+    opacity: 1;
+    z-index: 101;
+    border-radius: 10px;
+}
+
+.change-status-user-icon{
+    height: 26px;
+    padding: 0px;
+}
+
+.change-status-user-icon-button{
+    padding: 3px 8px;
+}
+
+#popup-content{
+    position: fixed;
+    z-index: 10;
+}
+
+.tooltip-text{
+    display: none;
+    position: absolute;
+    background: #000000;
+    padding: 5px 15px;
+    color: #ffffff;
+    font-weight: bold;
+    z-index: 1;
+    border-radius: 10px;
+    opacity: 0.6;
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+
+.panel_content
+{
+    background-color: #eceff7;
+}
+.clickable{
+    cursor: pointer;
+}
+.panel
+{
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 3;
+    /*-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);*/
+    /*box-shadow: 0 1px 1px rgba(0,0,0,.05);*/
+}
+.tooltip-text{
+    display: none;
+    position: absolute;
+    background: #000000;
+    padding: 5px 15px;
+    color: #ffffff;
+    font-weight: bold;
+    z-index: 1;
+    border-radius: 10px;
+    opacity: 0.6;
+}
+
+.product-type
+{
+    margin-top: 45px;
+}
+.product-size
+{
+    margin-top: 25px;
+}
+.product-use
+{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.panel-heading span {
+    margin-top: -20px;
+    font-size: 15px;
+}
+.panel-primary>.panel-heading {
+    color: #000;
+    background-color: #fff;
+    border-bottom: 1px solid #eeeeee;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.panel-title
+{
+    font-size: 22px;
+    font-weight:400;
+}
+
+.panel_product_type
+{ 
+    margin-top: 20px;
+}
+
+.panel_product_type
+{
+    line-height: 26px;
+}
+.panel_product_type
+{
+    font-size: 18px;
+    font-weight: 400;
+    color: black;
+}
+
+/* For dynamic fields */
+/* .red{
+    color:red;
+    }
+.form-area
+{	
+    background-color: #FAFAFA;
+	padding: 10px 40px 60px;
+	margin: 10px 0px 60px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;	
+}
+
+.show-textbox{
+    margin: 10px 0px;
+}
+
+.btn-add{
+    display: inline;
+} */

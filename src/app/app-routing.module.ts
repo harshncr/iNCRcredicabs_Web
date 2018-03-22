@@ -39,10 +39,14 @@ import { MassUploadEmployeeComponent }            from './mass-upload-employee/m
 import { RelationshipFormComponent }              from  './relationship-form/relationship-form.component';
 import { EmployeeDashComponent }                  from './employee-dash/employee-dash.component';
 import { EmployeeReqUnschComponent }              from './employee-req-unsch/employee-req-unsch.component';
-import { EmployeeChangePasswordComponent } from './employee-change-password/employee-change-password.component';
+import { EmployeeChangePasswordComponent }        from './employee-change-password/employee-change-password.component';
+import { SosContactsComponent }                   from './sos-contacts/sos-contacts.component';
+import { AddContactComponent }                    from './add-contact/add-contact.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login',   pathMatch: 'full' },
+  { path: 'contacts',                 component: SosContactsComponent},
+  { path: 'contacts/add',             component: AddContactComponent},
   { path: 'login',                    component: LoginComponent},
   { path: 'new-acc-setup',            component: NewAccSetupComponent},
   {

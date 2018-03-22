@@ -4,6 +4,7 @@ import { LoginService } from '../Services/login.service';
 import { UnscheduledRequestService } from '../Services/unscheduled-request.service';
 import { UnscheduledRequestComponent } from '../unscheduled-request/unscheduled-request.component';
 import { RosterService } from '../Services/roster.service';
+import { EmployeeService } from '../Services/employee.service';
 declare var jquery:any;
 declare var $ :any;
 
@@ -34,7 +35,9 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   
   constructor(private _router: Router,
               private _loginService: LoginService,
-	            private _http:RosterService) {
+              private _http:RosterService,
+              private employeeService: EmployeeService
+            ) {
     			this.router = _router;
     			this.loginService = _loginService;
     			this.showDownload=true;
@@ -47,7 +50,30 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
       if(data['login'] == false){
         return this.router.navigateByUrl('/no-session');
       }
-    });  
+    });
+
+    let resp;
+    if(localStorage.getItem('role') != null && localStorage.getItem('role') != 'null'
+      && localStorage.getItem('role') != "" && localStorage.getItem('role') != undefined
+      && localStorage.getItem('role') != 'undefined'
+    ){
+      console.log(localStorage.getItem('role'));
+      if(localStorage.getItem('role') != 'ADMIN'){
+        this.router.navigateByUrl('/employee-dash');
+      }
+    }else{
+      this.employeeService.getRole().subscribe((data) => {
+        if(data != null || data != "" || data != undefined){
+          resp = data.roleName;
+          console.log(data);
+          debugger;
+          localStorage.setItem('role', resp);
+          if(localStorage.getItem('role') != 'ADMIN'){
+            this.router.navigateByUrl('/employee-dash');
+          }
+        }
+      });
+    }
   }
 
   downloadRequestExcel(){

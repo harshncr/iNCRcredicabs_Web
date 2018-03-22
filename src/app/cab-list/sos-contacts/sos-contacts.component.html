@@ -1,0 +1,219 @@
+<app-header ></app-header>
+
+<!-- <div class="panel_content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="panel panel-primary product-type">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Sos Contacts</h3>
+                            <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up collapse-ico"></i></span>
+                        </div>
+                        <div class="panel-body">
+                                <ul class="panel_product_type" *ngFor="let adm of sos_name; let k = index " >
+                                    <li>{{sos_name[k]}} - {{sos_phone[k]}}<button type="button" class="glyphicon glyphicon-pencil pull-right" (click)="editContact(con)"></button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="panel panel-primary product-size">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Transport Contacts</h3>
+                            <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up collapse-ico"></i></span>
+                        </div>
+                        <div class="panel-body">
+                                <ul class="panel_product_type" *ngFor="let trans of trans_name; let j = index " >
+                                    <li>{{trans_name[j]}} - {{trans_phone[j]}}<button type="button" class="glyphicon glyphicon-pencil pull-right" (click)="editContact(con)"></button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="panel panel-primary product-use">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Admin Contacts</h3>
+                            <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up collapse-ico"></i></span>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="panel_product_type" *ngFor="let adm of admin_name; let i = index " >
+                                    <li>{{admin_name[i]}} - {{admin_phone[i]}}<button type="button" class="glyphicon glyphicon-pencil pull-right" (click)="editContact(con)"></button></li>    
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ -->
+ 
+    <!-- Pop up delete -->
+
+<div id="popup-content" class="sm-col-12" *ngIf="showDeactivatePopup">
+    <div id="deactivate-popup" class="">
+          Are You Sure you want to deactivate this Employee?
+        <div>
+            <button class="btn btn-md" (click)="changeStatus()">Yes</button>
+            <button class="btn btn-md" (click)="hidePopup()">No</button>
+          </div>
+        </div>
+        <div id="popup-background">
+    </div>
+</div>
+
+   <!-- Pop-UP Edit -->
+
+   <div id="popup-content" class="container col-md-6 col-md-offset-3" *ngIf="showDeactivateEditPopup">
+        <div id="deactivate-edit-popup" class="">
+  
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 style="text-align:center"> Edit Details</h3>
+            </div>
+            <!-- Form Name -->
+            <form name="myForm" #f="ngForm" (ngSubmit)="onSave(f.value)" class="form-horizontal"role="form" >
+              <fieldset>
+    
+              <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="txtName">Name :</label>  
+                  <div class="col-md-4">
+                  <input id="txtName" name="txtName" type="text" placeholder="Enter your name"  [(ngModel)]="editElem.contactName" class="form-control input-md" required > 
+                  </div>
+                </div>
+    
+              <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="contactNbr">Phone :</label>  
+                  <div class="col-md-4">
+                  <input id="contactNbr" name="contactNbr" type="text" placeholder="Phone Number" [(ngModel)]="editElem.contactNbr" class="form-control input-md" required maxlength="10"> 
+                  </div>
+                </div>
+                 <!-- Text input-->
+             <div class="form-group">
+              <label class="col-md-4 control-label" for="contactNbr">Qlid :</label>  
+              <div class="col-md-4">
+                <input id="Qlid" name="Qlid" type="text" placeholder="Qlid" class="form-control input-md" [(ngModel)]="editElem.Qlid" required maxlength="8"> 
+              </div>
+            </div>
+              <!-- DropDown Input -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="contactRole">Role :</label> 
+                  <div class="col-md-4">
+                    <select  id="contactRole" name="contactRole" [(ngModel)]="editElem.contactRole" class="form-control">
+                      <option disabled>Choose a role</option>
+                      <option value="Trannsport manager">Transport manager </option>
+                      <option value="admin">Admin</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div> 
+                </div>
+              <!-- DropDown Input -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="contactSos">Sos :</label> 
+                  <div class="col-md-4">
+                    <select  id="contactSos" name="contactSos" [(ngModel)]="editElem.contactSos" class="form-control">
+                      <option disabled>Choose an option</option>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                  </div> 
+                </div>
+              <!-- DropDown Input -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="contactSos">Priority :</label> 
+                  <div class="col-md-4">
+                    <select  id="contactSos" name="contactSos" [(ngModel)]="editElem.contactSosPriority" class="form-control">
+                      <option disabled>Choose priority</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                    </select>
+                  </div> 
+                </div>
+    
+              <!-- Button -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="btnSubmit"></label>
+                  <div class="col-md-4">
+                    <button id="btnSubmit" name="btnSubmit" class="btn btn-primary pull-left" (click)="onSave()">Save</button>
+                    <button id="btnSubmit" name="btnCancel" class="btn btn-default pull-right" (click)="hideEditPopup()">Cancel</button>
+                  </div>
+                </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <div id="popup-background">
+      </div>
+  </div>
+
+<table class="table">
+        <thead class="thead-light">
+          <tr >
+            <th scope="col">Name</th>
+            <th scope="col">Contact </th>
+            <th scope="col">Qlid </th>
+            <th scope="col">Role</th>
+            <th scope="col">SOS</th>            
+            <th scope="col">SOS Priority</th> 
+            <th scope="col">Actions</th>           
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let elem of arr; let i = index">
+            <td>{{elem.contactName}}</td>
+            <td>{{elem.contactNbr }}</td>
+            <td>{{elem.Qlid}}</td>
+            <td>{{elem.contactRole}}</td>
+            <td>
+                    <span *ngIf="elem.contactSos != 0" class="glyphicon glyphicon-ok"></span>
+                    <span *ngIf="elem.contactSos == 0" class="glyphicon glyphicon-remove"></span>      
+            </td>
+            <td>{{elem.contactSosPriority}}</td>
+            <td>
+                    <span class="clickable"><i class="glyphicon glyphicon-pencil" (click)="btnClick(elem);"></i></span>
+                    <span class="clickable"><i class="glyphicon glyphicon-trash" (click)="showPopup(i)"></i></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button id="btnAdd" name="btnAdd" class="btn btn-primary pull-right" (click)="onAdd()">Add Contact</button>
+
+
+   
+
+<!-- For Dynamic Fields -->
+  <!-- <div class="row">
+    <div class="col-md-6 col-md-offset-2">
+      <div class="form-area">  
+        <form name="myForm" #f="ngForm" (ngSubmit)="onSave(f.value)" class="form-horizontal"role="form" >      
+          <legend style="margin-bottom: 25px; text-align: center;">Sos Contacts</legend>         
+    				<div class="form-group">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label> Name</label>
+                </div>
+                <div class="col-sm-4">
+                  <label> Phone Number</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="sos_name[]" name="sos_name[]" placeholder="Name" required>
+                </div>
+                <div class="col-sm-4">
+                  
+                  <input type="text" class="form-control" id="sos_nbr[]" name="sos_nbr[]" placeholder="Phone Number" required>     
+                </div>
+                <button type="button" class="btn btn-default btn-add ">+</button>
+              </div>
+            </div>
+            <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit</button>
+        </form>
+       </div>
+     </div>
+  </div>     
+</div> -->

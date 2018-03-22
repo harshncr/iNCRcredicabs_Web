@@ -20,11 +20,12 @@ export class MassUploadEmployeeComponent implements OnInit {
   showError = false;
   showSuccess = false;
   message = '';
+  response;
 
   constructor(private emp_service:EmployeeService,private elem:ElementRef) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
+  
   upload(){
     this.showLoader = true;
     //this.upload_spinner=true;
@@ -35,16 +36,16 @@ export class MassUploadEmployeeComponent implements OnInit {
     this.emp_service.sendfile(formdata).subscribe((data)=>{
       if(data.success){
         console.log('Successfull');
+        this.response = data;
         this.showSuccess = true;
         this.showError = false;
-        // this.showLoading = f
         this.message = data.message;
       }else{
+        this.response = data;
         this.showError = true;
-        this.message = 'An error was encountered while uploading. Please try again later....';
+        this.message = 'Mass upload executed with errors!';
       }
       console.log(data);
-
       this.showLoader = false;
     });
   }

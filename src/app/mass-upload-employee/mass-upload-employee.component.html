@@ -17,14 +17,65 @@
         </div>    
     </div>
 </div>
-<div *ngIf="showSuccess" class="alert alert-success">
-    <strong>Success!</strong>
-    {{ message }}
-    <span class="pull-right close-button" (click)="close()">&times;</span>
+<div *ngIf="showSuccess" class="panel panel-success">
+    <div class="panel-heading">
+        <strong>Success!</strong>
+        <span class="pull-right close-button" (click)="close()">&times;</span>
+    </div>
+    <div class="panel-body">
+        <ul *ngIf="response" class="list-group">
+            <li class="list-group-item">
+                {{ message }}
+            </li>
+            <li *ngIf="response.totalRows" class="list-group-item">
+                Total rows processed: <strong>{{ response.totalRows }}</strong>
+            </li>
+            <li *ngIf="response.totalSuccessful" class="list-group-item">
+                Successful add: <strong class="success">{{ response.totalSuccessful }}</strong>
+            </li>
+            <li *ngIf="response.totalFailed" class="list-group-item">
+                Unsuccessful add: <strong class="error">{{ response.totalFailed }}</strong>
+            </li>
+            <li *ngIf="response.totalSuccessful > 0" class="list-group-item">
+                Following employees were successfully added:
+                <ul>
+                    <li *ngFor="let emp of SuccessfullUpload">
+                        <a href="/employee/view/details/"{{emp.qlid}}>{{name}}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>
-<div *ngIf="showError" class="alert alert-danger">
+<div *ngIf="showError" class="panel panel-danger">
+    <div class="panel-heading">
         <strong>Error!</strong>
-        {{ message }}
-    <span class="pull-right close-button" (click)="close()">&times;</span>
+        <span class="pull-right close-button" (click)="close()">&times;</span>
+    </div>
+    <div class="panel-body">
+        <ul *ngIf="response" class="list-group">
+            <li class="list-group-item">
+                {{ message }}
+            </li>
+            <li *ngIf="response.totalRows" class="list-group-item">
+                Total rows processed: <strong>{{ response.totalRows }}</strong>
+            </li>
+            <li *ngIf="response.totalSuccessful" class="list-group-item">
+                Successful add: <strong class="success">{{ response.totalSuccessful }}</strong>
+            </li>
+            <li *ngIf="response.totalFailed" class="list-group-item">
+                Unsuccessful add: <strong class="error">{{ response.totalFailed }}</strong>
+            </li>
+            <li *ngIf="response.totalSuccessful > 0" class="list-group-item">
+                Following employees were successfully added:
+                <ul class="list-group">
+                    <li *ngFor="let emp of response.successfullUpload" class="list-group-item">
+                        <a routerLink="/employee/view/details/{{emp.qlid}}">{{emp.name}}</a>
+                    </li>
+                </ul>
+            </li>
+            <li>Find details in the log</li>
+        </ul>
+    </div>
 </div>
 <app-loader-anim [showLoader]="showLoader" [loaderText]="loaderText"></app-loader-anim>

@@ -1,0 +1,80 @@
+<app-header></app-header>
+
+<div class="container col-md-6 col-md-offset-3" >
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 style="text-align:center"> Add Contact</h3>
+        </div>
+        <!-- Form Name -->
+        <form name="myForm" #f="ngForm" (ngSubmit)="onSave(f.value)" class="form-horizontal"role="form" >
+          <fieldset>
+          <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="txtName">Name :</label>  
+              <div class="col-md-4">
+               <input id="txtName" name="txtName" type="text" placeholder="Enter your name" class="form-control input-md" required> 
+              </div>
+            </div>
+
+          <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="contactNbr">Phone :</label>  
+              <div class="col-md-4">
+                <input id="contactNbr" name="contactNbr" type="text" placeholder="Phone Number" class="form-control input-md" required maxlength="10"> 
+              </div>
+            </div>
+             <!-- Text input-->
+             <div class="form-group">
+              <label class="col-md-4 control-label" for="contactNbr">Qlid :</label>  
+              <div class="col-md-4">
+                <input id="Qlid" name="Qlid" type="text" placeholder="Qlid" class="form-control input-md" required maxlength="8"> 
+              </div>
+            </div>
+          <!-- DropDown Input -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="contactRole">Role :</label> 
+              <div class="col-md-4">
+                <select  id="contactRole" name="contactRole" class="form-control">
+                  <option disabled>Choose a role</option>
+                  <option value="Transport manager">Transport manager</option>
+                  <option value="admin">Admin</option>
+                  <option value="other">Other</option>
+                </select>
+              </div> 
+            </div>
+          <!-- DropDown Input -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="contactSos">Sos :</label> 
+              <div class="col-md-4">
+                <select  id="contactSos" name="contactSos" class="form-control">
+                  <option disabled>Choose an option</option>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
+              </div> 
+            </div>
+          <!-- DropDown Input -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="contactSos">Priority :</label> 
+              <div class="col-md-4">
+                <select  id="contactSos" name="contactSos" class="form-control">
+                  <option disabled>Choose priority</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+              </div> 
+            </div>
+
+          <!-- Button -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="btnSubmit"></label>
+              <div class="col-md-4">
+                <button id="btnSubmit" name="btnSubmit" class="btn btn-primary pull-left" (click)="onSave()">Save</button>
+                <button id="btnCancel" name="btnCancel" class="btn btn-default pull-right" (click)="onCancel()">Cancel</button>
+              </div>
+            </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+ 

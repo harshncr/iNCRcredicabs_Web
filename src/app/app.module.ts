@@ -82,6 +82,8 @@ import { EmployeeReqUnschComponent } from './employee-req-unsch/employee-req-uns
 import { EmployeeDashComponent } from './employee-dash/employee-dash.component';
 import { EmployeeHeaderComponent } from './employee-header/employee-header.component';
 import { EmployeeChangePasswordComponent } from './employee-change-password/employee-change-password.component';
+import { AddContactComponent } from './add-contact/add-contact.component';
+import { SosContactsComponent } from './sos-contacts/sos-contacts.component';
 
 
 @NgModule({
@@ -137,7 +139,9 @@ import { EmployeeChangePasswordComponent } from './employee-change-password/empl
     EmployeeReqUnschComponent,
     EmployeeDashComponent,
     EmployeeHeaderComponent,
-    EmployeeChangePasswordComponent
+    EmployeeChangePasswordComponent,
+    AddContactComponent,
+    SosContactsComponent,
   ],
   imports: [
     BrowserModule,
@@ -149,8 +153,6 @@ import { EmployeeChangePasswordComponent } from './employee-change-password/empl
     AppRoutingModule
   ],
   providers: [
-    // TodoActions,
-    // TodoService,
     ApiService,
     LoginService,
     EmployeeData,
