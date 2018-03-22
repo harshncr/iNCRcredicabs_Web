@@ -24,7 +24,7 @@ export class ReportService {
       requestType: REQUEST_TYPE_GET,
       url: `${environment.employeeRequest}`,
       headers: this.headers,
-      body: "",
+      body: "{'toDate':"+toDate+",'fromDate':"+fromDate+"}",
       shouldBlock: true
     });
 

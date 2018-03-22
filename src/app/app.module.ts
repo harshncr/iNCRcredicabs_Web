@@ -170,7 +170,8 @@ import { EmployeeChangePasswordComponent } from './employee-change-password/empl
    DriverData,
    RelationService,
    UnscheduledRequestComponent,
-   DashData
+   DashData,
+   ReportComponent
 
   ],
   bootstrap: [AppComponent]
