@@ -85,56 +85,16 @@ export class UnscheduledRequestComponent implements OnInit {
           if(data.status=="success")
           {
             console.log("data success: "+data.status);
-            // window.open(environment.pullExcelfileUrl, '_blank');
-            // window.open(environment.pullExcelfileUrl+"/"+data.fileName, '_blank');
+            window.open(environment.pullExcelfileUrl+"/"+data.fileName, '_blank');
           }else{
             console.log("data fail: "+data.status);
-          }
-          
-          
-          // var blob = new Blob(data._body, {
-          //   // type: 'application/vnd.ms-excel'
-          //   type: 'application/vnd.ms-excel;charset=charset=utf-8'
-        });
-          // console.log(blob);
-          // saveAs(blob,"ExcelFile.xls");
-        
-        
-        // saveAs(blob, 'File_Name_With_Some_Unique_Id_Time' + '.xlsx');
-          // console.log(blob);
-          // let options = { type: 'text/csv;charset=utf-8;' };
-          // let filename = 'myfile.csv';
-          // console.log(data._body.substr(1,data._body.length-1));
-          // this.createAndDownloadBlobFile(data._body.substr(0,data._body.length-1), options, filename);
-          //  console.log(data);
-    //     });
+          }        
+         });
     } else {
       alert("No request selected");
 
     }
   }
-
-  // createAndDownloadBlobFile(body, options, filename) {
-  //   var blob = new Blob(body, options);
-  //   if (navigator.msSaveBlob) {
-  //     // IE 10+
-  //     navigator.msSaveBlob(blob, filename);
-  //   }
-  //   else {
-  //     var link = document.createElement('a');
-  //     // Browsers that support HTML5 download attribute
-  //     if (link.download !== undefined) {
-  //       var url = URL.createObjectURL(blob);
-  //       link.setAttribute("href", url);
-  //       link.setAttribute("download", filename);
-  //       link.style.visibility = 'hidden';
-  //       document.body.appendChild(link);
-  //       link.click();
-  //       document.body.removeChild(link);
-  //     }
-  //   }
-  // }
-
 
   allocate() {
 
