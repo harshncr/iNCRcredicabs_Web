@@ -84,6 +84,7 @@ import { EmployeeHeaderComponent } from './employee-header/employee-header.compo
 import { EmployeeChangePasswordComponent } from './employee-change-password/employee-change-password.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
 import { SosContactsComponent } from './sos-contacts/sos-contacts.component';
+import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-detail.component';
 
 
 @NgModule({
@@ -142,6 +143,7 @@ import { SosContactsComponent } from './sos-contacts/sos-contacts.component';
     EmployeeChangePasswordComponent,
     AddContactComponent,
     SosContactsComponent,
+    RosterRouteDetailComponent
   ],
   imports: [
     BrowserModule,

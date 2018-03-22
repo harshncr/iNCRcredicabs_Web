@@ -42,6 +42,7 @@ import { EmployeeReqUnschComponent }              from './employee-req-unsch/emp
 import { EmployeeChangePasswordComponent }        from './employee-change-password/employee-change-password.component';
 import { SosContactsComponent }                   from './sos-contacts/sos-contacts.component';
 import { AddContactComponent }                    from './add-contact/add-contact.component';
+import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login',   pathMatch: 'full' },
@@ -92,6 +93,7 @@ const routes: Routes = [
   { path: 'roster/addRoute',          component: AddRouteComponent },
   { path: 'roster/editemp',           component: EmployeditComponent },
   { path: 'roster/editroute',         component: EditRouteComponent },
+  { path: 'roster/viewrdetail/:cab/:shift/:seats/:routes/:vendor',       component: RosterRouteDetailComponent},
   { path: 'vendor-list',              component: VendorListComponent },
   { path: 'view-vendor',              component: ViewVendorComponent },
   { path: 'add-vendor',               component: AddVendorComponent },
@@ -105,7 +107,8 @@ const routes: Routes = [
   { path: 'add-cab',                  component: AddCabComponent },
   { path: 'driver-list',              component: DriverListComponent },
   { path: 'driver-update',            component: DriverUpdateComponent },
-  { path: 'relationship',            component:RelationshipFormComponent }
+  { path: 'relationship',            component:RelationshipFormComponent },
+
 ];
 
 @NgModule({

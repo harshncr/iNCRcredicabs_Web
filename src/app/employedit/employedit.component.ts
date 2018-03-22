@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RosterService } from '../Services/roster.service';
 import { Http } from '@angular/http/src/http';
 import {ActivatedRoute,Params} from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -26,10 +27,15 @@ public cab:any[];
 // public stime;
 // public etime;
 
-  constructor(private obj:RosterService,private ac:ActivatedRoute) { }
+  constructor(private obj:RosterService,private ac:ActivatedRoute,private router:Router) { }
  public e_q;
+ public e_c;
+ public e_s;
   ngOnInit() {
     this.e_q= this.ac.snapshot.params['qlid'];
+    this.e_c = this.ac.snapshot.params['cabno'];
+    this.e_s = this.ac.snapshot.params['sid'];
+    // this.cab_list();
   }
 
   editcontent()
@@ -53,16 +59,22 @@ public cab:any[];
     console.log(this.stime);
       console.log(this.etime);
       console.log(this.shifttime);
+      console.log(this.cab_selected);
       this.obj.posteditinfo(this.cab_selected,this.pickuptime,this.e_q,this.stime,this.etime).subscribe(
-        data=> console.log("change saved"),
+        data=>console.log("Successfully Edited"),
         error=>console.log("error"),
-        ()=>console.log("finished")
+        ()=>close()
  
       );
       }
 
+      close(){
+        alert("Successful");
+          this.router.navigateByUrl('/go');  
+        }
+
       cab_list(){
-       this.obj.getcablist().subscribe(
+       this.obj.getcablist(this.e_s).subscribe(
         data => this.cab=JSON.parse(JSON.stringify(data)),
        error =>alert("error aaa gyi"),
        ()=> console.log("All cabs are present") 
