@@ -231,7 +231,7 @@
                     <!-- <input  type="hidden" value="i.Qlid" [(ngModel)]="printval" /> -->
                   <div *ngIf="cbox">
                       <div *ngIf="(cab_arr[u]==checkcab) && (shift_arr[u] == checkshift)">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="deleteMe(i.Qlid)"></span> 
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="deleteMe(i.Qlid,checkshift)"></span> 
                       </div>
                  </div>
                  <div *ngIf="ebox">

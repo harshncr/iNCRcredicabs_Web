@@ -364,10 +364,11 @@ printval;
 
 emp_to_delete;
 
-deleteMe(a)
-{
+deleteMe(a,b)
+{ 
   this.emp_to_delete=a;
   console.log(a);
+  this.emp_shift_to_delete=b;
   this.deleteClicked=true;
 }
 
@@ -388,7 +389,13 @@ checkentry(s,shift){
 }
 
 close_delete_popup(){
+  if((this.emp_to_delete.length)&&(this.emp_shift_to_delete.length)){
   this.deleteClicked=false;
+  this.ngOnInit();
+  }
+  else{
+    this.deleteClicked=false;
+  }
   }
  
   public editin:boolean;
@@ -403,9 +410,10 @@ close_delete_popup(){
     this.editcab=s;
   }
 
+  public emp_shift_to_delete="";
   deleteEmp(){
     console.log("to delete :- "+this.emp_to_delete);
-  return this._http1.deleteQlid(this.emp_to_delete).subscribe(
+  return this._http1.deleteQlid(this.emp_to_delete,this.emp_shift_to_delete).subscribe(
     data=>this.message=JSON.stringify(data),
     error=>console.log(error), 
   ()=>this.close_delete_popup()

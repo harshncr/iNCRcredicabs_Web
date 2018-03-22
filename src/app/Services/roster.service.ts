@@ -148,8 +148,8 @@ public change_cab_clicked(cab){
 } 
 
 
-public deleteQlid(qlid){
-  let json={"emp_qlid":qlid};
+public deleteQlid(qlid,sid){
+  let json={"emp_qlid":qlid,"s_id":sid};
     let  body=json;
     let headers=new Headers();
     headers.append('Content-Type','application/x-www-form-urlencoded');
