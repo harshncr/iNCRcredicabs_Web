@@ -288,7 +288,7 @@
       <div class="form-group">
         <!-- Input Field Labels -->
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-5">
             <span class="input-label fadeIn">
               <strong>Level 1 Manager Name</strong>
             </span>
@@ -302,7 +302,7 @@
         <!-- Input field row -->
           <!-- L1 Manager Name -->
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-5">
             <input list="manager-list-lvl1" name="manager-name" 
               maxlength="100" class="form-control" [(ngModel)]="selectedManager1"
               (change)="setManagerQlid1($event.target.value);validate();altered.empMgrQlid1=true">
@@ -321,7 +321,7 @@
         <!-- Error row -->
         <div class="row">
           <!-- Manager QLID Error -->
-          <div class="col-sm-4">
+          <div class="col-sm-5">
           </div>
           <div class="col-sm-3">
             <div *ngIf="formError.empMgrQlid1.error && (altered.empMgrQlid1
@@ -335,7 +335,7 @@
       <div class="form-group">
         <!-- Input Field Labels -->
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-5">
             <span class="input-label fadeIn">
               <strong>Level 2 Manager Name</strong>
             </span>
@@ -350,7 +350,7 @@
           <!-- Manager Name -->
           <!-- (change) = "setManagerQlid2($event.target.value)" -->
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-5">
             <input list="manager-list-lvl2" name="manager-name" 
               maxlength="100" class="form-control" [(ngModel)]="selectedManager2"
               (change)="setManagerQlid2($event.target.value);validate();altered.empMgrQlid2=true">
