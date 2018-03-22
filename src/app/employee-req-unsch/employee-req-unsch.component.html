@@ -23,10 +23,23 @@
           </div>
           <div class="form-group">
             <div class="row">
-              <div class="col-sm-3">
-                  <label> Reaching Time</label>
+              <div class="col-sm-6">
+                <label>Pickup Area</label>
+                <select class="form-control" name="Drop Location" (change)="onSelected1($event.target.value)">
+                  <option value="home">Home</option>
+                  <option value="office">Office</option>
+                  <option value="other">Other</option>   
+                </select>        
+              </div>
+              <div class="col-sm-6">
+                  <label>Pickup Time</label>
                 <input type="time" class="form-control" id="time" name="time" placeholder="Reaching Time" required>
               </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              
               <div class="col-sm-9">
                 <label>Approver</label>
                 <!-- <input type="text" class="form-control" id="approver" name="approver" placeholder="Level 1 Manager" required> -->

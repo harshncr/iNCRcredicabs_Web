@@ -66,6 +66,7 @@
             <li *ngIf="response.totalFailed" class="list-group-item">
                 Unsuccessful add: <strong class="error">{{ response.totalFailed }}</strong>
             </li>
+            {{ response }}
             <li *ngIf="response.totalSuccessful > 0" class="list-group-item">
                 Following employees were successfully added:
                 <ul class="list-group">

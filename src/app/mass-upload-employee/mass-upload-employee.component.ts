@@ -40,6 +40,7 @@ export class MassUploadEmployeeComponent implements OnInit {
         this.showSuccess = true;
         this.showError = false;
         this.message = data.message;
+        console.log(this.response.successfullUpload);
       }else{
         this.response = data;
         this.showError = true;
