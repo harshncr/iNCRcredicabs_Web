@@ -288,10 +288,12 @@
       <table class="table table-bordered table-hover table-stripped">
         <thead>
           <tr>
+            <th>Employee Qlid</th>
             <th>Employee Name</th>
-            <th>Date and Time</th>
+            <th>Date </th>
             <th>Vendor Name</th>
             <th> Cab Type</th>
+            <th> Cab No.</th>
             <th>Trip Type</th>
             <th>Source</th>
             <th>Destination</th>
@@ -301,6 +303,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let report of employeeReportDet |  filter:filterValue">
+              <td>
+                  {{report?.EmployeeQlid}}
+              </td>
             <td>
               {{report?.EmployeeName}}
             </td>
@@ -316,6 +321,9 @@
             <td>
               {{report?.TripType}}
             </td>
+            <td>
+                {{report?.CabNo}}
+              </td>
             <td>
               {{report?.Source}}
             </td>
@@ -1424,6 +1432,833 @@
 
         </form>
       </div>
+
+      <table class="table table-bordered table-hover table-stripped" item-width="30%">
+          <tbody>
+             <tr>
+                 <td>
+                 <strong> Description</strong>
+                 </td>
+                 <td>
+                     <strong> Cost(in INR)</strong>
+                 </td>
+                 <td>
+                   <strong>Cost(in USD)</strong>
+                 </td>
+               </tr>
+ 
+               <tr>
+                   <td>
+                   <strong>Cost of Scheduled Cabs</strong>
+                   </td>
+                   <td>
+                       <strong> {{schcost}}</strong>
+                   </td>
+                   <td>
+                     <strong></strong>
+                   </td>
+                 </tr>
+ 
+                 <tr>
+                     <td>
+                     Toll
+                     </td>
+                     <td>
+                         {{tollcost}}
+                     </td>
+                     <td>
+                     
+                     </td>
+                   </tr>
+                   <tr>
+                       <td>
+                       GPS
+                       </td>
+                       <td>
+                           <strong>{{gps}}</strong>
+                       </td>
+                       <td>
+                       </td>
+                     </tr>
+                     <tr>
+                         <td>
+                         UP Tax
+                         </td>
+                         <td>
+                             {{uptax}}
+                         </td>
+                         <td>
+                           
+                         </td>
+                       </tr>
+                       <tr>
+                           <td>
+                           Haryana Tax
+                           </td>
+                           <td>
+                             {{harytax}}
+                           </td>
+                           <td>
+                           
+                           </td>
+                         </tr>
+                         <tr>
+                             <td>
+                             GST
+                             </td>
+                             <td>
+                               {{gst}}
+                             </td>
+                             <td>
+                             
+                             </td>
+                           </tr>
+                           <tr>
+                               <td>
+                               <strong>Scheduled Cab Cost </strong>
+                               </td>
+                               <td>
+                                   {{schcabcost}}
+                               </td>
+                               <td>
+                               </td>
+                             </tr>
+                             <tr>
+                                 <td>
+                                Employee Contribution
+                                 </td>
+                                 <td>
+                                     {{employeecontr}}
+                                 </td>
+                                 <td>
+                                 </td>
+                               </tr>
+                               <tr>
+                                   <td>
+                                   <strong> Scheduled Cab Cost less Emp Contribution</strong>
+                                   </td>
+                                   <td>
+                                       <strong>{{less}} </strong>
+                                   </td>
+                                   <td>
+                                     <strong></strong>
+                                   </td>
+                                 </tr>
+                                 <hr>
+                                 <tr>
+                                     <td>
+                                     <strong>Cost of Shift Cabs</strong>
+                                     </td>
+                                     <td>
+                                         <strong>{{costshift}}</strong>
+                                     </td>
+                                     <td>
+                                       <strong></strong>
+                                     </td>
+                                   </tr>
+                                   <tr>
+                                       <td>
+                                       Toll
+                                       </td>
+                                       <td>
+                                           {{tollcostshift}}
+                                       </td>
+                                       <td>
+                                       
+                                       </td>
+                                     </tr>
+                                     <tr>
+                                         <td>
+                                         GPS
+                                         </td>
+                                         <td>
+                                             <strong>{{gpsshift}}</strong>
+                                         </td>
+                                         <td>
+                                         </td>
+                                       </tr>
+                                       <tr>
+                                           <td>
+                                           UP Tax
+                                           </td>
+                                           <td>
+                                               {{uptaxshift}}
+                                           </td>
+                                           <td>
+                                             
+                                           </td>
+                                         </tr>
+                                         <tr>
+                                             <td>
+                                             Haryana Tax
+                                             </td>
+                                             <td>
+                                               {{harytaxshift}}
+                                             </td>
+                                             <td>
+                                             
+                                             </td>
+                                           </tr>
+                                           <tr>
+                                               <td>
+                                               GST
+                                               </td>
+                                               <td>
+                                                 {{gstshift}}
+                                               </td>
+                                               <td>
+                                               
+                                               </td>
+                                             </tr>
+                                             <tr>
+                                                 <td>
+                                                 <strong>Scheduled Cab Cost </strong>
+                                                 </td>
+                                                 <td>
+                                                     {{schcabcostshift}}
+                                                 </td>
+                                                 <td>
+                                                 </td>
+                                               </tr>
+                                               <tr>
+                                                   <td>
+                                                  Employee Contribution
+                                                   </td>
+                                                   <td>
+                                                       {{employeecontrshift}}
+                                                   </td>
+                                                   <td>
+                                                   </td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td>
+                                                     <strong> Scheduled Cab Cost less Emp Contribution</strong>
+                                                     </td>
+                                                     <td>
+                                                         <strong>{{lessshift}} </strong>
+                                                     </td>
+                                                     <td>
+                                                       <strong></strong>
+                                                     </td>
+                                                   </tr>
+                                   
+ 
+                                                   <hr>
+                                                   <tr>
+                                                       <td>
+                                                       <strong>Cost of Unscheduled Cabs</strong>
+                                                       </td>
+                                                       <td>
+                                                           <strong>{{costunsched}}</strong>
+                                                       </td>
+                                                       <td>
+                                                         <strong></strong>
+                                                       </td>
+                                                     </tr>
+                                                     <tr>
+                                                         <td>
+                                                         Toll
+                                                         </td>
+                                                         <td>
+                                                             {{tollcostunsched}}
+                                                         </td>
+                                                         <td>
+                                                         
+                                                         </td>
+                                                       </tr>
+                                                       <tr>
+                                                           <td>
+                                                           GST
+                                                           </td>
+                                                           <td>
+                                                               <strong>{{gstunsched}}</strong>
+                                                           </td>
+                                                           <td>
+                                                           </td>
+                                                         </tr>
+                                                         <tr>
+                                                             <td>
+                                                             <strong>Unscheduled Cabs Cost</strong>
+                                                             </td>
+                                                             <td>
+                                                                 <strong>{{unschedcost}}</strong>
+                                                             </td>
+                                                             <td>
+                                                               <strong></strong>
+                                                             </td>
+                                                           </tr>
+                                                           <hr>
+                 
+                                                           <tr>
+                                                               <td>
+                                                               <strong>Cost of Stand-By Cab-Fixed Mileage</strong>
+                                                               </td>
+                                                               <td>
+                                                                   <strong>{{fixedmile}}</strong>
+                                                               </td>
+                                                               <td>
+                                                                 <strong></strong>
+                                                               </td>
+                                                             </tr>
+                                                             <tr>
+                                                                 <td>
+                                                                 Extra Mileage Cost
+                                                                 </td>
+                                                                 <td>
+                                                                     {{extramileage}}
+                                                                 </td>
+                                                                 <td>
+                                                                 
+                                                                 </td>
+                                                               </tr>
+                                                               <tr>
+                                                                   <td>
+                                                                   GST
+                                                                   </td>
+                                                                   <td>
+                                                                       <strong>{{gstfixed}}</strong>
+                                                                   </td>
+                                                                   <td>
+                                                                   </td>
+                                                                 </tr>
+                                                                 <tr>
+                                                                     <td>
+                                                                     <strong>Standby Cab Cost</strong>
+                                                                     </td>
+                                                                     <td>
+                                                                         <strong>{{standbycost}}</strong>
+                                                                     </td>
+                                                                     <td>
+                                                                       <strong></strong>
+                                                                     </td>
+                                                                   </tr>
+ 
+                                                                   <hr>
+                 
+                                                                   <tr>
+                                                                       <td>
+                                                                       <strong>Cost of cabs for other purposes</strong>
+                                                                       </td>
+                                                                       <td>
+                                                                           <strong>{{costother}}</strong>
+                                                                       </td>
+                                                                       <td>
+                                                                         <strong></strong>
+                                                                       </td>
+                                                                     </tr>
+                                                                    
+                                                                       <tr>
+                                                                           <td>
+                                                                           GST
+                                                                           </td>
+                                                                           <td>
+                                                                               {{gstother}}
+                                                                           </td>
+                                                                           <td>
+                                                                           </td>
+                                                                         </tr>
+                                                                         <tr>
+                                                                             <td>
+                                                                             <strong> Cab Cost for other purposes</strong>
+                                                                             </td>
+                                                                             <td>
+                                                                                 <strong>{{totalother}}</strong>
+                                                                             </td>
+                                                                             <td>
+                                                                               <strong></strong>
+                                                                             </td>
+                                                                           </tr>
+                                                                  <hr>
+ 
+                                                                  
+                                                                  <tr>
+                                                                     <td>
+                                                                     <strong>Cost of escort Security Guard</strong>
+                                                                     </td>
+                                                                     <td>
+                                                                         <strong>{{costguard}}</strong>
+                                                                     </td>
+                                                                     <td>
+                                                                       <strong></strong>
+                                                                     </td>
+                                                                   </tr>
+                                                                  
+                                                                     <tr>
+                                                                         <td>
+                                                                          Taxes
+                                                                         </td>
+                                                                         <td>
+                                                                             {{guardtaxes}}
+                                                                         </td>
+                                                                         <td>
+                                                                         </td>
+                                                                       </tr>
+                                                                       <tr>
+                                                                           <td>
+                                                                           <strong> Total Amount Security Guard</strong>
+                                                                           </td>
+                                                                           <td>
+                                                                               <strong>{{totalamountguard}}</strong>
+                                                                           </td>
+                                                                           <td>
+                                                                             <strong></strong>
+                                                                           </td>
+                                                                         </tr>
+                                                                         <tr>
+                                                                             <td>
+                                                                             <strong>Escort Security Drop Cost</strong>
+                                                                             </td>
+                                                                             <td>
+                                                                                 <strong>{{dropamountguard}}</strong>
+                                                                             </td>
+                                                                             <td>
+                                                                               <strong></strong>
+                                                                             </td>
+                                                                           </tr>
+               
+                                                           
+           <tr>
+             <td>
+              Escort Security Guard Cost
+             </td>
+             <td>
+               {{esccostinr}}
+             </td>
+             <td>
+ 
+             </td>
+           </tr>
+ 
+           <tr>
+             <td>
+              Transport Team Mobile Cost
+             </td>
+             <td>
+               {{teammobcost}}
+             </td>
+             <td></td>
+           </tr>
+           
+ 
+           <tr>
+             <td>
+               Transport+Escort Security
+             </td>
+             <td>
+               {{transesc}}
+             </td>
+             <td></td>
+           </tr>
+ 
+           
+             <tr>
+                 <td>
+                 <strong>  Number of employees in Scheduled Cabs(Month)</strong>
+                 </td>
+                 <td>
+                   {{numbmonthsch}}
+                 </td>
+                 <td>
+ 
+                 </td>
+               </tr>
+ 
+               <tr>
+                   <td>
+                   <strong>  Number of employees in Scheduled(Part of Month)</strong>
+                   </td>
+                   <td>
+                     {{numbmonthschpart}}
+                   </td>
+                   <td></td>
+                 </tr>
+ 
+                 <tr>
+                     <td>
+                     <strong>Total Employees</strong>
+                     </td>
+                     <td>
+                       {{totalemp}}
+                     </td>
+                     <td></td>
+                   </tr>
+                   <tr>
+                       <td>
+                       <strong>  Number of employees used cab in shift </strong>
+                       </td>
+                       <td>
+                         {{numbcabshift}}
+                       </td>
+                       <td></td>
+                     </tr>
+                     
+          
+             
+           <tr>
+               <td>
+                 Scheduled Small Cabs
+               </td>
+               <td>
+                 {{schsmallcab}}
+               </td>
+               <td></td>
+             </tr>
+ 
+             <tr>
+                 <td>
+                   Scheduled Big Cabs
+                 </td>
+                 <td>
+                   {{schbigcab}}
+                 </td>
+                 <td></td>
+               </tr>
+                
+               <tr>
+                   <td>
+                      <strong> Scheduled Cabs</strong>
+                   </td>
+                   <td>
+                     {{schcab}}
+                   </td>
+                   <td></td>
+                 </tr>
+                 <tr>
+                     <td>
+                       Shift Cabs Small
+                     </td>
+                     <td>
+                       {{shiftsmallcab}}
+                     </td>
+                     <td></td>
+                   </tr>
+ 
+                   <tr>
+                       <td>
+                         Shift Cabs Big
+                       </td>
+                       <td>
+                         {{shiftbigcab}}
+                       </td>
+                       <td></td>
+                     </tr>
+                     <tr>
+                         <td>
+                           <strong>Total Shift Cabs</strong>
+                         </td>
+                         <td>
+                           {{totshiftcab}}
+                         </td>
+                         <td></td>
+                       </tr>
+ 
+                       <tr>
+                           <td>
+                             Total Shift and Scheduled Cabs
+                           </td>
+                           <td>
+                             {{totalshiftsch}}
+                           </td>
+                           <td></td>
+                         </tr>
+ 
+                         <tr>
+                             <td>
+                               Unscheduled Cabs
+                             </td>
+                             <td>
+                               {{unschcab}}
+                             </td>
+                             <td></td>
+                           </tr>
+                          
+         
+         
+         <tr>
+ 
+         </tr>
+             <tr>
+                 <td bgcolor="cyan">
+                  <strong> Vendor-wise Cost</strong>
+                 </td>
+                 <td>
+                   <strong>Cost(in INR)</strong>
+                 </td>
+                 <td>
+                   <strong>Cost(in USD)</strong>
+                 </td>
+               </tr>
+             
+               
+             <tr>
+                 <td>
+                   Super Shuttle
+                 </td>
+                 <td>
+                   {{supershuttle}}
+                 </td>
+                 <td></td>
+               </tr>
+ 
+               <tr>
+                   <td>
+                     SRKT
+                   </td>
+                   <td>
+                     {{SRKT}}
+                   </td>
+                   <td>
+ 
+                   </td>
+                 </tr>
+ 
+                 <tr>
+                     <td>
+                       Chanson
+                     </td>
+                     <td>
+                       {{chanson}}
+                     </td>
+                     <td></td>
+                   </tr>
+ 
+                   <tr>
+                       <td>
+                        Absolute Solutions
+                       </td>
+                       <td>
+                         {{absolute}}
+                       </td>
+                       <td></td>
+                     </tr>
+ 
+                     <tr>
+                         <td>
+                           SLG tour and travels
+                         </td>
+                         <td>
+                           {{slg}}
+                         </td>
+                         <td></td>
+                       </tr>
+ 
+                       <tr>
+                           <td>
+                             Total
+                           </td>
+                           <td>
+                           
+                          {{total}}
+                           </td>
+                           <td></td>
+                         </tr>
+                         <tr>
+                           <Td></Td>
+                         </tr>
+                         <tr>
+                               <td bgcolor="cyan"><strong>Overall transportation Cost</strong></td>
+                               <td>Values</td>
+                         </tr>
+                       
+                           <tr>
+                             <td>
+                               Scheduled Cab Number of Users
+                             </td>
+                             <td>
+                               {{schnumbusr}}
+                             </td>
+                           </tr>
+                           <tr>
+                            <td>
+                              Scheduled Cab Number of Big Cabs
+                            </td>
+                            <td>
+                              {{schnumbbig}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Scheduled Cab Big Cab Cost
+                            </td>
+                            <td>
+                              {{schbigcost}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Scheduled Cab Number of Small Cabs
+                            </td>
+                            <td>
+                              {{schnumbsmall}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Scheduled Cab Small Cabs Cost
+                            </td>
+                            <td>
+                              {{schsmallcost}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Scheduled Cab Cost with Taxes,Toll,GPS Charges
+                            </td>
+                            <td>
+                              {{schcosttax}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Shift Cab Users
+                            </td>
+                            <td>
+                              {{shiftnumbusr}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Shift Cabs Number of Big Cabs
+                            </td>
+                            <td>
+                              {{shiftnumbbig}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Shift Cabs Big Cabs Cost
+                            </td>
+                            <td>
+                              {{shiftcostbig}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Shift Cab Number of Small Cabs
+                            </td>
+                            <td>
+                              {{shiftnumbsmall}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Shift Cabs Small Cab Cost
+                            </td>
+                            <td>
+                              {{shiftcostsmall}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Shift Cab Cost with Taxes,Toll,GPS Charges
+                            </td>
+                            <td>
+                              {{shiftcosttax}}
+                            </td>
+                          </tr>
+                          
+                          <tr>
+                            <td>
+                              Unschedule Cab Qty
+                            </td>
+                            <td>
+                              {{unschnumb}}
+                            </td>
+                          </tr>
+                          
+                          <tr>
+                            <td>
+                              Unschedule Cab Users
+                            </td>
+                            <td>
+                              {{unschusrnumb}}
+                            </td>
+                          </tr>
+                          
+                          <tr>
+                            <td>
+                              Unschedule Cab Cost with Taxes
+                            </td>
+                            <td>
+                              {{unschcosttax}}
+                            </td>
+                          </tr>
+                          
+                          <tr>
+                            <td>
+                              Stand By Cab Cost with Taxes
+                            </td>
+                            <td>
+                              {{standbycosttax}}
+                            </td>
+                          </tr>
+                          
+                          <tr>
+                            <td>
+                              Cabs for other purposes with taxes
+                            </td>
+                            <td>
+                              {{otherpurpcosttax}}
+                            </td>
+                          </tr>
+                          
+                          <tr>
+                            <td>
+                              Total Cost
+                            </td>
+                            <td>
+                              {{totalcostcab}}
+                            </td>
+                          </tr>
+                          
+                          <tr>
+                            <td>
+                              Emp. Contribution
+                            </td>
+                            <td>
+                              {{empcontrib}}
+                            </td>
+                          </tr>
+                          
+                          <tr>
+                            <td bgcolor="yellow">
+                              Total transportation cost
+                            </td>
+                            <td>
+                              {{totaltranscost}}
+                            </td>
+                          </tr>
+                          
+                          <tr>
+                            <td>
+                              Escort Guard Billing
+                            </td>
+                            <td>
+                              {{escortbill}}
+                            </td>
+                          </tr>
+                
+                          
+                          <tr>
+                            <td>
+                              Escort guard drop duty cost
+                            </td>
+                            <td>
+                              {{escortdropcost}}
+                            </td>
+                          </tr>
+                          
+                          <tr>
+                            <td bgcolor="yellow">
+                              Total spent on transportation
+                            </td>
+                            <td>
+                              {{totalspent}}
+                            </td>
+                          </tr>
+                
+             </tbody>
+         </table>
 
     </div>
 

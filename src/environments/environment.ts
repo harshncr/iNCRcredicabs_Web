@@ -65,5 +65,5 @@ export const environment = {
   getRoleUrl:                 BASE_URL + "/EmployeeService/get-role",
   vendornameUrl:              BASE_URL + "/VendorService/VendorNames",
   billingsummaryUrl:          BASE_URL + "/ReportService/vendorwisebillreport",
-
+  pullExcelfileUrl:           BASE_URL + "/RequestService/pullExcel",
 };

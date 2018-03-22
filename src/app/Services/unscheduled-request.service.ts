@@ -72,8 +72,8 @@ export class UnscheduledRequestService {
     return this.apiService.callApiService({
       requestType: REQUEST_TYPE_POST,
       url: `${environment.downloadRequestExcelUrl}`,
-      headers: this.excelHeaders,
-      // headers: this.headers,
+      // headers: this.excelHeaders,
+      headers: this.headers,
       body: "{'Request_ids':[" + downloadReqArr + "],'Allocated':'"+this.req.Allocated+"'}",
       shouldBlock: true
     });

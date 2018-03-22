@@ -5,6 +5,7 @@ import { HeaderComponent } from '../header/header.component';
 import { Router } from '@angular/router';
 import { LoginService } from '../Services/login.service';
 import { saveAs } from 'file-saver';
+import { environment } from '../../environments/environment';
 
 declare var jquery: any;
 declare var $: any;
@@ -80,12 +81,23 @@ export class UnscheduledRequestComponent implements OnInit {
       this.unscheduledRequestService.downloadExcelFile(downloadReqArr, this.defaultRequest).subscribe(
         data => {
           console.log(data);
-          var blob = new Blob(data._body, {
-            // type: 'application/vnd.ms-excel'
-            type: 'application/vnd.ms-excel;charset=charset=utf-8'
+
+          if(data.status=="success")
+          {
+            console.log("data success: "+data.status);
+            // window.open(environment.pullExcelfileUrl, '_blank');
+            // window.open(environment.pullExcelfileUrl+"/"+data.fileName, '_blank');
+          }else{
+            console.log("data fail: "+data.status);
+          }
+          
+          
+          // var blob = new Blob(data._body, {
+          //   // type: 'application/vnd.ms-excel'
+          //   type: 'application/vnd.ms-excel;charset=charset=utf-8'
         });
-          console.log(blob);
-          saveAs(blob,"ExcelFile.xls");
+          // console.log(blob);
+          // saveAs(blob,"ExcelFile.xls");
         
         
         // saveAs(blob, 'File_Name_With_Some_Unique_Id_Time' + '.xlsx');
@@ -95,7 +107,7 @@ export class UnscheduledRequestComponent implements OnInit {
           // console.log(data._body.substr(1,data._body.length-1));
           // this.createAndDownloadBlobFile(data._body.substr(0,data._body.length-1), options, filename);
           //  console.log(data);
-        });
+    //     });
     } else {
       alert("No request selected");
 
