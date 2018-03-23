@@ -44,11 +44,8 @@
         <li><a *ngIf="roster" routerLink="/roster/editroute">Edit Route</a></li>
         <li><a *ngIf="roster" (click)="emitUpload()" >Upload Roster</a></li>
         <li><a *ngIf="vendor && loada" routerLink="/add-vendor" class="nav-tabs">Add Vendor</a></li>
-        <li><a *ngIf="vendor && loada" routerLink="/relationship" class="nav-tabs">View/Add RelationShip</a></li>
         <li><a *ngIf="vendor && loadb" routerLink="/add-cab" class="nav-tabs" >Add Cab</a></li>
-        <li><a *ngIf="vendor && loadb" routerLink="/relationship" class="nav-tabs">View/Add RelationShip</a></li>
         <li><a *ngIf="vendor && loadc" routerLink="/add-driver" class="nav-tabs">Add Driver</a></li>
-        <li><a *ngIf="vendor && loadc" routerLink="/relationship" class="nav-tabs">View/Add RelationShip</a></li>
         <li><a *ngIf="vendor && loadd" routerLink ="/vendor-list"class="nav-tabs"> View Vendor</a></li>
         <li><a *ngIf="unscheduledRequest" (click)="downloadRequestExcel()"><span class="glyphicon glyphicon-download-alt"></span>Download</a></li>
         <!-- <li *ngIf="employee || roster || vendor || unscheduledRequest"><span class="separator"></span></li> -->

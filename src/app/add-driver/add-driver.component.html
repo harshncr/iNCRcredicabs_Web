@@ -1,6 +1,24 @@
-<header-list></header-list>
+<app-header [module] = "module" [navLocation] = "navLocation"></app-header>
 <!-- Name Section -->
 <div class="row">
+    <div class="form-group">
+        <div class="pull-right">
+          
+            <button type="submit" (click)="driver_add()" class="btn btn-primary">Save</button>
+            <button type="submit" routerLink = "/driver-list" class="btn btn-basic">Cancel</button>              
+          
+            <div *ngIf="new" id="over">
+              <div id="box">
+                     <b><h4>Driver Details Already Exists !!!</h4></b><br><br>
+              <!-- <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-success"id="other" (click)=update()> Update </button> -->
+              <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary"id="close" (click)=close()> Close </button>
+              </div>
+              </div>
+              
+              
+
+        </div>
+      </div>
   <div class="col-md-8 col-md-offset-2">
       <div class="success">{{success}}</div>
     <form class="form-horizontal" role="form">
@@ -54,17 +72,13 @@
         <!-- Form Name -->
         <legend>Essential Information</legend>
         <!-- Text input-->
-        <div class="form-group">
-          <div class="col-sm-3">  
-          <p> <b>Cab Number Plate*</b> </p>   <input type="text" name="c_Plate_Nbr" [(ngModel)]="c_Plate_Nbr" placeholder="Cab Plate Number" maxlength="10" class="form-control" disabled>
-            <span class="text-danger" ng-show="c_Plate_Nbr.$error.required">{{message5}}</span>
-          </div>
+        
 
         <!--  <div class="col-sm-4">  
             <p> <b>Driving Liscense Number</b> </p>   <input type="text" name="dl_Nbr" [(ngModel)]="dl_Nbr" placeholder="Driving Liscense Number" maxlength="10" class="form-control">
               <span class="text-danger" ng-show="dl_Nbr.$error.required">{{message5}}</span>
             </div>-->
-        </div> 
+      
 
         <div class="form-group">
           <div class="col-sm-3">
@@ -96,7 +110,7 @@
 
               <div class="form-group">
                 <div class="col-sm-4">
-                   <p> <b>Driver Present Address Proof*</b> </p> 
+                   <p> <b>Driver Present Address Proof</b> </p> 
                      <input type="file" id="d_local_Address_proof" name="d_local_Address_proof" accept="image/x-png,image/gif,image/jpeg">
                      <span class="text-danger" ng-show="d_local_Address_proof.$error.required">{{message9}}</span>
                     </div>
@@ -119,24 +133,7 @@
                   
 
 <!-- Command -->
-        <div class="form-group">
-          <div class="col-sm-10 col-sm-offset-0">
-            
-              <button type="submit" (click)="driver_add()" class="btn btn-primary">Save</button>
-              <button type="submit" class="btn btn-basic">Cancel</button>              
-            
-              <div *ngIf="new" id="over">
-                <div id="box">
-                       <b><h4>Driver Details Already Exists !!!</h4></b><br><br>
-                <!-- <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-success"id="other" (click)=update()> Update </button> -->
-                <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary"id="close" (click)=close()> Close </button>
-                </div>
-                </div>
-                
-                
-
-          </div>
-        </div>
+      
       </fieldset>
     </form>
   </div><!-- /.col-lg-12 -->

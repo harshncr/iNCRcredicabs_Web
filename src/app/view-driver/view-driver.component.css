@@ -10,4 +10,7 @@
     input:focus {
         outline:none;
     }
-     
+   .pull-right.button{
+       position: absolute;
+       right:75%
+   }

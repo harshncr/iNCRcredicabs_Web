@@ -78,6 +78,7 @@ import { LoaderAnimComponent } from './loader-anim/loader-anim.component';
 import { MassUploadEmployeeComponent } from './mass-upload-employee/mass-upload-employee.component';
 import { RelationshipFormComponent } from './relationship-form/relationship-form.component';
 import { RelationService } from './relation.service';
+import { Data } from './Model/Data';
 import { EmployeeReqUnschComponent } from './employee-req-unsch/employee-req-unsch.component';
 import { EmployeeDashComponent } from './employee-dash/employee-dash.component';
 import { EmployeeHeaderComponent } from './employee-header/employee-header.component';
@@ -155,6 +156,7 @@ import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-d
     AppRoutingModule
   ],
   providers: [
+    Data,
     ApiService,
     LoginService,
     EmployeeData,

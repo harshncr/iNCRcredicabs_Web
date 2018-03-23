@@ -8,13 +8,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./view-vendor.component.css']
 })
 export class ViewVendorComponent implements OnInit {
+  module= "vendor";
+  navLocation = "Vendor Details";
 
   public vendor;
   public selectedItem;
   constructor(public _vendorData : VendorData,private router:Router){ }
 
   ngOnInit() {
-    this.vendor=this._vendorData.getItem();
+   // this.vendor=this._vendorData.getItem();
+   this.vendor = JSON.parse(localStorage.getItem('Vendor'));
   }
   update(vendor){
     console.log(vendor);

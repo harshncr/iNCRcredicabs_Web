@@ -13,6 +13,8 @@ import { CabService } from '../cab.service';
 })
 export class ViewDriverComponent implements OnInit {
   private dimage : any;
+  module="vendor";
+  navLocation="Driver Details"
   private pimage : any;
   private readonly imageType : string = 'data:image/PNG;base64,';  
  
@@ -23,7 +25,8 @@ export class ViewDriverComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer,public _driverData: DriverData, public _cabData: CabData, public _vendorData: VendorData, private router: Router,private _vendorService:VendorService, private _cabService:CabService) { }
 
   ngOnInit() {
-    this.driver=this._driverData.getItem();
+    this.driver = JSON.parse(localStorage.getItem('Driver'));
+    //this.driver=this._driverData.getItem();
     console.log(this.driver);
   }
   getImage(d)

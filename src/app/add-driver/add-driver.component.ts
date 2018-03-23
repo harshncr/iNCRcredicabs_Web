@@ -13,17 +13,19 @@ import { DriverService } from '../driver.service';
 })
 export class AddDriverComponent implements OnInit {
   validateStatus: boolean;
+  module = "vendor";
+  navLocation = "Add Driver";
 
   public driver_license_num;
   public Name;
   public dPhone_Nbr;
-  public local_Address;
+  public local_Address="";
   public permanent_Address;
   public c_Plate_Nbr;
   public license_exp_date;
   public d_comercial_liscence='';
   public d_police_verification='';
-  public d_local_Address_proof='';
+  public d_local_Address_proof="";
   public d_permanent_address_proof='';
   public d_photo='';
 
@@ -72,14 +74,18 @@ public success;
       this.d_police_verification = this.driver_license_num + "_" + filename2;
       d_police_verification.append('file_upload',file2,this.d_police_verification);
 
-
+      
       let files3=this.elem.nativeElement.querySelector("#d_local_Address_proof").files;
       let d_local_Address_proof =new FormData();
       let file3=files3[0];
+      if(file3!="" && file3!=null){
       let filename3 = 'd_local_Address_proof.' + file3.name.split(".")[1];
       this.d_local_Address_proof = this.driver_license_num + "_" + filename3;
       d_local_Address_proof.append('file_upload',file3,this.d_local_Address_proof);
-
+      }
+      else{
+        this.d_local_Address_proof = "";
+      }
 
 
       let files4=this.elem.nativeElement.querySelector("#d_permanent_address_proof").files;
@@ -110,13 +116,14 @@ if(this.message == "Data Found")
 {
 this.new = true;
 }else{
-let file_upload= [d_comercial_liscence,d_police_verification,d_local_Address_proof,d_permanent_address_proof,d_photo]
+let file_upload= [d_comercial_liscence,d_police_verification,this.d_local_Address_proof,d_permanent_address_proof,d_photo]
 for (let i=0;i<5;i++)
 {
 this.httpService.sendfile(file_upload[i]).subscribe();
 }
 console.log("Image Uploaded");
 this.success = response._body;
+this.route.navigate(['driver-list']) ;
 }
 }
 
@@ -125,6 +132,7 @@ this.success = response._body;
 this.validateStatus = false;
 this.validate();
 }
+
 }
 
 
@@ -216,14 +224,13 @@ if(this.license_exp_date == null){
   if(file3.length != 0){
     let d_local_Address_proof = file3[0].name.split(".")[1];
      if(d_local_Address_proof == 'jpeg' || d_local_Address_proof == 'jpg'){
-     }else{
+     }
+     else{
        validateStatus = false;
        this.message9 = 'Uploaded Driver Present Address Proof is not in valid format i.e. not (.jpg/.jpeg)';
      }
    }
-   else{validateStatus = false;
-    this.message9 = 'Driver Present Address Proof is mandatory to be uploaded';
-  }
+  
 
   if(file4.length != 0){
     let d_permanent_address_proof = file4[0].name.split(".")[1];
@@ -250,7 +257,7 @@ if(this.license_exp_date == null){
   }
  
 
-return validateStatus;
+return this.validateStatus;
 }
 
 refreshErrorValues(){

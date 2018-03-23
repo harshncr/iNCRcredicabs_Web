@@ -1,53 +1,111 @@
 <app-header [module]="module" [navLocation]="navLocation" [loadb]="loadb"></app-header>
-
-<!--<div id="filter-panel" class="panel panel-warning">
-  <div class="panel-heading">
-    <h3 class="panel-title">Filter</h3>
+<div *ngIf="popup" id="over">
+  <div id="box">
+         <b><h4>You cannnot disable this cab as it is on an active route.</h4></b><br><br>
+  <!-- <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-danger"id="other" (click)=backed()> OKAY </button> -->
+  <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary"id="close" (click)=backed()> Close </button>
   </div>
-  <div class="panel-body">
+  </div>
+
+<div id="filter-panel" class="panel panel-success">
+  <div class="panel-heading">
+    <div class="panel-title col-md-5">
+      <!-- <strong> -->
+        Filter
+      <!-- </strong> -->
+    </div>
+    
+    <div class="pull-right">
+      <span *ngIf="showFilterPanel" class="filter-panel-heading-button">
+        <button class="glyphicon glyphicon-chevron-up btn btn-default panel-quick-button"
+          (click)="filterPanelToggle()" (mouseenter)="onFilterPanelChevronMouseEnter($event.target)"
+          (mouseleave)="onFilterPanelChevronMouseLeave($event.target)">
+        </button>
+        <span class="tooltip-text" id="qpb-tt-hqd-{{i}}">
+          Hide filter panel
+        </span>
+      </span>
+      <span *ngIf="showFilterPanel == false" class="filter-panel-heading-button">
+        <button class="glyphicon glyphicon-chevron-down btn btn-default panel-quick-button"
+          (click)="filterPanelToggle()" (mouseenter)="onFilterPanelChevronMouseEnter($event.target)"
+          (mouseleave)="onFilterPanelChevronMouseLeave($event.target)">
+        </button>
+        <span class="tooltip-text" id="qpb-tt-hqd-{{i}}">
+          Show filter panel
+        </span>
+      </span>
+    </div>
+  </div>
+  
+  <div *ngIf = "showFilterPanel" class="panel-body">
     <div class="form-group">      
       <form name="form" #f="ngForm" (ngSubmit)="onFilterGo(f.value)" id="form" class="form-horizontal" enctype="multipart/form-data" method="POST">        
         <div class="form-group">
-          <!-- <div class="col-sm-1">
-              <h3 id="filter-title">Filter</h3>
-          </div> 
-          <div class="col-sm-3">
-            <select [(ngModel)]="filterType" name="filterType" type="" class="form-control" >
-              <option value="" dsisabled selected>Filter By</option>
-              <option value="cab_type">Occupancy</option>
-              <option value="vendor_name">Vendor Name</option>
+               <!-- <div class="col-sm-1">
+                <h3 id="filter-title">Filter</h3>-->
+          <div class="panel-body">
+            <div class="form-group">      
+                <!-- <form name="form" #f="ngForm" (ngSubmit)="search()" id="form" class="form-horizontal" enctype="multipart/form-data" method="POST">         -->
+              <div id="vendor-filter" class="form-group">
+          
+                <div class="col-sm-3">
+                  <select [(ngModel)]="filterType" name="filterType" type="" class="form-control" >
+                    <option value="" dsisabled selected>Filter By</option>
+                    <option value="cab_type">Occupancy</option>
+                    <!-- <option value="vendor_name">Vendor Name</option> -->
+                    
               
               
-              
-            </select>
-          </div>
-          <div class="col-sm-3">
-            <input type="text" [(ngModel)]="filterValue"  name="filterValue" class="form-control" >
-          </div>
-          <div class="col-sm-3">
-            <button type="button" (click)="search()" class="btn btn-default">
-              Go
-            </button>
+                  </select>
+                </div>
+              <div class="col-sm-3">
+                <input type="text" [(ngModel)]="filterValue"  name="filterValue" class="form-control" >
+              </div>
+              <div class="col-sm-3">
+                <button type="button" (click)="search()" class="btn btn-default">
+                  Go
+                </button>
+              </div>
+              <div class="col-sm-3">
+                <button type="button" (click)="searchFlagged()" class="btn btn-default">
+                  Flagged 
+                </button>
+              </div>
+            </div>
+      
           </div>
         </div>
+      </div>
       </form>
+        
+      
     </div>
   </div>
 </div>
--->
+
+<div *ngIf="showLoading" class="loader-animation">
+   
+</div>
 <div *ngFor="let cab of cabs; let i=index">
     <div class="panel" [ngClass]="checkStatus(cab)">
       <div class="panel-heading ">
-          <div class="panel-title">{{cab.cab_no + " " + cab.driver_type+" Driver"}}
-          <div class="pull-right">
+          <div class="panel-title">{{cab.cab_no}}
+            <span *ngIf="checkCompliance(cab)" class="glyphicon glyphicon-remove-sign"></span>
+            <div class="pull-right">
             &nbsp;&nbsp;
-              <span><a [ngClass]="disable(cab)" (click)="update(cab)" class="glyphicon glyphicon-pencil" aria-hidden="true"></a>&nbsp;&nbsp;</span>
+            <!--<button type="button" (click) = "driver(cab)" class="btn btn-default btn-md2"   ></button>-->
+                 
+              <button type="button" class="btn btn-default btn-md1" style="background:white;" (click)="update(cab)">
+              <span><a [ngClass]="disable(cab)" class="glyphicon glyphicon-pencil" aria-hidden="true"></a>&nbsp;&nbsp;</span>
+            </button>
+
               <!-- <button class="btn btn-default"> -->
-                <span *ngIf="showCabArr[i] == false" class="glyphicon glyphicon-chevron-down" aria-hidden="true" (click)="onShowDetails(i)"></span>
+                  <button type="button"  class="btn btn-default btn-md1" style="background:white;"  (click)="onShowDetails(i)">
+                <span *ngIf="showCabArr[i] == false" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
               <!-- </button> -->
               <!-- <button> -->
-              <span *ngIf="showCabArr[i] == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true" (click)="onHideDetails(i)"></span>
-              
+              <span *ngIf="showCabArr[i] == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true" ></span>
+              </button>
             <!--<span class="glyphicon glyphicon-chevron-up" aria-hidden="true">&nbsp;</span>
             <span><a (click)="update(vendor)" class="glyphicon glyphicon-pencil" aria-hidden="true"></a>&nbsp;</span>
               <span><a  (click)="onDeleteClick(vendor)" class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#myModal" aria-hidden="true"></a>&nbsp;</span>
@@ -67,10 +125,9 @@
           <ul class="list-group">
               <li class="list-group-item">License plate no: {{cab.cab_no}}</li>
               <li class="list-group-item">Cab Model: {{cab.model}}</li>
-              <li class="list-group-item">Driver name: {{cab.driver_name}}</li>
-              <li class="list-group-item">Driver Contact Number: {{cab.driver_contact_num}}</li>
+             
               <li class="list-group-item">Cab Capacity: {{cab.cab_type}}</li>
-              <li class="list-group-item">Vendor Name: {{cab.vendor_name}}</li>
+             
               
             </ul>
             <div class="pull-right">
@@ -79,3 +136,5 @@
       </div>
     </div>
 </div>
+
+

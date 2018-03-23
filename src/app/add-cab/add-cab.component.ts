@@ -11,23 +11,26 @@ import { CabService } from '../cab.service';
   styleUrls: ['./add-cab.component.css']
 })
 export class AddCabComponent implements OnInit {
+  module = 'vendor';
+  navLocation = 'Add Cab';
   public onrshp;
   public license_plate_number;
   public model;
   public fuel=0;
   public type=0;
   public occupancy = 0;
-  public cab_rate;
+  public cab_rate=0;
   public Rcert;
   public Pcert;
   public Fcert;
   public icert;
   public entry_tax_haryana_certi;
-  public entry_tax_delhi_certi;
-  public entry_tax_up_certi;
-  public entry_tax_haryana_exp_date;
-  public entry_tax_delhi_exp_date;
-  public entry_tax_up_exp_date; 
+  public haryana;
+  public entry_tax_delhi_certi="";
+  public entry_tax_up_certi="";
+  public entry_tax_haryana_exp_date="";
+  public entry_tax_delhi_exp_date="";
+  public entry_tax_up_exp_date=""; 
   public Mdate ;
   public Pdate;
   public Fdate;
@@ -88,28 +91,45 @@ export class AddCabComponent implements OnInit {
       let filename4 = 'icert.' + file4.name.split(".")[1];
       this.icert = this.license_plate_number + "_" + filename4;
       icert.append('file_upload',file4,this.icert);
+
       
       let files5=this.elem.nativeElement.querySelector("#entry_tax_haryana_certi").files;
       let entry_tax_haryana_certi =new FormData();
       let file5=files5[0];
+      if(file5 != "" && file5!=null)
+      {
+       console.log(file5);
       let filename5 = 'entry_tax_haryana_certi.' + file5.name.split(".")[1];
       this.entry_tax_haryana_certi = this.license_plate_number + "_" + filename5;
       entry_tax_haryana_certi.append('file_upload',file5,this.entry_tax_haryana_certi);
-      
+      }
+      else{
+        this.entry_tax_haryana_certi = "";
+      }
+
       let files6=this.elem.nativeElement.querySelector("#entry_tax_delhi_certi").files;
       let entry_tax_delhi_certi =new FormData();
       let file6=files6[0];
+      if(file6!="" && file6!=null){
       let filename6 = 'entry_tax_delhi_certi.' + file6.name.split(".")[1];
       this.entry_tax_delhi_certi = this.license_plate_number + "_" + filename6;
       entry_tax_delhi_certi.append('file_upload',file6,this.entry_tax_delhi_certi);
-      
+      }
+      else{
+        this.entry_tax_delhi_certi = "";
+      }
+
       let files7=this.elem.nativeElement.querySelector("#entry_tax_up_certi").files;
       let entry_tax_up_certi =new FormData();
       let file7=files7[0];
+      if(file7!="" && file7!=null){
       let filename7 = 'entry_tax_up_certi.' + file7.name.split(".")[1];
       this.entry_tax_up_certi = this.license_plate_number + "_" + filename7;
       entry_tax_up_certi.append('file_upload',file7,this.entry_tax_up_certi);
-      
+      }
+      else{
+        this.entry_tax_up_certi = "";
+      }
 
 
         let body={"onrshp": this.onrshp, "license_plate_number":this.license_plate_number,"model":this.model, "fuel":this.fuel,"type":this.type,  "occupancy":this.occupancy,"cab_rate": this.cab_rate, "Rcert": this.Rcert,"Pcert": this.Pcert,"Fcert": this.Fcert,"icert": this.icert,"entry_tax_haryana_certi": this.entry_tax_haryana_certi,"entry_tax_delhi_certi": this.entry_tax_delhi_certi,"entry_tax_up_certi": this.entry_tax_up_certi,"entry_tax_haryana_exp_date": this.entry_tax_haryana_exp_date,"entry_tax_delhi_exp_date": this.entry_tax_delhi_exp_date,"entry_tax_up_exp_date": this.entry_tax_up_exp_date,"Mdate":this.Mdate, "Pdate":this.Pdate, "Fdate":this.Fdate ,  "idate":this.idate}
@@ -125,7 +145,7 @@ export class AddCabComponent implements OnInit {
                     this.new=true;
                   }else{
                           
-                    let file_upload= [Rcert,Pcert,Fcert,icert,entry_tax_haryana_certi,entry_tax_delhi_certi,entry_tax_up_certi]
+                    let file_upload= [Rcert,Pcert,Fcert,icert,this.entry_tax_haryana_certi,this.entry_tax_delhi_certi,this.entry_tax_up_certi]
                     for (let i=0;i<7;i++)
                     {
                       this.httpService.sendfile(file_upload[i]).subscribe();
@@ -137,7 +157,7 @@ export class AddCabComponent implements OnInit {
                     // this._cabData.setVenId(this.vendor_id);
                     console.log("Image Uploaded");
                     this.success = response._body;
-                    //this.route.navigate(['add-driver']) ;
+                    this.route.navigate(['cab-list']) ;
                   }
                 }
         })

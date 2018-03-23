@@ -1,20 +1,57 @@
 <app-header [module]="module" [navLocation]="navLocation" [loadc]="loadc"></app-header>
-
-<!--<div id="filter-panel" class="panel panel-warning">
-  <div class="panel-heading">
-    <h3 class="panel-title">Filter</h3>
+<div *ngIf="popup" id="over">
+  <div id="box">
+         <b><h4>You cannnot disable this driver as it is on an active route.</h4></b><br><br>
+  <!-- <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-danger"id="other" (click)=backed()> OKAY </button> -->
+  <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary"id="close" (click)=backed()> Close </button>
   </div>
-  <div class="panel-body">
+  </div>
+
+
+
+<div id="filter-panel" class="panel panel-success">
+  <div class="panel-heading">
+    <div class="panel-title col-md-5">
+      <!-- <strong> -->
+        Filter
+      <!-- </strong> -->
+    </div>
+    <div class="pull-right">
+        <span *ngIf="showFilterPanel" class="filter-panel-heading-button">
+            <button class="glyphicon glyphicon-chevron-up btn btn-default panel-quick-button"
+              (click)="filterPanelToggle()" (mouseenter)="onFilterPanelChevronMouseEnter($event.target)"
+              (mouseleave)="onFilterPanelChevronMouseLeave($event.target)">
+            </button>
+            <span class="tooltip-text" id="qpb-tt-hqd-{{i}}">
+              Hide filter panel
+            </span>
+          </span>
+          <span *ngIf="showFilterPanel == false" class="filter-panel-heading-button">
+            <button class="glyphicon glyphicon-chevron-down btn btn-default panel-quick-button"
+              (click)="filterPanelToggle()" (mouseenter)="onFilterPanelChevronMouseEnter($event.target)"
+              (mouseleave)="onFilterPanelChevronMouseLeave($event.target)">
+            </button>
+            <span class="tooltip-text" id="qpb-tt-hqd-{{i}}">
+              Show filter panel
+            </span>
+          </span>
+        </div>
+      </div>
+      
+    <div *ngIf="showFilterPanel" class="panel-body">
     <div class="form-group">      
       <form name="form" #f="ngForm" (ngSubmit)="onFilterGo(f.value)" id="form" class="form-horizontal" enctype="multipart/form-data" method="POST">        
         <div class="form-group">
           <!-- <div class="col-sm-1">
               <h3 id="filter-title">Filter</h3>
-          </div> 
-          <div class="col-sm-3">
-            <select [(ngModel)]="filterType" name="filterType" type="" class="form-control" >
-              <option value="" dsisabled selected>Filter By</option>
-              <option value="vendor_name">Vendor Name</option>
+          </div> -->
+          <div class = "panel-body">
+            <div class = "form-group">
+             <div id = "vendor-filter" class="form-group">
+               <div class="col-sm-3">
+                 <select [(ngModel)]="filterType" name="filterType" type="" class="form-control" >
+                  <option value="" dsisabled selected>Filter By</option>
+                  <option value="driver_name">Driver Name</option>
               
               
               
@@ -29,25 +66,44 @@
               Go
             </button>
           </div>
+          <div class="col-sm-3">
+              <button type="button" (click)="searchFlagged()" class="btn btn-default">
+                Flagged
+              </button>
+            </div>
         </div>
-      </form>
+      </div>
+     </div>
     </div>
+  </form>
   </div>
 </div>
--->
+</div>
+
+<div *ngIf="showLoading" class="loader-animation">
+   
+</div>
+<div *ngIf = "cablist" class = "lists">
+  <button type = "button" (click) = "driverlist(driver)" class = "btn btn-default btn-md1" style="background:white;"></button>
+</div>
 <div *ngFor="let driver of drivers; let i=index">
     <div class="panel" [ngClass]="checkStatus(driver)">
   
       <div class="panel-heading ">
           <div class="panel-title">{{driver.d_name}}
+              <span *ngIf="checkCompliance(driver)" class="glyphicon glyphicon-remove-sign"></span>
           <div class="pull-right">
             &nbsp;&nbsp;
+              <button type ="button" class = "btn btn-default btn-md1" style="background:white;" (click)="update(cab)">
               <span><a [ngClass]="disable(driver)" (click)="update(driver)" class="glyphicon glyphicon-pencil" aria-hidden="true"></a>&nbsp;&nbsp;</span>
+              </button>
               <!-- <button class="btn btn-default"> -->
-                <span *ngIf="showDriverArr[i] == false" class="glyphicon glyphicon-chevron-down" aria-hidden="true" (click)="onShowDetails(i)"></span>
+                <button type = "button" class = "btn btn-default btn-md1" style = "background:white;" (click) = "onShowDetails(i)">
+                <span *ngIf="showDriverArr[i] == false" class="glyphicon glyphicon-chevron-down" aria-hidden="true" ></span>
               <!-- </button> -->
               <!-- <button> -->
-              <span *ngIf="showDriverArr[i] == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true" (click)="onHideDetails(i)"></span>
+              <span *ngIf="showDriverArr[i] == true" class="glyphicon glyphicon-chevron-up" aria-hidden="true" ></span>
+              </button>
               </div>
               <label id="tooltip" class="switch pull-right">
                   <span [style.background-color]="color(driver)" class="tooltiptext">{{text(driver)}}</span>
@@ -63,8 +119,6 @@
           <ul class="list-group">
               <li class="list-group-item">Driver Name: {{driver.d_name}}</li>
               <li class="list-group-item">Driver Contact No: {{driver.d_contact_num}}</li>
-              <li class="list-group-item">Cab No: {{driver.cab_no}}</li>
-              <li class="list-group-item">Vendor Name: {{driver.vendor_name}}</li>
               <li class="list-group-item">License Expiry Date: {{driver.license_exp_date}}</li>
               
               
