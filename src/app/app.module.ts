@@ -83,6 +83,7 @@ import { EmployeeReqUnschComponent } from './employee-req-unsch/employee-req-uns
 import { EmployeeDashComponent } from './employee-dash/employee-dash.component';
 import { EmployeeHeaderComponent } from './employee-header/employee-header.component';
 import { EmployeeChangePasswordComponent } from './employee-change-password/employee-change-password.component';
+import { MyDatePickerModule } from 'mydatepicker';
 
 
 @NgModule({
@@ -147,7 +148,8 @@ import { EmployeeChangePasswordComponent } from './employee-change-password/empl
     ReactiveFormsModule,
     Ng2SearchPipeModule,
     // StoreModule.provideStore({todoreducer}),
-    AppRoutingModule
+    AppRoutingModule,
+    MyDatePickerModule
   ],
   providers: [
     // TodoActions,

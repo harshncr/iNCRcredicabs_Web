@@ -163,7 +163,7 @@ export class ReportService {
       headers: this.headers,
       body: "",
       shouldBlock: true
-    })
+    });
 
 
   }
@@ -172,24 +172,79 @@ export class ReportService {
 
   getBillingSummary(shift_id,vendor_name,FromDate,ToDate):Observable<any>{
 
-
-
     return this.apiService.callApiService({
       requestType: REQUEST_TYPE_POST,
       url: `${environment.billingsummaryUrl}`,
       headers: this.headers,
       body: "{'shift_id':"+shift_id+",'vendor_name':"+vendor_name+",'FromDate':"+FromDate+",'ToDate':"+ToDate+"}",
       shouldBlock:true
-    })
-
-
-
+    });
   }
 
 
+  getTransportationReport(month,year,f):Observable<any>{
 
+    return this.apiService.callApiService({
+      requestType: REQUEST_TYPE_POST,
+      url: `${environment.transportationBillingUrl}`,
+      headers: this.headers,
+      body: "{"+
+        "'month':"+month+",'year':"+year+",'hrtax_regular_cab':"+f.hrtax_regular_cab+","+
+        "'uptax_regular_cab':"+f.uptax_regular_cab+",'emp_contrib_regular':"+f.emp_contrib_regular+","+
+        "'emp_contrib_shift':'0','gstTax_regular_cab':"+f.gstTax_regular_cab+","+
+        "'gps_regular_cab':"+f.gps_regular_cab+",'gps_shift_cab':"+f.gps_shift_cab+","+
+        "'gstTax_shift_cab':"+f.gstTax_shift_cab+",'hrtax_shift_cab':"+f.hrtax_shift_cab+","+
+        "'uptax_shift_cab':"+f.uptax_shift_cab+",'toll_shift_cab':"+f.toll_shift_cab+","+
+        "'toll_unscheduled_cab':"+f.toll_unscheduled_cab+",'gstTax_unscheduled':"+f.gstTax_unscheduled+","+
+        "'standByCab_extraKms':"+f.standByCab_extraKms+",'ratePerKm':"+f.ratePerKm+","+
+        "'extraMileageCost':"+f.extraMileageCost+",'standByCost':"+f.standByCost+","+
+        "'standByTax':"+f.standByTax+",'otherCabCost':"+f.otherCabCost+","+
+        "'otherCabGST':"+f.otherCabGST+",'escortGuardCost':"+f.escortGuardCost+","+
+        "'escortGuardDropDutyCost':"+f.escortGuardDropDutyCost+",'escortGuardTaxes':"+f.escortGuardTaxes+","+
+        "'tptMobCost':"+f.tptMobCost+",'overallUPtax':"+f.overallUPtax+","+
+        "'overallHRtax':"+f.overallHRtax+",'overallTaxes':"+f.overallTaxes+","+
+        "'overallToll':"+f.overallToll+",'overallGPS':"+f.overallGPS+",'foreignExPrice':"+f.foreignExPrice+"}",
+      shouldBlock:true
+    });
+  }
 
+  getCheckinoutreport(route_no,from_date,to_date,cab_no,emp_fname,emp_lname,vendor_name):Observable<any>{
 
+    return this.apiService.callApiService({
+      requestType: REQUEST_TYPE_POST,
+      url: `${environment.checkinoutreportUrl}`,
+      headers: this.headers,
+      body: "{'route_no':'"+route_no+"','from_date':'"+from_date+"','to_date':'"+to_date+"','cab_no':'"+cab_no+"','emp_fname':'"+emp_fname+"','vendor_name':'"+vendor_name+"','emp_lname':'"+emp_lname+"'}",
+      shouldBlock:true
+    });
+  
+    }
+  
+    getRouteNos(VendorName):Observable<any>{
+
+      return this.apiService.callApiService({
+  
+        requestType: REQUEST_TYPE_POST,
+        url: `${environment.routenoUrl}`,
+        headers: this.headers,
+        body: VendorName,
+        shouldBlock: true
+      })
+    }
+  
+      getCabnobyVendorandRouteNo(VendorName,RouteNo):Observable<any>{
+  
+      return this.apiService.callApiService({
+  
+        requestType: REQUEST_TYPE_POST,
+        url: `${environment.cabnobyvendorandrouteUrl}`,
+        headers: this.headers,
+        body: "{'VendorName':'"+VendorName+"','RouteNo':'"+RouteNo+"'}",
+        shouldBlock: true
+      })
+  
+    }
+  
 
 
 

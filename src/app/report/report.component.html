@@ -92,14 +92,13 @@
             </div>
           </div>
 
-
           <!-- Filter for Transport Billing -->
           <div class="col-md-4" *ngIf="filterReport == 'Transportation_Billing'">
-            
+
             <div class="form-group">
               <div class="col-sm-6">
                 Month:
-                <select ngModel class="form-control" name="month">
+                <select [(ngModel)]="fromMonth" class="form-control" name="month">
                   <option value=" ">Select</option>
                   <option value="1">January</option>
                   <option value="2">February</option>
@@ -118,7 +117,7 @@
 
               <div class="col-sm-6">
                 Year:
-                <select ngModel class="form-control" name="year">
+                <select [(ngModel)]="year" class="form-control" name="year">
                   <option value=" ">Select</option>
                   <option value="2018">2018</option>
                 </select>
@@ -211,6 +210,57 @@
 
         </div>
 
+        <!-- Filters for Checkin-out Report -->
+        <div class="row" *ngIf="filterReport=='Checkin_Checkout'">
+          <div class="form-group">
+            <div class="col-sm-2">
+
+              <select ngModel name="VendorName" class="form-control" (change)="getRouteNosbyVendor(f)">
+                <option value="" disabled>Vendor Name</option>
+                <option *ngFor="let obj of vname" [value]="obj.name">{{obj.name}}</option>
+              </select>
+            </div>
+
+            <div class="col-sm-2">
+
+              <select ngModel name="RouteNo" class="form-control" (change)="getCabnobyVendorandRouteNo(f)">
+                <option value="" disabled>Route No</option>
+                <option *ngFor="let obj of rname" [value]="obj.name">{{obj.name}}</option>
+              </select>
+            </div>
+
+            <div class="col-sm-2">
+
+              <select ngModel name="CabNo" class="form-control">
+                <option value="" disabled>Cab No</option>
+                <option *ngFor="let obj of cno" [value]="obj.Cab_No">{{obj.Cab_No}}</option>
+              </select>
+            </div>
+
+            <div class="col-sm-1">
+
+              <my-date-picker name="modelf" [options]="myDatePickerOptions" [(ngModel)]="modelf" required></my-date-picker>
+
+            </div>
+            <div class="col-sm-1">
+              <my-date-picker name="modelt" [options]="myDatePickerOptions" [(ngModel)]="modelt" required></my-date-picker>
+            </div>
+
+            <div class="col-sm-2">
+              <input type="text" [(ngModel)]="EmpName" name="EmpName" class="form-control" />
+            </div>
+
+
+            <div class="col-sm-1">
+              <input type="text" [(ngModel)]="filterValue" name="filterValue" class="form-control">
+            </div>
+            <div class="col-sm-1">
+              <button type="button" (click)="getdata(f)" class="btn btn-default">
+                Go
+              </button>
+            </div>
+          </div>
+        </div>
 
       </form>
     </div>
@@ -528,72 +578,135 @@
             <td>
               {{report?.Model}}
             </td>
-            <td>
+            <td class="Working_Days">
               20
             </td>
-            <td bind="Actual_Working_Days">
-              <input type="text" ngModel name="Actual_Working_Days" />
-            </td>
             <td>
+              <input type="text" name="Actual_Working_Days" />
+            </td>
+            <td class="rate">
               {{report?.Rate}}
             </td>
-            <td>
-              <input type="text " ngModel name="Cab_Charge" />
+            <td class="Cab_Charge">
             </td>
             <td>
-              <input type="text" ngModel name="HR_Tax" />
+              <input type="text" name="HR_Tax" />
             </td>
             <td>
-              <input type="text" ngModel name="UP_Tax" />
+              <input type="text" name="UP_Tax" />
             </td>
             <td>
-              <input type="text" ngModel name="Gps" />
+              <input type="text" name="Gps" />
             </td>
             <td>
-              <input type="text" ngModel name="Toll" />
+              <input type="text" name="Toll" />
             </td>
-            <td>
-              <input type="text" ngModel name="Total_Amount" />
+            <td class="Total_Amount">
             </td>
 
           </tr>
         </tbody>
         <tfoot>
-          <th id="Total">Total
-            <input type="text" ngModel name="Total" />
-          </th>
-          <th id="Gst_Rate">Gst Rate
-            <input type="text" ngModel name="Gst_Rate" />
-          </th>
-          <th id="Gst_Tax">Gst Tax
-            <input type="text" ngModel name="Gst_Tax" />
-          </th>
-          <th id="Total_Cab_Charge">Total Cab Charge
-            <input type="text" ngModel name="Total_Cab_Charge" />
-          </th>
-          <th id="Total_HR_Tax">Total H.R. Tax
-            <input type="text" ngModel name="Total_HR_Tax" />
-          </th>
-          <th id="Total_UP_Tax">Total U.P. Tax
-            <input type="text" ngModel name="Total_UP_Tax" />
-          </th>
-          <th id="Total_Gps">Total Gps
-            <input type="text" ngModel name="Total_Gps" />
-          </th>
-          <th id="Total_Toll">Total Toll
-            <input type="text" ngModel name="Total_Toll" />
-          </th>
-          <th id="Final_Total_Amount">Final Total Amount
-            <input type="text" ngModel name="Final_Total_Amount" />
-          </th>
+          <tr>
+            <td *ngFor="let n of [0,1,2,3,4,5,6,7,8]"></td>
+            <td class="Total"></td>
+            <td class="Total_HR_Tax"></td>
+            <td class="Total_UP_Tax"></td>
+            <td class="Total_Gps"></td>
+            <td class="Total_Toll"></td>
+            <td class="indsum"></td>
+          </tr>
+          <tr>
+            <th *ngFor="let n of [0,1,2,3,4,5,6,7,8]"></th>
+            <th id="Gst_Rate">Gst Tax</th>
+            <td class="gst_rate">
+              <input type="text" value=12 name="Gst_Rate" />
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="Gst_Tax"></td>
+          </tr>
+          <tr>
+            <td *ngFor="let n of [0,1,2,3,4,5,6,7,8]"></td>
+            <th>Total</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="Final_Total_Amount"></td>
+          </tr>
+
 
         </tfoot>
       </table>
 
     </div>
 
+    <div *ngIf="filterReport =='Checkin_Checkout'" class="table-responsive">
+      <table id="test" class="table table-bordered table-hover table-stripped">
+        <thead>
+          <tr>
+            <th>S. No.</th>
+            <th>Date</th>
+            <th>Route No</th>
+            <th>Cab No</th>
+            <th>Vendor Name</th>
+            <th>Trip Type</th>
+            <th>Employee Name</th>
+            <th>Shift Time</th>
+            <th>Check in Time</th>
+            <th>Check out Time</th>
+            <th>Late Arrival</th>
+            <th>Late Departure</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of Checkinoutreport |  filter:filterValue; let i = index">
+            <td>
+              {{i+1}}
+            </td>
+            <td>
+              {{report?.DATE}}
+            </td>
+            <td>
+              {{report?.route_no}}
+            </td>
+            <td>
+              {{report?.cab_No}}
+            </td>
+            <td>
+              {{report?.vendor_name}}
+            </td>
+            <td>
+              {{report?.trip_type}}
+            </td>
+            <td>
+              {{report?.Employee_Name}}
+            </td>
+            <td>
+              {{report?.Shift_Time}}
+            </td>
+            <td>
+              {{report?.check_in_time}}
+            </td>
+            <td>
+              {{report?.check_out_time}}
+            </td>
+            <td>
+              {{report?.late_arrival}}
+            </td>
+            <td>
+              {{report?.late_departure}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-    <div *ngIf="filterReport =='Transportation_Billing'">
+
+
+    <div *ngIf="filterReport =='Transportation_Billing'&& showDiv">
       <div class="col-md-9 col-md-offset-2" id="employee-form">
         <form name="myForm" #f="ngForm" (ngSubmit)="onTptCostForm(f.value)" class="form-horizontal" role="form">
           <fieldset>

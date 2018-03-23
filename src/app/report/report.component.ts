@@ -10,6 +10,8 @@ import { ReportVendorDetail } from '../Model/ReportVendorDetai';
 import { ReportEmpDetail } from '../Model/ReportEmpDetail';
 import { VendorBilling } from '../Model/VendorBilling'
 import { TransportationCost } from './TransportationCost';
+import { Checkinout } from '../Model/Checkinout';
+import { IMyDpOptions } from 'mydatepicker';
 
 declare var jquery: any;
 declare var $: any;
@@ -27,45 +29,80 @@ export class ReportComponent implements OnInit {
   public employeeDetailReport: ReportEmpDetail;
   public vendorDetailReport: ReportVendorDetail;
   public managerDetailReport: ReportManagerDetail;
-  public transportationCost:TransportationCost;
+  public transportationCost: TransportationCost;
+  public BillingSummaryReport: VendorBilling;
+  public Checkinoutreport: Checkinout;
   public filterType = '';
   public filterValue;
   public toDate;
   public fromDate;
+  public fromMonth;
+  public year;
   public filterVal;
-  public vname=[];
+  public vname = [];
+  public rname = [];
+  public cno = [];
+  public EmpName;
+  public modelf;
+  public modelt;
+
   public filterReport;
   public tf = true;
-  public showTransportationReportResult=true;
+  public showTransportationReportResult = false;
+  public showDiv = true;
   message = "";
   module = "REPORTS";
-  navLocation= " " ;
+  navLocation = " ";
 
-    ////-------------data for loader-------------
-    public showLoader = false;
-    public loaderText = "Loading...";
-    ////-----------------------------------------
-  
+  ////-------------data for loader-------------
+  public showLoader = false;
+  public loaderText = "Loading...";
+  ////-----------------------------------------
+
 
   public reports = [{ "ManagerName": "Sonia Chawla", "NumberOfEmpl": "32", "NumberOfCabs": "12", "Cost": "3600", "RequestID": "1234", "Shift": "Regular", "EmployeeQlid": "re124111", "TimeAndDate": "21-12-18,6:12pm", "CabNumber": "2675", "VendorName": "ABC CAB SERVICE", "TypeOfCab": "Micro" },
   { "ManagerName": "Ruchi Chawla", "NumberOfEmpl": "2", "NumberOfCabs": "1", "Cost": "300", "RequestID": "8234", "Shift": "Regular", "EmployeeQlid": "pp222191", "TimeAndDate": "21-12-18,6:12pm", "CabNumber": "5566", "VendorName": "Rose CAB SERVICE", "TypeOfCab": "Mini" },
   { "ManagerName": "Aman Chawla", "NumberOfEmpl": "12", "NumberOfCabs": "10", "Cost": "4600", "RequestID": "1534", "Shift": "Regular", "EmployeeQlid": "yu123161", "TimeAndDate": "21-12-18,6:12pm", "CabNumber": "6464", "VendorName": "COdeCatchers CAB SERVICE", "TypeOfCab": "Mini" }];
 
   ngOnInit() {
-  //  console.log("ngOnInit");
-  this.filterReport = this._dashData.getItem();
+    //  console.log("ngOnInit");
+    this.filterReport = this._dashData.getItem();
 
-    this.reportService.getVendorNames().subscribe((data ) =>{
-      this.vname=data;
+    if (this.filterReport == 'Billing_Summary') {
+      this.reportService.getVendorNames().subscribe((data) => {
+        this.vname = data;
+      });
+    }
 
-  });
+    this.search();
 
   }
 
-  
-  constructor(public reportService: ReportService,public _dashData:DashData) {
+  public myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'yyyy-mm-dd',
+  };
+
+
+  getRouteNosbyVendor(f) {
+    this.reportService.getRouteNos(f.value.VendorName).subscribe((data) => {
+      this.rname = data;
+    })
+
+  }
+
+
+  getCabnobyVendorandRouteNo(f) {
+    this.reportService.getCabnobyVendorandRouteNo(f.value.VendorName, f.value.RouteNo).subscribe((data) => {
+      this.cno = data;
+    })
+  }
+
+
+
+  constructor(public reportService: ReportService, public _dashData: DashData) {
     // console.log("constructor");
-   }
+  }
 
 
   // Transportation Cost Report ---Start
@@ -76,22 +113,22 @@ export class ReportComponent implements OnInit {
     uptax_regular_cab: false,
     emp_contrib_regular: false,
     gps_regular_cab: false,
-    gstTax_regular_cab:false,
-    emp_contrib_shift:false,
+    gstTax_regular_cab: false,
+    emp_contrib_shift: false,
     gps_shift_cab: false,
-    gstTax_shift_cab:false,
+    gstTax_shift_cab: false,
     hrtax_shift_cab: false,
     uptax_shift_cab: false,
     toll_shift_cab: false,
     toll_unscheduled_cab: false,
-    gstTax_unscheduled:false,
-    standByCab_extraKms:false,
-    ratePerKm:false,
-    extraMileageCost:false,
+    gstTax_unscheduled: false,
+    standByCab_extraKms: false,
+    ratePerKm: false,
+    extraMileageCost: false,
     standByCost: false,
     standByTax: false,
     otherCabCost: false,
-    otherCabGST:false,
+    otherCabGST: false,
     escortGuardCost: false,
     escortGuardDropDutyCost: false,
     escortGuardTaxes: false,
@@ -109,22 +146,22 @@ export class ReportComponent implements OnInit {
     uptax_regular_cab: { error: false, message: '' },
     emp_contrib_regular: { error: false, message: '' },
     gps_regular_cab: { error: false, message: '' },
-    gstTax_regular_cab:{ error: false, message: '' },
-    emp_contrib_shift:{ error: false, message: '' },
+    gstTax_regular_cab: { error: false, message: '' },
+    emp_contrib_shift: { error: false, message: '' },
     gps_shift_cab: { error: false, message: '' },
-    gstTax_shift_cab:{ error: false, message: '' },
+    gstTax_shift_cab: { error: false, message: '' },
     hrtax_shift_cab: { error: false, message: '' },
     uptax_shift_cab: { error: false, message: '' },
     toll_shift_cab: { error: false, message: '' },
     toll_unscheduled_cab: { error: false, message: '' },
-    gstTax_unscheduled:{ error: false, message: '' },
-    standByCab_extraKms:{ error: false, message: '' },
-    ratePerKm:{ error: false, message: '' },
-    extraMileageCost:{ error: false, message: '' },
+    gstTax_unscheduled: { error: false, message: '' },
+    standByCab_extraKms: { error: false, message: '' },
+    ratePerKm: { error: false, message: '' },
+    extraMileageCost: { error: false, message: '' },
     standByCost: { error: false, message: '' },
     standByTax: { error: false, message: '' },
     otherCabCost: { error: false, message: '' },
-    otherCabGST:{ error: false, message: '' },
+    otherCabGST: { error: false, message: '' },
     escortGuardCost: { error: false, message: '' },
     escortGuardDropDutyCost: { error: false, message: '' },
     escortGuardTaxes: { error: false, message: '' },
@@ -133,7 +170,7 @@ export class ReportComponent implements OnInit {
     overallHRtax: { error: false, message: '' },
     overallTaxes: { error: false, message: '' },
     overallToll: { error: false, message: '' },
-    overallGPS:{ error: false, message: '' },
+    overallGPS: { error: false, message: '' },
     foreignExPrice: { error: false, message: '' }
   };
 
@@ -144,11 +181,83 @@ export class ReportComponent implements OnInit {
     this.tf = flag;
   }
 
-downloadExcel(){
-  console.log("download excel logged");
-}
+  downloadExcel() {
 
-  search() {
+    if (this.filterReport == 'Billing_Summary') {
+      //Calculations start
+      console.log(">>>filtertype: " + this.filterReport);
+
+      var sumfields = [".Cab_Charge", "input[name=HR_Tax]", "input[name=UP_Tax]", "input[name=Gps]", "input[name=Toll]"];
+      var totalfields = [".Total", ".Total_HR_Tax", ".Total_UP_Tax", ".Total_Gps", ".Total_Toll"];
+
+      var finalsumfields = [".Total_Cab_Charge", ".Total_HR_Tax", ".Total_UP_Tax", ".Total_Gps", ".Total_Toll"];
+
+
+      $(".Cab_Charge").each(function () {
+        $(this).html(
+          Number($(this).prev().html()) * Number($(this).prev().prev().find("input").val()) / Number($(this).prev().prev().prev().html()));
+      });
+
+
+      for (var x = 0; x < sumfields.length; x++) {
+        var sum = 0;
+        $(sumfields[x]).each(function () {
+          if ($(this).is("td"))
+            sum += Number($(this).html());
+          else
+            sum += Number($(this).val());
+        })
+        $(totalfields[x]).html(sum);
+      }
+
+      $(".Gst_Tax").html(Number(($(".Total").html()) * Number($("input[name=Gst_Rate]").val())) / 100);
+      $(".Total_Cab_Charge").html(Number($(".Total").html()) + Number($(".Gst_Tax").html()));
+
+      var finalsum = 0;
+
+      for (var val in finalsumfields)
+        finalsum += Number($(finalsumfields[val]).html());
+
+      $(".Final_Total_Amount").html(finalsum);
+
+
+      //Calculations end
+
+      $("td").each(function () {
+        if ($(this).find("input"))
+          $(this).html($(this).find("input").val());
+      });
+
+      $(".Total_Amount").each(function () {
+        $(this).html(Number($(this).prev().html()) + Number($(this).prev().prev().html()) + Number($(this).prev().prev().prev().html()) + Number($(this).prev().prev().prev().prev().html()) + Number($(this).prev().prev().prev().prev().prev().html()));
+      });
+      var indsum = 0;
+      $(".Total_Amount").each(function () {
+        indsum += Number($(this).html());
+      });
+      $(".indsum").html(indsum);
+      $(".Final_Total_Amount").html(indsum + Number($(".Gst_Tax").html()));
+
+    }
+    var name = "test";
+    var uri = 'data:application/vnd.ms-excel;base64,'
+      , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+      , base64 = function (s) { return window.btoa(decodeURIComponent(encodeURIComponent(s))) }
+      , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+
+    var table = document.getElementsByClassName("table")[0]
+    var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+    window.location.href = uri + base64(format(template, ctx))
+
+
+    // console.log("download excel logged");
+
+
+  }
+
+
+  search(f = null) {
+
     this.showLoader = true;
     if (this.filterType == '') {
       this.showLoader = false;
@@ -197,9 +306,52 @@ downloadExcel(){
           this.showLoader = false;
           console.log(data);
         }); break;
+      case "Billing_Summary":
+        this.reportService.getBillingSummary(f.value.ShiftType, f.value.VendorName, f.value.FromDate, f.value.ToDate).subscribe((data) => {
+          this.BillingSummaryReport = data;
+          this.showLoader = false;
+          console.log(data);
+        }); break;
+      case "Checkin_Checkout":
+            this.getdata(f);
+            break;
+      case "Transportation_Billing":
+        this.reportService.getTransportationReport(this.toDate, this.fromDate, f).subscribe((data) => {
+          this.managerDetailReport = data;
+          this.showLoader = false;
+          this.showDiv = false;
+          this.showTransportationReportResult = true;
+          console.log(data);
+        }); break;
+
     }
 
   }
+
+
+
+  getdata(f){
+
+    var valarr = [f.value.RouteNo,this.modelf.formatted,this.modelt.formatted,f.value.CabNo,this.EmpName,f.value.VendorName];
+
+    for (var x in valarr)
+    if (typeof valarr[x] === 'undefined')
+          valarr[x] = "";
+
+          var emp_fname = "";
+          var  emp_lname = "";
+
+  if(valarr[4]!=""){
+var arr = valarr[4].split(" ");
+  emp_fname = arr[0];
+  emp_lname= arr[1];
+  this.reportService.getCheckinoutreport(valarr[0],valarr[1],valarr[2],valarr[3],emp_fname,emp_lname,valarr[5]).subscribe((data)=>{
+    this.Checkinoutreport = data;
+        
+ 
+  });
+}
+
 
   // Transportation Cost Report ---Start
 
@@ -209,8 +361,8 @@ downloadExcel(){
 
     var d = new Date();
 
-    if (f.month < (d.getMonth() + 1)) {
-      console.log(f.month + "/" + f.year);
+    if (this.fromMonth < (d.getMonth() + 1)) {
+      console.log(this.fromMonth + "/" + this.year);
     } else {
       alert("Cannot show report until this month is complete.");
     }
@@ -220,7 +372,20 @@ downloadExcel(){
   }
 
   onTptCostForm(f) {
+
     console.log("In tpt cost");
+
+    this.reportService.getTransportationReport(this.fromMonth, this.year, f).subscribe((data) => {
+      console.log(data);
+
+      this.transportationCost = data;
+
+    });
+
+
+  }
+  validate() {
+
   }
 
   // refreshErrorValues(){
@@ -241,7 +406,7 @@ downloadExcel(){
   //   this.formError.empHomeNbr.error       = false;
   //   this.formError.empEmergNbr.error      = false;
   //   this.formError.empBloodGrp.error      = false;
-    
+
   //   this.formError.empQlid.message        = '';
   //   this.formError.empFName.message       = '';
   //   this.formError.empMName.message       = '';

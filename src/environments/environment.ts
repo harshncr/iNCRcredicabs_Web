@@ -63,7 +63,11 @@ export const environment = {
   unscheduledRequestUrl:      BASE_URL + "/RequestService/sendRequest",
   uploadEmployeeExcelUrl:     BASE_URL + "/EmployeeService/UploadFileData",
   getRoleUrl:                 BASE_URL + "/EmployeeService/get-role",
-  vendornameUrl:              BASE_URL + "/VendorService/VendorNames",
+  vendornameUrl:              BASE_URL + "/ReportService/VendorNames",
   billingsummaryUrl:          BASE_URL + "/ReportService/vendorwisebillreport",
   pullExcelfileUrl:           BASE_URL + "/RequestService/pullExcel",
+  transportationBillingUrl:           BASE_URL + "/ReportService/transportbillingreport",
+  checkinoutreportUrl:              BASE_URL + "/ReportService/check-in-out-report",
+  routenoUrl:                 BASE_URL + "/ReportService/RouteNos",
+  cabnobyvendorandrouteUrl:   BASE_URL + "/ReportService/getCabNobyVendorandRoute",
 };
