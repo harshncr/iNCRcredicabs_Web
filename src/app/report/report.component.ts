@@ -35,7 +35,8 @@ export class ReportComponent implements OnInit {
   public filterVal;
   public vname=[];
   public filterReport;
-  public tf = false;
+  public tf = true;
+  public showTransportationReportResult=true;
   message = "";
   module = "REPORTS";
   navLocation= " " ;
