@@ -4,3 +4,6 @@ input[type=file]::-webkit-file-upload-button{background: #ffffff;padding: 7px 12
 input[type=file]::-webkit-file-upload-button:hover{background: #eeeeee;}
 .close-button{font-weight: bold;font-size: 20px;color: #999999;cursor: pointer;padding: 0px;margin-top: -4px;}
 .close-button:hover{color: #000000;}
+.success{color: #00c000;}
+.error{color: #c00000;}
+/* .panel-body{padding-top: 0px;} */

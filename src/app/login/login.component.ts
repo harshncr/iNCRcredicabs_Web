@@ -46,9 +46,9 @@ export class LoginComponent implements OnInit {
     console.log(grecaptchaLoaded);
     console.log('"'+this.user.grecaptchaResponse.length+'"');
     try{
-      if(grecaptchaLoaded){
-        this.user.grecaptchaResponse = grecaptcha.getResponse();
-        if(this.user.grecaptchaResponse != null && this.user.grecaptchaResponse.length > 0){
+      // if(grecaptchaLoaded){
+      //   this.user.grecaptchaResponse = grecaptcha.getResponse();
+      //   if(this.user.grecaptchaResponse != null && this.user.grecaptchaResponse.length > 0){
           this.loginService.startLogin(this.user).subscribe((data) => {
             this.responseJSON = data;
             this.login = this.responseJSON['login'];
@@ -59,14 +59,14 @@ export class LoginComponent implements OnInit {
               this.errorMessage = this.responseJSON['message'];
             }
           });
-        }else{
-          this.error = true;
-          this.errorMessage = 'You Must solve the Captcha!';
-        }
-      }else{
-        this.error = true;
-        this.errorMessage = 'reCaptcha could not be loaded, refresh the page and try again!';
-      }
+        // }else{
+        //   this.error = true;
+        //   this.errorMessage = 'You Must solve the Captcha!';
+        // }
+      // }else{
+      //   this.error = true;
+      //   this.errorMessage = 'reCaptcha could not be loaded, refresh the page and try again!';
+      // }
     }catch(e){
       console.log(e);
       this.error = true;

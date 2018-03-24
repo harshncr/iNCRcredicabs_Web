@@ -72,11 +72,8 @@ export class DashComponent implements OnInit {
 
 
   view(){
-    // var a="oh my god"
    this._dashData.setItem(this.filterReport);
-  //  console.log("Here I am");
-  //  console.log(this.filterReport);
-  //  console.log(a);
+  
     this.router.navigate(['report']);
     if (this.filterType == '') {
       this.showDiv = false;

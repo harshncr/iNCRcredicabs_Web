@@ -1,8 +1,15 @@
-<header-list></header-list>
+<app-header [module] = "module" [navLocation] = "navLocation"></app-header>
 <!-- Name Section -->
 <div class="row">
+    <span class="pull-right">
+            
+        <button type="button" (click)="add_vendor()" class="btn btn-primary" ng-disabled="myform.$invalid">Save</button>
+        <button type="button" routerLink= "/vendor-list" class="btn btn-basic">Cancel</button>              
+      
+    </span>
   <div class="col-md-8 col-md-offset-2">
       <div class="success">{{message}}</div>
+      
     <form class="form-horizontal" role="form" name="myform" >
       <fieldset>
 
@@ -18,7 +25,8 @@
           
           <div class="col-sm-3">
             <b>Business Type*</b>
-            <select name="business_type" id="business_type" [(ngModel)]="business_type"class="form-control">
+            <select name="business_type" id="business_type" [(ngModel)]="business_type"class="form-control" >
+              <option value="" disabled selected>Business Type</option>
               <option value="company">Company</option>
               <option value="partnership">Partnership</option>
               <option value="proprietory">Proprietory</option>
@@ -58,7 +66,7 @@
      
          <div class="form-group">
           <div class="col-sm-3">
-            <b>Cabs Provided*</b><input type="number" name="cabs_provided" [(ngModel)]="cabs_provided" class="form-control">
+            <b>Cabs Provided*</b><input type="number" name="cabs_provided" min = "1" max = " " [(ngModel)]="cabs_provided" class="form-control">
             <span class="text-danger" ng-show="cabs_provided.$error.required">{{message8}}</span>
           </div>
          </div>
@@ -106,7 +114,7 @@
           </div>
           <div class="col-sm-3">
             <b>Manager Contact No.</b><input type="text" name="manager_contact_num" [(ngModel)]="manager_contact_num" placeholder="Manager Contact No." class="form-control">
-            <span class="text-danger" ng-show="firstName.$error.required">{{message12}}</span>
+            <span class="text-danger" ng-show="manager_contact_num.$error.required">{{message12}}</span>
           </div>
       
           <div class="col-sm-3">
@@ -119,16 +127,16 @@
           <!-- Text input-->
           <div class="form-group">
             <div class="col-sm-3">
-              <b>Owner Name</b><input type="text" name="owner_name" [(ngModel)]="owner_name" placeholder="Owner Name" class="form-control">
-
+              <b>Owner Name*</b><input type="text" name="owner_name" [(ngModel)]="owner_name" placeholder="Owner Name" class="form-control">
+              <span class="text-danger" ng-show="firstName.$error.required">{{message16}}</span>
             </div>
             <div class="col-sm-3">
-              <b>Owner Contact No.</b><input type="text" name="owner_contact_num" [(ngModel)]="owner_contact_num" placeholder="Owner Contact No." class="form-control">
+              <b>Owner Contact No.*</b><input type="text" name="owner_contact_num" [(ngModel)]="owner_contact_num" placeholder="Owner Contact No." class="form-control">
               <span class="text-danger" ng-show="firstName.$error.required">{{message14}}</span>
             </div>
         
             <div class="col-sm-3">
-                <b>Owner Email</b><input type="text" name="owner_mail_id" [(ngModel)]="owner_mail_id" placeholder="Owner Email" class="form-control">
+                <b>Owner Email*</b><input type="text" name="owner_mail_id" [(ngModel)]="owner_mail_id" placeholder="Owner Email" class="form-control">
                 <span class="text-danger" ng-show="firstName.$error.required">{{message15}}</span>
               </div>
             </div>
@@ -136,14 +144,7 @@
                 <br>
 
 <!-- Command -->
-        <div class="form-group">
-          <div class="col-sm-10 col-sm-offset-0">
-            
-              <button type="button" (click)="add_vendor()" class="btn btn-primary" ng-disabled="myform.$invalid">Save</button>
-              <button type="submit" class="btn btn-basic">Cancel</button>              
-            
-          </div>
-        </div>
+        
       </fieldset>
     </form>
   </div><!-- /.col-lg-12 -->

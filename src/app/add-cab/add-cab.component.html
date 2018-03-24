@@ -1,5 +1,26 @@
 <!-- Name Section -->
+<app-header [module]="module" [navLocation]="navLocation" [loadb]="loadb"></app-header>
+
 <div class="row">
+  <div class = "form-group">
+    <div class="pull-right">
+       
+          <button type="button" (click)="add_cab()" class="btn btn-primary">Save</button>
+          <button type="button" routerLink="/cab-list" class="btn btn-basic">Cancel</button>        
+          
+          
+          <div *ngIf="new" id="over">
+              <div id="box">
+                     <b><h4>Cab Details Already Exists !!!</h4></b><br><br>
+              <!-- <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-success"id="other" (click)=update()> Update </button> -->
+              <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary"id="close" (click)=close()> Close </button>
+              </div>
+              </div>
+            </div>
+  </div>
+
+        
+      
     <div class="col-md-8 col-md-offset-2">
         <div class="success">{{success}}</div>
       <form class="form-horizontal" role="form">
@@ -48,7 +69,7 @@
                   <span class="text-danger" ng-show="type.$error.required">{{message5}}</span>
                 </div>
                 <div class="col-sm-4">
-                  <b>Occupancy* :</b><input type="number" name="occupancy" [(ngModel)]="occupancy" placeholder="occupancy" class="form-control">
+                  <b>Occupancy* :</b><input type="number" disabled name="occupancy" [(ngModel)]="occupancy" placeholder="occupancy" class="form-control">
                   <span class="text-danger" ng-show="occupancy.$error.required">{{message6}}</span>     
                 </div>
                 <div class="col-sm-4">
@@ -79,6 +100,7 @@
                        </div>
   
               </div>
+              
               <div class="form-group">
                   
                     <div class="col-sm-4">
@@ -88,7 +110,7 @@
                       </div>
                       <div class="col-sm-4">
                         <b> Entry Tax Haryana Certificate:</b>
-                         <input type="file" id="entry_tax_haryana_certi" name="entry_tax_haryana_certi" accept="image/jpeg,image/jpg">
+                         <input type="file" id="entry_tax_haryana_certi" name="entry_tax_haryana_certi" accept="image/jpeg,image/jpg" >
                         </div>
                        <div class="col-sm-4">
                         <!-- <input type="text" name="pollution certificate" placeholder="pollution certificate" class="form-control">-->
@@ -100,7 +122,7 @@
              <div class="form-group">
                   <div class="col-sm-4">
                      <b>Entry Tax UP Certificate:</b>
-                     <input type="file" name="entry_tax_up_certi"  id="entry_tax_up_certi" accept="image/jpeg,image/jpg">
+                     <input type="file" name="entry_tax_up_certi"  id="entry_tax_up_certi" accept="image/jpeg,image/jpg" >
                       </div>
               </div>
           
@@ -162,23 +184,7 @@
                   
        
   <!-- Command -->
-          <div class="form-group">
-            <div class="col-sm-10 col-sm-offset-0">
-              <button type="button" (click)="add_cab()" class="btn btn-primary">Save</button>
-              <button type="button" routerLink="/dashboard" class="btn btn-basic">Cancel</button>        
-              
-              
-              <div *ngIf="new" id="over">
-                  <div id="box">
-                         <b><h4>Cab Details Already Exists !!!</h4></b><br><br>
-                  <!-- <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-success"id="other" (click)=update()> Update </button> -->
-                  <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary"id="close" (click)=close()> Close </button>
-                  </div>
-                  </div>
-                  
-            
-            </div>
-          </div>
+         
         </fieldset>
       </form>
     </div><!-- /.col-lg-12 -->

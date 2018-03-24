@@ -167,20 +167,11 @@ export class EmployeeService {
     }
 
     uploadExcel(formData): Observable<any>{
-        // return this.apiService.callApiService({
-        //     requestType: REQUEST_TYPE_POST,
-        //     url: `${environment.employeeManagerDetailsUrl}`,
-        //     headers: this.headers,
-        //     body: JSON.stringify(),
-        //     shouldBlock: true
-        // });
         return this.http.post(`${environment.uploadEmployeeExcelUrl}`, formData)
         .map(res => {
-            // this._appStateActions.hideLoaderGraphic(reqObj);
             return this.getResponseContent(`${environment.uploadEmployeeExcelUrl}`, res);
         })
         .catch(err => {
-            // this._appStateActions.hideLoaderGraphic(reqObj);
             return Observable.throw(err);
         });
     }
@@ -233,9 +224,7 @@ export class EmployeeService {
             const resContent = JSON.stringify(res).substr(0, 512);
              throw (e);
         }
-        finally {
-            //
-        }
+        finally {}
     }
 }
 

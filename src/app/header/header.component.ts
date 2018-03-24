@@ -5,6 +5,7 @@ import { UnscheduledRequestService } from '../Services/unscheduled-request.servi
 import { UnscheduledRequestComponent } from '../unscheduled-request/unscheduled-request.component';
 import { RosterService } from '../Services/roster.service';
 import { ReportComponent } from '../report/report.component';
+import { EmployeeService } from '../Services/employee.service';
 declare var jquery:any;
 declare var $ :any;
 
@@ -36,7 +37,8 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
               private _loginService: LoginService,
               private _http:RosterService,
               private unscheduledRequestComponent:UnscheduledRequestComponent,
-              private reportComponent:ReportComponent
+              private reportComponent:ReportComponent,
+              private employeeService: EmployeeService
             ) {
     			this.router = _router;
     			this.loginService = _loginService;

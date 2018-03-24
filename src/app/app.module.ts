@@ -79,11 +79,15 @@ import { MassUploadEmployeeComponent } from './mass-upload-employee/mass-upload-
 import { RelationshipFormComponent } from './relationship-form/relationship-form.component';
 import { RelationService } from './relation.service';
 import { DashData } from './dash/dashData';
+import { Data } from './Model/Data';
 import { EmployeeReqUnschComponent } from './employee-req-unsch/employee-req-unsch.component';
 import { EmployeeDashComponent } from './employee-dash/employee-dash.component';
 import { EmployeeHeaderComponent } from './employee-header/employee-header.component';
 import { EmployeeChangePasswordComponent } from './employee-change-password/employee-change-password.component';
 import { MyDatePickerModule } from 'mydatepicker';
+import { AddContactComponent } from './add-contact/add-contact.component';
+import { SosContactsComponent } from './sos-contacts/sos-contacts.component';
+import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-detail.component';
 
 
 @NgModule({
@@ -139,7 +143,10 @@ import { MyDatePickerModule } from 'mydatepicker';
     EmployeeReqUnschComponent,
     EmployeeDashComponent,
     EmployeeHeaderComponent,
-    EmployeeChangePasswordComponent
+    EmployeeChangePasswordComponent,
+    AddContactComponent,
+    SosContactsComponent,
+    RosterRouteDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -152,8 +159,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     MyDatePickerModule
   ],
   providers: [
-    // TodoActions,
-    // TodoService,
+    Data,
     ApiService,
     LoginService,
     EmployeeData,

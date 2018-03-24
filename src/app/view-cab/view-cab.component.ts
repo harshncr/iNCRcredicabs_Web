@@ -15,7 +15,9 @@ import { CabService } from '../cab.service';
   styleUrls: ['./view-cab.component.css']
 })
 export class ViewCabComponent implements OnInit {
-  
+  module= "vendor";
+  navLocation = "Cab Details";
+
   public selectedItem: any;
   public vendor;
   public cab;
@@ -26,28 +28,8 @@ export class ViewCabComponent implements OnInit {
   constructor(public _cabData: CabData,public _cabService:CabService,public _vendorData:VendorData, private _vendorService: VendorService, private router: Router) { }
 
   ngOnInit() {
-    this.cab=this._cabData.getItem();
-    let body = {"cab_no": this.cab.cab_no}
-    this._cabService.driverCab(body).subscribe((response)=>{
-     this.message = response._body;
-     console.log(this.message);
-     if(this.message=='0'){
-       this.driverPrimary=true;
-       this.driverSecondary=true;
-     }
-     else if(this.message=='2'){
-       this.driverPrimary=false;
-       this.driverSecondary=false;
-     }
-     else if(this.message=='primary'){
-       this.driverPrimary=false;
-       this.driverSecondary=true;
-     }
-     else{
-       this.driverPrimary=true;
-       this.driverSecondary=false;
-     }
-    })
+    //this.cab=this._cabData.getItem();
+    this.cab = JSON.parse(localStorage.getItem('Cab'));
 
     
     console.log(this.cab);

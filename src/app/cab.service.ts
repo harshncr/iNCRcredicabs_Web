@@ -11,11 +11,11 @@ export class CabService {
     )
     {}
 
-    getCabs(body):Observable<any>{
+    getCabs():Observable<any>{
         
-        var data = body;
-        console.log(JSON.stringify(data));
-        return this._http.post(env.environment.url+'/VendorService/CabDetails',JSON.stringify(body)).map((response)=>{
+        //var data = body;
+        //console.log(JSON.stringify(data));
+        return this._http.post(env.environment.url+'/VendorService/CabDetails','').map((response)=>{
           return response.json()
         })
         
@@ -34,7 +34,7 @@ export class CabService {
   updateCab(body){
     return this._http.post(env.environment.url+"/VendorService/Updatecab",body).map((response)=>{
       return response.json();
-    })
+    });
   }
   
   enableCab(body){

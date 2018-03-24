@@ -3,6 +3,7 @@ import { VendorService } from '../vendor.service';
 
 import { Router } from '@angular/router';
 import { VendorData } from './vendorData';
+import { Data } from '../Model/Data';
 
 
 declare var jquery:any;
@@ -36,7 +37,7 @@ export class VendorListComponent implements OnInit {
   public showVenArr = [];
   new:boolean = false;
  
-  constructor(private _vendorService : VendorService,private router : Router, private _vendorData : VendorData, ) {
+  constructor(private _vendorService : VendorService,private router : Router, private _vendorData : VendorData,private _Data:Data  ) {
 
    
    }
@@ -86,17 +87,30 @@ export class VendorListComponent implements OnInit {
     console.log("8");
   }
   view(vendor){
+    localStorage.removeItem('Driver');
+    localStorage.removeItem('Cab');
+    localStorage.removeItem('Vendor');
+  localStorage.setItem('Vendor', JSON.stringify(vendor));
 
-    this.selectedItem=vendor;
-    this._vendorData.setItem(this.selectedItem);
+    //this.selectedItem=vendor;
+    //this._vendorData.setItem(this.selectedItem);
     this.router.navigate(['view-vendor']);
   }
 
   search(){
-    if(this.filterType=='')
-    return ;
-    //console.log(this.filterType+" "+this.filterValue);
-    
+    this.showLoading=true;
+    if(this.filterType==''){
+      this._vendorService.getVendors().subscribe(resp=>{
+        this.vendors = resp.result;
+        if(this.vendors.length != 0)
+        {
+          this.showLoading = false;
+        }
+       // console.log(resp.result);
+        this.initShowDetails(this.vendors);
+            });
+            return ;
+    }
     let JSONStr = "{'request':{'"+this.filterType+"': '"+this.filterValue+"'}}";
     // //    if(this.filterType=="cabs_provided"){
     // // body={
@@ -105,9 +119,11 @@ export class VendorListComponent implements OnInit {
     // //   }
     // // };
     // }
-    // console.log(body);
+     console.log(JSONStr);
     this._vendorService.searchVendor(JSONStr).subscribe((response)=>{
+    
       this.vendors=response.result;
+      this.showLoading=false;
     });
   }
   filt(){
@@ -179,8 +195,15 @@ export class VendorListComponent implements OnInit {
   }
   update(vendor)
   {
-    this.selectedItem=vendor;
-    this._vendorData.setItem(this.selectedItem);
+    localStorage.removeItem('Driver');
+    localStorage.removeItem('Cab');
+    localStorage.removeItem('Vendor');
+  localStorage.setItem('Vendor', JSON.stringify(vendor));
+   // this._Data.vendor = vendor;
+   // console.log(this._Data.vendor);
+    
+   // this.selectedItem=vendor;
+   // this._vendorData.setItem(this.selectedItem);
     this.router.navigate(['update-vendor']);
   }
   popUp(){
@@ -252,7 +275,7 @@ export class VendorListComponent implements OnInit {
     this.selectedItem=vendor.id;
     console.log(this.selectedItem);
     this._vendorData.setItem(this.selectedItem);
-    this.router.navigate(['cab-list']);
+    this.router.navigate(['cab-list'], {queryParams:{id :vendor.id}});
 
 
   }
@@ -262,7 +285,7 @@ export class VendorListComponent implements OnInit {
     for(var i=0; i<ven.length; ++i){
       this.showVenArr.push(false);
     }
-  //  console.log(this.showVenArr);
+    console.log(this.showVenArr);
   }
 
   onShowDetails(i){

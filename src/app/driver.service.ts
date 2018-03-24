@@ -19,6 +19,15 @@ export class DriverService {
         })
         
       }
+      getDriver():Observable<any>{
+        var data;
+        //console.log(body);
+        //console.log(body1);
+
+        return this._http.post(env.environment.url+'/VendorService/DriverDetails','').map(response=>response.json()
+        
+      );
+    }
 
       searchDriver(body){
         return this._http.post(env.environment.url+"/VendorService/SearchDriver",body).map((response)=>{

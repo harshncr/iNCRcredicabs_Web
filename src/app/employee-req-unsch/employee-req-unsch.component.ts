@@ -24,6 +24,14 @@ export class EmployeeReqUnschComponent implements OnInit {
   source;
   destination;
   counter;
+  dropArea;
+  dropTime;
+  dropAddress;
+  pickupArea;
+  pickupTime;
+  pickupAddress;
+  fromDate;
+  toDate;
 
   currentManagerSelection;
 
@@ -41,6 +49,8 @@ export class EmployeeReqUnschComponent implements OnInit {
       if(data.success){
         this.empData = data;
         this.showError = false;
+
+        this.currentManagerSelection = 'MANAGER1';
         console.log(data);
       }else{
         this.showError = true;

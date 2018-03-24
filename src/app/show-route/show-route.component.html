@@ -4,7 +4,6 @@
 <!-- Upload menu -->
 <div class="panel panel-info" id="upload_box" *ngIf="showfilter" >
      <!-- <div class="panel-body" id="filter_body" *ngIf="showload"> -->
-
             <div class="panel-body" id="filter_body">
                     <div class="row" >
            <!-- <app-upload-form ></app-upload-form> -->
@@ -17,89 +16,125 @@
                 </div>
             </form>
             <!-- <div class="loader1" *ngIf="upload_spinner"></div>     -->
-            <app-loader-anim  *ngIf="upload_spinner"></app-loader-anim>
+            <div class="loader1"  *ngIf="upload_spinner"></div>
 
         </div>    
     </div>
 </div> 
-<!-- <div class="panel panel-info" id="upload_box"  style="margin-right:0.25%;">
-        <div class="panel-body" id="filter_body">
-            <div class="row" >
-                <app-upload-form ></app-upload-form> -->
-               <!-- <form>
-                    <div class="form-group pull-left" style="margin-left:10%;">
-                    <input type="file" id="uploadFile" name="uploadFile" class="btn btn-defualt"/>
-                    </div>
-                    <div class="form-group pull-right" style="margin-right:1%;">
-                    <input  type=" submit" class="btn btn-default" value="Update Upload" (click)="upload()"/>
-                    </div>
-                </form>
-            </div>    
-        </div>
-    </div>  -->
+
 
 <!-- filter box -->
 <div class="panel panel-success" id="filter_box" >
         <div class="panel-heading clearfix">
                 <h4 class="panel-title pull-left" style="padding-top: 7.5px">
-                            Apply Filter Here
+                            Filters
                 </h4>
                 <div class="panel-title pull-right">
-                        <button (click)="tf=(!tf)" type="button"  class="btn btn-default btn-md" style="background:white;">
+                        <button (click)="tf=(!tf)" type="button"  class="btn btn-default btn-md" style="background:white;" >
                                 <span *ngIf="tf==false" class="glyphicon glyphicon-menu-down" aria-hidden="true" style="float:right;"></span>      
                                 <span *ngIf="tf==true" class="glyphicon glyphicon-menu-up" aria-hidden="true" style="float:right;"></span>      
 
                             </button>                   
                 </div>
         </div>        
-    <div *ngIf="tf" class="panel-body" id="filter_body">
+    <div *ngIf="tf" class="panel-body" id="filter_body"> 
         <div class="row">
-            <!-- Employee Name Filter Box-->
-            <div class="col-md-2" style="margin-left:10px;">
+        <!-- Vendor Name Filter Box-->
+        <div class="col-md-2" >
                 <div class="form-group">
-                    <label style="margin-left:5px;">Enter Employee Name</label>
-                    <input  type="text" name="e_n" [(ngModel)]="bind_emp_name" placeholder="Employee Name"  class="form-control input-md">
+                    <label style="margin-left:5px;">Choose Vendor </label>
+                    <select  name="v_n" [(ngModel)]="bind_vendor_name"  class="form-control" (change)="change_vendor()">
+                         <option value="" disabled selected> Vendor Name</option>
+                        
+                          <option value="{{i.vname}}" *ngFor="let i of filter_vendor_data" >{{i.vname}} </option> 
+                    </select>
                 </div>
             </div>
+
+            <!-- Employee Name Filter Box-->
+            <div class="col-md-2" >
+                <div *ngIf="vendor_filled">
+                    <div class="form-group">
+                        <label style="margin-left:5px;">Enter Employee Name</label>
+                        <input  type="text" name="e_n" [(ngModel)]="bind_emp_name" placeholder="Employee Name"   (input)="check_name()" class="form-control input-md" disabled >
+                    </div>
+                </div>
+                <div *ngIf="!(vendor_filled)">
+                    <div class="form-group">
+                        <label style="margin-left:5px;">Enter Employee Name</label>
+                        <input [style.border-color]="error_name ? 'red' : 'lightgray'" type="text" name="e_n" [(ngModel)]="bind_emp_name" placeholder="Employee Name"   (input)="check_name()" class="form-control input-md" >
+                    </div>
+                </div>
+                <!-- <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;"></span>       -->
+            </div>
             <!-- Cab Number Filter Box-->
-            <div class="col-md-2" style="margin-left:30px;">
+            <div class="col-md-2" >
+                <div *ngIf="vendor_filled">
                     <div class="form-group">
                         <label style="margin-left:5px;">Enter Cab Number</label>
-                        <input  type="text" name="c_n" placeholder="Enter Cab Number " [(ngModel)]="bind_cab_no" class="form-control input-md">
+                        <input  [style.border-color]="error_cab ? 'red' : 'lightgray'" type="text" name="c_n" placeholder="Enter Cab Number " [(ngModel)]="bind_cab_no"  (input)="check_cab()" class="form-control input-md" disabled>
                     </div>
+                </div> 
+                <div *ngIf="!(vendor_filled)">
+                        <div class="form-group">
+                            <label style="margin-left:5px;">Enter Cab Number</label>
+                            <input  [style.border-color]="error_cab ? 'red' : 'lightgray'" type="text" name="c_n" placeholder="Enter Cab Number " [(ngModel)]="bind_cab_no"  (input)="check_cab()" class="form-control input-md">
+                        </div>
+                    </div>    
             </div>
             <!-- Employee Qlid Filter Box-->
-            <div class="col-md-2" style="margin-left:30px;">
-                <div class="form-group">
-                    <label style="margin-left:5px;">Enter Employee Qlid</label>
-                    <input  type="text" name="q_l" placeholder="Enter Qlid " [(ngModel)]="bind_qlid" class="form-control input-md">
+            <div class="col-md-2" >
+                <div *ngIf="vendor_filled">
+                        <div class="form-group">
+                                <label style="margin-left:5px;">Enter Employee Qlid</label>
+                                <input  [style.border-color]="error_qlid ? 'red' : 'lightgray'" type="text" name="q_l" placeholder="Enter Qlid " [(ngModel)]="bind_qlid" (input)="check_qlid()" class="form-control input-md" disabled> 
+                            </div>
+                </div>
+                <div *ngIf="!(vendor_filled)">
+                        <div class="form-group">
+                                <label style="margin-left:5px;">Enter Employee Qlid</label>
+                                <input  [style.border-color]="error_qlid ? 'red' : 'lightgray'" type="text" name="q_l" placeholder="Enter Qlid " [(ngModel)]="bind_qlid" (input)="check_qlid()" class="form-control input-md">
+                            </div>
                 </div>
             </div>
             <!-- Shift Time Filter Box-->
-            <div class="col-md-2" style="margin-left:30px;">
+            <div class="col-md-2" >
                 <div class="form-group">
                     <label style="margin-left:5px;">Choose Shift </label>
-                    <select  name="s_t" [(ngModel)]="bind_shift_i"  class="form-control">
-                         <option value="" disabled selected> Shift Time</option>
+                    <select  name="s_t" [(ngModel)]="bind_shift_i"  class="form-control" (change)="check_shift(s_t)">
+                         <option value=" " disabled selected> Shift Time</option>
                          <option value="1">07:00AM to 04:00PM</option>
                          <option value="2">10:00AM to 07:00PM</option>
                          <option value="3">12:00PM to 09:00PM</option>
                          <option value="4">Unscheduled</option>
-                         <option value="" selected>All Shifts </option>
+                         <option value="">All Shifts </option>
                     </select>
                 </div>
             </div>    
             <!-- Select Basic -->
             <!-- Button -->
             <div class="col-md-2" style="margin-top:24px;">
-                <div class="col-md-1">
+                    <button type="button" class="btn btn-default btn-md" style="background:white;margin-right:5px;" (click)="ApplyFilter()">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true" ></span>  
+                   </button>
+                   <button type="button" class="btn btn-default btn-md" style="background:white;margin-right:5px;" (click)="RemoveFilter()">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>  
+               </button>
+               <button *ngIf="error_shift" type="button" class="btn btn-default btn-md" style="background:white;" (click)="downloadexcel()" disabled>
+                <span class="glyphicon glyphicon-download-alt" aria-hidden="true" ></span>  
+             </button>
+      
+        <button *ngIf="!error_shift" type="button" class="btn btn-default btn-md" style="background:white;" (click)="downloadexcel()" >
+         <span class="glyphicon glyphicon-download-alt" aria-hidden="true" ></span>  
+         </button>
+                <!-- <div class="col-md-1">
 
                     <button id="singlebutton" (click)="ApplyFilter()" name="singlebutton" class="btn btn-default">Apply Filter</button>
                 </div>
-                <div class="col-md-1"  style="float:left;margin-left:70px;">
+                <div class="col-md-1"  style="float:left;margin-left:20px;">
 
                     <button style="width:100px;" id="singlebutton" (click)="RemoveFilter()" name="singlebutton" class="btn btn-default">Reset </button>
-                </div>
+                </div> -->
             </div>
 
             
@@ -110,60 +145,77 @@
 </div>
 <!-- filter ends -->
 
+<!-- filter data not founderror box starts-->
+
+<div *ngIf="errorexist" >
+<div class="alert alert-danger" role="alert">
+    {{msg}}
+    <a (click)="close_error_popup()" class="alert-link">Click Here</a> 
+</div>
+
+</div>  
+<!-- filter data not found error box ends-->
+
+<!-- filter incorrect data  box starts-->
+
+<div *ngIf="filter_error" >
+    <div class="alert alert-danger" role="alert">
+        {{msg}}
+        <a (click)="close_filter_popup()" class="alert-link">Click Here</a> 
+    </div>
+    
+    </div>  
+    <!-- filter data not found error box ends-->
+
+
 <!-- Dynamic view of routes start -->
-<!-- <div  *ngIf="spinner"></div>><app-loader-anim ></app-loader-anim> -->
-<!-- </div> -->
-<!-- <app-loader-anim  *ngIf="spinner"></app-loader-anim> -->
+<app-loader-anim [showLoader]="spinner" [loaderText]="text"></app-loader-anim>
 <!-- <div class="loader" *ngIf="spinner"></div> -->
-<app-loader-anim [showLoader]="spinner"></app-loader-anim>
 <div *ngFor=" let u of cab_number">
     
     <!-- <div  [class]= "shift_arr[u]==4 ? 'panel panel-warning' : 'panel panel-info'"> -->
             <div class= "panel panel-info">
         <div class="panel-heading clearfix">
             <h4 class="panel-title pull-left" style="padding-top: 7.5px">
-                        R. No.    <span class="glyphicon glyphicon-hand-right" aria-hidden="true" ></span>        
-                        {{Max_arr[u]}}
+                Route : {{Max_arr[u]}}
             </h4>
                 
             <!-- <input type="hidden" [(ngModel)]="cab_box_selected" value="cab_arr[u]" /> -->
                 <div>
                      <h4 class="panel-title pull-left" style="padding-top: 7.5px;margin-left:5%;">
-                         Shift Time  <span class="glyphicon glyphicon-hand-right" aria-hidden="true" ></span>
-                         <span  *ngIf="shift_arr[u] == 1">  07:00 AM to 04:00 PM</span>
+                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>  
+                        <span  *ngIf="shift_arr[u] == 1">  07:00 AM to 04:00 PM</span>
                          <span  *ngIf="shift_arr[u] == 2"> 10:00 AM to 07:00 PM</span>
                          <span *ngIf="shift_arr[u] == 3"> 12:00 PM to 09:00 PM</span>
+                         <span *ngIf="shift_arr[u] == 5"> 02:00 PM to 11:00 PM</span>
                          <span *ngIf="shift_arr[u] == 4"> Unscheduled Shift HR   </span>
                         </h4> 
                 </div> 
                  
                 <h4 class="panel-title pull-left" style="padding-top: 7.5px;margin-left:5%;">
-                 Cab No. <span class="glyphicon glyphicon-hand-right" aria-hidden="true" ></span> {{cab_arr[u]}}
-
-                </h4>  
-                <h4  *ngIf="shift_arr[u]!=4" class="panel-title pull-left" style="padding-top: 7.5px;margin-left:5%;">
-                    Seats Left <span  class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>   {{seats_left[u]}} 
-                    <!-- <span *ngIf="shift_arr[u]<=3" class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>     -->
-                </h4> 
-                <h4  *ngIf="shift_arr[u]==4" class="panel-title pull-left" style="padding-top: 7.5px;margin-left:5%;">
-                    Seats Left <span  class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>   NA 
-                    <!-- <span *ngIf="shift_arr[u]<=3" class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>     -->
-                </h4> 
+                    <span class="glyphicon glyphicon-bed" aria-hidden="true"></span> {{cab_arr[u]}}
+            </h4> 
+                <h4 class="panel-title pull-left" style="padding-top: 7.5px;margin-left:5%;">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"> </span>  {{vendor_arr[u]}}
+                   </h4> 
                 
                 <div class="panel-title pull-right">
                        
-                       <button type="button" *ngIf="seats_left[u]>0" (click)="add_clicked(cab_arr[u])"  class="btn btn-default btn-md" style="background:white;" >
+                       <button type="button" *ngIf="seats_left[u]>0" (click)="add_clicked(cab_arr[u],shift_arr[u])"  class="btn btn-default btn-md" style="background:white;" >
                            <span class="glyphicon glyphicon-plus" aria-hidden="true" style="float:right;"></span>                  
                         </button>    
                         <button type="button" *ngIf="seats_left[u]==0"  class="btn btn-default btn-md" style="background:white;" disabled >
                             <span class="glyphicon glyphicon-plus" aria-hidden="true" style="float:right;"></span>                  
                          </button> 
-                        <button type="button" (click)="checkentry(cab_arr[u])" class="btn btn-default btn-md" style="background:white;"> 
+                        <button type="button" (click)="checkentry(cab_arr[u],shift_arr[u])" class="btn btn-default btn-md" style="background:white;"> 
                                  <span class="glyphicon glyphicon-trash" aria-hidden="true" style="float:right;"></span>          
                         </button>
-                        <button type="button" (click)="editinfo(cab_arr[u])" class="btn btn-default btn-md" style="background:white;">
+                        <button type="button" (click)="editinfo(cab_arr[u],shift_arr[u])" class="btn btn-default btn-md" style="background:white;">
                                  <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="float:right;"></span>      
                         </button>
+                        <button type="button" routerLinkActive="active" [routerLink]="['/roster/viewrdetail', cab_arr[u], shift_arr[u] , seats_left[u] , Max_arr[u],vendor_arr[u]]" class="btn btn-default btn-md" style="background:white;">
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span>      
+                         </button>
                         <button type="button" (click)="showme(u)" (dblclick)="isShow= !isShow"  class="btn btn-default btn-md" style="background:white;">
                                 <span *ngIf="(!(str==u)) && !isShow" class="glyphicon glyphicon-menu-down" aria-hidden="true" style="float:right;"></span>      
                                 <span *ngIf="(str==u) || isShow" class="glyphicon glyphicon-menu-up" aria-hidden="true" style="float:right;"></span>      
@@ -175,16 +227,16 @@
 
         <div *ngIf="str==u || isShow" class="panel-body emp-panel-body" id="panel_body">
             <div *ngFor="let i of postcontent" id="rowcss" >
-                <div *ngIf="i.Cab_number == cab_arr[u]">
+                <div *ngIf="(i.Cab_number == cab_arr[u]) && (i.shift_id == shift_arr[u])">
                     <!-- <input  type="hidden" value="i.Qlid" [(ngModel)]="printval" /> -->
                   <div *ngIf="cbox">
-                      <div *ngIf="(cab_arr[u]==checkcab)">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="deleteMe(i.Qlid)"></span> 
+                      <div *ngIf="(cab_arr[u]==checkcab) && (shift_arr[u] == checkshift)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="deleteMe(i.Qlid,checkshift)"></span> 
                       </div>
                  </div>
                  <div *ngIf="ebox">
-                    <div *ngIf="(cab_arr[u]==editcab)">
-                          <span class="glyphicon glyphicon-pencil" routerLinkActive="active" aria-hidden="true" [routerLink]="['/roster/editemp',{qlid:i.Qlid}]"></span> 
+                    <div *ngIf="(cab_arr[u]==editcab) && (shift_arr[u] == editbox)">
+                          <span class="glyphicon glyphicon-pencil" routerLinkActive="active" aria-hidden="true" [routerLink]="['/roster/editemp',{qlid:i.Qlid,shift:i.shift_id}]"></span> 
                     </div>
                </div>
                     <div class="card" id="emp">
@@ -212,6 +264,8 @@
 
 
 
+
+
 <!-- Add Popup -->
 <div *ngIf="clicked" id="over">
     <div id="box">
@@ -234,3 +288,18 @@
 <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary" id="close" (click)="close_delete_popup()"> Close </button>
 </div>
 </div>
+
+<!-- Upload popup -->
+<div  *ngIf="uploadPopupClicked" id="over">
+    <div id="box">
+    
+           
+          <h4> Item Processed :- {{uploadinfo[0].tr}}</h4> 
+          
+           
+          <h4> Errored out :- {{uploadinfo[0].eo}} </h4>
+<button style="margin-left:50px;width:30%; text-align:center;" class="btn btn-secondary btn-sm btn-primary" id="close" (click)="close_upload_popup()"> Close </button>
+</div>
+
+</div>
+

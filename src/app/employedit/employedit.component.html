@@ -1,114 +1,72 @@
 <app-header></app-header>
-
-<div>
-<form class="form-horizontal" role="form">
-  <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">QLID</label>
-    <div class="col-sm-10">
-      <input type="text" value="{{e_q}}"  name="qlid" class="form-control" id="inputEmail3" disabled>
-    </div>
-  </div>
-<br>
-  <button class="btn btn-default" (click)="editcontent()"> Edit Detail</button>
-
-  <!-- <div class="form-group">
-    <label for="Name" class="col-sm-2 control-label">Name</label>
-    <div class="col-sm-10">
-      <input type="text" value="Danny Denzongpa "class="form-control" id="name" placeholder="Enter Name" disabled>
-    </div>
-  </div> -->
- 
-  <!-- <div class="form-group">
-    <label for="PickupArea" class="col-sm-2 control-label">Pickup Area</label>
-    <div class="col-sm-10" >
-    <div >
-          <input type="text"  value="INA" class="form-control" id="name" disabled>
-    </div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="routeno" class="col-sm-2 control-label">Route No</label>
-    <div class="col-sm-10">
-      <input type="text" value="Route No 1" class="form-control" id="routeno" placeholder="QLID" disabled>
-    </div>
-  </div> -->
-  
-  <!-- <div class="form-group">
-    <label for="shiftid" class="col-sm-2 control-label">Shift Id</label>
-    <div class="col-sm-10" >
-      <div  *ngIf=!bol>
-           1           </div>
-      <div *ngIf=bol>
-            <select [(ngModel)]="shifttime" name="Something" > 
-             
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3" >3</option>
-              <option  value="4" >4</option>
-            </select>
-      </div>
-      </div>
-  </div> -->
-  
-  <div class="form-group" >
-    <label for="cabno" class="col-sm-2 control-label">Cab No</label>
-    <div class="col-sm-10" >
-      <select  name="cab_select" [(ngModel)]="cab_selected" class="form-control" >
-        <option value="" disabled selected> Select Cab</option>
-         <!-- <div *ngFor="let i of cab">
-           <div *ngIf="(shifttime==i.s_id)">
-         <option value="{{i.c_n}}"> {{ i.c_n }} </option>
-        </div>
-      </div> -->
-      <option *ngFor="let i of cab" value="{{i.c_n}}">{{i.c_n}} ||  {{i.s_id}}</option>
          
-      </select><br>
-      </div>
-  </div> 
- 
-  <div class="form-group">
-      <label for="shiftid" class="col-sm-2 control-label">Start Date</label>
-      <div class="col-sm-10" >
-        <div  *ngIf=!bol>
-             1-10-2018         </div>
-        <div *ngIf=bol>
-              <input type="date" [(ngModel)]="stime"  name="sdate"   id="name" placeholder="">
-        </div>
-        </div>
-    </div> 
-
-    <div class="form-group">
-        <label for="shiftid" class="col-sm-2 control-label">End Date</label>
-        <div class="col-sm-10" >
-          <div  *ngIf=!bol>
-               2-10-2018         </div>
-          <div *ngIf=bol>
-                <input type="date" [(ngModel)]="etime"  name="edate"   id="name" placeholder="">
-          </div>
-          </div>
-      </div> 
-
-
-
- 
-   
- 
-    
-  <div class="form-group">
-    <label for="Pickuptime" class="col-sm-2 control-label">Pickup Time</label>
-    <div class="col-sm-10" >
-      <div  *ngIf=!bol>
-            14:10
-            </div>
-      <div *ngIf=bol>
-            <input type="time" [(ngModel)]="pickuptime" name="ptime" value="19:10"  id="name" placeholder="">
-      </div>
+<div class="panel panel-info">
+<div class="panel-heading"><strong>Employee View</strong></div>
+<div class="panel-body">
+  <div class="col-sm-10 row">
+<label for="inputEmail" class="col-sm-2 control-label">QLID</label>
+<div class="col-sm-10" style="padding-right:60%;">
+ <input type="text" value="{{e_q}}"  name="qlid" class="form-control" id="inputEmail3" disabled>
+</div>
+</div><br><br>
+<div class="col-sm-10 row">
+    <label for="inputEmail" class="col-sm-2 control-label">Current Cab Number</label>
+    <div class="col-sm-10" style="padding-right:60%;">
+     <input type="text" value="{{e_c}}"  name="cabno" class="form-control" id="inputEmail3" disabled>
     </div>
-  </div>
+    </div><br><br>
+    <div class="col-sm-10 row">
+        <label for="inputEmail" class="col-sm-2 control-label">Current Shift Id</label>
+        <div class="col-sm-10" style="padding-right:60%;">
+         <input type="text" value="{{e_s}}"  name="sid" class="form-control" id="inputEmail3" disabled>
+        </div>
+        </div>
+<br><br>
+<div class="col-sm-10 row">
+ <label for="cabno" class="col-sm-2 control-label">Cab No</label>
+ <div class="col-sm-10" style="padding-right:60%;">
+ <select  name="cab_select" [(ngModel)]="cab_selected" class="form-control" >
+ <option value="" disabled selected> Select Cab</option>
+ <option *ngFor="let i of cab" value="{{i.c_n}}">{{i.c_n}} ||  {{i.s_id}}</option>
+ </select><br>
+ </div>
+</div>
 
-            <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <button (click)="checking()" type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </div>
+
+
+ <div class="col-sm-10 row" >
+     <label for="shiftid" class="col-sm-2 control-label" style="margin-right:3%;">Start Date</label>
+   <div  *ngIf=!bol> 1-10-2018 </div>
+   <div *ngIf=bol>
+         <input type="date" [(ngModel)]="stime"  name="sdate"   id="name" placeholder="">
+   </div>
+   </div>
+
+   
+   <div class="col-sm-10 row">
+       <label for="shiftid" class="col-sm-2 control-label"  style="margin-right:3%;">End Date</label>
+   <div  *ngIf=!bol> 2-10-2018 </div>
+   <div *ngIf=bol>
+       <input type="date" [(ngModel)]="etime"  name="edate"   id="name" placeholder="">
+   </div>
+   </div>
+
+
+  
+  <div class="col-sm-10 row" >
+     <label for="Pickuptime" class="col-sm-2 control-label "style="margin-right:3%">Pickup Time</label>
+  <div  *ngIf=!bol> 14:10 </div>
+  <div *ngIf=bol>
+ <input type="time" [(ngModel)]="pickuptime" name="ptime" value="19:10"  id="name" placeholder="">
+ </div>
+ </div>
+
+
+ <div class="form-group">
+ <div class="col-sm-offset-2 col-sm-10"  style="margin-top:1%">
+ <button class="btn btn-primary" (click)="editcontent()"> Edit Detail </button>
+ <button (click)="checking()" type="submit" class="btn btn-primary"> Save </button>
+ </div>
+ </div>
+ </div>
+ </div>

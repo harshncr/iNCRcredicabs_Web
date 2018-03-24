@@ -39,10 +39,15 @@ import { MassUploadEmployeeComponent }            from './mass-upload-employee/m
 import { RelationshipFormComponent }              from  './relationship-form/relationship-form.component';
 import { EmployeeDashComponent }                  from './employee-dash/employee-dash.component';
 import { EmployeeReqUnschComponent }              from './employee-req-unsch/employee-req-unsch.component';
-import { EmployeeChangePasswordComponent } from './employee-change-password/employee-change-password.component';
+import { EmployeeChangePasswordComponent }        from './employee-change-password/employee-change-password.component';
+import { SosContactsComponent }                   from './sos-contacts/sos-contacts.component';
+import { AddContactComponent }                    from './add-contact/add-contact.component';
+import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login',   pathMatch: 'full' },
+  { path: 'contacts',                 component: SosContactsComponent},
+  { path: 'contacts/add',             component: AddContactComponent},
   { path: 'login',                    component: LoginComponent},
   { path: 'new-acc-setup',            component: NewAccSetupComponent},
   {
@@ -88,6 +93,7 @@ const routes: Routes = [
   { path: 'roster/addRoute',          component: AddRouteComponent },
   { path: 'roster/editemp',           component: EmployeditComponent },
   { path: 'roster/editroute',         component: EditRouteComponent },
+  { path: 'roster/viewrdetail/:cab/:shift/:seats/:routes/:vendor',       component: RosterRouteDetailComponent},
   { path: 'vendor-list',              component: VendorListComponent },
   { path: 'view-vendor',              component: ViewVendorComponent },
   { path: 'add-vendor',               component: AddVendorComponent },
@@ -101,7 +107,8 @@ const routes: Routes = [
   { path: 'add-cab',                  component: AddCabComponent },
   { path: 'driver-list',              component: DriverListComponent },
   { path: 'driver-update',            component: DriverUpdateComponent },
-  { path: 'relationship',            component:RelationshipFormComponent }
+  { path: 'relationship',            component:RelationshipFormComponent },
+
 ];
 
 @NgModule({

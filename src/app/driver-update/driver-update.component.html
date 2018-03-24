@@ -1,5 +1,11 @@
-<header-list></header-list>
+<app-header [module]="module" [navLocation]="navLocation"></app-header>
 <div class="row">
+  <span class = "pull-right">
+      <button type="submit" (click)="upd()" class="btn btn-primary">Update</button>
+      <button type="submit" routerLink="/driver-list" class="btn btn-basic">Cancel</button>              
+    
+      
+  </span>
   <div class="col-md-8 col-md-offset-2">
     <form class="form-horizontal" role="form">
       <fieldset>
@@ -8,13 +14,13 @@
    
        
         <!-- Text input-->
-        <legend>Choose Driver Type</legend>
+        <!--<legend>Choose Driver Type</legend>
         <div class="form-group">
             <div class="col-sm-5">
             <input type="radio" value="primary" name="d_type" [(ngModel)]="driver.driver_type"> Primary Driver
             <input type="radio" value="secondary" name="d_type" [(ngModel)]="driver.driver_type"> Secondary Driver
             </div>
-        </div>
+        </div>-->
    
         <legend>Personal Information Details</legend>
         <div class="form-group">
@@ -72,17 +78,14 @@
         <!-- Form Name -->
         <legend>Essential Information</legend>
         <!-- Text input-->
-        <div class="form-group">
-          <div class="col-sm-3">  
-          <p> <b>Cab Number Plate*</b> </p>   <input type="text" name="c_Plate_Nbr" [(ngModel)]="driver.cab_no" placeholder="Cab Plate Number" maxlength="10" class="form-control" disabled>
-            <span class="text-danger" ng-show="c_Plate_Nbr.$error.required">{{message5}}</span>
-          </div>
-
-        <!--  <div class="col-sm-4">  
-            <p> <b>Driving Liscense Number</b> </p>   <input type="text" name="dl_Nbr" [(ngModel)]="dl_Nbr" placeholder="Driving Liscense Number" maxlength="10" class="form-control">
+      
+          <div class = "form-group">
+          <div class="col-sm-4">  
+            <p> <b>Driving Liscense Number</b> </p>   <input type="text" name="dl_Nbr" [(ngModel)]="driver.license_num" placeholder="Driving Liscense Number" maxlength="10" class="form-control">
               <span class="text-danger" ng-show="dl_Nbr.$error.required">{{message5}}</span>
-            </div>-->
-        </div> 
+            </div>
+          </div>
+       
 
         <div class="form-group">
           <div class="col-sm-3">
@@ -101,13 +104,13 @@
             <div class="form-group">
                 <div class="col-sm-5">
                     <p><b>Driver Commercial Liscence Document*</b></p>
-                     <input type="file" id="d_comercial_liscence" name="d_comercial_liscence" accept="image/x-png,image/gif,image/jpeg">
+                     <input type="file" id="d_comercial_liscence" name="d_comercial_liscence" accept="image/x-png,image/gif,image/jpeg" (change) = "image1_commercial()">
                      <span class="text-danger" ng-show="d_comercial_liscence.$error.required">{{message7}}</span>
                     </div>
 
                 <div class="col-sm-4">
                     <p><b>Police Verification Document*</b> </p>
-                      <input type="file" id ="d_police_verification" name="d_police_verification" accept="image/x-png,image/gif,image/jpeg">
+                      <input type="file" id ="d_police_verification" name="d_police_verification" accept="image/x-png,image/gif,image/jpeg" (change) = "image2_police()">
                       <span class="text-danger" ng-show="d_police_verification.$error.required">{{message8}}</span>
                     </div> 
               </div>
@@ -115,22 +118,73 @@
               <div class="form-group">
                 <div class="col-sm-4">
                    <p> <b>Driver Present Address Proof*</b> </p> 
-                     <input type="file" id="d_local_Address_proof" name="d_local_Address_proof" accept="image/x-png,image/gif,image/jpeg">
+                     <input type="file" id="d_local_Address_proof" name="d_local_Address_proof" accept="image/x-png,image/gif,image/jpeg"(change) = "image3_local_add()">
                      <span class="text-danger" ng-show="d_local_Address_proof.$error.required">{{message9}}</span>
                     </div>
 
                 <div class="col-sm-4">
                   <p> <b>Driver Permanent Address Proof*</b> </p>
-                    <input type="file" id="d_permanent_address_proof" name="d_permanent_address_proof" accept="image/x-png,image/gif,image/jpeg">
+                    <input type="file" id="d_permanent_address_proof" name="d_permanent_address_proof" accept="image/x-png,image/gif,image/jpeg" (change) = "image4_permanent_add()">
                     <span class="text-danger" ng-show="d_permanent_address_proof.$error.required">{{message10}}</span>
                   </div>
 
                 <div class="col-sm-4">
                      <p><b>Driver Photo*</b></p> 
-                      <input type="file" id="d_photo" name="d_photo" accept="image/x-png,image/gif,image/jpeg">
+                      <input type="file" id="d_photo" name="d_photo" accept="image/x-png,image/gif,image/jpeg" (change) = "image5_photo()">
                       <span class="text-danger" ng-show="d_photo.$error.required">{{message11}}</span>
                     </div>
             </div>
+            <legend>Documents to be Uploaded</legend>
+              <div class="form-group">
+                  <div class="col-sm-5">
+                      <b>Driver Commercial Liscence Document*</b>
+                      <br>
+                      <a href="/usr/share/tomcat8/webapps/vendor-documents/{{driver.d_license}}" 
+                      target="_blank" >
+                      Driver License
+                       </a>
+                      </div>
+  
+                  <div class="col-sm-4">
+                      <b>Police Verification Document*</b> 
+                      <br>
+                      <a href="/usr/share/tomcat8/webapps/vendor-documents/{{driver.d_police_verification}}" 
+                      target="_blank" >
+                      Driver Police Verification
+                       </a>
+                      </div> 
+                </div>
+  
+                <div class="form-group">
+                  <div class="col-sm-4">
+                     <b>Driver Present Address Proof</b> 
+                       
+                     <br>
+                     <a href="/usr/share/tomcat8/webapps/vendor-documents/{{driver.d_local_add_proof}}" 
+                     target="_blank" >
+                     Driver Present Address Proof
+                      </a>
+                      </div>
+  
+                  <div class="col-sm-4">
+                  <b>Driver Permanent Address Proof*</b>
+                    <br>
+                    <a href="/usr/share/tomcat8/webapps/vendor-documents/{{driver.d_permanent_add_proof}}" 
+                    target="_blank" >
+                    Driver Permanent Address Proof
+                     </a>
+                    </div>
+  
+                  <div class="col-sm-4">
+                       <b>Driver Photo*</b>
+                       <br>
+                       <a href="/usr/share/tomcat8/webapps/vendor-documents/{{driver.d_photo}}" 
+                       target="_blank" >
+                       Driver Photo
+                        </a>
+                      </div>
+              </div>
+  
 
                       
             
@@ -151,18 +205,7 @@
 
 
 <!-- Command -->
-        <div class="form-group">
-          <div class="col-sm-10 col-sm-offset-0">
-            
-              <button type="submit" (click)="upd()" class="btn btn-primary">Update</button>
-              <button type="submit" routerLink="/driver-list" class="btn btn-basic">Cancel</button>              
-            
-              
-                
-                
-
-          </div>
-        </div>
+        
       </fieldset>
     </form>
   </div><!-- /.col-lg-12 -->

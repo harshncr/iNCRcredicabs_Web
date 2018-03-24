@@ -1,0 +1,147 @@
+
+<div class="container"> 
+  
+    <div class="row">
+      <div id="user-profile-content"
+        class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-lg-offset-2"
+        align="center">
+      <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" > -->
+        <div class="panel panel-info">
+          <div class="panel-heading clearfix">
+            <h3 class="panel-title col-sm-4"><b>Route Information </b><span >: {{ emp?.empFName }} {{ emp?.empLName }}</span></h3>              
+         
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <!-- <div class="col-md-8 col-lg-8">  </div> -->
+              <div class="col-md-6 col-lg-10 col-md-offset-3 col-lg-offset-1">
+                <table class="table table-user-information">
+                  <tbody>               
+                    <tr>
+                      <td><b>Route Number:</b> &nbsp; &nbsp;{{ route_no }} </td>
+                    </tr>
+                 
+                    <tr *ngIf="shift_no == 1">
+                      <td><b>Shift Time:</b>  &nbsp; &nbsp; 07:00 AM - 04:00 PM</td>
+                    </tr>
+                
+                 
+                    <tr *ngIf="shift_no == 2">
+                      <td><b>Shift Time:</b>  &nbsp; &nbsp; 10:00 AM - 07:00 PM</td>
+                      </tr>
+
+                      <tr *ngIf="shift_no == 3">
+                        <td><b>Shift Time:</b>  &nbsp; &nbsp; 12:00 PM - 09:00 PM</td>
+                        </tr>
+
+                        <tr *ngIf="shift_no == 4">
+                          <td><b>Shift Time:</b>  &nbsp; &nbsp; Unscheduled Shift HR</td>
+                          </tr>
+
+                          <tr *ngIf="shift_no == 5">
+                            <td><b>Shift Time:</b>  &nbsp; &nbsp; 02:00 PM - 11:00 PM</td>
+                            </tr>
+                        <tr>
+                        <td><b>Vendor Name:</b> &nbsp; &nbsp;{{ ven }}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Cab Number: </b>  &nbsp; &nbsp; {{ cab_no }}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Seats Left: </b>  &nbsp; &nbsp; {{ seatleft }}</td>
+                    </tr>
+                    
+  
+                    <tr>
+                        <td>
+                            <b>Driver Name:</b>  &nbsp; &nbsp;{{RouteData[0].dname}} 
+  
+                        </td>
+  
+                    </tr>
+                  
+                    <tr>
+                        <td>
+                            <b>Driver ID: </b>  &nbsp; &nbsp; {{RouteData[0].did}} 
+  
+                        </td>
+
+  
+                    </tr>
+                    <tr>  
+                        <td><b>Driver Contact:</b> &nbsp; &nbsp; {{RouteData[0].dcont}}      </td>
+                       
+                      
+                       </tr> 
+                    
+                
+                    <tr>
+
+                        <td style="text-align:center;">
+                      </td>
+                    </tr>
+                    <div style="text-align:center">
+                        <h4><b>Employees in this cab:</b></h4>
+                    </div>
+                    &nbsp;
+               
+                    
+                     <span *ngFor="let u of RouteData">
+                      <hr>
+                       
+                      
+                      <tr>
+                        <td><b>Employee Qlid: </b>  &nbsp; &nbsp; {{u.qd}}</td>
+  
+                           
+                       </tr>
+                       &nbsp;  
+                       <tr> 
+                         <td><b>Employee Name:</b>  &nbsp; &nbsp; {{u.name1 }}&nbsp;{{u.name2}}</td>
+                       
+                        </tr> 
+                        &nbsp; 
+                        <tr> 
+                            <td><b>Manager Qlid:</b>  &nbsp; &nbsp;{{u.mgr}} </td>
+                           
+                           </tr>
+                          
+                           &nbsp; 
+                        
+                         <tr> 
+                         <td><b>Employee Manager:</b> &nbsp; &nbsp; {{u.mname1}}&nbsp;{{u.mname2}}</td>
+                        
+                        </tr>
+                       
+                        &nbsp; 
+                       
+                        <br> <br>
+                       
+                    </span>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div *ngFor="let u of RouteData">
+  <h6> {{u.qd}}</h6>
+  <h6>{{u.name1}}</h6>
+    <h6> {{u.name2}}</h6>
+      <h6> {{u.did}}</h6>
+        <h6> {{u.mgr}}</h6>
+        <h6> {{u.mname1}}</h6>
+        <h6> {{u.mname2}}</h6>
+          <h6>{{u.dname}}</h6>
+            <h6>{{u.dcont}}</h6>
+  
+  
+  </div> -->
+  
+  
+  
+  
+  

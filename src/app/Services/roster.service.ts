@@ -16,86 +16,106 @@ export class RosterService {
 //http://localhost:8090/NCAB/RosterService/UploadFileData
   // constructor(private _http:Http,f_m:filter_model,private apiService: ApiService) { }
 
-  URL = "http://localhost:8080/";
+  headers = new Headers({
+    'Content-Type': 'application/json',
+    'Accept':       'application/json'
+});
+
+  // URL = "http://localhost:8080/";
   constructor(private _http:Http,private apiService: ApiService) { }
-  private getvendordetails= this.URL + 'NCAB/RosterService/vendorDetails';
-  private getemployeesdetails= this.URL + 'NCAB/RosterService/empDetails';
-  private getavailablecab=this.URL + 'NCAB/RosterService/getCab';
-  private createscheduledroute=this.URL + 'NCAB/RosterService/insertRouteSCH';
-  private getqlidlist=this.URL + 'NCAB/RosterService/empqlid';
-  private employeedeactive=this.URL + 'NCAB/RosterService/empDeactive';
-  private insertRouteUnSCH=this.URL + 'NCAB/RosterService/insertRouteUnSCH';
+
+getdriverdetails(){
+  return this._http.post(`${environment.getDriverDetailUrl}`,"");
+}
+
   getVendorDetails(){
-    return this._http.post(this.getvendordetails,"");
+    return this._http.post(`${environment.getVendorDetailUrl}`,"");
    }
   
    getAvailableCab(cabjson){
-    return this._http.post(this.getavailablecab,cabjson);
+    return this._http.post(`${environment.getAvailableCabUrl}`,cabjson);
    }
   
    getEmployeesDetails(empqlid){
-    return this._http.post(this.getemployeesdetails,empqlid);
+    return this._http.post(`${environment.getEmployeeDetailUrl}`,empqlid);
    }
    
    getQlidList(){
-    return this._http.post(this.getqlidlist,"");
+    return this._http.post(`${environment.getQlidUrl}`,"");
    }
   
    postunscheduledroute(jsonstring){
     const headers= new Headers({'Content-Type': 'application/json'});
-    return this._http.post(this.insertRouteUnSCH,JSON.stringify(jsonstring),{headers:headers});
+    return this._http.post(`${environment.insertRouteUnschUrl}`,JSON.stringify(jsonstring),{headers:headers});
    }
   
    postEmployeeDeactive(jsonstring){
     const headers= new Headers({'Content-Type': 'application/json'});
-     return this._http.post(this.employeedeactive,jsonstring,{headers:headers});
+     return this._http.post(`${environment.empDeactiveUrl}`,jsonstring,{headers:headers});
   
    }
   
    postscheduledroute(jsonstring){
     const headers= new Headers({'Content-Type': 'application/json'});
-    return this._http.post(this.createscheduledroute,JSON.stringify(jsonstring),{headers:headers});
+    return this._http.post(`${environment.inactiveDataUrl}`,JSON.stringify(jsonstring),{headers:headers});
    }
   
  public upload:boolean=false;
  public cab_clicked;
   public getJsonData(){
-    return this._http.get(this.URL + 'NCAB/RosterService/RosterData')
+    return this._http.get(`${environment.getCabListUrl}`)
     .map(res => res.json());  
   }
 
+
+
+public getRouteData(cab,shift){ 
+  let body={"c_n":cab,"s_n":shift};
+  let headers=new Headers();
+    headers.append('Content-Type','application/JSON');
+  return this._http.post(`${environment.getRouteDataUrl}`,body,{headers: headers}).map(res =>res.json());          
+  }
+
   // Get Filtered data
-public postJsonData(c_no,qlid,s_id,e_name){ 
-let body={"c_n":c_no,"qlid":qlid,"s_i":s_id,"e_n":e_name};
+public postJsonData(c_no,qlid,s_id,e_name,vname){ 
+let body={"c_n":c_no,"qlid":qlid,"s_i":s_id,"e_n":e_name,"vname":vname};
 let headers=new Headers();
   headers.append('Content-Type','application/JSON');
-return this._http.post(this.URL + 'NCAB/RosterService/showRosterInfo',body,{headers: headers}).map(res =>res.json());          
+return this._http.post(`${environment.rosterDataUrl}`,body,{headers: headers}).map(res =>res.json());          
 }
 
-//get Add Emp qlid
-public getAddData(c_no){ 
-  let body={"c_n":c_no};
-  let headers=new Headers();
-    headers.append('Content-Type','application/JSON');
-  return this._http.post(this.URL + 'NCAB/RosterService/getAddQlid',body,{headers: headers}).map(res =>res.json());          
-  }
 
-//get cab list editemp
-public getcablist(){ 
-  let body={};
+//downlode excel sheet
+public downloadExcelData(c_no,qlid,s_id,e_name,vname){ 
+  let body={"c_n":c_no,"qlid":qlid,"s_i":s_id,"e_n":e_name,"vname":vname};
   let headers=new Headers();
     headers.append('Content-Type','application/JSON');
-  return this._http.post(this.URL + 'NCAB/RosterService/getcablist',body,{headers: headers}).map(res =>res.json());          
+  return this._http.post(`${environment.downloadExcelDataUrl}`,body,{headers: headers}).map(res =>res.json());          
   }
 
 //get Add Emp qlid
-public addEmpToDb(qlid,c_no){ 
-  let body={"qlid":qlid,"c_n":c_no};
+public getAddData(c_no,sid){ 
+  let body={"c_n":c_no,"s_id":sid};
   let headers=new Headers();
     headers.append('Content-Type','application/JSON');
-  return this._http.post(this.URL + 'NCAB/RosterService/AddEmpToDb',body,{headers: headers})
-  .catch(this.handleError);          
+  return this._http.post(`${environment.getAddQlidUrl}`,body,{headers: headers}).map(res =>res.json());          
+  }
   
+//get cab list editemp
+public getcablist(e_s){ 
+  let body={"shiftid" : e_s};
+  let headers=new Headers();
+    headers.append('Content-Type','application/JSON');
+  return this._http.post(`${environment.getCabListUrl}`,body,{headers: headers}).map(res =>res.json());          
+  }
+
+//get Add Emp qlid
+public addEmpToDb(qlid,c_no,s_id){ 
+  let body={"qlid":qlid,"c_n":c_no,"s_i":s_id};
+  let headers=new Headers();
+    headers.append('Content-Type','application/JSON');
+  return this._http.post(`${environment.getEmpToDbUrl}`,body,{headers: headers})
+  .catch(this.handleError);            
 }
 
 handleError(error :Response){
@@ -107,15 +127,15 @@ handleError(error :Response){
 public sendData(){
   let json=JSON.stringify({"r_no":"route_no","emp_qlid":"qlid","shift_time":"time"});
     let  params=json;
-    let headers=new Headers();``
+    let headers=new Headers();
     headers.append('Content-Type','application/x-www-form-urlencoded');
-    return this._http.post(this.URL + 'NCAB/RosterService/showRosterInfo',params,{headers: headers}).map(res =>res.json());   
+    return this._http.post(`${environment.rosterDataUrl}`,params,{headers: headers}).map(res =>res.json());   
 }
 
 // Sending Excel Data
 public sendfile(formdata:any){
   let body=formdata;
-    return this._http.post(this.URL + 'NCAB/RosterService/UploadFileData',body);   
+    return this._http.post(`${environment.uploadFileDataUrl}`,body);   
 }
 
 public changeUploadValue(){
@@ -128,51 +148,62 @@ public change_cab_clicked(cab){
 } 
 
 
-public deleteQlid(qlid){
-  let json={"emp_qlid":qlid};
+public deleteQlid(qlid,sid){
+  let json={"emp_qlid":qlid,"s_id":sid};
     let  body=json;
     let headers=new Headers();
     headers.append('Content-Type','application/x-www-form-urlencoded');
-    return this._http.post(this.URL + 'NCAB/RosterService/inactiveqlid',body,{headers: headers});   
+    return this._http.post(`${environment.inactiveDataUrl}`,body,{headers: headers});   
 }
 
 //saurav
 public posteditinfo(a,b,d,e,f){
   let body={"cabno":a,"picktime":b,"qlid":d,"sdate":e,"edate":f};
-  return this._http.post(this.URL + 'NCAB/RosterService/editd',body);
+  return this._http.post(`${environment.editDataUrl}`,body);
 }
 
 //richa
-public getAddData1(){ 
+getAddData1(){ 
   
   let headers=new Headers();
       
   headers.append('Content-Type','application/JSON');
     
-  return this._http.post(this.URL + 'NCAB/RosterService/getRoute',{headers: headers}).map(res =>res.json());          
+  return this._http.post(`${environment.getRouteUrl}`,{headers: headers}).map(res =>res.json());          
   
     }
   
   
+
+    public getvendorData(){ 
+      
+      let headers=new Headers();
+           
+       headers.append('Content-Type','application/JSON');
+        
+        return this._http.post(`${environment.getVendorUrl}`,{headers: headers}).map(res =>res.json());          
+      
+          }
+
+
+
+
     public getcabData(){ 
       
   let headers=new Headers();
-       
    headers.append('Content-Type','application/JSON');
     
-    return this._http.post(this.URL + 'NCAB/RosterService/getCabno',{headers: headers}).map(res =>res.json());          
+    return this._http.post(`${environment.getCabNumberUrl}`,{headers: headers}).map(res =>res.json());          
   
       }
     
    
-     public updater(a,b,c){ 
+     public updater(a,b,c,d,e,f){ 
    
-       let body={"r_n":a, "c_n":b,"s_i":c};
+       let body={"r_n":a, "c_n":b,"s_i":c,"ven":d,"s_date":e,"e_date":f};
   
-        return this._http.post(this.URL + 'NCAB/RosterService/UpdateRoute',body); 
+        return this._http.post(`${environment.updateRouteUrl}`,body); 
            
         }
-  
-  
 
 }

@@ -1,10 +1,8 @@
+import { Validators } from '@angular/forms';
 import { RosterService } from './../Services/roster.service';
 import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import { Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import { NewValidators } from './new.validators';
-import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,18 +16,17 @@ form=new FormGroup({
   'VendorName': new FormControl('',Validators.required),
   'ShiftTime': new FormControl('',Validators.required),
   'CabNumber': new FormControl('',Validators.required),
+  'CabDriver': new FormControl('',Validators.required),
   'RouteStartDate': new FormControl('',Validators.required),
   'RouteEndDate': new FormControl('',Validators.required),
-  'GuardNeeded': new FormControl(''),
-  'NumberOfEmployees': new FormControl('',[
+  'Cost':new FormControl('',[
     Validators.required,
-    NewValidators.cannotcontainspace,
-    NewValidators.cannotcontainalphabets
+    NewValidators.cannotcontainalphabets,
+    NewValidators.cannotcontainspecialcharacters,
+    NewValidators.cannotstartwithzero
   ]),
-  // 'qlid': new FormControl('',[
-  //   Validators.required
-  // ]),
-  'PickupTime': new FormControl(''),
+  'GuardNeeded': new FormControl(''),
+  'NumberOfEmployees': new FormControl('',Validators.required)
 });
 
 get NumberOfEmployees(){
@@ -38,8 +35,14 @@ get NumberOfEmployees(){
 get VendorName(){
   return this.form.get('VendorName');
 }
+get CabDriver(){
+  return this.form.get('CabDriver');
+}
 get ShiftTime(){
   return this.form.get('ShiftTime');
+}
+get Cost(){
+  return this.form.get('Cost');
 }
 get CabNumber(){
   return this.form.get('CabNumber');
@@ -53,15 +56,8 @@ get GuardNeeded(){
 get RouteEndDate(){
   return this.form.get('RouteEndDate');
 }
-get qlid(){
-  return this.form.get('qlid');
-}
-get PickupTime(){
-  return this.form.get('PickupTime');
-}
 
-
-
+clicked:boolean=true;
 display=true;
 qlidlist=[];
 Numbersofemp=[];  
@@ -70,25 +66,27 @@ vendorNameList:any[];
 employee=[];
 newemp=[];
 cablist=[];
-routeexists:boolean[]=[false,false,false,false];
+routeexists:boolean[]=[];
 employeeflag:boolean=false;
+numberofseats:number[]=[];
+routeexistserror:string="";
+cabdriverlist:any=[];
 
-constructor(private service:RosterService,private router:Router) { 
+constructor(private service:RosterService) { 
 }
 
 ngOnInit() {
   this.service.getVendorDetails()
 .subscribe(response => {
   this.vendorNameList=response.json();
-  console.log(this.vendorNameList);
-  console.log(JSON.stringify( this.vendorNameList));
 });
-
 this.service.getQlidList()
   .subscribe(response =>{
     this.qlidlist=response.json();
-    console.log("qlidlist json= ");
-  console.log(response);
+  });
+  this.service.getdriverdetails()
+  .subscribe(response =>{
+    this.cabdriverlist= response.json();
   });
 }
 
@@ -102,86 +100,71 @@ routeType(typeOfRoute){
   console.log(this.display);
 }
 
-numberofemp(NumberOfEmployees){
-  this.log(NumberOfEmployees);
+numberofemp(NumberOfEmployeeees){
   this.Numbersofemp=[];
   var jsontext = '{"fname":"","mname":"","lname":"","qlid":"","parea":"","ph":"","route":""}';
   if(this.employee.length==0){
-      for( let i=0;i<NumberOfEmployees.value;i++){
-        
+      for( let i=0;i<NumberOfEmployeeees.value;i++){
       this.employee[i]=JSON.parse(jsontext);
-      console.log(this.employee.length)
     }
   }
-  else if(this.employee.length>NumberOfEmployees.value){
-    for(let i=NumberOfEmployees.value;i<this.employee.length;i++){
-      
+  else if(this.employee.length>NumberOfEmployeeees.value){
+    for(let i=NumberOfEmployeeees.value;i<=this.employee.length;i++){
       this.employee.pop();
-      console.log(this.employee.length)
     }
   }
   else{
-    for(let i=this.employee.length;i<NumberOfEmployees.value;i++){
-      console.log(this.employee.length)
+    for(let i=this.employee.length;i<NumberOfEmployeeees.value;i++){
       this.employee[i]=JSON.parse(jsontext);
     }
   }
 
-  for( let i=0;i<NumberOfEmployees.value;i++)
+  for( let i=0;i<NumberOfEmployeeees.value;i++)
   {
     this.Numbersofemp[i]=i;
-  }
-  console.log(this.employee);
-
-  console.log(this.Numbersofemp);    
+  }  
 }
 
-getAvailableCab(ShiftTime,VendorName){
-  let cabjson={"shift":ShiftTime.value,
-"vendor": VendorName.value};
+getAvailableCab(ShiftTime){
+  let cabjson={"shift":ShiftTime.value};
   this.service.getAvailableCab(cabjson)
   .subscribe(response=>{
   this.cablist=response.json();
-  console.log(this.cablist);
-  console.log(JSON.stringify( this.cablist));
   });
-  console.log(ShiftTime);
 }
 
-createPost(input: HTMLInputElement){     
-  let empqlid= { "qlid": input.value};
+getnumberofseats(CabNumber){
+  this.numberofseats=[];
+  for(let i=0;i<parseInt((CabNumber.value as string).split(" ")[1]);i++)
+    this.numberofseats[i]=i+1;
+}
+
+createPost(input: HTMLInputElement){    
+  let empqlid= { "qlid":input.value};
+  this.routeexists=[];
  this.service.getEmployeesDetails(empqlid)
   .subscribe(respone =>{
-    console.log("input= ");
-    console.log(input);
     this.employee[input.name]=(respone.json());
-    console.log("respone.json()= ");
-    console.log(respone.json());
-    console.log("this.employee= ");
-    console.log(this.employee);
-    console.log("qlidd.name= "+input.name); 
-  console.log("this.employee[0].route= ");
-  console.log(this.employee[input.name].route);
-
   if((this.employee[input.name].route as string).length>1){
     this.routeexists[input.name]=true;
-    console.log(this.routeexists[input.name])
+    this.routeexistserror=this.employee[input.name].fname+" "+this.employee[input.name].lname+" with qlid "+this.employee[input.name].qlid+" already exits on route number "+this.employee[input.name].route;
+    this.clicked=true;
   }
   else{
     this.routeexists[input.name]=false;
-    console.log(this.routeexists[input.name])
+    this.clicked=false;
   }
-  
-
+  console.log(this.employee);
+  this.checkduplicateqlid();
   });
-
-
-
 }
 
+
 deactivateemployee(num,f){       
-  let jsonobject= { "qlid": this.employee[num].qlid,"month":f.value.RouteStartDate.substring(5,7),};
+  console.log(num);
+  let jsonobject= { "qlid": this.employee[num].qlid,"month":f.value.RouteStartDate};
   console.log(JSON.stringify(jsonobject));
+  this.clicked=false;
   this.service.postEmployeeDeactive(jsonobject).subscribe(response=>{
     console.log(jsonobject);
   });
@@ -191,40 +174,112 @@ log(qlidd){
   console.log(qlidd);
 
 }
-
-submit(f,VendorName){
+success:boolean=false;
+submit(f){
+  console.log("f.value.start= "+ f.value.RouteStartDate);
  let jsonrespone={};
  let jsonstring=[];
  console.log("form data");
  console.log(f);
+ if(!this.checkemptyqlid()&&!this.checkduplicateqlid()){ 
  for(let i=0;i<this.employee.length;i++){
   jsonrespone={
     "qlid":this.employee[i].qlid,
     "shift":f.value.ShiftTime,
     "guard":f.value.GuardNeeded,
-    "picktime":f.value.PickupTime+i,
-    "cabno":f.value.CabNumber,
-    "start":f.value.RouteStartDate.substring(8,10),
-    "end":f.value.RouteEndDate.substring(8,10),
-    "month":f.value.RouteStartDate.substring(5,7),
-    "year":f.value.RouteStartDate.substring(0,4),
-    "vendor":f.value.VendorName
+    "dname":(f.value.CabDriver as string).split(" ")[0],
+    "dph":(f.value.CabDriver as string).split(" ")[1],
+    "picktime":this.PickupTime[i],
+    "cabno":(f.value.CabNumber as string).split(" ")[0],
+    "start":f.value.RouteStartDate,
+    "end":f.value.RouteEndDate,
+    "vendor":f.value.VendorName,
+    "cost":f.value.Cost
   };
   jsonstring.push(jsonrespone);
 
  }
   console.log(JSON.stringify(jsonstring));
+  this.success=true;
   this.service.postscheduledroute(jsonstring)
   .subscribe(
     reponse =>{
       console.log(reponse);
-    }
-  ),
-   ()=>this.close()
+    });
+}
 
 }
-close(){
-  alert("Successful");
-    this.router.navigateByUrl('/roster/go');  
-  }
+
+
+
+duplicateqlid:boolean;
+  
+checkduplicateqlid(){
+  console.log("before duplicate=");
+  console.log(this.employee);
+   this.duplicateqlid=false;
+     for(let i=0;i<this.employee.length;i++){
+     for(let j=0;j<this.employee.length;j++){
+       if(i!=j){
+         if(this.employee[i].qlid!=""&&this.employee[j].qlid!=""&&this.employee[i].qlid==this.employee[j].qlid){
+           this.duplicateqlid=true;
+           console.log("duplicate");
+         }
+         }
+       }
+       if(this.duplicateqlid==true)
+       break;
+     }
+     console.log("after duplicate=");
+  console.log(this.employee);
+  return this.duplicateqlid;
+   
+ }
+
+ emptyqlid:boolean
+ checkemptyqlid(){
+   this.emptyqlid=false;
+   for(let i=0;i<this.employee.length;i++){
+     if(this.employee[i].qlid==""){ 
+     this.emptyqlid=true;
+     console.log("empty");
+     break;
+     }
+ }
+ console.log(this.emptyqlid);
+ return this.emptyqlid;
+}
+
+PickupTime=[];
+createTime(PickupTime: HTMLInputElement){   
+  console.log("PickupTime.name= "+PickupTime.name);
+  console.log("PickupTime.value= "+PickupTime.value);
+    this.PickupTime[PickupTime.name]=PickupTime.value;
+}
+
+closeemptyqlid(){
+ this.emptyqlid=false;
+}
+
+closeduplicateqlid(){
+ this.duplicateqlid=false;
+}
+
+redirect(){
+ this.success=false;
+}
+
+close_add_popup(num){
+  console.log(num);
+  this.clicked=false;
+  var jsontext = '{"fname":"","mname":"","lname":"","qlid":"","parea":"","ph":"","route":""}';
+  this.employee[num]=JSON.parse(jsontext);
+
+}
+
+
+
+
+
+
 }
