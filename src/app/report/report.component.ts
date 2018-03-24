@@ -34,17 +34,21 @@ export class ReportComponent implements OnInit {
   public Checkinoutreport: Checkinout;
   public filterType = '';
   public filterValue;
-  public toDate;
-  public fromDate;
-  public fromMonth;
-  public year;
+  // public toDate;
+  // public fromDate;
+  // public fromMonth;
+  // public year;
   public filterVal;
   public vname = [];
   public rname = [];
+  public reports = [];
   public cno = [];
   public EmpName;
   public modelf;
   public modelt;
+  public fdate;
+  public tdate;
+
 
   public filterReport;
   public tf = true;
@@ -60,49 +64,266 @@ export class ReportComponent implements OnInit {
   ////-----------------------------------------
 
 
-  public reports = [{ "ManagerName": "Sonia Chawla", "NumberOfEmpl": "32", "NumberOfCabs": "12", "Cost": "3600", "RequestID": "1234", "Shift": "Regular", "EmployeeQlid": "re124111", "TimeAndDate": "21-12-18,6:12pm", "CabNumber": "2675", "VendorName": "ABC CAB SERVICE", "TypeOfCab": "Micro" },
-  { "ManagerName": "Ruchi Chawla", "NumberOfEmpl": "2", "NumberOfCabs": "1", "Cost": "300", "RequestID": "8234", "Shift": "Regular", "EmployeeQlid": "pp222191", "TimeAndDate": "21-12-18,6:12pm", "CabNumber": "5566", "VendorName": "Rose CAB SERVICE", "TypeOfCab": "Mini" },
-  { "ManagerName": "Aman Chawla", "NumberOfEmpl": "12", "NumberOfCabs": "10", "Cost": "4600", "RequestID": "1534", "Shift": "Regular", "EmployeeQlid": "yu123161", "TimeAndDate": "21-12-18,6:12pm", "CabNumber": "6464", "VendorName": "COdeCatchers CAB SERVICE", "TypeOfCab": "Mini" }];
+  // public reports = [{ "ManagerName": "Sonia Chawla", "NumberOfEmpl": "32", "NumberOfCabs": "12", "Cost": "3600", "RequestID": "1234", "Shift": "Regular", "EmployeeQlid": "re124111", "TimeAndDate": "21-12-18,6:12pm", "CabNumber": "2675", "VendorName": "ABC CAB SERVICE", "TypeOfCab": "Micro" },
+  // { "ManagerName": "Ruchi Chawla", "NumberOfEmpl": "2", "NumberOfCabs": "1", "Cost": "300", "RequestID": "8234", "Shift": "Regular", "EmployeeQlid": "pp222191", "TimeAndDate": "21-12-18,6:12pm", "CabNumber": "5566", "VendorName": "Rose CAB SERVICE", "TypeOfCab": "Mini" },
+  // { "ManagerName": "Aman Chawla", "NumberOfEmpl": "12", "NumberOfCabs": "10", "Cost": "4600", "RequestID": "1534", "Shift": "Regular", "EmployeeQlid": "yu123161", "TimeAndDate": "21-12-18,6:12pm", "CabNumber": "6464", "VendorName": "COdeCatchers CAB SERVICE", "TypeOfCab": "Mini" }];
 
   ngOnInit() {
     //  console.log("ngOnInit");
     this.filterReport = this._dashData.getItem();
 
-    if (this.filterReport == 'Billing_Summary') {
+
+    //when report type is selected from dashboard
+    switch (this.filterReport) {
+      case "Unschedule_Summary_ByManager":
+        this.reportService.getManagerReport1(this.filterValue).subscribe((data) => {
+          this.reports = data;
+          console.log(data);
+        });
+        //  this.showDiv = true;
+        break;
+
+      case "Unschedule_Summary_ByEmployee":
+        this.reportService.getEmployeeReport1(this.filterValue).subscribe((data) => {
+          this.reports = data;
+          //  this.showDiv = true;
+          console.log(data);
+        }); break;
+
+      case "Unschedule_Summary_ByVendor":
+        this.reportService.getVendorReport1(this.filterValue).subscribe((data) => {
+          this.reports = data;
+          //this.showDiv = true;
+
+          console.log(data);
+        }); break;
+      case "Unschedule_Detail_ByVendor":
+        this.reportService.getVendorReportDetail1(this.filterValue).subscribe((data) => {
+          this.reports = data;
+          //this.showDiv = true;
+
+          console.log(data);
+        }); break;
+      case "Unschedule_Detail_ByEmployee":
+        this.reportService.getEmployeeReportDetail1(this.filterValue).subscribe((data) => {
+          this.reports = data;
+          //this.showDiv = true;
+
+          console.log(data);
+        }); break;
+      case "Unschedule_Detail_ByManager":
+        this.reportService.getManagerReportDetail1(this.filterValue).subscribe((data) => {
+          this.reports = data;
+          //this.showDiv = true;
+
+          console.log(data);
+        }); break;
+
+      case "Checkin_Checkout":
       this.reportService.getVendorNames().subscribe((data) => {
         this.vname = data;
-      });
+
+        console.log(data);
+      }); break;
+
+      case "Billing_Summary":
+        this.reportService.getVendorNames().subscribe((data) => {
+          this.vname = data;
+
+          console.log(data);
+        }); break;
+
+      // case "Transportation_Billing":
+      // this.reportService.getManagerReportDetail1(this.filterValue).subscribe((data) => {
+      //   this.reports = data;
+      //   //this.showDiv = true;
+
+      //   console.log(data);
+      // }); break;
+
+
     }
 
-    this.search();
 
   }
-
-  public myDatePickerOptions: IMyDpOptions = {
-    // other options...
-    dateFormat: 'yyyy-mm-dd',
-  };
-
-
-  getRouteNosbyVendor(f) {
-    this.reportService.getRouteNos(f.value.VendorName).subscribe((data) => {
-      this.rname = data;
-    })
-
-  }
-
-
-  getCabnobyVendorandRouteNo(f) {
-    this.reportService.getCabnobyVendorandRouteNo(f.value.VendorName, f.value.RouteNo).subscribe((data) => {
-      this.cno = data;
-    })
-  }
-
-
 
   constructor(public reportService: ReportService, public _dashData: DashData) {
     // console.log("constructor");
   }
+
+  //to toggle filter panel
+  toggleFilter(flag) {
+    // console.log(flag);
+    this.tf = flag;
+  }
+
+  // to download Excel
+  downloadExcel() {
+
+    if (this.filterReport == 'Billing_Summary') {
+      //Calculations start
+      console.log(">>>filtertype: " + this.filterReport);
+
+      var sumfields = [".Cab_Charge", "input[name=HR_Tax]", "input[name=UP_Tax]", "input[name=Gps]", "input[name=Toll]"];
+      var totalfields = [".Total", ".Total_HR_Tax", ".Total_UP_Tax", ".Total_Gps", ".Total_Toll"];
+
+      var finalsumfields = [".Total_Cab_Charge", ".Total_HR_Tax", ".Total_UP_Tax", ".Total_Gps", ".Total_Toll"];
+
+
+      $(".Cab_Charge").each(function () {
+        $(this).html(
+          Number($(this).prev().html()) * Number($(this).prev().prev().find("input").val()) / Number($(this).prev().prev().prev().html()));
+      });
+
+
+      for (var x = 0; x < sumfields.length; x++) {
+        var sum = 0;
+        $(sumfields[x]).each(function () {
+          if ($(this).is("td"))
+            sum += Number($(this).html());
+          else
+            sum += Number($(this).val());
+        })
+        $(totalfields[x]).html(sum);
+      }
+
+      $(".Gst_Tax").html(Number(($(".Total").html()) * Number($("input[name=Gst_Rate]").val())) / 100);
+      $(".Total_Cab_Charge").html(Number($(".Total").html()) + Number($(".Gst_Tax").html()));
+
+      var finalsum = 0;
+
+      for (var val in finalsumfields)
+        finalsum += Number($(finalsumfields[val]).html());
+
+      $(".Final_Total_Amount").html(finalsum);
+
+
+      //Calculations end
+
+      $("td").each(function () {
+        if ($(this).find("input"))
+          $(this).html($(this).find("input").val());
+      });
+
+      $(".Total_Amount").each(function () {
+        $(this).html(Number($(this).prev().html()) + Number($(this).prev().prev().html()) + Number($(this).prev().prev().prev().html()) + Number($(this).prev().prev().prev().prev().html()) + Number($(this).prev().prev().prev().prev().prev().html()));
+      });
+      var indsum = 0;
+      $(".Total_Amount").each(function () {
+        indsum += Number($(this).html());
+      });
+      $(".indsum").html(indsum);
+      $(".Final_Total_Amount").html(indsum + Number($(".Gst_Tax").html()));
+
+    }
+
+    var name = "test";
+    var uri = 'data:application/vnd.ms-excel;base64,'
+      , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+      , base64 = function (s) { return window.btoa(decodeURIComponent(encodeURIComponent(s))) }
+      , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+
+    var table = document.getElementsByClassName("table")[0]
+    var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+    window.location.href = uri + base64(format(template, ctx))
+
+  }
+
+  //filter method
+  onFilterGo(f) {
+
+    console.log(JSON.stringify(f));
+    console.log(this.filterReport);
+
+    // if (this.filterReport == 'Transportation_Billing') {
+    //   var d = new Date();
+
+    //   if (f.fromMonth > (d.getMonth() + 1)) {
+    //     console.log(f.fromMonth + "/" + f.year);
+    //   } else {
+    //     alert("Cannot show report until this month is complete.");
+    //   }
+    // }
+
+    // this.showLoader = true;
+    // if (this.filterType == '') {
+    //   this.showLoader = false;
+    //   return;
+    // }
+
+    // console.log(this.filterType + " " + this.filterValue);
+
+    switch (this.filterReport) {
+
+      case "Unschedule_Summary_ByManager":
+        this.reportService.getManagerReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
+          this.managerReport = data;
+          this.showLoader = false;
+          console.log(data);
+        });
+        break;
+
+      case "Unschedule_Summary_ByEmployee":
+        this.reportService.getEmployeeReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
+          this.employeeReport = data;
+          this.showLoader = false;
+          console.log(data);
+        }); break;
+
+      case "Unschedule_Summary_ByVendor":
+        this.reportService.getVendorReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
+          this.vendorReport = data;
+          this.showLoader = false;
+          console.log(data);
+        }); break;
+      case "Unschedule_Detail_ByVendor":
+        this.reportService.getVendorReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
+          this.vendorDetailReport = data;
+          this.showLoader = false;
+          console.log(data);
+        }); break;
+      case "Unschedule_Detail_ByEmployee":
+        this.reportService.getEmployeeReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
+          this.employeeDetailReport = data;
+          this.showLoader = false;
+          console.log(data);
+        }); break;
+      case "Unschedule_Detail_ByManager":
+        this.reportService.getManagerReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
+          this.managerDetailReport = data;
+          this.showLoader = false;
+          console.log(data);
+        }); break;
+      case "Billing_Summary":
+        this.reportService.getBillingSummary(f.ShiftType, f.VendorName, f.FromDate, f.ToDate).subscribe((data) => {
+          this.BillingSummaryReport = data;
+          this.showLoader = false;
+          console.log(data);
+        }); break;
+      case "Checkin_Checkout":
+        console.log("case checkin checkout");
+        this.getdata(f);
+        break;
+      case "Transportation_Billing":
+        this.reportService.getTransportationReport(f.toDate, f.fromDate, f).subscribe((data) => {
+          this.managerDetailReport = data;
+          this.showLoader = false;
+          this.showDiv = false;
+          this.showTransportationReportResult = true;
+          console.log(data);
+        }); break;
+        default:
+          console.log(this.filterReport);
+    }
+
+
+  }
+
+  // date picker
+  public myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'yyyy-mm-dd',
+  };
 
 
   // Transportation Cost Report ---Start
@@ -176,214 +397,149 @@ export class ReportComponent implements OnInit {
 
   // Transportation Cost Report ---END
 
-  toggleFilter(flag) {
-    // console.log(flag);
-    this.tf = flag;
-  }
-
-  downloadExcel() {
-
-    if (this.filterReport == 'Billing_Summary') {
-      //Calculations start
-      console.log(">>>filtertype: " + this.filterReport);
-
-      var sumfields = [".Cab_Charge", "input[name=HR_Tax]", "input[name=UP_Tax]", "input[name=Gps]", "input[name=Toll]"];
-      var totalfields = [".Total", ".Total_HR_Tax", ".Total_UP_Tax", ".Total_Gps", ".Total_Toll"];
-
-      var finalsumfields = [".Total_Cab_Charge", ".Total_HR_Tax", ".Total_UP_Tax", ".Total_Gps", ".Total_Toll"];
+  // to get checkin checkout data
+  getdata(f) {
 
 
-      $(".Cab_Charge").each(function () {
-        $(this).html(
-          Number($(this).prev().html()) * Number($(this).prev().prev().find("input").val()) / Number($(this).prev().prev().prev().html()));
+    if (typeof this.modelf === 'undefined')
+    this.fdate = "";
+  else
+    this.fdate = this.modelf.formatted;
+
+  if (typeof this.modelt === 'undefined')
+    this.tdate = "";
+  else
+    this.tdate = this.modelt.formatted;
+
+    var valarr = [f.RouteNo,  this.fdate, this.tdate, f.CabNo, this.EmpName, f.VendorName];
+
+    for (var x in valarr)
+      if (typeof valarr[x] === 'undefined')
+        valarr[x] = "";
+
+    var emp_fname = "";
+    var emp_lname = "";
+
+    if (valarr[4] != "") {
+      var arr = valarr[4].split(" ");
+      emp_fname = arr[0];
+      emp_lname = arr[1];}
+
+      this.reportService.getCheckinoutreport(valarr[0], valarr[1], valarr[2], valarr[3], emp_fname, emp_lname, valarr[5]).subscribe
+      ((data) => {
+        this.Checkinoutreport = data;
+
+        console.log("in subscribe()"+data);
+
       });
-
-
-      for (var x = 0; x < sumfields.length; x++) {
-        var sum = 0;
-        $(sumfields[x]).each(function () {
-          if ($(this).is("td"))
-            sum += Number($(this).html());
-          else
-            sum += Number($(this).val());
-        })
-        $(totalfields[x]).html(sum);
-      }
-
-      $(".Gst_Tax").html(Number(($(".Total").html()) * Number($("input[name=Gst_Rate]").val())) / 100);
-      $(".Total_Cab_Charge").html(Number($(".Total").html()) + Number($(".Gst_Tax").html()));
-
-      var finalsum = 0;
-
-      for (var val in finalsumfields)
-        finalsum += Number($(finalsumfields[val]).html());
-
-      $(".Final_Total_Amount").html(finalsum);
-
-
-      //Calculations end
-
-      $("td").each(function () {
-        if ($(this).find("input"))
-          $(this).html($(this).find("input").val());
-      });
-
-      $(".Total_Amount").each(function () {
-        $(this).html(Number($(this).prev().html()) + Number($(this).prev().prev().html()) + Number($(this).prev().prev().prev().html()) + Number($(this).prev().prev().prev().prev().html()) + Number($(this).prev().prev().prev().prev().prev().html()));
-      });
-      var indsum = 0;
-      $(".Total_Amount").each(function () {
-        indsum += Number($(this).html());
-      });
-      $(".indsum").html(indsum);
-      $(".Final_Total_Amount").html(indsum + Number($(".Gst_Tax").html()));
-
     }
-    var name = "test";
-    var uri = 'data:application/vnd.ms-excel;base64,'
-      , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
-      , base64 = function (s) { return window.btoa(decodeURIComponent(encodeURIComponent(s))) }
-      , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
-
-    var table = document.getElementsByClassName("table")[0]
-    var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-    window.location.href = uri + base64(format(template, ctx))
+  
 
 
-    // console.log("download excel logged");
+  refreshBody() {
 
-
-  }
-
-
-  search(f = null) {
-
-    this.showLoader = true;
-    if (this.filterType == '') {
-      this.showLoader = false;
-      return;
-    }
-    console.log(this.filterType + " " + this.filterValue);
-
-    switch (this.filterType) {
-
+    switch (this.filterReport) {
       case "Unschedule_Summary_ByManager":
-        this.reportService.getManagerReport(this.toDate, this.fromDate, this.filterVal).subscribe((data) => {
-          this.managerReport = data;
-          this.showLoader = false;
+        this.reportService.getManagerReport1(this.filterValue).subscribe((data) => {
+          this.reports = data;
           console.log(data);
         });
+        //  this.showDiv = true;
         break;
 
       case "Unschedule_Summary_ByEmployee":
-        this.reportService.getEmployeeReport(this.toDate, this.fromDate, this.filterVal).subscribe((data) => {
-          this.employeeReport = data;
-          this.showLoader = false;
+        this.reportService.getEmployeeReport1(this.filterValue).subscribe((data) => {
+          this.reports = data;
+          //  this.showDiv = true;
           console.log(data);
         }); break;
 
       case "Unschedule_Summary_ByVendor":
-        this.reportService.getVendorReport(this.toDate, this.fromDate, this.filterVal).subscribe((data) => {
-          this.vendorReport = data;
-          this.showLoader = false;
+        this.reportService.getVendorReport1(this.filterValue).subscribe((data) => {
+          this.reports = data;
+          //this.showDiv = true;
+
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByVendor":
-        this.reportService.getVendorReportDetail(this.toDate, this.fromDate, this.filterVal).subscribe((data) => {
-          this.vendorDetailReport = data;
-          this.showLoader = false;
+        this.reportService.getVendorReportDetail1(this.filterValue).subscribe((data) => {
+          this.reports = data;
+          //this.showDiv = true;
+
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByEmployee":
-        this.reportService.getEmployeeReportDetail(this.toDate, this.fromDate, this.filterVal).subscribe((data) => {
-          this.employeeDetailReport = data;
-          this.showLoader = false;
+        this.reportService.getEmployeeReportDetail1(this.filterValue).subscribe((data) => {
+          this.reports = data;
+          //this.showDiv = true;
+
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByManager":
-        this.reportService.getManagerReportDetail(this.toDate, this.fromDate, this.filterVal).subscribe((data) => {
-          this.managerDetailReport = data;
-          this.showLoader = false;
+        this.reportService.getManagerReportDetail1(this.filterValue).subscribe((data) => {
+          this.reports = data;
+          //this.showDiv = true;
+
           console.log(data);
         }); break;
-      case "Billing_Summary":
-        this.reportService.getBillingSummary(f.value.ShiftType, f.value.VendorName, f.value.FromDate, f.value.ToDate).subscribe((data) => {
-          this.BillingSummaryReport = data;
-          this.showLoader = false;
-          console.log(data);
-        }); break;
+
       case "Checkin_Checkout":
-            this.getdata(f);
-            break;
-      case "Transportation_Billing":
-        this.reportService.getTransportationReport(this.toDate, this.fromDate, f).subscribe((data) => {
-          this.managerDetailReport = data;
-          this.showLoader = false;
-          this.showDiv = false;
-          this.showTransportationReportResult = true;
+      this.reportService.getVendorNames().subscribe((data) => {
+        this.vname = data;
+
+        console.log(data);
+      }); break;
+
+      case "Billing_Summary":
+        this.reportService.getVendorNames().subscribe((data) => {
+          this.vname = data;
           console.log(data);
         }); break;
+
+      // case "Transportation_Billing":
+      // this.reportService.getManagerReportDetail1(this.filterValue).subscribe((data) => {
+      //   this.reports = data;
+      //   //this.showDiv = true;
+
+      //   console.log(data);
+      // }); break;
 
     }
 
   }
 
+  //to get route no vendor
+  getRouteNosbyVendor(f) {
+    this.reportService.getRouteNos(f.value.VendorName).subscribe((data) => {
+      this.rname = data;
+    })
+  }
 
+  // to get cab no by vendor and route no
+  getCabnobyVendorandRouteNo(f) {
+    this.reportService.getCabnobyVendorandRouteNo(f.value.VendorName, f.value.RouteNo).subscribe((data) => {
+      this.cno = data;
+    })
+  }
 
-  getdata(f){
-
-    var valarr = [f.value.RouteNo,this.modelf.formatted,this.modelt.formatted,f.value.CabNo,this.EmpName,f.value.VendorName];
-
-    for (var x in valarr)
-    if (typeof valarr[x] === 'undefined')
-          valarr[x] = "";
-
-          var emp_fname = "";
-          var  emp_lname = "";
-
-  if(valarr[4]!=""){
-var arr = valarr[4].split(" ");
-  emp_fname = arr[0];
-  emp_lname= arr[1];
-  this.reportService.getCheckinoutreport(valarr[0],valarr[1],valarr[2],valarr[3],emp_fname,emp_lname,valarr[5]).subscribe((data)=>{
-    this.Checkinoutreport = data;
-        
- 
-  });
-}
 
 
   // Transportation Cost Report ---Start
-
-
-  onFilterGo(f) {
-    // console.log("form submit");
-
-    var d = new Date();
-
-    if (this.fromMonth < (d.getMonth() + 1)) {
-      console.log(this.fromMonth + "/" + this.year);
-    } else {
-      alert("Cannot show report until this month is complete.");
-    }
-
-
-
-  }
 
   onTptCostForm(f) {
 
     console.log("In tpt cost");
 
-    this.reportService.getTransportationReport(this.fromMonth, this.year, f).subscribe((data) => {
-      console.log(data);
+    // this.reportService.getTransportationReport(this.fromMonth, this.year, f).subscribe((data) => {
+    //   console.log(data);
 
-      this.transportationCost = data;
+    //   this.transportationCost = data;
 
-    });
+    // });
 
 
   }
+
   validate() {
 
   }

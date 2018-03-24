@@ -210,6 +210,7 @@ export class ReportService {
 
   getCheckinoutreport(route_no,from_date,to_date,cab_no,emp_fname,emp_lname,vendor_name):Observable<any>{
 
+    console.log("In service");
     return this.apiService.callApiService({
       requestType: REQUEST_TYPE_POST,
       url: `${environment.checkinoutreportUrl}`,

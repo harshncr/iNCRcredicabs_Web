@@ -67,7 +67,7 @@ export const environment = {
   billingsummaryUrl:          BASE_URL + "/ReportService/vendorwisebillreport",
   pullExcelfileUrl:           BASE_URL + "/RequestService/pullExcel",
   transportationBillingUrl:           BASE_URL + "/ReportService/transportbillingreport",
-  checkinoutreportUrl:              BASE_URL + "/ReportService/check-in-out-report",
+  checkinoutreportUrl:              BASE_URL + "/ReportService/checkinoutreport",
   routenoUrl:                 BASE_URL + "/ReportService/RouteNos",
   cabnobyvendorandrouteUrl:   BASE_URL + "/ReportService/getCabNobyVendorandRoute",
 };

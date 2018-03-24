@@ -24,13 +24,13 @@
           <!-- Type of Report Selector  -->
           <div class="col-md-3">
             Type of Reports:
-            <select [(ngModel)]="filterReport" name="filterIt" class="form-control">
-              <option value="Regular_Detailed_ByManager">Regular_Detailed_ByManager</option>
+            <select [(ngModel)]="filterReport" name="filterIt" class="form-control" (change)=refreshBody()>
+              <!-- <option value="Regular_Detailed_ByManager">Regular_Detailed_ByManager</option>
               <option value="Regular_Detailed_ByVendor">Regular_Detailed_ByVendor</option>
               <option value="Regular_Detailed_ByEmployee">Regular_Detailed_ByEmployee</option>
               <option value="Regular_Summary_ByManager">Regular_Summary_ByManager</option>
               <option value="Regular_Summary_ByVendor">Regular_Summary_ByVendor</option>
-              <option value="Regular_Summary_ByEmployee">Regular_Summary_ByEmployee</option>
+              <option value="Regular_Summary_ByEmployee">Regular_Summary_ByEmployee</option> -->
               <option value="Unschedule_Detail_ByManager">Unschedule_Detail_ByManager</option>
               <option value="Unschedule_Detail_ByVendor">Unschedule_Detail_ByVendor</option>
               <option value="Unschedule_Detail_ByEmployee">Unschedule_Detail_ByEmployee</option>
@@ -44,22 +44,34 @@
           </div>
 
           <!-- Filter for Unscheduled -->
-          <div class="col-md-4" *ngIf="filterReport == 'Unschedule_Summary_ByManager'||filterReport =='Unschedule_Summary_ByVendor'">
+          <div class="col-md-4" *ngIf="(filterReport == 'Unschedule_Detail_ByManager')
+                                  ||(filterReport =='Unschedule_Detail_ByVendor')    
+                                  ||(filterReport =='Unschedule_Detail_ByEmployee')    
+                                  ||(filterReport =='Unschedule_Summary_ByManager')    
+                                  ||(filterReport =='Unschedule_Summary_ByVendor')    
+                                  ||(filterReport =='Unschedule_Summary_ByEmployee')    
+                                  ||(filterReport =='Unschedule_Summary_ByVendor')">
             <div class="form-group">
               <div class="col-sm-6">
                 TO:
-                <input type="date" class="form-control" [(ngModel)]="toDate" name="toDate" />
+                <input type="date" class="form-control" ngModel name="toDate" />
               </div>
 
               <div class="col-sm-6">
                 FROM:
-                <input type="date" class="form-control" [(ngModel)]="fromDate" name="fromDate" />
+                <input type="date" class="form-control" ngModel name="fromDate" />
               </div>
             </div>
           </div>
 
           <!-- Filter by field for Unscheduled -->
-          <div class="col-md-4">
+          <div class="col-md-4" *ngIf="(filterReport == 'Unschedule_Detail_ByManager')
+                                      ||(filterReport =='Unschedule_Detail_ByVendor')    
+                                      ||(filterReport =='Unschedule_Detail_ByEmployee')    
+                                      ||(filterReport =='Unschedule_Summary_ByManager')    
+                                      ||(filterReport =='Unschedule_Summary_ByVendor')    
+                                      ||(filterReport =='Unschedule_Summary_ByEmployee')    
+                                      ||(filterReport =='Unschedule_Summary_ByVendor')">
             <div class="form-group">
               <div class="col-md-12">
                 <div *ngIf="filterReport == 'Unschedule_Summary_ByManager'">
@@ -133,133 +145,140 @@
 
           </div>
 
-          <div class="col-md-1">
-            <div class="form-group">
-              <button type="submit" class="btn btn-default">
-                Go
-              </button>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Filters for Vendorwise Report -->
-        <div class="row" *ngIf="filterReport=='Billing_Summary'">
-
-          <div class="form-group">
-            <div class="col-sm-2">
-
-              <select ngModel name="VendorName" class="form-control">
-                <option value="" disabled>Vendor Name</option>
-                <option *ngFor="let obj of vname" [value]="obj.name">{{obj.name}}</option>
-              </select>
-            </div>
-
-            <div class="col-sm-2">
-              <select ngModel name="ShiftType" class="form-control">
-                <option value="" disabled>Shift Type</option>
-                <option value="1">7 AM - 4 PM</option>
-                <option value="2">10 AM - 7 PM</option>
-                <option value="3">12 PM - 9 PM</option>
-                <option value="5">2 PM - 11 PM</option>
-              </select>
-            </div>
-            <div class="col-sm-2">
-              <select ngModel name="FromDate" class="form-control">
-                <option value="" disabled>From Date</option>
-                <option value="1">January</option>
-                <option value="2">February</option>
-                <option value="3">March</option>
-                <option value="4">April</option>
-                <option value="5">May</option>
-                <option value="6">June</option>
-                <option value="7">July</option>
-                <option value="8">August</option>
-                <option value="9">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
-              </select>
-            </div>
-            <div class="col-sm-2">
-              <select ngModel name="ToDate" class="form-control">
-                <option value="" disabled>To Date</option>
-                <option value="1">January</option>
-                <option value="2">February</option>
-                <option value="3">March</option>
-                <option value="4">April</option>
-                <option value="5">May</option>
-                <option value="6">June</option>
-                <option value="7">July</option>
-                <option value="8">August</option>
-                <option value="9">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
-              </select>
-            </div>
-            <div class="col-sm-3">
-              <input type="text" [(ngModel)]="filterValue" name="filterValue" class="form-control">
-            </div>
-            <div class="col-sm-1">
-              <button type="button" (click)="getdata(f)" class="btn btn-default">
-                Go
-              </button>
-            </div>
+          <!-- Go button in filter -->
+          <div class="col-md-1" *ngIf="(filterReport == 'Unschedule_Detail_ByManager')
+                                      ||(filterReport =='Unschedule_Detail_ByVendor')    
+                                      ||(filterReport =='Unschedule_Detail_ByEmployee')    
+                                      ||(filterReport =='Unschedule_Summary_ByManager')    
+                                      ||(filterReport =='Unschedule_Summary_ByVendor')    
+                                      ||(filterReport =='Unschedule_Summary_ByEmployee')    
+                                      ||(filterReport =='Unschedule_Summary_ByVendor')
+                                      ||(filterReport =='Transportation_Billing')">
+            <br>
+            <button type="submit" class="btn btn-default form-control">
+              Go
+            </button>
           </div>
 
         </div>
 
         <!-- Filters for Checkin-out Report -->
-        <div class="row" *ngIf="filterReport=='Checkin_Checkout'">
-          <div class="form-group">
-            <div class="col-sm-2">
+        <div class="row top-buffer" *ngIf="filterReport=='Checkin_Checkout'">
+          <div class="col-sm-2">
 
-              <select ngModel name="VendorName" class="form-control" (change)="getRouteNosbyVendor(f)">
-                <option value="" disabled>Vendor Name</option>
-                <option *ngFor="let obj of vname" [value]="obj.name">{{obj.name}}</option>
-              </select>
-            </div>
-
-            <div class="col-sm-2">
-
-              <select ngModel name="RouteNo" class="form-control" (change)="getCabnobyVendorandRouteNo(f)">
-                <option value="" disabled>Route No</option>
-                <option *ngFor="let obj of rname" [value]="obj.name">{{obj.name}}</option>
-              </select>
-            </div>
-
-            <div class="col-sm-2">
-
-              <select ngModel name="CabNo" class="form-control">
-                <option value="" disabled>Cab No</option>
-                <option *ngFor="let obj of cno" [value]="obj.Cab_No">{{obj.Cab_No}}</option>
-              </select>
-            </div>
-
-            <div class="col-sm-1">
-
-              <my-date-picker name="modelf" [options]="myDatePickerOptions" [(ngModel)]="modelf" required></my-date-picker>
-
-            </div>
-            <div class="col-sm-1">
-              <my-date-picker name="modelt" [options]="myDatePickerOptions" [(ngModel)]="modelt" required></my-date-picker>
-            </div>
-
-            <div class="col-sm-2">
-              <input type="text" [(ngModel)]="EmpName" name="EmpName" class="form-control" />
-            </div>
-
-
-            <div class="col-sm-1">
-              <input type="text" [(ngModel)]="filterValue" name="filterValue" class="form-control">
-            </div>
-            <div class="col-sm-1">
-              <button type="button" (click)="getdata(f)" class="btn btn-default">
-                Go
-              </button>
-            </div>
+            Vendor Name
+            <select ngModel name="VendorName" class="form-control" (change)="getRouteNosbyVendor(f)">
+              <option *ngFor="let obj of vname" [value]="obj.name">{{obj.name}}</option>
+            </select>
           </div>
+
+          <div class="col-sm-1">
+            Route No
+            <select ngModel name="RouteNo" class="form-control" (change)="getCabnobyVendorandRouteNo(f)">
+              <option *ngFor="let obj of rname" [value]="obj.name">{{obj.name}}</option>
+            </select>
+          </div>
+
+          <div class="col-sm-2">
+            Cab No
+            <select ngModel name="CabNo" class="form-control">
+              <option *ngFor="let obj of cno" [value]="obj.Cab_No">{{obj.Cab_No}}</option>
+            </select>
+          </div>
+
+          <div class="col-sm-1">
+            From:
+            <my-date-picker name="modelf" [options]="myDatePickerOptions" [(ngModel)]="modelf" required></my-date-picker>
+          </div>
+          <div class="col-sm-1">
+            To:
+            <my-date-picker name="modelt" [options]="myDatePickerOptions" [(ngModel)]="modelt" required></my-date-picker>
+          </div>
+
+          <div class="col-sm-2">
+            Employee Name:
+            <input type="text" [(ngModel)]="EmpName" name="EmpName" class="form-control" />
+          </div>
+
+          <div class="col-sm-2">
+            Search:
+            <input type="text" [(ngModel)]="filterValue" name="filterValue" class="form-control">
+          </div>
+          <div class="col-sm-1">
+            <br>
+            <button type="submit" class="btn btn-default form-control">
+              Go
+            </button>
+          </div>
+
+        </div>
+
+
+        <!-- Filters for Vendorwise Report -->
+        <div class="row top-buffer" *ngIf="filterReport=='Billing_Summary'">
+
+
+          <div class="col-sm-2">
+            Vendor Name
+            <select ngModel name="VendorName" class="form-control">
+              <option *ngFor="let obj of vname" [value]="obj.name">{{obj.name}}</option>
+            </select>
+          </div>
+
+          <div class="col-sm-2">
+            Shift Type
+            <select ngModel name="ShiftType" class="form-control">
+              <option value="1">7 AM - 4 PM</option>
+              <option value="2">10 AM - 7 PM</option>
+              <option value="3">12 PM - 9 PM</option>
+              <option value="5">2 PM - 11 PM</option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            From Date
+            <select ngModel name="FromDate" class="form-control">
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            To Date
+            <select ngModel name="ToDate" class="form-control">
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+            Search:
+            <input type="text" [(ngModel)]="filterValue" name="filterValue" class="form-control">
+          </div>
+          <div class="col-sm-1">
+            <br>
+            <button type="submit" class="btn btn-default form-control">
+              Go
+            </button>
+          </div>
+
         </div>
 
       </form>
@@ -493,7 +512,6 @@
             <th>Vendor Name</th>
             <th>Employee Name</th>
             <th>Date and Time</th>
-            <th> Cab Type</th>
             <th>Trip Type</th>
             <th>Source</th>
             <th>Destination</th>
@@ -502,36 +520,33 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let report of vendorReportDet |  filter:filterValue">
+          <tr *ngFor="let report of reports |  filter:filterValue">
             <td>
-              {{report?.VendorName}}
+              {{report?.Vendor_Name}}
+            </td>
+
+
+            <td>
+              {{report?.Emp_FName}}
             </td>
             <td>
-              <td>
-                <td>
-                  {{report?.EmployeeName}}
-                </td>
-                <td>
-                  {{report?.DateAndTime}}
-                </td>
-                <td>
-                  {{report?.CabType}}
-                </td>
-                <td>
-                  {{report?.TripType}}
-                </td>
-                <td>
-                  {{report?.Source}}
-                </td>
-                <td>
-                  {{report?.Destination}}
-                </td>
-                <td>
-                  {{report?.Zone}}
-                </td>
-                <td>
-                  {{report?.Cost}}
-                </td>
+              {{report?.Date}}
+            </td>
+            <td>
+              {{report?.Other_Addr}}
+            </td>
+            <td>
+              {{report?.Source}}
+            </td>
+            <td>
+              {{report?.Destination}}
+            </td>
+            <td>
+              {{report?.Emp_Zone}}
+            </td>
+            <td>
+              {{report?.Cab_Cost}}
+            </td>
           </tr>
         </tbody>
       </table>
