@@ -11,6 +11,7 @@ import { ReportEmpDetail } from '../Model/ReportEmpDetail';
 import { VendorBilling } from '../Model/VendorBilling'
 import { TransportationCost } from './TransportationCost';
 import { Checkinout } from '../Model/Checkinout';
+import { TransBillReport } from '../Model/TransBillReport';
 import { IMyDpOptions } from 'mydatepicker';
 
 declare var jquery: any;
@@ -29,15 +30,11 @@ export class ReportComponent implements OnInit {
   public employeeDetailReport: ReportEmpDetail;
   public vendorDetailReport: ReportVendorDetail;
   public managerDetailReport: ReportManagerDetail;
-  public transportationCost: TransportationCost;
+  public transBillReport: TransBillReport;
   public BillingSummaryReport: VendorBilling;
   public Checkinoutreport: Checkinout;
   public filterType = '';
   public filterValue;
-  // public toDate;
-  // public fromDate;
-  // public fromMonth;
-  // public year;
   public filterVal;
   public vname = [];
   public rname = [];
@@ -48,6 +45,8 @@ export class ReportComponent implements OnInit {
   public modelt;
   public fdate;
   public tdate;
+  public fromMonth;
+  public year;
 
 
   public filterReport;
@@ -76,7 +75,10 @@ export class ReportComponent implements OnInit {
     //when report type is selected from dashboard
     switch (this.filterReport) {
       case "Unschedule_Summary_ByManager":
+        this.showLoader = true;
         this.reportService.getManagerReport1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+
           this.reports = data;
           console.log(data);
         });
@@ -84,35 +86,55 @@ export class ReportComponent implements OnInit {
         break;
 
       case "Unschedule_Summary_ByEmployee":
+        this.showLoader = true;
+
         this.reportService.getEmployeeReport1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+
           this.reports = data;
           //  this.showDiv = true;
           console.log(data);
         }); break;
 
       case "Unschedule_Summary_ByVendor":
+        this.showLoader = true;
+
         this.reportService.getVendorReport1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+
           this.reports = data;
           //this.showDiv = true;
 
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByVendor":
+        this.showLoader = true;
+
         this.reportService.getVendorReportDetail1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+
           this.reports = data;
           //this.showDiv = true;
 
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByEmployee":
+        this.showLoader = true;
+
         this.reportService.getEmployeeReportDetail1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+
           this.reports = data;
           //this.showDiv = true;
 
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByManager":
+        this.showLoader = true;
+
         this.reportService.getManagerReportDetail1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+
           this.reports = data;
           //this.showDiv = true;
 
@@ -120,11 +142,12 @@ export class ReportComponent implements OnInit {
         }); break;
 
       case "Checkin_Checkout":
-      this.reportService.getVendorNames().subscribe((data) => {
-        this.vname = data;
-
-        console.log(data);
-      }); break;
+      this.showLoader = true;
+        this.reportService.getVendorNames().subscribe((data) => {
+          this.showLoader = false;
+          this.vname = data;
+          console.log(data);
+        }); break;
 
       case "Billing_Summary":
         this.reportService.getVendorNames().subscribe((data) => {
@@ -133,15 +156,7 @@ export class ReportComponent implements OnInit {
           console.log(data);
         }); break;
 
-      // case "Transportation_Billing":
-      // this.reportService.getManagerReportDetail1(this.filterValue).subscribe((data) => {
-      //   this.reports = data;
-      //   //this.showDiv = true;
-
-      //   console.log(data);
-      // }); break;
-
-
+     
     }
 
 
@@ -232,24 +247,17 @@ export class ReportComponent implements OnInit {
   //filter method
   onFilterGo(f) {
 
-    console.log(JSON.stringify(f));
-    console.log(this.filterReport);
+    // console.log("onfilterGo()"+JSON.stringify(f)+"  "+this.filterReport);
 
-    // if (this.filterReport == 'Transportation_Billing') {
-    //   var d = new Date();
 
-    //   if (f.fromMonth > (d.getMonth() + 1)) {
-    //     console.log(f.fromMonth + "/" + f.year);
-    //   } else {
-    //     alert("Cannot show report until this month is complete.");
-    //   }
-    // }
+    if (this.filterReport == 'Transportation_Billing') {
+      var d = new Date();
+      if (f.month > (d.getMonth() + 1)) {
+        alert("Cannot show report until this month is complete.");
+        return;
+      }
+    }
 
-    // this.showLoader = true;
-    // if (this.filterType == '') {
-    //   this.showLoader = false;
-    //   return;
-    // }
 
     // console.log(this.filterType + " " + this.filterValue);
 
@@ -301,19 +309,11 @@ export class ReportComponent implements OnInit {
           console.log(data);
         }); break;
       case "Checkin_Checkout":
-        console.log("case checkin checkout");
         this.getdata(f);
         break;
-      case "Transportation_Billing":
-        this.reportService.getTransportationReport(f.toDate, f.fromDate, f).subscribe((data) => {
-          this.managerDetailReport = data;
-          this.showLoader = false;
-          this.showDiv = false;
-          this.showTransportationReportResult = true;
-          console.log(data);
-        }); break;
-        default:
-          console.log(this.filterReport);
+        
+      default:
+        console.log(this.filterReport);
     }
 
 
@@ -402,16 +402,16 @@ export class ReportComponent implements OnInit {
 
 
     if (typeof this.modelf === 'undefined')
-    this.fdate = "";
-  else
-    this.fdate = this.modelf.formatted;
+      this.fdate = "";
+    else
+      this.fdate = this.modelf.formatted;
 
-  if (typeof this.modelt === 'undefined')
-    this.tdate = "";
-  else
-    this.tdate = this.modelt.formatted;
+    if (typeof this.modelt === 'undefined')
+      this.tdate = "";
+    else
+      this.tdate = this.modelt.formatted;
 
-    var valarr = [f.RouteNo,  this.fdate, this.tdate, f.CabNo, this.EmpName, f.VendorName];
+    var valarr = [f.RouteNo, this.fdate, this.tdate, f.CabNo, this.EmpName, f.VendorName];
 
     for (var x in valarr)
       if (typeof valarr[x] === 'undefined')
@@ -423,24 +423,28 @@ export class ReportComponent implements OnInit {
     if (valarr[4] != "") {
       var arr = valarr[4].split(" ");
       emp_fname = arr[0];
-      emp_lname = arr[1];}
+      emp_lname = arr[1];
+    }
 
-      this.reportService.getCheckinoutreport(valarr[0], valarr[1], valarr[2], valarr[3], emp_fname, emp_lname, valarr[5]).subscribe
+    this.reportService.getCheckinoutreport(valarr[0], valarr[1], valarr[2], valarr[3], emp_fname, emp_lname, valarr[5]).subscribe
       ((data) => {
         this.Checkinoutreport = data;
 
-        console.log("in subscribe()"+data);
+        console.log("in subscribe()" + data);
 
       });
-    }
-  
+  }
+
 
 
   refreshBody() {
 
     switch (this.filterReport) {
       case "Unschedule_Summary_ByManager":
+        this.showLoader = true;
         this.reportService.getManagerReport1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+
           this.reports = data;
           console.log(data);
         });
@@ -448,35 +452,55 @@ export class ReportComponent implements OnInit {
         break;
 
       case "Unschedule_Summary_ByEmployee":
+        this.showLoader = true;
+
         this.reportService.getEmployeeReport1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+
           this.reports = data;
           //  this.showDiv = true;
           console.log(data);
         }); break;
 
       case "Unschedule_Summary_ByVendor":
+        this.showLoader = true;
+
         this.reportService.getVendorReport1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+
           this.reports = data;
           //this.showDiv = true;
 
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByVendor":
+        this.showLoader = true;
+
         this.reportService.getVendorReportDetail1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+
           this.reports = data;
           //this.showDiv = true;
 
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByEmployee":
+        this.showLoader = true;
+
         this.reportService.getEmployeeReportDetail1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+
           this.reports = data;
           //this.showDiv = true;
 
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByManager":
+        this.showLoader = true;
+
         this.reportService.getManagerReportDetail1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+
           this.reports = data;
           //this.showDiv = true;
 
@@ -484,27 +508,23 @@ export class ReportComponent implements OnInit {
         }); break;
 
       case "Checkin_Checkout":
-      this.reportService.getVendorNames().subscribe((data) => {
-        this.vname = data;
-
-        console.log(data);
-      }); break;
-
-      case "Billing_Summary":
+      this.showLoader = true;
         this.reportService.getVendorNames().subscribe((data) => {
           this.vname = data;
+          this.showLoader = false;
           console.log(data);
         }); break;
 
-      // case "Transportation_Billing":
-      // this.reportService.getManagerReportDetail1(this.filterValue).subscribe((data) => {
-      //   this.reports = data;
-      //   //this.showDiv = true;
-
-      //   console.log(data);
-      // }); break;
+      case "Billing_Summary":
+      this.showLoader = true;
+        this.reportService.getVendorNames().subscribe((data) => {
+          this.vname = data;
+          this.showLoader = false;
+          console.log(data);
+        }); break;
 
     }
+
 
   }
 
@@ -527,16 +547,14 @@ export class ReportComponent implements OnInit {
   // Transportation Cost Report ---Start
 
   onTptCostForm(f) {
-
-    console.log("In tpt cost");
-
-    // this.reportService.getTransportationReport(this.fromMonth, this.year, f).subscribe((data) => {
-    //   console.log(data);
-
-    //   this.transportationCost = data;
-
-    // });
-
+    this.showLoader=true;    
+    this.reportService.getTransportationReport(this.fromMonth, this.year, f).subscribe((data) => {
+      console.log(data);
+      this.showLoader=false;
+      this.transBillReport = data;
+      this.showTransportationReportResult=true;
+      this.showDiv=false;
+    });
 
   }
 

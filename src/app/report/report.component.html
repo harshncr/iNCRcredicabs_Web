@@ -24,7 +24,7 @@
           <!-- Type of Report Selector  -->
           <div class="col-md-3">
             Type of Reports:
-            <select [(ngModel)]="filterReport" name="filterIt" class="form-control" (change)=refreshBody()>
+            <select [(ngModel)]="filterReport" name="filterIt" class="form-control" (change)="refreshBody()">
               <!-- <option value="Regular_Detailed_ByManager">Regular_Detailed_ByManager</option>
               <option value="Regular_Detailed_ByVendor">Regular_Detailed_ByVendor</option>
               <option value="Regular_Detailed_ByEmployee">Regular_Detailed_ByEmployee</option>
@@ -308,21 +308,25 @@
             <th>Manager Name</th>
             <th> Number of Employees</th>
             <th>Cost</th>
+            <th>Number of cabs</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let report of managerReport |  filter:filterValue">
+          <tr *ngFor="let report of reports  |  filter:filterValue">
             <td>
-              {{report?.ManagerId}}
+              {{report?.Manager}}
             </td>
             <td>
               {{report?.ManagerName}}
             </td>
             <td>
-              {{report?.NoOfEmployees}}
+              {{report?.NE}}
             </td>
             <td>
-              {{report?.TotalCost}}
+              {{report?.Cost}}
+            </td>
+            <td>
+              {{report?.NC}}
             </td>
           </tr>
         </tbody>
@@ -333,26 +337,23 @@
       <table class="table table-bordered table-hover table-stripped">
         <thead>
           <tr>
-            <th>Vendor Id</th>
             <th>Vendor Name</th>
             <th> Number of Cabs</th>
             <th>Cost</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let report of vendorReport |  filter:filterValue">
+          <tr *ngFor="let report of reports |  filter:filterValue">
             <td>
-              {{report?.VendorId}}
+              {{report?.Vendor_Name}}
             </td>
             <td>
-              {{report?.VendorName}}
+              {{report?.Cabs_Count}}
             </td>
             <td>
-              {{report?.NoOfCabs}}
+              {{report?.Cab_Cost}}
             </td>
-            <td>
-              {{report?.TotalCost}}
-            </td>
+
           </tr>
         </tbody>
       </table>
@@ -365,22 +366,29 @@
             <th>Employee QLId</th>
             <th>Employee Name</th>
             <th>Manager QLId</th>
-            <th>Manager name</th>
             <th>No. of cabs</th>
             <th>Cost</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let report of employeeReport |  filter:filterValue">
+          <tr *ngFor="let report of reports  |  filter:filterValue">
             <td>
-              {{report?.EmployeeId}}
+              {{report?.Emp_Qlid}}
             </td>
             <td>
-              {{report?.EmployeeName}}
+              {{report?.Emp_FName}}
             </td>
             <td>
-              {{report?.TotalCost}}
+              {{report?.Emp_Mgr_Qlid1}}
             </td>
+
+            <td>
+              {{report?.Cab_No}}
+            </td>
+            <td>
+              {{report?.Cab_Cost}}
+            </td>
+
           </tr>
         </tbody>
       </table>
@@ -404,31 +412,29 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let report of employeeReportDet |  filter:filterValue">
+          <tr *ngFor="let report of reports  |  filter:filterValue">
             <td>
-              {{report?.EmployeeQlid}}
+              {{report?.Emp_Qlid}}
             </td>
             <td>
-              {{report?.EmployeeName}}
+              {{report?.Emp_FName}}
             </td>
             <td>
-              {{report?.DateAndTime}}
+              {{report?.Start_Date_Time}}
             </td>
             <td>
-              {{report?.VendorName}}
+              {{report?.Vendor_Name}}
             </td>
             <td>
-              {{report?.CabType}}
+              {{report?.Cab_Type}}
             </td>
             <td>
-              {{report?.TripType}}
-            </td>
-            <td>
-              {{report?.CabNo}}
+              {{report?.Cab_No}}
             </td>
             <td>
               {{report?.Source}}
             </td>
+
             <td>
               {{report?.Destination}}
             </td>
@@ -436,9 +442,11 @@
               {{report?.Zone}}
             </td>
             <td>
-              {{report?.Cost}}
+              {{report?.TripType}}
             </td>
-
+            <td>
+              {{report?.Cab_Cost}}
+            </td>
 
           </tr>
         </tbody>
@@ -450,11 +458,10 @@
         <thead>
           <tr>
             <th>Manager Name</th>
-            <th>Manager Id</th>
             <th>Employee Name</th>
-            <th>Date and Time</th>
+            <th>Employee Qlid</th>
+            <th>Date</th>
             <th>Vendor Name</th>
-            <th> Cab Type</th>
             <th>Trip Type</th>
             <th>Source</th>
             <th>Destination</th>
@@ -463,43 +470,42 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let report of managerReportDet |  filter:filterValue">
+          <tr *ngFor="let report of reports  |  filter:filterValue">
 
             <td>
-              {{report?.ManagerName}}
+              {{report?.Manager_Name}}
+            </td>
+
+
+            <td>
+              {{report?.Emp_Name}}
             </td>
             <td>
-              {{report?.ManagerId}}
+              {{report?.Emp_Qlid}}
             </td>
             <td>
-              <td>
-                <td>
-                  {{report?.EmployeeName}}
-                </td>
-                <td>
-                  {{report?.DateAndTime}}
-                </td>
-                <td>
-                  {{report?.VendorName}}
-                </td>
-                <td>
-                  {{report?.CabType}}
-                </td>
-                <td>
-                  {{report?.TripType}}
-                </td>
-                <td>
-                  {{report?.Source}}
-                </td>
-                <td>
-                  {{report?.Destination}}
-                </td>
-                <td>
-                  {{report?.Zone}}
-                </td>
-                <td>
-                  {{report?.Cost}}
-                </td>
+              {{report?.Start_Date}}
+            </td>
+            <td>
+              {{report?.Vendor_Name}}
+            </td>
+
+            <td>
+              {{report?.Trip_Type}}
+            </td>
+            <td>
+              {{report?.Source}}
+            </td>
+            <td>
+              {{report?.Destination}}
+            </td>
+            <td>
+              {{report?.Emp_Zone}}
+            </td>
+            <td>
+              {{report?.Cab_Cost}}
+            </td>
+
           </tr>
         </tbody>
       </table>
@@ -524,7 +530,6 @@
             <td>
               {{report?.Vendor_Name}}
             </td>
-
 
             <td>
               {{report?.Emp_FName}}
@@ -721,8 +726,8 @@
 
 
 
-    <div *ngIf="filterReport =='Transportation_Billing'&& showDiv">
-      <div class="col-md-9 col-md-offset-2" id="employee-form">
+    <div>
+      <div class="col-md-9 col-md-offset-2" id="employee-form" *ngIf="filterReport =='Transportation_Billing'&& showDiv">
         <form name="myForm" #f="ngForm" (ngSubmit)="onTptCostForm(f.value)" class="form-horizontal" role="form">
           <fieldset>
 
@@ -1101,9 +1106,9 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
-&& ( altered.empQlid || saveClicked )" class="text-danger form-error">
-            {{ formError.empQlid.message }}
-          </div> -->
+                          && ( altered.empQlid || saveClicked )" class="text-danger form-error">
+                            {{ formError.empQlid.message }}
+                          </div> -->
                     </div>
                   </div>
                 </div>
@@ -1112,6 +1117,7 @@
 
               </div>
             </div>
+
             <legend>Standby Cabs</legend>
             <div class="form-group">
               <div class="row">
@@ -1131,12 +1137,12 @@
                   </div>
                   <!-- Error row -->
                   <div class="row">
-                    <div class="col-sm-3">
-                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-            || saveClicked )" class="text-danger form-error">
-                {{ formError.empFName.message }}
-              </div> -->
-                    </div>
+                    <!-- <div class="col-md-12" *ngIf="formError.empFName.error && ( altered.empFName
+                    || saveClicked )" class="text-danger form-error">
+                      
+                        {{ formError.empFName.message }}
+                     
+                    </div> -->
                   </div>
                 </div>
 
@@ -1155,11 +1161,10 @@
                   </div>
                   <!-- Error row -->
                   <div class="row">
-                    <div class="col-sm-3">
-                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-            || saveClicked )" class="text-danger form-error">
-                {{ formError.empFName.message }}
-              </div> -->
+                    <div class="col-md-12">
+                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -1180,10 +1185,9 @@
                   <!-- Error row -->
                   <div class="row">
                     <div class="col-sm-3">
-                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-            || saveClicked )" class="text-danger form-error">
-                {{ formError.empFName.message }}
-              </div> -->
+                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName    || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -1209,10 +1213,9 @@
                   <!-- Error row -->
                   <div class="row">
                     <div class="col-sm-3">
-                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-            || saveClicked )" class="text-danger form-error">
-                {{ formError.empFName.message }}
-              </div> -->
+                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName   || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -1233,10 +1236,9 @@
                   <!-- Error row -->
                   <div class="row">
                     <div class="col-sm-3">
-                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-            || saveClicked )" class="text-danger form-error">
-                {{ formError.empFName.message }}
-              </div> -->
+                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName   || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -1265,8 +1267,8 @@
                     <div class="col-sm-3">
                       <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
                       || saveClicked )" class="text-danger form-error">
-                            {{ formError.empFName.message }}
-                          </div> -->
+                        {{ formError.empFName.message }}
+                      </div> -->
                     </div>
                   </div>
 
@@ -1290,8 +1292,8 @@
                     <div class="col-sm-3">
                       <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
                       || saveClicked )" class="text-danger form-error">
-                            {{ formError.empFName.message }}
-                          </div> -->
+                        {{ formError.empFName.message }}
+                      </div> -->
                     </div>
                   </div>
 
@@ -1325,8 +1327,8 @@
                     <div class="col-sm-3">
                       <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
                               || saveClicked )" class="text-danger form-error">
-                            {{ formError.empFName.message }}
-                          </div> -->
+                        {{ formError.empFName.message }}
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -1348,8 +1350,8 @@
                     <div class="col-sm-3">
                       <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
                                 || saveClicked )" class="text-danger form-error">
-                              {{ formError.empFName.message }}
-                            </div> -->
+                        {{ formError.empFName.message }}
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -1372,8 +1374,8 @@
                     <div class="col-sm-3">
                       <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
                                   || saveClicked )" class="text-danger form-error">
-                                {{ formError.empFName.message }}
-                              </div> -->
+                        {{ formError.empFName.message }}
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -1401,10 +1403,9 @@
                   <!-- Error row -->
                   <div class="row">
                     <div class="col-sm-3">
-                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-          || saveClicked )" class="text-danger form-error">
-                {{ formError.empFName.message }}
-              </div> -->
+                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -1433,65 +1434,62 @@
                   <!-- Error row -->
                   <div class="row">
                     <div class="col-sm-3">
-                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-            || saveClicked )" class="text-danger form-error">
-          {{ formError.empFName.message }}
-        </div> -->
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Overall HR tax  -->
-                <div class="col-md-4">
-
-                  <!-- Input Field & Labels -->
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <span class="input-label fadeIn">
-                        <strong>Overall HR tax
-                        </strong>
-                      </span>
-                      <input type="text" name="overallHRtax" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallHRtax=true"
-                        required>
-                    </div>
-                  </div>
-                  <!-- Error row -->
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-              || saveClicked )" class="text-danger form-error">
-            {{ formError.empFName.message }}
-          </div> -->
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Overall Taxes -->
-                <div class="col-md-4">
-
-                  <!-- Input Field & Labels -->
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <span class="input-label fadeIn">
-                        <strong>Overall Taxes (GST)
-                        </strong>
-                      </span>
-                      <input type="text" name="overallTaxes" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallTaxes=true"
-                        required>
-                    </div>
-                  </div>
-                  <!-- Error row -->
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-            || saveClicked )" class="text-danger form-error">
-                  {{ formError.empFName.message }}
-                </div> -->
+                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }} -->
                     </div>
                   </div>
                 </div>
               </div>
+
+              <!-- Overall HR tax  -->
+              <div class="col-md-4">
+
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Overall HR tax
+                      </strong>
+                    </span>
+                    <input type="text" name="overallHRtax" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallHRtax=true"
+                      required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName   || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Overall Taxes -->
+              <div class="col-md-4">
+
+                <!-- Input Field & Labels -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span class="input-label fadeIn">
+                      <strong>Overall Taxes (GST)
+                      </strong>
+                    </span>
+                    <input type="text" name="overallTaxes" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallTaxes=true"
+                      required>
+                  </div>
+                </div>
+                <!-- Error row -->
+                <div class="row">
+                  <div class="col-sm-3">
+                    <!-- <div *ngIf="formError.empFName.error && ( altered.empFName   || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
+                  </div>
+                </div>
+              </div>
             </div>
+
 
             <div class="form-group">
               <div class="row">
@@ -1513,10 +1511,9 @@
                   <!-- Error row -->
                   <div class="row">
                     <div class="col-sm-3">
-                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-            || saveClicked )" class="text-danger form-error">
-                  {{ formError.empFName.message }}
-                </div> -->
+                      <!-- <div *ngIf="formError.empFName.error && ( altered.empFName  || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -1594,8 +1591,8 @@
         </form>
       </div>
 
-      <table *ngIf="showTransportationReportResult" class="table table-bordered table-hover table-stripped" item-width="30%">
-        <tbody>
+      <table *ngIf="showTransportationReportResult && !showDiv" class="table table-bordered table-hover table-stripped" item-width="30%">
+        <tbody *ngFor="let report of transBillReport"  >
           <tr>
             <td>
               <strong> Description</strong>
@@ -1610,13 +1607,13 @@
 
           <tr>
             <td>
-              <strong>Cost of Scheduled Cabs</strong>
+              <strong>Cost of Regular Cabs</strong>
             </td>
             <td>
-              <strong> {{schcost}}</strong>
+              <strong> {{report?.Cost_of_Scheduled_Cabs}}</strong>
             </td>
             <td>
-              <strong></strong>
+              <strong>{{report?.Cost_of_Scheduled_Cabs / report?.foreignExPrice}}</strong>
             </td>
           </tr>
 
@@ -1625,10 +1622,10 @@
               Toll
             </td>
             <td>
-              {{tollcost}}
+              {{report?.toll_regular_cab}}
             </td>
             <td>
-
+                {{report?.toll_regular_cab / report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1636,9 +1633,10 @@
               GPS
             </td>
             <td>
-              <strong>{{gps}}</strong>
+             {{report?.gps_regular_cab}}
             </td>
             <td>
+                {{report?.gps_regular_cab / report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1646,10 +1644,10 @@
               UP Tax
             </td>
             <td>
-              {{uptax}}
+              {{report?.uptax_regular_cab}}
             </td>
             <td>
-
+                {{report?.uptax_regular_cab / report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1657,10 +1655,10 @@
               Haryana Tax
             </td>
             <td>
-              {{harytax}}
+              {{report?.hrtax_regular_cab}}
             </td>
             <td>
-
+                {{report?.hrtax_regular_cab /report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1668,20 +1666,21 @@
               GST
             </td>
             <td>
-              {{gst}}
+              {{report?.gstTax_regular_cab}}
             </td>
             <td>
-
+                {{report?.gstTax_regular_cab/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
             <td>
-              <strong>Scheduled Cab Cost </strong>
+              <strong>Regular Cab Cost </strong>
             </td>
             <td>
-              {{schcabcost}}
+              {{report?.Scheduled_Cab_Cost}}
             </td>
             <td>
+                {{report?.Scheduled_Cab_Cost/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1689,20 +1688,21 @@
               Employee Contribution
             </td>
             <td>
-              {{employeecontr}}
+              {{report?.emp_contrib_regular}}
             </td>
             <td>
+                {{report?.emp_contrib_regular/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
             <td>
-              <strong> Scheduled Cab Cost less Emp Contribution</strong>
+              <strong> Regular Cab Cost less Emp Contribution</strong>
             </td>
             <td>
-              <strong>{{less}} </strong>
+              <strong>{{report?.Scheduled_Cab_Cost_less_Emp_Contribution}} </strong>
             </td>
             <td>
-              <strong></strong>
+              <strong>{{report?.Scheduled_Cab_Cost_less_Emp_Contribution/report?.foreignExPrice}} </strong>
             </td>
           </tr>
           <hr>
@@ -1711,10 +1711,10 @@
               <strong>Cost of Shift Cabs</strong>
             </td>
             <td>
-              <strong>{{costshift}}</strong>
+              <strong>{{report?.Cost_of_Shift_Cabs}}</strong>
             </td>
             <td>
-              <strong></strong>
+              <strong>{{report?.Cost_of_Shift_Cabs/report?.foreignExPrice}}</strong>
             </td>
           </tr>
           <tr>
@@ -1722,10 +1722,10 @@
               Toll
             </td>
             <td>
-              {{tollcostshift}}
+              {{report?.toll_shift_cab}}
             </td>
             <td>
-
+                {{report?.toll_shift_cab/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1733,9 +1733,10 @@
               GPS
             </td>
             <td>
-              <strong>{{gpsshift}}</strong>
+              {{report?.gps_shift_cab}}
             </td>
             <td>
+                {{report?.gps_shift_cab/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1743,10 +1744,10 @@
               UP Tax
             </td>
             <td>
-              {{uptaxshift}}
+              {{report?.uptax_shift_cab}}
             </td>
             <td>
-
+                {{report?.uptax_shift_cab/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1754,10 +1755,10 @@
               Haryana Tax
             </td>
             <td>
-              {{harytaxshift}}
+              {{report?.hrtax_shift_cab}}
             </td>
             <td>
-
+                {{report?.hrtax_shift_cab/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1765,20 +1766,21 @@
               GST
             </td>
             <td>
-              {{gstshift}}
+              {{report?.gstTax_shift_cab}}
             </td>
             <td>
-
+                {{report?.gstTax_shift_cab/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
             <td>
-              <strong>Scheduled Cab Cost </strong>
+              <strong>Shift Cab Cost </strong>
             </td>
             <td>
-              {{schcabcostshift}}
+              {{report?.Shift_Cab_Cost}}
             </td>
             <td>
+                {{report?.Shift_Cab_Cost/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1786,23 +1788,23 @@
               Employee Contribution
             </td>
             <td>
-              {{employeecontrshift}}
+              {{report?.emp_contrib_shift}}
             </td>
             <td>
+                {{report?.emp_contrib_shift/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
             <td>
-              <strong> Scheduled Cab Cost less Emp Contribution</strong>
+              <strong> Shift Cab Cost less Emp Contribution</strong>
             </td>
             <td>
-              <strong>{{lessshift}} </strong>
+              <strong>{{report?.Shift_Cab_Cost_less_Emp_Contribution}} </strong>
             </td>
             <td>
-              <strong></strong>
+              <strong>{{report?.Shift_Cab_Cost_less_Emp_Contribution/report?.foreignExPrice}}</strong>
             </td>
           </tr>
-
 
           <hr>
           <tr>
@@ -1810,10 +1812,10 @@
               <strong>Cost of Unscheduled Cabs</strong>
             </td>
             <td>
-              <strong>{{costunsched}}</strong>
+              <strong>{{report?.Cost_of_Unscheduled_Cabs}}</strong>
             </td>
             <td>
-              <strong></strong>
+              <strong>{{report?.Cost_of_Unscheduled_Cabs/report?.foreignExPrice}}</strong>
             </td>
           </tr>
           <tr>
@@ -1821,10 +1823,10 @@
               Toll
             </td>
             <td>
-              {{tollcostunsched}}
+              {{report?.toll_unscheduled_cab}}
             </td>
             <td>
-
+                {{report?.toll_unscheduled_cab/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1832,9 +1834,9 @@
               GST
             </td>
             <td>
-              <strong>{{gstunsched}}</strong>
+              <strong>{{report?.gstTax_unscheduled}}</strong>
             </td>
-            <td>
+            <td>{{report?.gstTax_unscheduled/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1842,10 +1844,10 @@
               <strong>Unscheduled Cabs Cost</strong>
             </td>
             <td>
-              <strong>{{unschedcost}}</strong>
+              <strong>{{report?.Unscheduled_Cab_Costs}}</strong>
             </td>
             <td>
-              <strong></strong>
+              <strong>{{report?.Unscheduled_Cab_Costs/report?.foreignExPrice}}</strong>
             </td>
           </tr>
           <hr>
@@ -1855,10 +1857,10 @@
               <strong>Cost of Stand-By Cab-Fixed Mileage</strong>
             </td>
             <td>
-              <strong>{{fixedmile}}</strong>
+              <strong>{{report?.Cost_of_Standby_Cab}}</strong>
             </td>
             <td>
-              <strong></strong>
+              <strong>{{report?.Cost_of_Standby_Cab/report?.foreignExPrice}}</strong>
             </td>
           </tr>
           <tr>
@@ -1866,9 +1868,10 @@
               Extra Mileage Cost
             </td>
             <td>
-              {{extramileage}}
+              {{report?.Extra_Mileage_Cost}}
             </td>
             <td>
+                {{report?.Extra_Mileage_Cost/report?.foreignExPrice}}
 
             </td>
           </tr>
@@ -1877,9 +1880,9 @@
               GST
             </td>
             <td>
-              <strong>{{gstfixed}}</strong>
+              <strong>{{report?.standByTax}}</strong>
             </td>
-            <td>
+            <td>{{report?.standByTax/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1887,10 +1890,10 @@
               <strong>Standby Cab Cost</strong>
             </td>
             <td>
-              <strong>{{standbycost}}</strong>
+              <strong>{{report?.Standby_Cab_Cost}}</strong>
             </td>
             <td>
-              <strong></strong>
+              <strong>{{report?.Standby_Cab_Cost/report?.foreignExPrice}}</strong>
             </td>
           </tr>
 
@@ -1901,10 +1904,10 @@
               <strong>Cost of cabs for other purposes</strong>
             </td>
             <td>
-              <strong>{{costother}}</strong>
+              <strong>{{report?.Cost_of_Cabs_for_Other_Purposes}}</strong>
             </td>
             <td>
-              <strong></strong>
+              <strong>{{report?.Cost_of_Cabs_for_Other_Purposes/report?.foreignExPrice}}</strong>
             </td>
           </tr>
 
@@ -1913,9 +1916,9 @@
               GST
             </td>
             <td>
-              {{gstother}}
+              {{report?.otherCabGST}}
             </td>
-            <td>
+            <td>{{report?.otherCabGST/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1923,24 +1926,34 @@
               <strong> Cab Cost for other purposes</strong>
             </td>
             <td>
-              <strong>{{totalother}}</strong>
+              <strong>{{report?.Cabs_for_Other_Purposes_Cost}}</strong>
             </td>
             <td>
-              <strong></strong>
+              <strong>{{report?.Cabs_for_Other_Purposes_Cost/report?.foreignExPrice}}</strong>
             </td>
           </tr>
           <hr>
-
-
+          <tr>
+              <td>
+                <strong>Total Transportation Cost for the Month</strong>
+              </td>
+              <td>
+                <strong>{{report?.Total_Transportation_Cost_for_the_Month}}</strong>
+              </td>
+              <td>
+                <strong>{{report?.Total_Transportation_Cost_for_the_Month/report?.foreignExPrice}}</strong>
+              </td>
+            </tr>
+          <hr>
           <tr>
             <td>
-              <strong>Cost of escort Security Guard</strong>
+              <strong>Cost of Escort Security Guard</strong>
             </td>
             <td>
-              <strong>{{costguard}}</strong>
+              <strong>{{report?.escortGuardCost}}</strong>
             </td>
             <td>
-              <strong></strong>
+              <strong>{{report?.escortGuardCost/report?.foreignExPrice}}</strong>
             </td>
           </tr>
 
@@ -1949,9 +1962,9 @@
               Taxes
             </td>
             <td>
-              {{guardtaxes}}
+              {{report?.escortGuardTaxes}}
             </td>
-            <td>
+            <td>{{report?.escortGuardTaxes/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1959,139 +1972,113 @@
               <strong> Total Amount Security Guard</strong>
             </td>
             <td>
-              <strong>{{totalamountguard}}</strong>
+              <strong>{{report?.Total_Amount_Security_Guard}}</strong>
             </td>
             <td>
-              <strong></strong>
+              <strong>{{report?.Total_Amount_Security_Guard/report?.foreignExPrice}}</strong>
             </td>
           </tr>
           <tr>
-            <td>
-              <strong>Escort Security Drop Cost</strong>
-            </td>
-            <td>
-              <strong>{{dropamountguard}}</strong>
-            </td>
-            <td>
-              <strong></strong>
-            </td>
-          </tr>
-
-
-          <tr>
-            <td>
-              Escort Security Guard Cost
-            </td>
-            <td>
-              {{esccostinr}}
-            </td>
-            <td>
-
-            </td>
-          </tr>
+              <td>
+                Escort Security Drop Cost
+              </td>
+              <td>
+                {{report?.escortGuardDropDutyCost}}
+              </td>
+              <td>
+                  {{report?.escortGuardDropDutyCost/report?.foreignExPrice}}
+              </td>
+            </tr>
 
           <tr>
             <td>
-              Transport Team Mobile Cost
+              <strong>Escort Security Guards Cost</strong>
             </td>
             <td>
-              {{teammobcost}}
-            </td>
-            <td></td>
-          </tr>
-
-
-          <tr>
-            <td>
-              Transport+Escort Security
+              {{report?.Escort_Security_Guards}}
             </td>
             <td>
-              {{transesc}}
-            </td>
-            <td></td>
-          </tr>
-
-
-          <tr>
-            <td>
-              <strong> Number of employees in Scheduled Cabs(Month)</strong>
-            </td>
-            <td>
-              {{numbmonthsch}}
-            </td>
-            <td>
-
+                {{report?.Escort_Security_Guards/report?.foreignExPrice}}
             </td>
           </tr>
-
+<hr>
           <tr>
             <td>
-              <strong> Number of employees in Scheduled(Part of Month)</strong>
+                <strong> Transport Team Mobile Cost</strong>
             </td>
             <td>
-              {{numbmonthschpart}}
+              {{report?.tptMobCost}}
             </td>
-            <td></td>
+            <td> {{report?.tptMobCost/report?.foreignExPrice}}</td>
           </tr>
-
+<hr>
           <tr>
             <td>
-              <strong>Total Employees</strong>
+              <strong>Transport+Escort Security</strong>
             </td>
             <td>
-              {{totalemp}}
+              {{report?.Transport_plus_Escort_Security}}
             </td>
-            <td></td>
+            <td> {{report?.Transport_plus_Escort_Security/report?.foreignExPrice}}</td>
           </tr>
+<hr>
           <tr>
             <td>
-              <strong> Number of employees used cab in shift </strong>
+              <strong> Number of employees in Regular Cabs</strong>
             </td>
             <td>
-              {{numbcabshift}}
+              {{report?.total_no_of_regular_employees}}
             </td>
-            <td></td>
+            
           </tr>
-
-
-
+    
           <tr>
             <td>
-              Scheduled Small Cabs
+              <strong> Number of Employees in Shift Cabs </strong>
             </td>
             <td>
-              {{schsmallcab}}
+              {{report?.total_no_shift_cab}}
             </td>
-            <td></td>
+           
+          </tr>
+<hr>
+          <tr>
+            <td>
+              Regular Small Cabs
+            </td>
+            <td>
+              {{report?.total_no_regular_cab_small}}
+            </td>
+           
           </tr>
 
           <tr>
             <td>
-              Scheduled Big Cabs
+              Regular Big Cabs
             </td>
             <td>
-              {{schbigcab}}
+              {{report?.total_no_regular_cab_big}}
             </td>
-            <td></td>
+           
           </tr>
 
           <tr>
             <td>
-              <strong> Scheduled Cabs</strong>
+              <strong>Total Regular Cabs</strong>
             </td>
             <td>
-              {{schcab}}
+              {{report?.total_no_regular_cab}}
             </td>
-            <td></td>
+            
           </tr>
           <tr>
             <td>
               Shift Cabs Small
             </td>
             <td>
-              {{shiftsmallcab}}
+              {{report?.total_no_shift_cab_small}}
             </td>
-            <td></td>
+            
           </tr>
 
           <tr>
@@ -2099,18 +2086,18 @@
               Shift Cabs Big
             </td>
             <td>
-              {{shiftbigcab}}
+              {{report?.total_no_shift_cab_big}}
             </td>
-            <td></td>
+          
           </tr>
           <tr>
             <td>
               <strong>Total Shift Cabs</strong>
             </td>
             <td>
-              {{totshiftcab}}
+              {{report?.total_no_shift_cab}}
             </td>
-            <td></td>
+          
           </tr>
 
           <tr>
@@ -2118,9 +2105,9 @@
               Total Shift and Scheduled Cabs
             </td>
             <td>
-              {{totalshiftsch}}
+              {{report?.total_no_regular_and_shift_cab}}
             </td>
-            <td></td>
+            
           </tr>
 
           <tr>
@@ -2128,12 +2115,10 @@
               Unscheduled Cabs
             </td>
             <td>
-              {{unschcab}}
+              {{report?.total_no_of_unscheduled_cabs}}
             </td>
-            <td></td>
+           
           </tr>
-
-
 
           <tr>
 
@@ -2149,67 +2134,22 @@
               <strong>Cost(in USD)</strong>
             </td>
           </tr>
-
-
-          <tr>
+          <tr *ngFor="let v of report?.vendor ">
             <td>
-              Super Shuttle
+                {{v?.vendor_name}}
             </td>
             <td>
-              {{supershuttle}}
+                {{v?.vendor_total_cost}}
             </td>
-            <td></td>
+            <td>{{v?.vendor_total_cost/report?.foreignExPrice}}</td>
           </tr>
-
-          <tr>
-            <td>
-              SRKT
-            </td>
-            <td>
-              {{SRKT}}
-            </td>
-            <td>
-
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              Chanson
-            </td>
-            <td>
-              {{chanson}}
-            </td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>
-              Absolute Solutions
-            </td>
-            <td>
-              {{absolute}}
-            </td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>
-              SLG tour and travels
-            </td>
-            <td>
-              {{slg}}
-            </td>
-            <td></td>
-          </tr>
-
           <tr>
             <td>
               Total
             </td>
             <td>
 
-              {{total}}
+              {{report?.total}}
             </td>
             <td></td>
           </tr>
@@ -2225,50 +2165,50 @@
 
           <tr>
             <td>
-              Scheduled Cab Number of Users
+              Regular Cab Number of Users
             </td>
             <td>
-              {{schnumbusr}}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Scheduled Cab Number of Big Cabs
-            </td>
-            <td>
-              {{schnumbbig}}
+              {{report?.total_no_of_regular_employees}}
             </td>
           </tr>
           <tr>
             <td>
-              Scheduled Cab Big Cab Cost
+              Regular Cab Number of Big Cabs
             </td>
             <td>
-              {{schbigcost}}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Scheduled Cab Number of Small Cabs
-            </td>
-            <td>
-              {{schnumbsmall}}
+              {{report?.total_no_regular_cab_big}}
             </td>
           </tr>
           <tr>
             <td>
-              Scheduled Cab Small Cabs Cost
+              Regular Cab Big Cab Cost
             </td>
             <td>
-              {{schsmallcost}}
+              {{report?.total_cost_regular_cab_big}}
             </td>
           </tr>
           <tr>
             <td>
-              Scheduled Cab Cost with Taxes,Toll,GPS Charges
+              Regular Cab Number of Small Cabs
             </td>
             <td>
-              {{schcosttax}}
+              {{report?.total_no_regular_cab_small}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Regular Cab Small Cabs Cost
+            </td>
+            <td>
+              {{report?.total_cost_regular_cab_small}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Regular Cab Cost with Taxes,Toll,GPS Charges
+            </td>
+            <td>
+              {{report?.Scheduled_Cab_Cost_less_Emp_Contribution}}
             </td>
           </tr>
           <tr>
@@ -2276,7 +2216,7 @@
               Shift Cab Users
             </td>
             <td>
-              {{shiftnumbusr}}
+              {{report?.total_no_of_shift_employees}}
             </td>
           </tr>
           <tr>
@@ -2284,7 +2224,7 @@
               Shift Cabs Number of Big Cabs
             </td>
             <td>
-              {{shiftnumbbig}}
+              {{report?.total_no_shift_cab_big}}
             </td>
           </tr>
           <tr>
@@ -2292,7 +2232,7 @@
               Shift Cabs Big Cabs Cost
             </td>
             <td>
-              {{shiftcostbig}}
+              {{report?.total_cost_shift_cab_big}}
             </td>
           </tr>
           <tr>
@@ -2300,7 +2240,7 @@
               Shift Cab Number of Small Cabs
             </td>
             <td>
-              {{shiftnumbsmall}}
+              {{report?.total_no_shift_cab_small}}
             </td>
           </tr>
           <tr>
@@ -2308,7 +2248,7 @@
               Shift Cabs Small Cab Cost
             </td>
             <td>
-              {{shiftcostsmall}}
+              {{report?.total_cost_shift_cab_small}}
             </td>
           </tr>
           <tr>
@@ -2316,7 +2256,7 @@
               Shift Cab Cost with Taxes,Toll,GPS Charges
             </td>
             <td>
-              {{shiftcosttax}}
+              {{report?.Shift_Cab_Cost_less_Emp_Contribution}}
             </td>
           </tr>
 
@@ -2325,7 +2265,7 @@
               Unschedule Cab Qty
             </td>
             <td>
-              {{unschnumb}}
+              {{report?.total_no_of_unscheduled_cabs}}
             </td>
           </tr>
 
@@ -2334,7 +2274,7 @@
               Unschedule Cab Users
             </td>
             <td>
-              {{unschusrnumb}}
+              {{report?.total_no_of_unscheduled_employees}}
             </td>
           </tr>
 
@@ -2343,7 +2283,7 @@
               Unschedule Cab Cost with Taxes
             </td>
             <td>
-              {{unschcosttax}}
+              {{report?.Unscheduled_Cab_Costs}}
             </td>
           </tr>
 
@@ -2352,7 +2292,7 @@
               Stand By Cab Cost with Taxes
             </td>
             <td>
-              {{standbycosttax}}
+              {{report?.Standby_Cab_Cost}}
             </td>
           </tr>
 
@@ -2361,7 +2301,7 @@
               Cabs for other purposes with taxes
             </td>
             <td>
-              {{otherpurpcosttax}}
+              {{report?.Cabs_for_Other_Purposes_Cost}}
             </td>
           </tr>
 
@@ -2370,7 +2310,7 @@
               Total Cost
             </td>
             <td>
-              {{totalcostcab}}
+              {{report?.total_cost}}
             </td>
           </tr>
 
@@ -2379,7 +2319,7 @@
               Emp. Contribution
             </td>
             <td>
-              {{empcontrib}}
+              {{report?.overall_emp_contri}}
             </td>
           </tr>
 
@@ -2388,7 +2328,7 @@
               Total transportation cost
             </td>
             <td>
-              {{totaltranscost}}
+              {{report?.Total_Transortation_Cost_for_the_Month}}
             </td>
           </tr>
 
@@ -2397,17 +2337,16 @@
               Escort Guard Billing
             </td>
             <td>
-              {{escortbill}}
+              {{report?.Escort_Security_Guards}}
             </td>
           </tr>
-
 
           <tr>
             <td>
               Escort guard drop duty cost
             </td>
             <td>
-              {{escortdropcost}}
+              {{report?.escortGuardDropDutyCost}}
             </td>
           </tr>
 
@@ -2416,7 +2355,7 @@
               Total spent on transportation
             </td>
             <td>
-              {{totalspent}}
+              {{report?.Total_Transortation_Cost_for_the_Month}}
             </td>
           </tr>
 

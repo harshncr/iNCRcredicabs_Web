@@ -189,7 +189,7 @@ export class ReportService {
       url: `${environment.transportationBillingUrl}`,
       headers: this.headers,
       body: "{"+
-        "'month':"+month+",'year':"+year+",'hrtax_regular_cab':"+f.hrtax_regular_cab+","+
+        "'month':"+month+",'year':"+year+",'hrtax_regular_cab':"+f.hrtax_regular_cab+",'toll_regular_cab':"+f.toll_regular_cab +","+
         "'uptax_regular_cab':"+f.uptax_regular_cab+",'emp_contrib_regular':"+f.emp_contrib_regular+","+
         "'emp_contrib_shift':'0','gstTax_regular_cab':"+f.gstTax_regular_cab+","+
         "'gps_regular_cab':"+f.gps_regular_cab+",'gps_shift_cab':"+f.gps_shift_cab+","+
@@ -210,7 +210,6 @@ export class ReportService {
 
   getCheckinoutreport(route_no,from_date,to_date,cab_no,emp_fname,emp_lname,vendor_name):Observable<any>{
 
-    console.log("In service");
     return this.apiService.callApiService({
       requestType: REQUEST_TYPE_POST,
       url: `${environment.checkinoutreportUrl}`,
