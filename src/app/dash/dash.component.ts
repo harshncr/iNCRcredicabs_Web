@@ -17,6 +17,10 @@ import { EmployeeService } from '../Services/employee.service';
   styleUrls: ['./dash.component.css']
 })
 export class DashComponent implements OnInit {
+  ////-------------data for loader-------------
+  showLoader              = true;
+  loaderText              = "Loading...";
+  ////-----------------------------------------
 
   public employeeDetailReport: ReportEmpDetail;
   public vendorDetailReport: ReportVendorDetail;
@@ -31,33 +35,33 @@ export class DashComponent implements OnInit {
   public reportService: ReportService;
 
   // router: Router;
+  showMenu = false;
+  showError = false;
   constructor(private router: Router, private employeeService: EmployeeService,public _dashData: DashData) {}
   ngOnInit() {
-    // debugger;
-    // let resp;
-    // if(localStorage.getItem('role') != null && localStorage.getItem('role') != 'null'
-    //   && localStorage.getItem('role') != "" && localStorage.getItem('role') != undefined
-    //   && localStorage.getItem('role') != 'undefined'){
-
-    //     console.log(localStorage.getItem('role'));
-    //     if(localStorage.getItem('role') != 'ADMIN'){
-    //     this.router.navigateByUrl('/employee-dash');
-    //   }
-    // }else{
-    //   this.employeeService.getRole().subscribe((data) => {
-    //     if(data != null || data != "" || data != undefined){
-    //       resp = data.roleName;
-    //       console.log(data);
-    //       debugger;
-    //       localStorage.setItem('role', resp);
-    //       if(localStorage.getItem('role') != 'ADMIN'){
-    //         this.router.navigateByUrl('/employee-dash');
-    //       }
-    //       // return;
-    //     }
-    //   })
-    // }
+    this.checkRole();
   }
+
+  checkRole(){
+    console.log('Role has been change!');
+    if(localStorage.getItem('role') != null && localStorage.getItem('role') != undefined){
+      console.log('inside #1');
+      if(localStorage.getItem('role').toUpperCase() == 'ADMIN'){
+        console.log('!!1');
+        this.showMenu = true;
+        this.showLoader = false;
+      }else{
+          console.log('You are not admin!');
+          this.showError = true;
+          this.showLoader = false;
+      }
+    }
+
+    console.log('outside #1');
+
+  }
+  
+  
   headerUpdate(){}
   
   

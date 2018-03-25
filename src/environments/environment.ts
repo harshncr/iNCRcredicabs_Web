@@ -3,8 +3,8 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-const BASE_URL = 'http://localhost:8080/NCAB';
-// const BASE_URL = 'http://ec2-18-219-151-75.us-east-2.compute.amazonaws.com:8080/NCAB';
+// const BASE_URL = 'http://localhost:8080/NCAB';
+const BASE_URL = 'http://ec2-18-219-151-75.us-east-2.compute.amazonaws.com:8080/NCAB';
 
 export const environment = {
   production: false,
@@ -45,7 +45,7 @@ export const environment = {
   employeeSetPasswrodUrl:     BASE_URL + "/EmployeeService/change-password",
   employeeManagerDetailsUrl:  BASE_URL + "/EmployeeService/employee-manager-details",
   unscheduledRequestUrl:      BASE_URL + "/RequestService/sendRequest",
-  uploadEmployeeExcelUrl:     BASE_URL + "/EmployeeService/UploadFileData",
+  uploadEmployeeExcelUrl:     BASE_URL + "/EmployeeService/upload-file-data",
   getRoleUrl:                 BASE_URL + "/EmployeeService/get-role",
   vendornameUrl:              BASE_URL + "/ReportService/VendorNames",
   billingsummaryUrl:          BASE_URL + "/ReportService/vendorwisebillreport",

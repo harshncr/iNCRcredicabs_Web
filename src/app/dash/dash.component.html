@@ -1,28 +1,38 @@
-<app-header></app-header>
+<app-header (onRoleChange)="checkRole()"></app-header>
 <div class = "conatainer" align="center">
-<div class="row">
-  <div class="col-sm-6 col-lg-6">
-    <div class="thumbnail">
-      <a routerLink="/employee/view" class="nav-tabs">
-        <img src="assets/img/employee.svg" alt="..." class="img-thumbnail">
-        <div class="caption">
-          <h3>Employee</h3>
-        </div>
-      </a>
-      <div class="content">
-        <a class="button-link" routerLink="/employee/add">
-          <span class="btn btn-default btn-lg dash-btn">
-            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-          </span>
-        </a>
-        <a class="button-link" routerLink="/employee/view">
-          <span class="btn btn-default btn-lg dash-btn">
-            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
-          </span>
-        </a>
-      </div>
+  <app-loader-anim [showLoader]="showLoader" [loaderText]="loaderText"></app-loader-anim>  
+  <div *ngIf="showError && showLoader == false" id="error" class="panel panel-danger">
+    <div class="panel-heading">
+      Error!      
+    </div>
+    <div class="panel-body">
+      You do not have the permission to view this page!
     </div>
   </div>
+  <div id="admin-menu" *ngIf="showMenu">
+    <div class="row">
+      <div class="col-sm-6 col-lg-6">
+        <div class="thumbnail">
+          <a routerLink="/employee/view" class="nav-tabs">
+            <img src="assets/img/employee.svg" alt="..." class="img-thumbnail">
+            <div class="caption">
+              <h3>Employee</h3>
+            </div>
+          </a>
+          <div class="content">
+            <a class="button-link" routerLink="/employee/add">
+              <span class="btn btn-default btn-lg dash-btn">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+              </span>
+            </a>
+            <a class="button-link" routerLink="/employee/view">
+              <span class="btn btn-default btn-lg dash-btn">
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
 
   <div class="col-sm-6 col-lg-6">
     <div class="thumbnail">
@@ -77,7 +87,7 @@
     </div>
   </div>
 
-  <div class="col-sm-6 col-md-4 col-lg-6">
+  <div class="col-sm-6 col-lg-6">
       <div class="thumbnail">
         
           <img src="assets\img\reports.png" alt="..." class="img-thumbnail" >

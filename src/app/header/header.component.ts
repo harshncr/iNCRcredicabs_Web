@@ -26,6 +26,8 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   public uploadValue:boolean=true;
 
   @Output() public childevent =new EventEmitter(); 
+  @Output() onRoleChange: EventEmitter<any> = new EventEmitter();
+
   @Input() module:string;
   @Input() navLocation: string;
   @Input() loada:boolean;
@@ -74,6 +76,8 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
             this.router.navigateByUrl('/employee-dash');
           }
         }
+        
+        setTimeout(this.onRoleChange.emit(), 1000);
       });
     }
   }
