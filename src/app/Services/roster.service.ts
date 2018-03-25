@@ -57,7 +57,7 @@ getdriverdetails(){
   
    postscheduledroute(jsonstring){
     const headers= new Headers({'Content-Type': 'application/json'});
-    return this._http.post(`${environment.inactiveDataUrl}`,JSON.stringify(jsonstring),{headers:headers});
+    return this._http.post(`${environment.createScheduleRouteUrl}`,JSON.stringify(jsonstring),{headers:headers});
    }
   
  public upload:boolean=false;
@@ -102,8 +102,8 @@ public getAddData(c_no,sid){
   }
   
 //get cab list editemp
-public getcablist(e_s){ 
-  let body={"shiftid" : e_s};
+public getcablist(e_s,e_c){ 
+  let body={"shiftid" : e_s,"cabno":e_c};
   let headers=new Headers();
     headers.append('Content-Type','application/JSON');
   return this._http.post(`${environment.getCabListUrl}`,body,{headers: headers}).map(res =>res.json());          
@@ -114,13 +114,7 @@ public addEmpToDb(qlid,c_no,s_id){
   let body={"qlid":qlid,"c_n":c_no,"s_i":s_id};
   let headers=new Headers();
     headers.append('Content-Type','application/JSON');
-  return this._http.post(`${environment.getEmpToDbUrl}`,body,{headers: headers})
-  .catch(this.handleError);            
-}
-
-handleError(error :Response){
-  console.log(error);
-  return Observable.throw(error);
+  return this._http.post(`${environment.getEmpToDbUrl}`,body,{headers: headers}).map(res =>res.json());            
 }
 
 
@@ -152,14 +146,16 @@ public deleteQlid(qlid,sid){
   let json={"emp_qlid":qlid,"s_id":sid};
     let  body=json;
     let headers=new Headers();
-    headers.append('Content-Type','application/x-www-form-urlencoded');
-    return this._http.post(`${environment.inactiveDataUrl}`,body,{headers: headers});   
+    headers.append('Content-Type','application/json');
+    return this._http.post(`${environment.inactiveDataUrl}`,body,{headers: headers}).map(res =>res.json());   
 }
 
 //saurav
 public posteditinfo(a,b,d,e,f){
   let body={"cabno":a,"picktime":b,"qlid":d,"sdate":e,"edate":f};
-  return this._http.post(`${environment.editDataUrl}`,body);
+  let headers=new Headers();
+  headers.append('Content-Type','application/json');
+  return this._http.post(`${environment.editDataUrl}`,body).map(res =>res.json());
 }
 
 //richa
@@ -199,11 +195,20 @@ getAddData1(){
     
    
      public updater(a,b,c,d,e,f){ 
-   
+      let headers=new Headers();
+      headers.append('Content-Type','application/JSON');
        let body={"r_n":a, "c_n":b,"s_i":c,"ven":d,"s_date":e,"e_date":f};
   
-        return this._http.post(`${environment.updateRouteUrl}`,body); 
+        return this._http.post(`${environment.updateRouteUrl}`,body).map(res =>res.json()); 
            
         }
+        
+        //start date and end date
+        public getstartandend(qlid,cab,shift){
+          let body={"e_qlid":qlid,"e_cab":cab,"e_sid":shift};
+          let headers=new Headers();
+          headers.append('Content-Type','application/JSON');
+          return this._http.post(`${environment.getStartAndEndUrl}`,body,{headers: headers}).map(res=>res.json());
+          }
 
 }
