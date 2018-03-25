@@ -129,7 +129,7 @@ export class ReportService {
       object.fromDate="";
     }
     return this.apiService.callApiService({
-      requestType: REQUEST_TYPE_GET,
+      requestType: REQUEST_TYPE_POST,
       url: `${environment.managerDetailUrl}`,
       headers: this.headers,
       body:JSON.stringify(object),
