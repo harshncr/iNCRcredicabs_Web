@@ -140,12 +140,10 @@ export class ApiService {
 
                 case 'application/vnd.ms-excel':
                     return res.blob();
-                    
-                case 'application/octet-stream':
-                    // return res.blob();
-                    return res;
+
                 case null:
                     return null;
+
                 default:
                     return res.text() ? res.json() : {};
             }

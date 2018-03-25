@@ -21,7 +21,6 @@ export class LogoutComponent implements OnInit {
         this.logout = data;
       }
     );
-    // localStorage.setItem('role', null);
-    localStorage.removeItem('role');
+    localStorage.setItem('role', null);
   }
 }

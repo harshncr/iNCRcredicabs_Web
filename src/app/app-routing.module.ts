@@ -91,7 +91,7 @@ const routes: Routes = [
   { path: 'roster/go',                component: ShowRouteComponent },
   { path: 'roster/chl',               component: RosterEmpDetailComponent },
   { path: 'roster/addRoute',          component: AddRouteComponent },
-  { path: 'roster/editemp/:qlid/:sid/:cn',           component: EmployeditComponent },
+  { path: 'roster/editemp',           component: EmployeditComponent },
   { path: 'roster/editroute',         component: EditRouteComponent },
   { path: 'roster/viewrdetail/:cab/:shift/:seats/:routes/:vendor',       component: RosterRouteDetailComponent},
   { path: 'vendor-list',              component: VendorListComponent },

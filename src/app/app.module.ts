@@ -78,13 +78,11 @@ import { LoaderAnimComponent } from './loader-anim/loader-anim.component';
 import { MassUploadEmployeeComponent } from './mass-upload-employee/mass-upload-employee.component';
 import { RelationshipFormComponent } from './relationship-form/relationship-form.component';
 import { RelationService } from './relation.service';
-import { DashData } from './dash/dashData';
 import { Data } from './Model/Data';
 import { EmployeeReqUnschComponent } from './employee-req-unsch/employee-req-unsch.component';
 import { EmployeeDashComponent } from './employee-dash/employee-dash.component';
 import { EmployeeHeaderComponent } from './employee-header/employee-header.component';
 import { EmployeeChangePasswordComponent } from './employee-change-password/employee-change-password.component';
-import { MyDatePickerModule } from 'mydatepicker';
 import { AddContactComponent } from './add-contact/add-contact.component';
 import { SosContactsComponent } from './sos-contacts/sos-contacts.component';
 import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-detail.component';
@@ -155,8 +153,7 @@ import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-d
     ReactiveFormsModule,
     Ng2SearchPipeModule,
     // StoreModule.provideStore({todoreducer}),
-    AppRoutingModule,
-    MyDatePickerModule
+    AppRoutingModule
   ],
   providers: [
     Data,
@@ -176,10 +173,7 @@ import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-d
    CabService,
    DriverService,
    DriverData,
-   RelationService,
-   UnscheduledRequestComponent,
-   DashData,
-   ReportComponent
+   RelationService
 
   ],
   bootstrap: [AppComponent]

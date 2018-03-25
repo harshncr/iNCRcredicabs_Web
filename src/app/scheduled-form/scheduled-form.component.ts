@@ -3,7 +3,7 @@ import { RosterService } from './../Services/roster.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { NewValidators } from './new.validators';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'scheduled-form',
@@ -72,7 +72,7 @@ numberofseats:number[]=[];
 routeexistserror:string="";
 cabdriverlist:any=[];
 
-constructor(private service:RosterService,private router:Router) { 
+constructor(private service:RosterService) { 
 }
 
 ngOnInit() {
@@ -126,8 +126,6 @@ numberofemp(NumberOfEmployeeees){
 }
 
 getAvailableCab(ShiftTime){
-  this.cablist=[];
-  this.numberofseats=[];
   let cabjson={"shift":ShiftTime.value};
   this.service.getAvailableCab(cabjson)
   .subscribe(response=>{
@@ -141,10 +139,8 @@ getnumberofseats(CabNumber){
     this.numberofseats[i]=i+1;
 }
 
-createPost(input: HTMLInputElement,f){    
-  let empqlid= { "qlid":input.value,
-"date":"f.value.RouteStartDate"};
-console.log(input.value+f.value.RouteStartDate);
+createPost(input: HTMLInputElement){    
+  let empqlid= { "qlid":input.value};
   this.routeexists=[];
  this.service.getEmployeesDetails(empqlid)
   .subscribe(respone =>{
@@ -166,15 +162,11 @@ console.log(input.value+f.value.RouteStartDate);
 
 deactivateemployee(num,f){       
   console.log(num);
-  let jsonobject= { "qlid": this.employee[num].qlid,"startdate":f.value.RouteStartDate};
+  let jsonobject= { "qlid": this.employee[num].qlid,"month":f.value.RouteStartDate};
   console.log(JSON.stringify(jsonobject));
   this.clicked=false;
-  this.service.postEmployeeDeactive(jsonobject).subscribe(
-    response=>{
+  this.service.postEmployeeDeactive(jsonobject).subscribe(response=>{
     console.log(jsonobject);
-  },error=>{
-    var jsontext = '{"fname":"","mname":"","lname":"","qlid":"","parea":"","ph":"","route":""}';
-    this.employee[num]=JSON.parse(jsontext);
   });
 }
 
@@ -183,7 +175,6 @@ log(qlidd){
 
 }
 success:boolean=false;
-error:boolean=false;
 submit(f){
   console.log("f.value.start= "+ f.value.RouteStartDate);
  let jsonrespone={};
@@ -209,15 +200,11 @@ submit(f){
 
  }
   console.log(JSON.stringify(jsonstring));
-  
+  this.success=true;
   this.service.postscheduledroute(jsonstring)
   .subscribe(
     reponse =>{
       console.log(reponse);
-      this.success=true;
-    },error=>{
-      this.error=true;
-
     });
 }
 
@@ -279,10 +266,7 @@ closeduplicateqlid(){
 }
 
 redirect(){
-
  this.success=false;
- this.router.navigateByUrl('/roster/go');  
-
 }
 
 close_add_popup(num){
@@ -291,10 +275,6 @@ close_add_popup(num){
   var jsontext = '{"fname":"","mname":"","lname":"","qlid":"","parea":"","ph":"","route":""}';
   this.employee[num]=JSON.parse(jsontext);
 
-}
-
-closeerror(){
-  this.error=false;
 }
 
 

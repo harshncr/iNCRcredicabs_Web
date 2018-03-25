@@ -1,9 +1,9 @@
 //reportmanager.ts
 export class ReportManager{
     constructor(
-        public ManagerName?: string,
-        public NoOfCabs?: string,
-        public NoOfEmployees?: string,
-        public TotalCost?: string
+        public Manager_Name?: string,
+        public No_Of_Cabs?: string,
+        public No_Of_Employees?: string,
+        public Total_Cost?: string
     ) {}
 }

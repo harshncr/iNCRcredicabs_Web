@@ -30,8 +30,6 @@ export class ViewEmployeeComponent implements OnInit {
   noResultError           = false;
   optionsRequired         = false;
   rolesCache              = null;
-  activeChar = 'A';
-  inactiveChar = 'I';
 
   options;
   empShowQuickDetails;
@@ -89,24 +87,7 @@ export class ViewEmployeeComponent implements OnInit {
 
   onFilterGo(){
     this.employeeService.viewEmployee(this.filter).subscribe((data) => {
-      this.showLoader = true;
       this.arr = data;
-      this.arr.sort((a, b) => {
-        let firstElem = a.empStatus+' '+a.empFName+' '+a.empMName+' '+a.empLName;
-        let secondElem = b.empStatus+' '+b.empFName+' '+b.empMName+' '+b.empLName;
-
-        let tempArr = [firstElem, secondElem];
-
-        tempArr.sort();
-
-        if(tempArr[0] == firstElem){
-          return -1;
-        }else if(firstElem == secondElem){
-          return 0;
-        }else{
-          return 1;
-        }
-      });
       console.log(data);
       if(data.length == 0){
         this.noResultError = true;
@@ -123,10 +104,6 @@ export class ViewEmployeeComponent implements OnInit {
 
   onFilterPanelChevronMouseEnter(tgt){
     $('.filter-panel-heading-button .tooltip-text').show();
-  }
-
-  onToolTipMouseEnter(tgt){
-    $('.tooltip-text').fadeOut('slow');
   }
 
   onFilterPanelChevronMouseLeave(tgt){

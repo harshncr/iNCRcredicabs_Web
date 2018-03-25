@@ -4,8 +4,7 @@ import { UnscheduledRequestService } from '../Services/unscheduled-request.servi
 import { HeaderComponent } from '../header/header.component';
 import { Router } from '@angular/router';
 import { LoginService } from '../Services/login.service';
-import { saveAs } from 'file-saver';
-import { environment } from '../../environments/environment';
+
 
 declare var jquery: any;
 declare var $: any;
@@ -22,10 +21,10 @@ export class UnscheduledRequestComponent implements OnInit {
   public showReqArr = [];
   public defaultRequest = "Pending";
   public showNoRecord = false;
-  public tf = false;
-  module = "UNSCHEDULEDREQUEST";
+  public tf=false;
+  module= "UNSCHEDULEDREQUEST";
   navLocation = "/ Pending";
-  public showAllocateButton = true;
+  public showAllocateButton=true;
   public filterType = '';
 
   ////-------------data for loader-------------
@@ -39,8 +38,9 @@ export class UnscheduledRequestComponent implements OnInit {
     // this.requests = new RequestModel();
   }
 
-  ngOnInit() {
-    this.showLoader = true;
+  ngOnInit()
+   {
+     this.showLoader = true;
     this.unscheduledRequestService.getAllUnscheduledRequest(this.defaultRequest).subscribe(
       (data) => {
         this.showLoader = false;
@@ -55,45 +55,26 @@ export class UnscheduledRequestComponent implements OnInit {
         }
         // console.log(this.requests);
       });
-
   }
 
-  toggleFilter(flag) {
+  toggleFilter(flag)
+  {
 
     // console.log(flag);
-    this.tf = flag;
+      this.tf=flag;
   }
 
   downloadRequestExcel() {
-
-    var downloadReqArr = [];
+    var downloadReqArr = new Array();
 
     $('.requestDiv').find(':checkbox').each(function () {
       if ($(this).is(':checked')) {
         downloadReqArr.push($(this).val());
       }
     });
+    // console.log(downloadReqArr);
 
-    if (downloadReqArr.length > 0) {
-      // this.showLoader = true;
-
-      // console.log(downloadReqArr);
-      this.unscheduledRequestService.downloadExcelFile(downloadReqArr, this.defaultRequest).subscribe(
-        data => {
-          console.log(data);
-
-          if(data.status=="success")
-          {
-            console.log("data success: "+data.status);
-            window.open(environment.pullExcelfileUrl+"/"+data.fileName, '_blank');
-          }else{
-            console.log("data fail: "+data.status);
-          }        
-         });
-    } else {
-      alert("No request selected");
-
-    }
+    this.unscheduledRequestService.downloadExcel();
   }
 
   allocate() {
@@ -149,7 +130,7 @@ export class UnscheduledRequestComponent implements OnInit {
         }
         // console.log(this.requests);
       });
-    return;
+      return;
   }
 
   toggleSelectAll() {
@@ -163,19 +144,14 @@ export class UnscheduledRequestComponent implements OnInit {
   }
 
   initShowDetails(req) {
-
+    
     for (var i = 0; i < req.length; ++i) {
       this.showReqArr.push(false);
     }
-    if (this.defaultRequest === "Allocated") {
-      this.navLocation = "/ Allocated";
-      this.showAllocateButton = false;
-    } else {
-      this.navLocation = "/ Pending";
-      this.showAllocateButton = true;
+  if(this.defaultRequest==="Allocated"){
+      this.navLocation="/ Allocated";
+      this.showAllocateButton=false;
     }
-
-    $('#chk_selectAll').prop('checked', false);
     //  console.log(this.showReqArr);
   }
 

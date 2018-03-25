@@ -14,12 +14,7 @@ import { Router } from '@angular/router';
 
 
 export class EmployeditComponent implements OnInit {
-  module = "roster";
-  navLocation = "/Edit Employee";
 public bol:boolean=false;
-public startd;
-public endd;
-public standend=[];
 public cabno="";
 public pickuptime="";
 public shifttime="";
@@ -28,13 +23,6 @@ public stime:string;
 public etime:string;
 public jary:any[];
 public cab:any[];
-public cnumber=[];
-public cabshift=[];
-public cabandshift=[];
-public cshift:any;
-public resultmsg:any;
-public ptime:any;
-
 
 // public stime;
 // public etime;
@@ -45,36 +33,10 @@ public ptime:any;
  public e_s;
   ngOnInit() {
     this.e_q= this.ac.snapshot.params['qlid'];
-    this.e_c = this.ac.snapshot.params['cn'];
+    this.e_c = this.ac.snapshot.params['cabno'];
     this.e_s = this.ac.snapshot.params['sid'];
-    console.log("This is the shift id");
-    console.log(this.e_s);
-    this.startandend();
     // this.cab_list();
   }
-  startandend(){
-    console.log("this is the start of the startandend method");
-    this.obj.getstartandend(this.e_q,this.e_c,this.e_s).subscribe(
-      data=>{
-        this.standend=JSON.parse(JSON.stringify(data));
-        console.log("Successfully arrived sdate and enddate");
-       this.startd=(this.standend[0].sdate);
-        this.endd=(this.standend[0].edate);
-       this.ptime=(this.standend[0].pickt);
-       
-    
-    
-    },
-      error=>console.log("error"),
-      ()=>close()
-
-    );
-
-
-
-  }
-
-
 
   editcontent()
   {
@@ -93,66 +55,27 @@ public ptime:any;
 //    }
 //  }
 
-public edit_emp_status:boolean=false;
-public edit_emp_return;
-public edit_emp_msg;
   checking(){
     console.log(this.stime);
       console.log(this.etime);
-      console.log("this is cab selected");
+      console.log(this.shifttime);
       console.log(this.cab_selected);
       this.obj.posteditinfo(this.cab_selected,this.pickuptime,this.e_q,this.stime,this.etime).subscribe(
-        data=>{console.log("Successfully Edited")
-          this.edit_emp_return=data;
-          // console.log(this.resultmsg.msg);
-          if(this.edit_emp_return.error_type == "fail"){
-            this.edit_emp_msg="An Error occured while editing.";
-          }
-         
-        else  if(this.edit_emp_return.error_type == "success"){
-          this.edit_emp_msg="Employee Successfully Edited.";
-        }
-         else{
-          this.edit_emp_msg="Employee Successfully Edited.";
-         }
-      
-      },
+        data=>console.log("Successfully Edited"),
         error=>console.log("error"),
-        ()=>{this.edit_emp_status=true}
+        ()=>close()
  
       );
       }
 
-      close_edit_popup(){
-this.edit_emp_msg=false;
-      }
-
-      redirect(){
- 
-          this.router.navigateByUrl('/roster/go');  
+      close(){
+        alert("Successful");
+          this.router.navigateByUrl('/go');  
         }
 
       cab_list(){
-        // this.cabandshift.splice(0,this.cabandshift.length);
-       this.cabandshift=[];
-       this.obj.getcablist(this.e_s,this.e_c).subscribe(
-        data => {this.cab=JSON.parse(JSON.stringify(data));
-
-          if(this.cab.length==0){
-
-          }
-          else{
-            for(let k:number=0;k<this.cab.length;k++){
-                this.cshift=this.cab[k].c_n+" "+this.cab[k].s_id;
-                console.log("this is mix");
-                console.log(this.cshift);
-                this.cabandshift.push(this.cshift);
-            }
-          }
-        
-        
-        
-        },
+       this.obj.getcablist(this.e_s).subscribe(
+        data => this.cab=JSON.parse(JSON.stringify(data)),
        error =>alert("error aaa gyi"),
        ()=> console.log("All cabs are present") 
       );

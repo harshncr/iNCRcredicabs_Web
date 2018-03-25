@@ -16,7 +16,7 @@ export class NewValidators{
     }
 
     static cannotcontainspecialcharacters(control:AbstractControl):ValidationErrors | null{
-        if((control.value as string).match(/\W/))
+        if((control.value as string).match(/\D/))
             return {cannotcontainspecialcharacters: true};
 
         return null;

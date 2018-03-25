@@ -22,79 +22,9 @@
     </div>
 </div> 
 
-<!-- download data loader ends -->
-
-<!-- Upload popup -->
-<div *ngIf="uploadPopupClicked" >
-    <div class="alert alert-info" role="alert">
-       <h3> Item Processed :-  {{uploadinfo.tr}} and Errored out :- {{uploadinfo.eo}}</h3>
-        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_upload_popup()"></span>      
-    </div>
-</div>
-
-<div *ngIf="add_emp_status" >
-    <div class="alert alert-danger" role="alert">
-        {{ add_emp_status_msg }}
-        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_add_status_popup()"></span>      
-
-        <!-- <a (click)="close_add_status_popup()" class="alert-link">Click Here</a>  -->
-    </div>
-    
-    </div>  
-    <!-- delete status box start -->
-
-    <div *ngIf="delete_emp_status" >
-        <div class="alert alert-danger" role="alert">
-            {{ delete_emp_status_message }}
-            <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_delete_emp_msg()"></span>      
-
-            <!-- <a (click)="close_delete_emp_msg()" class="alert-link">Click Here</a>  -->
-        </div>
-        
-        </div>  
-        <!-- delete status box-ends-->
-
-<!-- filter data not founderror box starts-->
-
-<div *ngIf="errorexist" >
-<div class="alert alert-danger" role="alert">
-    {{msg}}
-    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_error_popup()"></span>      
-
-    <!-- <a (click)="close_error_popup()" class="alert-link">Click Here</a>  -->
-</div>
-
-</div>  
-<!-- filter data not found error box ends-->
-
-<!-- download data error box starts-->
-
-<div *ngIf="download_error_exist" >
-    <div class="alert alert-danger" role="alert">
-        {{download_error_msg}} 
-        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_dowload_error_popup()"></span>      
-
-        <!-- <a (click)="close_dowload_error_popup()" class="alert-link">Click Here</a>  -->
-    </div>
-    
-    </div>  
-    <!--download data error error box ends-->
-
-<!-- filter incorrect data  box starts-->
-
-<div *ngIf="filter_error" >
-    <div class="alert alert-danger" role="alert">
-        {{msg}}
-        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_filter_popup()"></span>      
-
-        <!-- <a (click)="close_filter_popup()" class="alert-link">Click Here</a>  -->
-    </div>
-    
-    </div>  
-    <!-- filter data not found error box ends-->
 
 <!-- filter box -->
-<div class="panel panel-success" id="filter_box" style="margin-top:5px;">
+<div class="panel panel-success" id="filter_box" >
         <div class="panel-heading clearfix">
                 <h4 class="panel-title pull-left" style="padding-top: 7.5px">
                             Filters
@@ -215,20 +145,30 @@
 </div>
 <!-- filter ends -->
 
-<!-- downloading data loader-->
-<div *ngIf="downloadstatus">
-    <div class="progress progress-striped active">
-    <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="50" style="width: 100%">
-            <span>Downloading<span class="dotdotdot"></span></span>
-    </div>
-  </div>
+<!-- filter data not founderror box starts-->
+
+<div *ngIf="errorexist" >
+<div class="alert alert-danger" role="alert">
+    {{msg}}
+    <a (click)="close_error_popup()" class="alert-link">Click Here</a> 
 </div>
 
+</div>  
+<!-- filter data not found error box ends-->
 
+<!-- filter incorrect data  box starts-->
+
+<div *ngIf="filter_error" >
+    <div class="alert alert-danger" role="alert">
+        {{msg}}
+        <a (click)="close_filter_popup()" class="alert-link">Click Here</a> 
+    </div>
+    
+    </div>  
+    <!-- filter data not found error box ends-->
 
 
 <!-- Dynamic view of routes start -->
-<!-- main loader -->
 <app-loader-anim [showLoader]="spinner" [loaderText]="text"></app-loader-anim>
 <!-- <div class="loader" *ngIf="spinner"></div> -->
 <div *ngFor=" let u of cab_number">
@@ -264,7 +204,7 @@
                        <button type="button" *ngIf="seats_left[u]>0" (click)="add_clicked(cab_arr[u],shift_arr[u])"  class="btn btn-default btn-md" style="background:white;" >
                            <span class="glyphicon glyphicon-plus" aria-hidden="true" style="float:right;"></span>                  
                         </button>    
-                        <button type="button" *ngIf="seats_left[u]<=0"  class="btn btn-default btn-md" style="background:white;" disabled >
+                        <button type="button" *ngIf="seats_left[u]==0"  class="btn btn-default btn-md" style="background:white;" disabled >
                             <span class="glyphicon glyphicon-plus" aria-hidden="true" style="float:right;"></span>                  
                          </button> 
                         <button type="button" (click)="checkentry(cab_arr[u],shift_arr[u])" class="btn btn-default btn-md" style="background:white;"> 
@@ -296,7 +236,7 @@
                  </div>
                  <div *ngIf="ebox">
                     <div *ngIf="(cab_arr[u]==editcab) && (shift_arr[u] == editbox)">
-                          <span class="glyphicon glyphicon-pencil" routerLinkActive="active" aria-hidden="true" [routerLink]="['/roster/editemp',i.Qlid,i.shift_id,i.Cab_number]"></span> 
+                          <span class="glyphicon glyphicon-pencil" routerLinkActive="active" aria-hidden="true" [routerLink]="['/roster/editemp',{qlid:i.Qlid,shift:i.shift_id}]"></span> 
                     </div>
                </div>
                     <div class="card" id="emp">
@@ -333,7 +273,7 @@
                <select  name="emp_sel_to_add" [(ngModel)]="emp_selected" class="form-control">
                     <option value="" disabled selected> Select Qlid</option>
           
-                     <option  *ngFor="let i of add_emp_qlid" value="{{i.Qlid}}"> {{i.Qlid}} ||{{i.EFname}} {{i.ELname}}</option>
+                     <option  *ngFor="let i of add_emp_qlid" value="{{i.Qlid}}"> {{i.Qlid}} </option>
                 </select><br>
         <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-danger" id="other" (click)="add_emp()"> Add </button>
         <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary" id="close" (click)="close_add_popup()"> Close </button>
@@ -343,35 +283,23 @@
 <!-- Delete popup -->
 <div  *ngIf="deleteClicked" id="over">
     <div id="box">
-       <b><h4>Do You really Want to deactivate this Employee </h4></b><br><br>
-<button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-danger" id="other" (click)="deleteEmp()">Deactivate</button>
+       <b><h4>Do You really Want to delete this Employee </h4></b><br><br>
+<button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-danger" id="other" (click)="deleteEmp()">Delete</button>
 <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary" id="close" (click)="close_delete_popup()"> Close </button>
 </div>
 </div>
 
-
-<!-- <div  *ngIf="uploadPopupClicked" id="over">
+<!-- Upload popup -->
+<div  *ngIf="uploadPopupClicked" id="over">
     <div id="box">
     
            
-          <h4> Item Processed :- {{uploadinfo.tr}}</h4> 
+          <h4> Item Processed :- {{uploadinfo[0].tr}}</h4> 
           
            
-          <h4> Errored out :- {{uploadinfo.eo}} </h4>
-<button style="margin-left:100px;width:30%; text-align:center;" class="btn btn-secondary btn-sm btn-primary" id="close" (click)="close_upload_popup()"> Close </button>
+          <h4> Errored out :- {{uploadinfo[0].eo}} </h4>
+<button style="margin-left:50px;width:30%; text-align:center;" class="btn btn-secondary btn-sm btn-primary" id="close" (click)="close_upload_popup()"> Close </button>
 </div>
 
-</div> -->
-
-<!-- common error  box starts-->
-
-<div *ngIf="common_error_exist" >
-    <div class="alert alert-danger" role="alert">
-        {{ commom_error_msg }}
-        <a (click)="close_upload_popup()" class="alert-link">Click Here</a> 
-    </div>
-    
-    </div>  
-    <!-- common error box ends-->
-    <!-- common error  box starts-->
+</div>
 
