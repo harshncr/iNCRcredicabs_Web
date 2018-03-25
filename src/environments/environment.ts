@@ -54,6 +54,7 @@ export const environment = {
   checkinoutreportUrl:        BASE_URL + "/ReportService/checkinoutreport",
   routenoUrl:                 BASE_URL + "/ReportService/RouteNos",
   cabnobyvendorandrouteUrl:   BASE_URL + "/ReportService/getCabNobyVendorandRoute",
+
   rosterDataUrl:              BASE_URL + "/RosterService/showRosterInfo",
   getVendorDetailUrl:         BASE_URL + "/RosterService/vendorDetails",
   getEmployeeDetailUrl:       BASE_URL + "/RosterService/empDetails",
@@ -75,4 +76,5 @@ export const environment = {
   downloadExcelDataUrl:       BASE_URL + "/RosterService/downloadexcel",
   getDriverDetailUrl:         BASE_URL + "/RosterService/driver",
   getRouteDataUrl:            BASE_URL + "/RosterService/getRouteDetails",
+  getStartAndEndUrl:          BASE_URL + "/RosterService/getStartEndDate",
 };
