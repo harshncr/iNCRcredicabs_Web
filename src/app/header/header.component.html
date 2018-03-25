@@ -48,7 +48,7 @@
         <li><a *ngIf="vendor && loadc" routerLink="/add-driver" class="nav-tabs">Add Driver</a></li>
         <li><a *ngIf="vendor && loadd" routerLink ="/vendor-list"class="nav-tabs"> View Vendor</a></li>
         <li><a *ngIf="unscheduledRequest" (click)="downloadRequestExcel()"><span class="glyphicon glyphicon-download-alt"></span>Download</a></li>
-        <!-- <li *ngIf="employee || roster || vendor || unscheduledRequest"><span class="separator"></span></li> -->
+        <li><a *ngIf="reports" (click)="downloadReportExcel()"><span class="glyphicon glyphicon-download-alt"></span>Download Report</a></li>
         <li *ngIf="employee || roster || vendor || unscheduledRequest" role="separator" class="divider"></li>        
         <li><a routerLink="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
       </ul>
