@@ -1,28 +1,38 @@
-<app-header></app-header>
+<app-header (onRoleChange)="checkRole()"></app-header>
 <div class = "conatainer" align="center">
-<div class="row">
-  <div class="col-sm-6 col-lg-6">
-    <div class="thumbnail">
-      <a routerLink="/employee/view" class="nav-tabs">
-        <img src="assets/img/employee.svg" alt="..." class="img-thumbnail">
-        <div class="caption">
-          <h3>Employee</h3>
-        </div>
-      </a>
-      <div class="content">
-        <a class="button-link" routerLink="/employee/add">
-          <span class="btn btn-default btn-lg dash-btn">
-            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-          </span>
-        </a>
-        <a class="button-link" routerLink="/employee/view">
-          <span class="btn btn-default btn-lg dash-btn">
-            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
-          </span>
-        </a>
-      </div>
+  <app-loader-anim [showLoader]="showLoader" [loaderText]="loaderText"></app-loader-anim>  
+  <div *ngIf="showError && showLoader == false" id="error" class="panel panel-danger">
+    <div class="panel-heading">
+      Error!      
+    </div>
+    <div class="panel-body">
+      You do not have the permission to view this page!
     </div>
   </div>
+  <div id="admin-menu" *ngIf="showMenu">
+    <div class="row">
+      <div class="col-sm-6 col-lg-6">
+        <div class="thumbnail">
+          <a routerLink="/employee/view" class="nav-tabs">
+            <img src="assets/img/employee.svg" alt="..." class="img-thumbnail">
+            <div class="caption">
+              <h3>Employee</h3>
+            </div>
+          </a>
+          <div class="content">
+            <a class="button-link" routerLink="/employee/add">
+              <span class="btn btn-default btn-lg dash-btn">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
+              </span>
+            </a>
+            <a class="button-link" routerLink="/employee/view">
+              <span class="btn btn-default btn-lg dash-btn">
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
 
   <div class="col-sm-6 col-lg-6">
     <div class="thumbnail">
@@ -78,26 +88,40 @@
   </div>
 
   <div class="col-sm-6 col-lg-6">
-    <div class="thumbnail">
-      <a routerLink="/report" class="nav-tabs">
-        <img src="assets\img\reports.png" alt="..." class="img-thumbnail" >
-        <div class="caption">
-          <h3>Reports</h3>
-        </div>
-      </a>
-      <div class="content">
-        <a class="button-link" href="#">
-          <span class="btn btn-default btn-lg dash-btn">
-            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add
-          </span>
-        </a>
-        <a class="button-link" href="#">
-          <span class="btn btn-default btn-lg dash-btn">
-            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
-          </span>
-        </a>
+      <div class="thumbnail">
+        
+          <img src="assets\img\reports.png" alt="..." class="img-thumbnail" >
+          <div class="caption">
+            <h3>Reports</h3>
+          </div>
+      
+        Type of Report:
+        <!--  <select [(ngModel)]="selectedFilter" (ngModelChange)="onChange($event)" >
+              <option *ngFor="let c of filters" [ngValue]="c"> {{c.name}} </option>
+            </select> -->
+        <select [(ngModel)]="filterReport" name="filterIt">
+          <!-- <option selected="selected" value="Regular_Detailed_ByManager">Regular_Detailed_ByManager</option>
+          <option value="Regular_Detailed_ByVendor">Regular_Detailed_ByVendor</option>
+          <option value="Regular_Detailed_ByEmployee">Regular_Detailed_ByEmployee</option>
+          <option value="Regular_Summary_ByManager">Regular_Summary_ByManager</option>
+          <option value="Regular_Summary_ByVendor">Regular_Summary_ByVendor</option>
+          <option value="Regular_Summary_ByEmployee">Regular_Summary_ByEmployee</option> -->
+          <option value="Unschedule_Detail_ByManager">Unschedule_Detail_ByManager</option>
+          <option value="Unschedule_Detail_ByVendor">Unschedule_Detail_ByVendor</option>
+          <option value="Unschedule_Detail_ByEmployee">Unschedule_Detail_ByEmployee</option>
+          <option value="Unschedule_Summary_ByManager">Unschedule_Summary_ByManager</option>
+          <option value="Unschedule_Summary_ByVendor">Unschedule_Summary_ByVendor</option>
+          <option value="Unschedule_Summary_ByEmployee">Unschedule_Summary_ByEmployee</option>
+          <option value="Checkin_Checkout">Checkin_Checkout</option>
+          <option value="Billing_Summary">Billing_Summary</option>
+          <option value="Transportation_Billing">Transportation_Billing</option>
+        </select>
+        
+        <br>
+          <span class="btn btn-default btn-lg dash-btn"  (click)="view()">
+              <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>GO
+            </span>
       </div>
     </div>
-  </div>
 </div>
 </div>

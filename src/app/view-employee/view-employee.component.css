@@ -5,14 +5,15 @@
 #filter-panel .panel-body{padding: 10px 10px 5px 10px;}
 #view-employee{height: 500px;}
 #filter-panel .form-group{margin-bottom: 8px;}
-.panel-info{margin-bottom: 5px;}
-.panel-info .panel-title{padding:0px;}
-.panel-heading{padding: 4px 4px 4px 15px;}
+.panel-info, .panel-default{margin-bottom: 5px;}
+.panel-info .panel-title, .panel-default .panel-title{padding:0px;}
+.panel-heading{padding: 4px 4px 4px 15px;height: 45px;}
+.panel-default .panel-heading{color: #707070;}
 .emp-panel-body{padding: 5px;}
 .view-employee-row-table tr td strong{padding-right: 15px;}
 .emp-quick-details{display: none;}
 .panel-title{padding: 7px; font-size: 18px;}
-.panel-heading{height: 45px;}
+/* .panel-heading{height: 45px;} */
 
 #filter-panel .tooltip-text{
     /* margin: 5px 50px 0px 0px; */
@@ -41,4 +42,7 @@
     border-width: 5px;
     border-style: solid;
     border-color: transparent transparent black transparent;
+}
+.tooltip-text:hover{
+    display: none;
 }

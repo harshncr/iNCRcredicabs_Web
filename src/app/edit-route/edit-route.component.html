@@ -1,5 +1,21 @@
 <app-header [module]="module" [navLocation]="navLocation"></app-header>
 
+<div *ngIf="update_route_status" >
+    <div *ngIf="update_route_return.err_type == success">
+            <div class="alert alert-success" role="alert">
+                    {{update_route_status_msg}}
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close()"></span>      
+              </div>
+    </div>
+    <div *ngIf="!(update_route_return.err_type == success)">
+            <div class="alert alert-info" role="alert">
+                    {{update_route_status_msg}}
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_update_popup()"></span>      
+              </div>
+    </div>
+    
+</div>
+
 <div class="panel panel-success" id="filter_box" >
         <div class="panel-heading clearfix">
                 <h4 class="panel-title pull-left" style="padding-top: 7.5px">
