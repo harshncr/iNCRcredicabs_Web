@@ -19,12 +19,21 @@ export class ReportService {
 
 
   getEmployeeReport(toDate, fromDate, filterVal): Observable<any> {
-
+    var object={
+      toDate: toDate,
+      fromDate: fromDate
+    }
+    if(!toDate){
+      object.toDate=""
+    }
+    if(!fromDate){
+      object.fromDate="";
+    }
     return this.apiService.callApiService({
-      requestType: REQUEST_TYPE_GET,
+      requestType: REQUEST_TYPE_POST,
       url: `${environment.employeeRequest}`,
       headers: this.headers,
-      body: "{'toDate':"+toDate+",'fromDate':"+fromDate+"}",
+       body:JSON.stringify(object),
       shouldBlock: true
     });
 
@@ -43,14 +52,25 @@ export class ReportService {
   }
 
   getEmployeeReportDetail(toDate, fromDate, filterVal): Observable<any> {
+    var object={
+      toDate: toDate,
+      fromDate: fromDate
+    }
+    if(!toDate){
+      object.toDate=""
+    }
+    if(!fromDate){
+      object.fromDate="";
+    }
     return this.apiService.callApiService({
-      requestType: REQUEST_TYPE_GET,
+      requestType: REQUEST_TYPE_POST,
       url: `${environment.employeeDetailUrl}`,
       headers: this.headers,
-      body: "",
+      body:JSON.stringify(object),
       shouldBlock: true
 
     });
+
   }
 
   getEmployeeReportDetail1(filterVal): Observable<any> {
@@ -65,18 +85,27 @@ export class ReportService {
   }
 
 
-  getManagerReport(toDate, fromDate, filterVal): Observable<any> {
-
+    getManagerReport(toDate, fromDate, filterVal): Observable<any> {
+    var object={
+      toDate: toDate,
+      fromDate: fromDate
+    }
+    if(!toDate){
+      object.toDate=""
+    }
+    if(!fromDate){
+      object.fromDate="";
+    }
     return this.apiService.callApiService({
-      requestType: REQUEST_TYPE_GET,
+      requestType: REQUEST_TYPE_POST,
       url: `${environment.managerUrl}`,
       headers: this.headers,
-      body: "",
+      body: JSON.stringify(object),
       shouldBlock: true
     });
 
-
   }
+
   getManagerReport1(filterVal): Observable<any> {
 
     return this.apiService.callApiService({
@@ -88,17 +117,29 @@ export class ReportService {
     });
   }
 
-  getManagerReportDetail(toDate, fromDate, filterVal): Observable<any> {
+   getManagerReportDetail(toDate, fromDate, filterVal): Observable<any> {
+    var object={
+      toDate: toDate,
+      fromDate: fromDate
+    }
+    if(!toDate){
+      object.toDate=""
+    }
+    if(!fromDate){
+      object.fromDate="";
+    }
     return this.apiService.callApiService({
       requestType: REQUEST_TYPE_GET,
       url: `${environment.managerDetailUrl}`,
       headers: this.headers,
-      body: "",
+      body:JSON.stringify(object),
       shouldBlock: true
     });
+
   }
 
   getManagerReportDetail1(filterVal): Observable<any> {
+   
     return this.apiService.callApiService({
       requestType: REQUEST_TYPE_GET,
       url: `${environment.managerDetailUrl1}`,
@@ -109,27 +150,45 @@ export class ReportService {
   }
 
   getVendorReportDetail(toDate, fromDate, filterVal): Observable<any> {
+    var object={
+      toDate: toDate,
+      fromDate: fromDate
+    }
+    if(!toDate){
+      object.toDate=""
+    }
+    if(!fromDate){
+      object.fromDate="";
+    }
     return this.apiService.callApiService({
-      requestType: REQUEST_TYPE_GET,
+      requestType: REQUEST_TYPE_POST,
       url: `${environment.vendorDetailUrl}`,
       headers: this.headers,
-      body: "",
+      body:JSON.stringify(object),
       shouldBlock: true
 
     });
+
   }
 
   getVendorReport(toDate, fromDate, filterVal): Observable<any> {
-
+    var object={
+      toDate: toDate,
+      fromDate: fromDate
+    }
+    if(!toDate){
+      object.toDate=""
+    }
+    if(!fromDate){
+      object.fromDate="";
+    }
     return this.apiService.callApiService({
-      requestType: REQUEST_TYPE_GET,
+      requestType: REQUEST_TYPE_POST,
       url: `${environment.vendorUrl}`,
       headers: this.headers,
-      body: "",
+      body: JSON.stringify(object),
       shouldBlock: true
     });
-
-
   }
 
   getVendorReport1(filterVal): Observable<any> {
