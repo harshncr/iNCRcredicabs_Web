@@ -8,7 +8,7 @@ export class Driver {
     d_police_verification;
     d_local_Address_proof;
     d_permanent_address_proof;
-    d_photo;
+    d_license;
     d_permanent_add;
     d_local_add;
     d_name;

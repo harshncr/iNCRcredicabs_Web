@@ -150,7 +150,7 @@
            </div> 
            <div class="form-group">
               
-                 
+
                 <div class="col-sm-4">
                     <b>Insurance Certificate Expiry Date*:</b>
                     <input type="date" name="idate" [(ngModel)]="idate"  class="form-control">
@@ -159,10 +159,12 @@
                   <div class="col-sm-4">
                     <b>Entry Tax Haryana Expiry Date:</b>
                     <input type="date" name= "entry_tax_haryana_exp_date" [(ngModel)]="entry_tax_haryana_exp_date"  class="form-control">
+                    <span class="text-danger" ng-show="idate.$error.required">{{message15}}</span>
                    </div>
                   <div class="col-sm-4">
                       <b>Entry Tax Delhi Expiry Date:</b>
                       <input type="date" name="entry_tax_delhi_exp_date" [(ngModel)]="entry_tax_delhi_exp_date"  class="form-control">
+                      <span class="text-danger" ng-show="idate.$error.required">{{message16}}</span>
                      </div>
                   
          </div>
@@ -171,6 +173,7 @@
               <div class="col-sm-4">
                   <b>Entry Tax UP Expiry Date:</b>
                   <input type="date" name="entry_tax_up_exp_date" [(ngModel)]="entry_tax_up_exp_date"  class="form-control">
+                  <span class="text-danger" ng-show="idate.$error.required">{{message17}}</span>
                   </div>
      </div>
       

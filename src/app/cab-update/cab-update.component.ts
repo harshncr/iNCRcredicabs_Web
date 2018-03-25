@@ -18,6 +18,15 @@ entry_tax_haryana = "";
 entry_tax_delhi = "";
 entry_tax_up = "";
 public Rcert = "";
+mDate:Date;
+fDate:Date;
+pDate:Date;
+iDate:Date;
+upDate:Date;
+dlDate:Date;
+hrDate:Date;
+Date:Date;
+validateStatus : boolean;
  Rcert1 = new FormData();
  Fcert1 = new FormData();
  Icert1 = new FormData();
@@ -25,7 +34,11 @@ public Rcert = "";
  entry_tax_haryana_certi1= new FormData();
  entry_tax_delhi_certi1 = new FormData();
  entry_tax_up_certi1 =new FormData(); 
-
+ message1= "";     message2="";      message3="";     message4="";
+ message5="";     message6="";     message7="";      message8="";
+ message9="";     message10="";     message11="";      
+ message12="";     message13="";      message14="";   
+ message15 = "";    message16="";     message17="";
   constructor(private _cabData:CabData, private _cabService:CabService,private elem:ElementRef, private router:Router) { }
 
   ngOnInit() {
@@ -118,8 +131,8 @@ public Rcert = "";
     
       
      
-
-     
+      if(this.validate()==true)
+     {
     console.log(this.cab);
     this._cabService.updateCab(this.cab)
     .subscribe((response)=>{
@@ -137,10 +150,245 @@ public Rcert = "";
               this._cabService.sendfile(file_upload[i]).subscribe();
             }
           }
+
         this.router.navigate(['cab-list']);
           
-
-    })
+        })
+      }
+        else{
+          this.validateStatus = false;
+          
+        }
+    
+    
 
 }
+validate(){
+  let today = new Date();
+  today.setFullYear(today.getFullYear() -3);
+  this.Date = new Date(this.cab.manufacture_date); 
+  let today1=new Date();
+  today1.setMonth(today1.getMonth() +1);
+  this.pDate=new Date(this.cab.poll_exp);
+  let today2=new Date();
+  today2.setMonth(today2.getMonth() +1);
+  this.iDate=new Date(this.cab.insur_exp);
+  let today3=new Date();
+  today3.setMonth(today3.getMonth() +1);
+  this.hrDate=new Date(this.cab.tax_haryana_exp);
+  let today4=new Date();
+  today4.setMonth(today4.getMonth()+1);
+  this.upDate=new Date(this.cab.tax_up_exp);
+  let today5=new Date();
+  today5.setMonth(today5.getMonth()+1);
+  this.dlDate=new Date(this.cab.tax_delhi_exp);
+  let today6=new Date();
+  today6.setMonth(today6.getMonth() +1);
+  this.fDate=new Date(this.cab.fit_exp);
+  
+  
+  this.validateStatus = true;
+  //let image_pattern = /.*\.(gif|jpe?g|bmp|png)$/igm;
+  this.refreshErrorValues();
+  let file1=this.elem.nativeElement.querySelector("#Rcert").files;
+
+  let file2=this.elem.nativeElement.querySelector("#Pcert").files;
+ 
+
+  let file3=this.elem.nativeElement.querySelector("#Fcert").files;
+
+
+  let file4=this.elem.nativeElement.querySelector("#icert").files;
+
+  let licensePattern=/^(([A-Za-z]){2,3}(|-)(?:[0-9]){1,2}(|-)(?:[A-Za-z]){2}(|-)([0-9]){1,4})|(([A-Za-z]){2,3}(|-)([0-9]){1,4})$/;
+
+  if(this.cab.contract_owned == null ){
+    this.validateStatus = false;
+    this.message1 = "Ownership Should Not Be Empty!";
+  }
+ if(this.cab.cab_no != null && this.cab.cab_no.trim() != ''){
+    
+    if(this.cab.cab_no.match(licensePattern)==null){
+      this.validateStatus = false;
+      this.message2 = "Invalid License Plate Number!";
+    }
+
+  }
+  else{
+    this.validateStatus = false;
+    this.message2 = "License Plate Number Should Not Be Empty!";
+  }
+   if(this.cab.model == null || this.cab.model.trim() == ''){
+    this.validateStatus = false;
+    this.message3 = "Car Model Should Not Be Empty.";
+  }
+ if(this.cab.fuel == 0){
+    this.validateStatus = false;
+    this.message4 = "Please Select Fuel Type.";
+  }
+  if(this.cab.type == 0){
+    this.validateStatus = false;
+    this.message5 = "Please Select Cab Type.";
+  }
+  if(this.cab.occupancy == 0){
+    this.validateStatus = false;
+    this.message6 = "Occupancy Cannot Be Blank.";
+  }
+ 
+  // if(file1.length!=0){
+  // let Rcert = file1[0].name.split(".")[1];
+  //   if(Rcert == 'jpeg' || Rcert == 'jpg' ){        
+  //   }   
+  //   else{
+  //     this.validateStatus = false;
+  //   this.message7 = "Image Format Invalid Choose .jpeg Or .jpg";
+  //   }
+  //  }else{
+  //   this.validateStatus = false;
+  //   this.message7 = "Image Cannot Be Null";
+  // }
+
+  // if(file2.length!=0){
+  //   let Pcert:string =file2[0].name.split(".")[1];
+  //   if(Pcert == "jpeg" ||  Pcert == "jpg" ){
+  //   }else{
+  //     this.validateStatus = false;
+  //   this.message8 = "Image Format Invalid Choose .jpeg Or .jpg";
+  //   }   
+  //  }else{
+  //   this.validateStatus = false;
+  //   this.message8 = "Image Cannot Be Null";
+  // }
+
+  // if(file3.length!=0){
+  //   let Fcert:string =file3[0].name.split(".")[1];
+  //   if(Fcert == "jpeg" || Fcert == "jpg" ){
+  //   }else{
+  //     this.validateStatus = false;
+  //     this.message9= "Image Format Invalid Choose .jpeg Or .jpg";
+  //   }
+  //  }else{
+  //   this.validateStatus = false;
+  //   this.message9 = "Image Cannot Be Null";
+  // }
+
+//  if(file4.length!=0){
+//     let icert:string =file4[0].name.split(".")[1];
+//     if(icert == "jpeg" || icert == "jpg" ){
+//     }else{
+//       this.validateStatus = false;
+//     this.message10 = "Image Format Invalid Choose .jpeg Or .jpg";
+//     }
+//    }else{
+//     this.validateStatus= false;
+//     this.message10 = "Image Cannot Be Null";
+//   }
+
+
+  if(this.cab.manufacture_date != null){
+    if(this.mDate<=today){
+    this.validateStatus = false;
+    this.message11 = "it has been expired";
+  }
+  if(this.mDate>today){
+   this. validateStatus=false;
+   this.message11="date is above current date";
+  }
+  
 }
+else{
+this.validateStatus=false;
+this.message11="cannot be empty";
+}
+  if(this.cab.poll_exp!=null){
+    if(this.pDate<=today1){
+    this.validateStatus = false;
+    this.message12 = "it has been expired";
+  }
+}
+else{
+  this.validateStatus=false;
+  this.message12="cannot be empty";
+}
+  
+  if(this.cab.fit_exp !=null){
+    if(this.fDate<=today6){
+    this.validateStatus = false;
+    this.message13 = "it has been expired";
+ }
+}
+else{
+  this.validateStatus=false;
+  this.message13="cannot be null";
+}
+
+  if(this.cab.insur_exp!=null){
+    if(this.iDate<=today2){
+    this.validateStatus = false;
+    this.message14 = "it has been expired.";
+  }
+}
+else{
+  this.validateStatus=false;
+  this.message14="it cannot be null";
+}
+if(this.cab.tax_haryana_exp!=null && this.cab.tax_haryana_exp!=""){
+  if(this.hrDate<today3){
+  this.validateStatus = false;
+  this.message15 = "it has been expired.";
+}
+}
+
+if(this.cab.tax_up_exp != null && this.cab.tax_up_exp != ""){
+if(this.upDate<today4){
+this.validateStatus = false;
+this.message16 = "it has been expired.";
+}
+}
+
+if(this.cab.tax_delhi_exp != null && this.cab.tax_delhi_exp != ""){
+if(this.dlDate<today5){
+this.validateStatus = false;
+this.message17 = "it has been expired.";
+}
+}
+
+
+return this.validateStatus;
+}
+
+refreshErrorValues(){
+this.validateStatus = true;
+this.message1 = '';
+this.message2 = '';
+this.message3 = '';
+this.message4 = '';
+this.message5 = '';
+this.message6 = '';
+this.message7 = '';
+this.message8 = '';
+this.message9 = '';
+this.message10 = '';
+this.message11 = '';
+this.message12 = '';
+this.message13 = '';
+this.message14 = '';
+this.message15 = '';
+this.message16 = '';
+this.message17 = '';
+
+}
+
+// update(){
+//   this.new=false;
+// //place your code here
+// }
+
+//close(){
+//this.new=false;
+//}
+
+}
+
+
+

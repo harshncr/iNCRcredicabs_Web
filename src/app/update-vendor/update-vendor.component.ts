@@ -75,11 +75,11 @@ public message15; public message16;
  
   upd(f) {
     console.log(this.vendor.bussType);
-    console.log(this.validate()+"update init");
+    //console.log(this.validate()+"update init");
     if(this.validate()==true)
     {
-    console.log(this.validate());
-    console.log("validation is true"+this.vendor);
+    //console.log(this.validate());
+    //console.log("validation is true"+this.vendor);
     this._vendorService.updateVendor(this.vendor)
     .subscribe((response)=>{
         console.log(response);
@@ -97,7 +97,7 @@ public message15; public message16;
   }
   }
   validate(){
-    
+    this.refreshErrorValues();
     let validateStatus:boolean = true;
    // let validateStatus:boolean = true;
     let today = new Date();
@@ -109,56 +109,57 @@ public message15; public message16;
     let panPattern=("[A-Z]{5}[0-9]{4}[A-Z]{1}");
     let gstPattern=/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
    
-    this.refreshErrorValues();
+  
 
     if(this.vendor.name!= null && this.vendor.name !=""){
       if(this.vendor.name.length > 20){
-        validateStatus = false;
+        this.validateStatus = false;
         this.message1 = 'First name cannot exceed 20 characters';
       }
     }
     else{
-      validateStatus = false;
+      this.validateStatus = false;
       this.message1 = 'First Name cannot be empty!';
     }
 
     if(this.vendor.bussType == null){
-      validateStatus = false;
+      this.validateStatus = false;
       this.message2 = 'Business Type cannot be empty!';
     }
 
     if(this.vendor.venContact != null && this.vendor.venContact != ""){
       if(this.vendor.venContact.match(mobPattern) == null){
-        validateStatus = false;
+        this.validateStatus = false;
         this.message3 = 'Please enter a valid Phone number';
       }
-    }else{
-      validateStatus = false;
+    }
+    else{
+      this.validateStatus = false;
       this.message3 = 'Phone number cannot be empty!';
     }
    
     if(this.vendor.venEmail != null && this.vendor.venEmail != ""){
       if(this.vendor.venEmail.match(email) == null){
-        validateStatus = false;
+        this.validateStatus = false;
         this.message4 = 'Email Address format invalid!';
       }
     }
 
     if(this.vendor.pan != null && this.vendor.pan != ""){
       if(this.vendor.pan.match(panPattern) == null){
-        validateStatus = false;
+        this.validateStatus = false;
         this.message5= 'Please enter a valid pan number';
       }
     }
     else{
-      validateStatus=false;
+      this.validateStatus=false;
       this.message5='pan id cannot empty';
     }
     if(this.vendor.gstnum != null && this.vendor.gstnum != ""){
       if(this.vendor.gstnum.match(gstPattern)==null){
 
       
-      validateStatus = false;
+      this.validateStatus = false;
       this.message6 = 'enter valid gst number!';
     }
   }
@@ -168,7 +169,7 @@ public message15; public message16;
   }
     if(this.agreement_expiry_date != null){
       if(this.expiryDate<=today){
-        validateStatus = false;
+        this.validateStatus = false;
         this.message7 = 'License has been expired!';
       }
       }
@@ -177,68 +178,69 @@ public message15; public message16;
         this.message7='cannot be empty';
       }
     if(this.vendor.cabs_provided == null){
-      validateStatus = false;
+      this.validateStatus = false;
       this.message8 = 'cannot be empty!';
     }
     if(this.vendor.bussAddr == null || this.vendor.bussAddr==""){
-      validateStatus = false;
+      this.validateStatus = false;
       this.message9 = 'Address cannot be empty!';
     }
    
     if(this.vendor.supContact != null && this.vendor.supContact != ""){
       if(this.vendor.supContact.match(mobPattern) == null){
-        validateStatus = false;
+        this.validateStatus = false;
         this.message10 = 'Please enter a valid Phone number';
       }
     }
    
     if(this.vendor.supEmail != "" && this.vendor.supEmail != null){
       if(this.vendor.supEmail.match(email) == null){
-        validateStatus = false;
+        this.validateStatus = false;
         this.message11 = 'Email Address format invalid!';
       }
     }
 
     if(this.vendor.manContact != "" && this.vendor.manContact != null){
       if(this.vendor.manContact.match(mobPattern) == null){
-        validateStatus = false;
+        this.validateStatus = false;
         this.message12 = 'Please enter a valid Phone number';
       }
     }
     if(this.vendor.ownerName == "" || this.vendor.ownerName == null)
     {
-      validateStatus = false;
+      this.validateStatus = false;
       this.message16 = 'Owner Name cannot be empty'
     }
    
     if(this.vendor.manager_mail_id != "" && this.vendor.manager_mail_id != null){
       if(this.vendor.manager_mail_id.match(email) == null){
-        validateStatus = false;
+        this.validateStatus = false;
         this.message13 = 'Email Address format invalid!';
       }
     }
     if(this.vendor.ownerContact == "" || this.vendor.ownerContact == null)
     {
-      validateStatus = false;
+      this.validateStatus = false;
       this.message14= 'owner number cannot be empty';
     }
 
 
     if(this.vendor.ownerContact != "" && this.vendor.ownerContact != null){
       if(this.vendor.ownerContact.match(mobPattern) == null){
-        validateStatus = false;
+       this.validateStatus = false;
         this.message14 = 'Please enter a valid Phone number';
       }
-    }if(this.vendor.ownerEmail == "" || this.vendor.ownerEmail == null)
+    }
+    if(this.vendor.ownerEmail == "" || this.vendor.ownerEmail == null)
     {
-      validateStatus = false;
+      this.validateStatus = false;
       this.message15 = "owner mail cannot be empty";
     }
 
    
     if(this.vendor.ownerEmail != "" && this.vendor.ownerEmail != null){
       if(this.vendor.ownerEmail.match(email) == null){
-        validateStatus = false;
+        this.validateStatus = false;
         this.message15 = 'Email Address format invalid!';
       }
     }

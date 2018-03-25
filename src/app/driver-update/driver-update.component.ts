@@ -15,7 +15,10 @@ export class DriverUpdateComponent implements OnInit {
   public d_local_Address_proof= new FormData;
   public d_permanent_address_proof= new FormData;
   public d_photo=new FormData;
- 
+  validatestatus:boolean;
+  message1; message3; message5;
+  message2; message4; message6;
+  message7; message8; message9;
  
   constructor(public _driverData:DriverData,public _driverService:DriverService,private router:Router, private elem:ElementRef) { }
   public driver:Driver;
@@ -84,24 +87,15 @@ export class DriverUpdateComponent implements OnInit {
     //let d_photo =new FormData();
     let file5=files5[0];
     let filename5 = 'd_photo.' + file5.name.split(".")[1];
-    this.driver.d_photo = this.driver.license_num + "_ab" + filename5;
-    this.d_photo.append('file_upload',file5,this.driver.d_photo);
+    this.driver.d_license = this.driver.license_num + "_ab" + filename5;
+    this.d_photo.append('file_upload',file5,this.driver.d_license);
 
   }
   upd(){
-    
-
-
-
-
-
-
-   
-
-   
-
-
-    console.log(this.driver);
+ 
+    if(this.validate() == true)
+    {
+  console.log(this.driver);
     //let body = {"d_type": this.driver_type,"first_Name":this.first_Name, "dPhone_Nbr":this.dPhone_Nbr, "local_Address":this.local_Address,"permanent_Address":this.permanent_Address,"c_Plate_Nbr":this.c_Plate_Nbr, "license_exp_date":this.license_exp_date,"d_comercial_liscence":this.d_comercial_liscence,"d_police_verification":this.d_police_verification,"d_local_Address_proof":this.d_local_Address_proof,"d_permanent_address_proof":this.d_permanent_address_proof,"d_photo":this.d_photo}
     //console.log(body);
     this._driverService.updatedriver(this.driver)
@@ -121,6 +115,130 @@ export class DriverUpdateComponent implements OnInit {
         
         this.router.navigate(['driver-list']);
     })
+  }
+  else{
+    this.validatestatus = false;
+    this.validate(); 
+  }
+
+  }
+
+
+  validate()
+  {
+    this.refreshErrorValues();
+    let mobPattern = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
+    let file1=this.elem.nativeElement.querySelector("#d_comercial_liscence").files;
+    let file2=this.elem.nativeElement.querySelector("#d_police_verification").files;
+    let file3=this.elem.nativeElement.querySelector("#d_local_Address_proof").files;
+    let file4=this.elem.nativeElement.querySelector("#d_permanent_address_proof").files;
+    let file5=this.elem.nativeElement.querySelector("#d_photo").files;
+    if(this.driver.d_contact_num != null && this.driver.d_contact_num != "")
+    {
+      if(this.driver.d_contact_num.match(mobPattern) == null)
+      {
+        this.validatestatus = false;
+        this.message2 = "Please enter a valid phone number";
+      }
+    }
+    else{
+      this.validatestatus = false;
+      this.message2 = "Phone number cannot be empty"
+    }
+    if(this.driver.d_name == null || this.driver.d_name == '')
+    {
+      this.validatestatus = false ;
+      this.message1 = "Driver name cannot be empty";
+    }
+    if(this.driver.d_permanent_add == null || this.driver.d_permanent_add == ''){
+            
+            this.validatestatus = false;
+            this.message3 = "Driver address cannot be empty";
+    }
+    if(this.driver.license_num == null || this.driver.license_num == '')
+    {
+      this.validatestatus = false;
+      this.message4 = "Driver's License cannot be empty";
+      
+    }
+    if(this.driver.license_exp_date == null && this.driver.license_exp_date == '')
+    {
+      this.validatestatus = false;
+      this.message5 = 'License Expiry Date cannot be empty!';
+    }
+  
+  // if(file1.length != 0){
+  //   let d_comercial_liscence = file1[0].name.split(".")[1];
+  //    if(d_comercial_liscence == 'jpeg' || d_comercial_liscence == 'jpg'){
+  //    }else{
+  //      this.validatestatus = false;
+  //      this.message6 = 'Uploaded Driver Liscense is not in valid format i.e. not (.jpg/.jpeg)';
+  //    }
+  //  }
+  //  else{
+  //    this.validatestatus = false;
+  //    this.message6 = 'Driver Liscense is mandatory to be uploaded';
+  //  }
+ 
+ 
+  //  if(file2.length != 0){
+  //    let d_police_verification = file2[0].name.split(".")[1];
+  //     if(d_police_verification == 'jpeg' || d_police_verification == 'jpg'){
+  //     }else{
+  //       this.validatestatus = false;
+  //       this.message7 = 'Uploaded Police Verification is not in valid format i.e. not (.jpg/.jpeg)';
+  //     }
+  //   }
+  //   else
+  //   {
+  //     this.validatestatus = false;
+  //    this.message7 = 'Driver Police Verification is mandatory to be uploaded';
+   
+    
+  //   }
+  //   if(file4.length != 0){
+  //     let d_permanent_address_proof = file4[0].name.split(".")[1];
+  //      if(d_permanent_address_proof == 'jpeg' || d_permanent_address_proof == 'jpg'){
+  //      }else{
+  //        this.validatestatus = false;
+  //        this.message8 = 'Uploaded Driver Permanent Address Proof is not in valid format i.e. not (.jpg/.jpeg)';
+  //      }
+  //    }
+  //    else{
+  //      this.validatestatus = false;
+  //     this.message8 = 'Driver Permanent Address Proof is mandatory to be uploaded';
+  //   }
+    
+  //   if(file5.length != 0){
+  //     let d_photo = file1[0].name.split(".")[1];
+  //      if(d_photo == 'jpeg' || d_photo == 'jpg'){
+  //      }else{
+  //        this.validatestatus = false;
+  //        this.message9 = 'Uploaded Driver Photo is not in valid format i.e. not (.jpg/.jpeg)';
+  //      }
+  //    }
+  //    else
+  //    {
+  //      this.validatestatus = false;
+  //     this.message9 = 'Driver Photo is mandatory to be uploaded';
+  //   }
+   
+  
+  return this.validatestatus;
+  }
+  refreshErrorValues()
+  {
+    this.validatestatus = true;
+    this.message1 = '';
+    this.message2 = '';
+    this.message3 = '';
+    this.message4 = '';
+    this.message5 = '';
+    this.message6 = '';
+    this.message7 = '';
+    this.message8 = '';
+    this.message9 = '';
+    
 
   }
 

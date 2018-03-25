@@ -11,45 +11,58 @@
 
         <!-- Form Name -->
         <legend>Cab Details</legend>
-     
+        <div class="form-group">
+        <input type="radio" value="owned" name="onrshp" [(ngModel)]="cab.contract_owned"> owned 
+        <input type="radio" value="contracted" name="onrshp" [(ngModel)]="cab.contract_owned"> contracted
+       <span class="text-danger" ng-show="onrshp.$error.required">{{message1}}</span> 
+      </div>
         <!-- Text input-->
         <div class="form-group">
-          <div class="col-sm-3"> 
+           
+            
+           
+             <div class="col-sm-3"> 
             <b>Cab License Plate No</b> 
             <br>
             <input type="text" name="cab_license_plate_no" id="cab_license_plate_no" [(ngModel)]="cab.cab_no" class="form-control">
-          
+            <span class="text-danger" ng-show="icert.$error.required">{{message2}}</span>
           </div>
         
           <div class="col-sm-3">
             <b>Model</b>
             <br>
             <input type="text" name="cab_model" id="cab_model" [(ngModel)]="cab.model"class="form-control">
+            <span class="text-danger" ng-show="icert.$error.required">{{message3}}</span>
           </div>
           <div class="col-sm-3">
             <b>Cab Capacity</b>
             <br>
              <input type="text" name="cab_type" id="cab_type" [(ngModel)]="cab.cab_type"class="form-control">
+             <span class="text-danger" ng-show="icert.$error.required">{{message5}}</span>
           </div>
+          
           <div class="col-sm-3">
               <b>Fuel</b>
               <br>
-              <input type="text" name="fuel" id="fuel" [(ngModel)]="cab.fuel"class="form-control">
+              <select type="text" name="fuel" id="fuel" [(ngModel)]="cab.fuel"class="form-control">
+              <option value = "Petrol">Petrol</option>
+                  <option value = "Diesel">Diesel</option>
+                  <option value = "CNG">CNG</option>
+                  </select>
+                  <span class="text-danger" ng-show="icert.$error.required">{{message4}}</span>
           </div> 
           <div class="col-sm-3">
               <b>Cab Rate</b>
               <br>
               <input type="text" name="cab_rate" id="cab_rate" [(ngModel)]="cab.cab_rate"class="form-control">
+              
           </div>
-          <div class="col-sm-3">
-              <b>Contracted or Owned</b>
-              <br>
-              <input type="text" name="contract_owned" id="contract_owned" [(ngModel)]="cab.contract_owned"class="form-control">
-          </div> 
+         
           <div class="col-sm-3">
               <b>Manufacture Date</b>
               <br>
               <input type="date" name="date" id="date" [(ngModel)]="cab.manufacture_date"class="form-control">
+              <span class="text-danger" ng-show="icert.$error.required">{{message11}}</span>
           </div>
 
         </div>
@@ -84,6 +97,7 @@
                 <div class="col-sm-4">
                   <b> Entry Tax Haryana Certificate:</b>
                    <input type="file" id="entry_tax_haryana_certi" name="entry_tax_haryana_certi" accept="image/jpeg,image/jpg" (change) = "image5_Entry_Haryana()">
+                   <span class="text-danger" ng-show="cert.$error.required">{{message10}}</span>
                   </div>
                  <div class="col-sm-4">
                   <!-- <input type="text" name="pollution certificate" placeholder="pollution certificate" class="form-control">-->
@@ -171,31 +185,37 @@
                 <b>Pollution Cerificate</b>
                 <br>
                 <input type="date" name="poll_exp" id="poll_exp" [(ngModel)]="cab.poll_exp"class="form-control">
+                <span class="text-danger" ng-show="pdate.$error.required">{{message12}}</span>
           </div>
           <div class="col-sm-3">
               <b>Fitness Cerificate</b>
               <br>
               <input type="date" name="fit_exp" id="fit_exp" [(ngModel)]="cab.fit_exp"class="form-control">
+              <span class="text-danger" ng-show="fdate.$error.required">{{message13}}</span>
           </div> 
           <div class="col-sm-3">
               <b>Insurance Cerificate</b>
               <br>
               <input type="date" name="insur_exp" id="insur_exp" [(ngModel)]="cab.insur_exp"class="form-control">
+              <span class="text-danger" ng-show="idate.$error.required">{{message14}}</span>
           </div>
           <div class="col-sm-3">
               <b>Tax Entry Haryana Cerificate</b>
               <br>
               <input type="date" name="tax_haryana_exp" id="tax_haryana_exp" [(ngModel)]="cab.tax_haryana_exp"class="form-control">
+              <span class="text-danger" ng-show="hrdate.$error.required">{{message15}}</span>
           </div>
           <div class="col-sm-3">
               <b>Tax Entry Delhi Cerificate</b>
               <br>
               <input type="date" name="tax_delhi_exp" id="tax_delhi_exp" [(ngModel)]="cab.tax_delhi_exp"class="form-control">
+              <span class="text-danger" ng-show="update.$error.required">{{message17}}</span>
           </div>  
           <div class="col-sm-3">
               <b>Tax Entry UP Cerificate</b>
               <br>
               <input type="date" name="tax_up_exp" id="tax_up_exp" [(ngModel)]="cab.tax_up_exp"class="form-control">
+              <span class="text-danger" ng-show="icert.$error.required">{{message16}}</span>
           </div>
   
         </div>

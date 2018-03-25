@@ -36,6 +36,14 @@ export class AddCabComponent implements OnInit {
   public Fdate;
   public idate;
   public message;
+  mDate:Date;
+  fDate:Date;
+  pDate:Date;
+  iDate:Date;
+  upDate:Date;
+  dlDate:Date;
+  hrDate:Date;
+  Date:Date;
   //public validateStatus = {"success": true, "message": ""};
   public validateStatus:boolean;
   public message1;
@@ -52,6 +60,9 @@ export class AddCabComponent implements OnInit {
   public message12;
   public message13;
   public message14;
+  public message15;
+  public message16;
+  public message17;
   public new:boolean=false;
   public success;
   constructor(private httpService : CabService,private elem:ElementRef, private route : Router) { }
@@ -186,6 +197,29 @@ changeCabType(value){
     this.validateStatus = true;
     //let image_pattern = /.*\.(gif|jpe?g|bmp|png)$/igm;
     this.refreshErrorValues();
+    let today = new Date();
+    today.setFullYear(today.getFullYear() -3);
+    this.mDate = new Date(this.  Mdate); 
+    let today1=new Date();
+    today1.setMonth(today1.getMonth() +1);
+    this.pDate=new Date(this.Pdate);
+    let today2=new Date();
+    today2.setMonth(today2.getMonth() +1);
+    this.iDate=new Date(this.idate);
+    let today3=new Date();
+    today3.setMonth(today3.getMonth() +1);
+    this.hrDate=new Date(this.entry_tax_haryana_exp_date);
+    let today4=new Date();
+    today4.setMonth(today4.getMonth()+1);
+    this.upDate=new Date(this.entry_tax_up_exp_date);
+    let today5=new Date();
+    today5.setMonth(today5.getMonth()+1);
+    this.dlDate=new Date(this.entry_tax_delhi_exp_date);
+    let today6=new Date();
+    today6.setMonth(today6.getMonth() +1);
+    this.fDate=new Date(this.Fdate);
+    
+
     let file1=this.elem.nativeElement.querySelector("#Rcert").files;
 
     let file2=this.elem.nativeElement.querySelector("#Pcert").files;
@@ -271,24 +305,104 @@ changeCabType(value){
       this.validateStatus= false;
       this.message10 = "Image Cannot Be Null";
     }
-  
 
-    if(this.Mdate == null || this.Mdate.trim() == ''){
+
+
+    if(this.Mdate != null){
+      if(this.mDate<=today){
       this.validateStatus = false;
-      this.message11 = "Please Select Cab Mnufacturing Date.";
+      this.message11 = "it has been expired";
     }
-    if(this.Pdate == null || this.Pdate.trim() == ''){
+    if(this.mDate>today){
+     this. validateStatus=false;
+     this.message11="date is above current date";
+    }
+    
+  }
+else{
+  this.validateStatus=false;
+  this.message11="cannot be empty";
+}
+    if(this.Pdate!=null){
+      if(this.pDate<=today1){
       this.validateStatus = false;
-      this.message12 = "Please Select Cab Pollution Certificate Expiry Date.";
+      this.message12 = "it has been expired";
     }
-    if(this.Fdate == null || this.Fdate.trim() == ''){
+  }
+  else{
+    this.validateStatus=false;
+    this.message12="cannot be empty";
+  }
+    
+    if(this.Fdate !=null){
+      if(this.fDate<=today6){
       this.validateStatus = false;
-      this.message13 = "Please Select Fitness Certificate Expiry Date.";
-    }
-    if(this.idate == null || this.idate.trim() == ''){
+      this.message13 = "it has been expired";
+   }
+  }
+  else{
+    this.validateStatus=false;
+    this.message13="cannot be null";
+  }
+
+    if(this.idate!=null){
+      if(this.iDate<=today2){
       this.validateStatus = false;
-      this.message14 = "Please Select Insurance Certificate Expiry Date.";
+      this.message14 = "it has been expired.";
     }
+  }
+  else{
+    this.validateStatus=false;
+    this.message14="it cannot be null";
+  }
+  if(this.entry_tax_haryana_exp_date!=null && this.entry_tax_haryana_exp_date!=""){
+    if(this.hrDate<today3){
+    this.validateStatus = false;
+    this.message15 = "it has been expired.";
+  }
+}
+else{
+  this.validateStatus=false;
+  this.message15="it cannot be null";
+}
+if(this.entry_tax_up_exp_date!=null && this.entry_tax_up_exp_date!=""){
+  if(this.upDate<today4){
+  this.validateStatus = false;
+  this.message16 = "it has been expired.";
+}
+}
+else{
+this.validateStatus=false;
+this.message16="it cannot be null";
+}
+if(this.entry_tax_delhi_exp_date!=null && this.entry_tax_delhi_exp_date!=""){
+  if(this.dlDate<today5){
+  this.validateStatus = false;
+  this.message17 = "it has been expired.";
+}
+}
+else{
+this.validateStatus=false;
+this.message17="it cannot be null";
+}
+
+
+    // if(this.Mdate == null || this.Mdate.trim() == ''){
+    //   this.validateStatus = false;
+    //   this.message11 = "Please Select Cab Mnufacturing Date.";
+    // }
+    // if(this.Pdate == null || this.Pdate.trim() == ''){
+    //   this.validateStatus = false;
+    //   this.message12 = "Please Select Cab Pollution Certificate Expiry Date.";
+    // }
+    // if(this.Fdate == null || this.Fdate.trim() == ''){
+    //   this.validateStatus = false;
+    //   this.message13 = "Please Select Fitness Certificate Expiry Date.";
+    // }
+    // if(this.idate == null || this.idate.trim() == ''){
+    //   this.validateStatus = false;
+    //   this.message14 = "Please Select Insurance Certificate Expiry Date.";
+    // }
   return this.validateStatus;
 }
 
@@ -308,6 +422,10 @@ refreshErrorValues(){
   this.message12 = '';
   this.message13 = '';
   this.message14 = '';
+  this.message15 = '';
+  this.message16 = '';
+  this.message17 = '';
+
 }
 
 // update(){
