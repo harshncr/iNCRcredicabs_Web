@@ -265,7 +265,7 @@ export class ReportComponent implements OnInit {
 
       case "Unschedule_Summary_ByManager":
         this.reportService.getManagerReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
-          this.managerReport = data;
+          this.reports = data;
           this.showLoader = false;
           console.log(data);
         });
@@ -273,38 +273,38 @@ export class ReportComponent implements OnInit {
 
       case "Unschedule_Summary_ByEmployee":
         this.reportService.getEmployeeReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
-          this.employeeReport = data;
+          this.reports = data;
           this.showLoader = false;
           console.log(data);
         }); break;
 
       case "Unschedule_Summary_ByVendor":
         this.reportService.getVendorReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
-          this.vendorReport = data;
+          this.reports = data;
           this.showLoader = false;
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByVendor":
         this.reportService.getVendorReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
-          this.vendorDetailReport = data;
+          this.reports = data;
           this.showLoader = false;
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByEmployee":
         this.reportService.getEmployeeReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
-          this.employeeDetailReport = data;
+          this.reports = data;
           this.showLoader = false;
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByManager":
         this.reportService.getManagerReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
-          this.managerDetailReport = data;
+          this.reports = data;
           this.showLoader = false;
           console.log(data);
         }); break;
       case "Billing_Summary":
         this.reportService.getBillingSummary(f.ShiftType, f.VendorName, f.FromDate, f.ToDate).subscribe((data) => {
-          this.BillingSummaryReport = data;
+          this.reports = data;
           this.showLoader = false;
           console.log(data);
         }); break;

@@ -1,6 +1,15 @@
 <app-employee-header></app-employee-header>
 <!-- <app-header [module]="module" [navLocation]="navLocation"></app-header> -->
 
+<div *ngIf="showError" id="error" class="panel panel-danger">
+  <div class="panel-heading">
+    Error!
+  </div>
+   <div class="panel-body">
+     {{ message }}
+  </div>
+</div>
+
 <app-loader-anim [showLoader]="showLoader" [loaderText]="loaderText"></app-loader-anim>
 
 <div class="container">
@@ -8,13 +17,13 @@
     <div class="col-md-6 col-md-offset-3">
       <div *ngIf="showLoader == false && empData" class="form-area">  
         <form name="myForm" #f="ngForm" (ngSubmit)="onSave(f.value)" class="form-horizontal"role="form" >      
-          <legend style="margin-bottom: 25px; text-align: center;">Request Unscheduled Cab</legend>         
+          <legend style="margin-bottom: 25px; text-align: center;">Request Unscheduled Cab</legend>
           <div class="form-group">
             <div class="row">
               <div class="col-sm-6">
                 <label>From Date</label>
                 <input type="date" class="form-control" id="fromDate" name="fromDate"
-                  [(ngModel)]="fromDate" required>
+                  [(ngModel)]="fromDate" (change)="printDate()" required>
               </div>
               <div class="col-sm-6">
                 <label> To Date</label>
@@ -89,7 +98,7 @@
               rows="4" [(ngModel)]="reason">
             </textarea>
           </div>      
-          <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit</button>
+          <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Submit</button>
         </form>
       </div>
     </div>

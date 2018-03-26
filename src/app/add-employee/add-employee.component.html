@@ -4,7 +4,7 @@
 <div *ngIf="showSuccess" class="alert alert-success" id="login-success">
     <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Success!</strong><span innerHTML="message"></span>
-    <a routerLink="['employee/view', {qlid: {{ emp.empQlid }} }]">
+    <a routerLink="/employee/view/details/{{ emp.empQlid }}">
       Click here to view Employee details
     </a>
     <button class="btn btn-default" (click)="newEmployee()">New Employee</button>
@@ -13,7 +13,7 @@
   <table>
     <tr>
       <td class="col-sm-1"><strong>Error!</strong></td>
-      <td>Employee couldn&apos;t be added to the database! Check the form below for more details.</td>
+      <td>Employee couldn&apos;t be added to the database!
     </tr>
   </table>
 </div>
