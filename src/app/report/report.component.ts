@@ -304,7 +304,7 @@ export class ReportComponent implements OnInit {
         }); break;
       case "Vendor_Billing_Summary":
         this.reportService.getBillingSummary(f.ShiftType, f.VendorName, f.FromDate, f.ToDate).subscribe((data) => {
-          this.reports = data;
+          this.BillingSummaryReport = data;
           this.showLoader = false;
           this.showDiv=true;
 
