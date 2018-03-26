@@ -11,7 +11,7 @@
           <label>Vendor Name<span class="red">*</span></label>
           <select formControlName="VendorName" name="VendorName" class="form-control" (change)="log(VendorName)">
             <option value="" disabled selected>Vendor Name*</option>
-            <option *ngFor="let vendor of vendorNameList" value="{{vendor.vid}}">{{vendor.vname}}</option>
+            <option *ngFor="let vendor of vendorNameList">{{vendor.vname}}</option>
           </select>
           <div class="alert alert-danger" *ngIf="VendorName.touched && VendorName.invalid">
             <div *ngIf="VendorName.errors.required"> Vendor Name is required </div>
@@ -33,7 +33,7 @@
         <div class="col-sm-4 " *ngIf="ShiftTime.valid">
           <label>Cab Number<span class="red">*</span></label>
           <select formControlName="CabNumber" name="CabNumber" class="form-control" (change)="getnumberofseats(CabNumber)">
-            <option value="" disabled selected>Cab Number*</option>
+            <option value="" invalid selected>Cab Number*</option>
             <option *ngFor="let cab of cablist" value="{{cab.cabno}} {{cab.cap}}">{{cab.cabno}}</option>
           </select>
           <div class="alert alert-danger" *ngIf="CabNumber.touched && CabNumber.invalid">
@@ -83,7 +83,7 @@
         <div class="col-sm-4 ">
           <label>Number Of Employees<span class="red">*</span></label>
           <select formControlName="NumberOfEmployees" name="NumberOfEmployees" class="form-control" (change)="numberofemp(NumberOfEmployees)">
-            <option value="" disabled selected>Number Of Employees*</option>
+            <option value="" invalid selected>Number Of Employees*</option>
             <option *ngFor="let seats of numberofseats">{{seats}}</option>
           </select>
           <div class="alert alert-danger" *ngIf="NumberOfEmployees.touched && NumberOfEmployees.invalid">
@@ -99,7 +99,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="NumberOfEmployees.valid" class="panel panel-info">
+  <div *ngIf="NumberOfEmployees.valid && RouteStartDate.valid" class="panel panel-info">
     <div class="panel-heading clearfix">
       <h4 class="panel-title pull-left" style="padding-top: 7.5px">
         Employees information
@@ -110,7 +110,7 @@
         <div class="row form-group">
           <div class="col-sm-3 ">
             <label>Qlid<span class="red">*</span></label>
-            <select required [ngModelOptions]="{standalone: true}" ngModel #qlid="ngModel"  name={{num}} (keyup.enter)="createPost(qlid)" (change)="createPost(qlid)"class="form-control">
+            <select required [ngModelOptions]="{standalone: true}" ngModel #qlid="ngModel"  name={{num}} (change)="createPost(qlid,f)"class="form-control">
               <option value="" disabled selected>Qlid*</option>
               <option *ngFor="let qlid of qlidlist" value="{{qlid.qlid}}">{{qlid.qlid}}  {{qlid.name}}</option>
             </select>
@@ -140,6 +140,15 @@
                 <div id="box">
                      <b><h4>Form submitted successfully </h4></b><br>
                      <button class="btn btn-primary" style="width:30%" (click)="redirect()"> OK </button>
+              </div>
+            </div>
+            <div *ngIf="error" id="over">
+              <div id="box">
+                <b>
+                  <h4>Form submission failed </h4>
+                </b>
+                <br>
+                <button class="btn btn-primary" style="width:30%" (click)="closeerror()"> OK </button>
               </div>
             </div>
 
@@ -189,7 +198,8 @@
           </div>
         </div>
       </div>
-        <button class="btn btn-primary"  (click)="submit(f)">Submit</button>
+      <br><br>
+        <button  class="btn btn-primary" [disabled]=f.invalid (click)="submit(f)">Submit</button>
     </div>
   </div>
 </form>

@@ -20,7 +20,7 @@
           </label>
           <select formControlName="VendorName" name="VendorName" class="form-control">
             <option value="" dsisabled selected>Vendor Name*</option>
-            <option *ngFor="let vendor of vendorNameList" value="{{vendor.vid}}">{{vendor.vname}}</option>
+            <option *ngFor="let vendor of vendorNameList">{{vendor.vname}}</option>
           </select>
           <div class="alert alert-danger" *ngIf="VendorName.touched && VendorName.invalid">
             <div *ngIf="VendorName.errors.required"> Vendor Name is required </div>
@@ -138,7 +138,7 @@
 
 
 
-  <div *ngIf="NumberOfEmployees.valid" class="panel panel-info">
+  <div *ngIf="NumberOfEmployees.valid && RouteStartDate.valid" class="panel panel-info">
     <div class="panel-heading clearfix">
       <h4 class="panel-title pull-left" style="padding-top: 7.5px">
         Employees information
@@ -154,7 +154,7 @@
             <label>Qlid
               <span class="red">*</span>
             </label>
-            <select required [ngModelOptions]="{standalone: true}" ngModel #qlid="ngModel" name={{num}} (change)="createPost(qlid)" class="form-control">
+            <select required [ngModelOptions]="{standalone: true}" ngModel #qlid="ngModel" name={{num}} (change)="createPost(qlid,f)" class="form-control">
               <option value="" disabled selected>Qlid*</option>
               <option *ngFor="let qlid of qlidlist" value="{{qlid.qlid}}">{{qlid.qlid}} {{qlid.name}}</option>
             </select>
@@ -198,7 +198,15 @@
           </div>
         </div>
 
-
+        <div *ngIf="error" id="over">
+          <div id="box">
+            <b>
+              <h4>Form submission failed </h4>
+            </b>
+            <br>
+            <button class="btn btn-primary" style="width:30%" (click)="closeerror()"> OK </button>
+          </div>
+        </div>
 
 
 
@@ -244,8 +252,6 @@
             <label>Pickup Area</label>
             <input  required [ngModelOptions]="{standalone: true}" ngModel  #PickupArea="ngModel" name="{{num}}" type="text" placeholder="{{employee[num].parea}}" maxlength="10" 
             class="form-control" (change)=createPickupArea(PickupArea)>
-
-    <button class="btn btn-primary"  (click)="log(PickupArea)">Submit</button>
           </div>
         </div>
         <div class="row form-group">

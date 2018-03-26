@@ -4,6 +4,7 @@ import { LoginService } from '../Services/login.service';
 import { UnscheduledRequestService } from '../Services/unscheduled-request.service';
 import { UnscheduledRequestComponent } from '../unscheduled-request/unscheduled-request.component';
 import { RosterService } from '../Services/roster.service';
+import { ReportComponent } from '../report/report.component';
 import { EmployeeService } from '../Services/employee.service';
 declare var jquery:any;
 declare var $ :any;
@@ -21,11 +22,12 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   unscheduledRequest = false;
   router: Router;
   loginService: LoginService;
-  unscheduledRequestService:UnscheduledRequestService;
   public showDownload; 
   public uploadValue:boolean=true;
-  public obj =new UnscheduledRequestComponent(this.unscheduledRequestService);
+
   @Output() public childevent =new EventEmitter(); 
+  @Output() onRoleChange: EventEmitter<any> = new EventEmitter();
+
   @Input() module:string;
   @Input() navLocation: string;
   @Input() loada:boolean;
@@ -36,13 +38,15 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   constructor(private _router: Router,
               private _loginService: LoginService,
               private _http:RosterService,
+              private unscheduledRequestComponent:UnscheduledRequestComponent,
+              private reportComponent:ReportComponent,
               private employeeService: EmployeeService
             ) {
     			this.router = _router;
     			this.loginService = _loginService;
-    			this.showDownload=true;
-  }
+          this.showDownload=true;
 
+  }
   ngOnInit() {
     this.headerUpdate();
         
@@ -72,12 +76,18 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
             this.router.navigateByUrl('/employee-dash');
           }
         }
+        
+        setTimeout(this.onRoleChange.emit(), 1000);
       });
     }
   }
 
   downloadRequestExcel(){
-    this.obj.downloadRequestExcel();
+    this.unscheduledRequestComponent.downloadRequestExcel();
+  }
+
+  downloadReportExcel(){
+    this.reportComponent.downloadExcel(); 
   }
 
   ngAfterViewChecked() {}

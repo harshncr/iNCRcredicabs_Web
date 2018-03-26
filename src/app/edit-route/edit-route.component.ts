@@ -13,6 +13,9 @@ styleUrls: ['./edit-route.component.css']
 
 export class EditRouteComponent implements OnInit {
 
+  module = "roster";
+  navLocation = "/Update Route";
+
   public ven="";
   
   public cno="";
@@ -86,8 +89,12 @@ export class EditRouteComponent implements OnInit {
        );
      }
    
-   
+   public update_route_status:boolean=false;
+  public  update_route_status_msg;
+  public update_route_return;
+
     updateroute(){
+    
   console.log(this.rno);
      
    console.log(this.cno);
@@ -96,17 +103,31 @@ export class EditRouteComponent implements OnInit {
    console.log(this.ven);
    console.log(this.s_date+" "+ this.e_date);
       this._http.updater(this.rno,this.cno ,this.sid,this.ven,this.s_date,this.e_date).subscribe(
-        data=>console.log("off"),
+        data=>{this.update_route_return=data;
+        if(this.update_route_return.err_type == "exist"){
+          this.update_route_status_msg="Route Already Exist with this cabnumber and shift.";
+        }
+        else if(this.update_route_return.err_type == "fail"){
+          this.update_route_status_msg="An Error Occured During Updation.";
+        }
+        else if(this.update_route_return.err_type == "success"){
+          this.update_route_status_msg="Route Successfully Updated.";
+        }
+        },
         error=>console.log("error"),
-        ()=>this.close()
+        ()=>{this.update_route_status=true;}
       );
    
      console.log(this.msg);
     }
   
+    close_update_popup(){
+this.update_route_status=false;
+    }
+
   close(){
-  alert("Successful");
-    this.router.navigateByUrl('/go');  
+  // alert("Successful");
+    this.router.navigateByUrl('/roster/go');  
   }
   
   }
