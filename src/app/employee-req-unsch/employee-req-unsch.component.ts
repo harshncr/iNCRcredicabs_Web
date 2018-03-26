@@ -32,6 +32,9 @@ export class EmployeeReqUnschComponent implements OnInit {
   pickupAddress;
   fromDate;
   toDate;
+  today;
+
+  message;
 
   currentManagerSelection;
 
@@ -44,6 +47,8 @@ export class EmployeeReqUnschComponent implements OnInit {
 
   ngOnInit() {
     //// TODO send request....
+    this.message = '';
+    this.today = new Date();
     this.employeeService.employeeManagerDetails().subscribe((data) => {
       this.showLoader = true;
       if(data.success){
@@ -76,35 +81,59 @@ export class EmployeeReqUnschComponent implements OnInit {
     return dt;
   }
 
-  onSave(f){
-    let req = {
-      Emp_QLID:         this.empData.empQlid,
-      Shift_ID:         this.empData.shiftId,
-      Mgr_QLID:         this.empData.empMgrQlid1,
-      Mgr_QLID_Level1:  this.empData.empMgrQlid1,
-      Mgr_QLID_Level2:  this.empData.empMgrQlid2,
-      Level1_mgr:       this.empData.mgr1Name,
-      Level2_mgr:       this.empData.mgr2Name,
-      Other_Addr:       this.otherAddr,
-      Reason:           this.reason,
-      Start_Date_Time:  this.reformatDate(this.startDateTime),
-      End_Date_Time:    this.reformatDate(this.endDateTime),
-      Destination:      this.destination,
-      Source:           this.source,
-      Counter:          this.counter
+  validate(){
+    this.showError = false;
+    if((new Date()) > new Date(this.fromDate)){
+      this.message += 'From date cannot be before today! ';
+      this.showError = true;
     }
 
-    this.employeeService.unscheduledRequest(req).subscribe((data) => {
+    if((new Date()) > new Date(this.toDate)){
+      this.message += 'To date cannot be before today! ';
+      this.showError = true;
+    }
+  }
 
-    });
+  onSave(f){
+    console.log(this.fromDate);
+    this.validate();
+    if(this.showError){
+      console.log('Error Encountered!');
+    }else{
+      let req = {
+        Emp_QLID:         this.empData.empQlid,
+        Shift_ID:         this.empData.shiftId,
+        Mgr_QLID:         this.empData.empMgrQlid1,
+        Mgr_QLID_Level1:  this.empData.empMgrQlid1,
+        Mgr_QLID_Level2:  this.empData.empMgrQlid2,
+        Level1_mgr:       this.empData.mgr1Name,
+        Level2_mgr:       this.empData.mgr2Name,
+        Other_Addr:       this.otherAddr,
+        Reason:           this.reason,
+        Start_Date_Time:  this.reformatDate(this.startDateTime),
+        End_Date_Time:    this.reformatDate(this.endDateTime),
+        Destination:      this.destination,
+        Source:           this.source,
+        Counter:          this.counter
+      }
+
+      this.employeeService.unscheduledRequest(req).subscribe((data) => {
+
+      });
+    }
+  }
+
+  printDate(){
+    console.log(this.fromDate);
   }
 
   onSelected1(selected1)
   {
-    if(selected1=="other")
-    this.show1=true;
-    else
-    this.show1=false;
+    if(selected1=="other"){
+      this.show1=true;
+    }else{
+      this.show1=false;
+    }
   }
 
   onSelected2(selected2)

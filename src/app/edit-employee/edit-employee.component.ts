@@ -216,7 +216,7 @@ export class EditEmployeeComponent implements OnInit {
         if(data.success){
           this.showSuccess = true;          
         }else{
-          this.showSuccess = false;          
+          this.showSuccess = false;        
           this.formError = data;
           console.log(data);
         }
