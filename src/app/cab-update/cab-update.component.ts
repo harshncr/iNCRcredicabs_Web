@@ -288,7 +288,7 @@ validate(){
 
   if(this.cab.manufacture_date != null){
     console.log("andar pahuch gaye");
-    if(this.Date<=todays){
+    if(this.Date<=today){
     this.validateStatus = false;
     console.log(" aur andar pahuch gaye");
     this.message11 = "it has been expired";
