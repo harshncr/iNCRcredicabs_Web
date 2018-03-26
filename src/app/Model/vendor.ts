@@ -14,7 +14,7 @@ export class Vendor{
 		public supEmail?: string,
 		
 		//publi cOoCabs=0;
-		public cabs_provided?:number,
+		public cabs_prov?:number,
 		public manName?: string,
 		public manContact?: string,
 	    public manager_mail_id?: string,

@@ -102,7 +102,7 @@ public message15; public message16;
    // let validateStatus:boolean = true;
     let today = new Date();
     today.setMonth(today.getMonth() + 1);
-    this.expiryDate = new Date(this.agreement_expiry_date); 
+    this.expiryDate = new Date(this.vendor.agreementExpiry); 
     //let mobPattern = /^[1-9]{1}[0-9]{9}$/;
     let mobPattern = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
     let email = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i;
@@ -167,7 +167,7 @@ public message15; public message16;
    validateStatus=false;
     this.message6='cannot be empty';
   }
-    if(this.agreement_expiry_date != null){
+    if(this.vendor.agreementExpiry != null){
       if(this.expiryDate<=today){
         this.validateStatus = false;
         this.message7 = 'License has been expired!';
@@ -177,7 +177,7 @@ public message15; public message16;
         validateStatus=false;
         this.message7='cannot be empty';
       }
-    if(this.vendor.cabs_provided == null){
+    if(this.vendor.cabs_prov== null){
       this.validateStatus = false;
       this.message8 = 'cannot be empty!';
     }

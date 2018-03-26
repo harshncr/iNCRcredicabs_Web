@@ -361,29 +361,20 @@ else{
     this.message15 = "it has been expired.";
   }
 }
-else{
-  this.validateStatus=false;
-  this.message15="it cannot be null";
-}
+
 if(this.entry_tax_up_exp_date!=null && this.entry_tax_up_exp_date!=""){
   if(this.upDate<today4){
   this.validateStatus = false;
   this.message16 = "it has been expired.";
 }
 }
-else{
-this.validateStatus=false;
-this.message16="it cannot be null";
-}
+
+
 if(this.entry_tax_delhi_exp_date!=null && this.entry_tax_delhi_exp_date!=""){
   if(this.dlDate<today5){
   this.validateStatus = false;
   this.message17 = "it has been expired.";
 }
-}
-else{
-this.validateStatus=false;
-this.message17="it cannot be null";
 }
 
 
