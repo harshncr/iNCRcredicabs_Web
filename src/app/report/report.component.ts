@@ -77,7 +77,6 @@ export class ReportComponent implements OnInit {
     //  console.log("ngOnInit");
     this.filterReport = this._dashData.getItem();
 
-
     //when report type is selected from dashboard
     switch (this.filterReport) {
       case "Unschedule_Summary_ByManager":

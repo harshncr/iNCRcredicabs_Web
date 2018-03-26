@@ -80,24 +80,24 @@
 
                 <div *ngIf="filterReport == 'Unschedule_Summary_ByVendor'">
                   Vendor Name:
-                  <input name="filVendorName" class="form-control" type="text" [(ngModel)]="filterVen" name="filterVal">
+                  <input name="filVendorName" class="form-control" type="text" [(ngModel)]="filterValue" name="filterValue">
                 </div>
                 <div *ngIf="filterReport == 'Unschedule_Detail_ByEmployee'">
                   Employee Name:
-                  <input name="filEmployeeName" class="form-control" type="text" [(ngModel)]="filterEmp" name="filterVal">
+                  <input name="filEmployeeName" class="form-control" type="text" [(ngModel)]="filterValue" name="filterValue">
                 </div>
                 <div *ngIf="filterReport == 'Unschedule_Detail_ByVendor'">
                   Vendor Name:
-                  <input type="text" class="form-control" [(ngModel)]="filterVal" name="filterVenDet">
+                  <input type="text" class="form-control" [(ngModel)]="filterValue" name="filterValue">
                 </div>
                 <div *ngIf="filterReport == 'Unschedule_Detail_ByManager'">
                   Manager Name:
-                  <input type="text" class="form-control" [(ngModel)]="filterVal" name="filterManDet">
+                  <input type="text" class="form-control" [(ngModel)]="filterValue" name="filterValue">
                 </div>
 
                 <div *ngIf="filterReport == 'Unschedule_Summary_ByEmployee'">
                   Employee Name:
-                  <input type="text" class="form-control" [(ngModel)]="filterVal" name="filterEmpDet">
+                  <input type="text" class="form-control" [(ngModel)]="filterValue" name="filterValue">
                 </div>
               </div>
             </div>
@@ -232,8 +232,7 @@
 
           <div class="col-sm-2">
             Shift Type
-            <select ngModel name="ShiftType" class="form-control" disabled="disabled"
-            (change)="enablefrom($event.target.value)">
+            <select ngModel name="ShiftType" class="form-control" disabled="disabled" (change)="enablefrom($event.target.value)">
               <option value="1">7 AM - 4 PM</option>
               <option value="2">10 AM - 7 PM</option>
               <option value="3">12 PM - 9 PM</option>
@@ -242,8 +241,7 @@
           </div>
           <div class="col-sm-2">
             From Date
-            <select ngModel name="FromDate" class="form-control" disabled="disabled"
-            (change)="enableto($event.target.value)" >
+            <select ngModel name="FromDate" class="form-control" disabled="disabled" (change)="enableto($event.target.value)">
               <option value="1">January</option>
               <option value="2">February</option>
               <option value="3">March</option>
@@ -260,8 +258,7 @@
           </div>
           <div class="col-sm-2">
             To Date
-            <select ngModel name="ToDate" class="form-control" disabled="disabled"
-            (change)="enablego($event.target.value)"   >
+            <select ngModel name="ToDate" class="form-control" disabled="disabled" (change)="enablego($event.target.value)">
               <option value="1">January</option>
               <option value="2">February</option>
               <option value="3">March</option>
@@ -282,7 +279,7 @@
           </div>
           <div class="col-sm-1">
             <br>
-            <button type="submit" class="btn btn-default form-control" name="FinalGo"      >
+            <button type="submit" class="btn btn-default form-control" name="FinalGo">
               Go
             </button>
           </div>
@@ -440,6 +437,9 @@
               {{report?.Cab_No}}
             </td>
             <td>
+              {{report?.TripType||report?.Trip_Type}}
+            </td>
+            <td>
               {{report?.Source}}
             </td>
 
@@ -448,9 +448,6 @@
             </td>
             <td>
               {{report?.Zone}}
-            </td>
-            <td>
-              {{report?.TripType}}
             </td>
             <td>
               {{report?.Cab_Cost}}
@@ -752,7 +749,7 @@
                         <strong>Toll for Regular Cabs
                         </strong>
                       </span>
-                      <input type="text" name="toll_regular_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.toll_regular_cab=true"
+                      <input type="number" min="0" name="toll_regular_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -776,7 +773,7 @@
                         <strong>HR tax for Regular Cabs
                         </strong>
                       </span>
-                      <input type="text" name="hrtax_regular_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.hrtax_regular_cab=true"
+                      <input type="number" min="0" name="hrtax_regular_cab" maxlength="8" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -802,7 +799,7 @@
                         <strong>UP tax for Regular Cabs
                         </strong>
                       </span>
-                      <input type="text" name="uptax_regular_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.uptax_regular_cab=true"
+                      <input type="number" min="0" name="uptax_regular_cab" maxlength="8" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -835,7 +832,7 @@
                         <strong>Employee Contribution
                         </strong>
                       </span>
-                      <input type="text" name="emp_contrib_regular" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.emp_contrib_regular=true"
+                      <input type="number" min="0" name="emp_contrib_regular" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -858,7 +855,7 @@
                         <strong>GPS for Regular Cabs
                         </strong>
                       </span>
-                      <input type="text" name="gps_regular_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.gps_regular_cab=true"
+                      <input type="number" min="0" name="gps_regular_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -883,7 +880,7 @@
                         <strong>GST
                         </strong>
                       </span>
-                      <input type="text" name="gstTax_regular_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.gstTax_regular_cab=true"
+                      <input type="number" min="0" name="gstTax_regular_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -916,7 +913,7 @@
                         <strong>Toll for Shift Cabs
                         </strong>
                       </span>
-                      <input type="text" name="toll_shift_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.toll_shift_cab=true"
+                      <input type="number" min="0" name="toll_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -942,7 +939,7 @@
                         <strong>HR tax for Shift Cabs
                         </strong>
                       </span>
-                      <input type="text" name="hrtax_shift_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.hrtax_shift_cab=true"
+                      <input type="number" min="0" name="hrtax_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -968,7 +965,7 @@
                         <strong>UP tax for Shift Cabs
                         </strong>
                       </span>
-                      <input type="text" name="uptax_shift_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.uptax_shift_cab=true"
+                      <input type="number" min="0" name="uptax_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1024,7 +1021,7 @@
                         <strong>GPS for Shift Cabs
                         </strong>
                       </span>
-                      <input type="text" name="gps_shift_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.gps_shift_cab=true"
+                      <input type="number" min="0" name="gps_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1048,7 +1045,7 @@
                         <strong>GST
                         </strong>
                       </span>
-                      <input type="text" name="gstTax_shift_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.gstTax_shift_cab=true"
+                      <input type="number" min="0" name="gstTax_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1080,7 +1077,7 @@
                         <strong>Toll for Unscheduled Cabs
                         </strong>
                       </span>
-                      <input type="text" name="toll_unscheduled_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.toll_unscheduled_cab=true"
+                      <input type="number" min="0" name="toll_unscheduled_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1105,7 +1102,7 @@
                         <strong>GST
                         </strong>
                       </span>
-                      <input type="text" name="gstTax_unscheduled" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.gstTax_unscheduled=true"
+                      <input type="number" min="0" name="gstTax_unscheduled" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1139,7 +1136,7 @@
                         <strong>Extra kms
                         </strong>
                       </span>
-                      <input type="text" name="standByCab_extraKms" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.standByCab_extraKms=true"
+                      <input type="number" min="0" name="standByCab_extraKms" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1163,7 +1160,7 @@
                         <strong>Rate per km
                         </strong>
                       </span>
-                      <input type="text" name="ratePerKm" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.ratePerKm=true"
+                      <input type="number" min="0" name="ratePerKm" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1186,7 +1183,7 @@
                         <strong>Extra Mileage Cost
                         </strong>
                       </span>
-                      <input type="text" name="extraMileageCost" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.extraMileageCost=true"
+                      <input type="number" min="0" name="extraMileageCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1214,7 +1211,7 @@
                         <strong>Cost of standby cab -Fixed mileage
                         </strong>
                       </span>
-                      <input type="text" name="standByCost" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.standByCost=true"
+                      <input type="number" min="0" name="standByCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1237,7 +1234,7 @@
                         <strong>GST
                         </strong>
                       </span>
-                      <input type="text" name="standByTax" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.standByTax=true"
+                      <input type="number" min="0" name="standByTax" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1266,7 +1263,7 @@
                         <strong>Others Cab Cost
                         </strong>
                       </span>
-                      <input type="text" name="otherCabCost" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.otherCabCost=true"
+                      <input type="number" min="0" name="otherCabCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1291,7 +1288,7 @@
                         <strong>GST
                         </strong>
                       </span>
-                      <input type="text" name="otherCabGST" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.otherCabCost=true"
+                      <input type="number" min="0" name="otherCabGST" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1326,7 +1323,7 @@
                         <strong>Escort Guard Cost
                         </strong>
                       </span>
-                      <input type="text" name="escortGuardCost" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.escortGuardCost=true"
+                      <input type="number" min="0" name="escortGuardCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1349,7 +1346,7 @@
                         <strong>Escort Guard Drop Duty Cost
                         </strong>
                       </span>
-                      <input type="text" name="escortGuardDropDutyCost" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.escortGuardDropDutyCost=true"
+                      <input type="number" min="0" name="escortGuardDropDutyCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1373,7 +1370,7 @@
                         <strong>Escort Guard Taxes
                         </strong>
                       </span>
-                      <input type="text" name="escortGuardTaxes" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.escortGuardTaxes=true"
+                      <input type="number" min="0" name="escortGuardTaxes" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1404,7 +1401,7 @@
                         <strong>Transport Team Mob Cost
                         </strong>
                       </span>
-                      <input type="text" name="tptMobCost" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.tptMobCost=true"
+                      <input type="number" min="0" name="tptMobCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1435,7 +1432,7 @@
                         <strong>Overall UP tax
                         </strong>
                       </span>
-                      <input type="text" name="overallUPtax" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallUPtax=true"
+                      <input type="number" min="0" name="overallUPtax" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1459,7 +1456,7 @@
                       <strong>Overall HR tax
                       </strong>
                     </span>
-                    <input type="text" name="overallHRtax" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallHRtax=true"
+                    <input type="number" min="0" name="overallHRtax" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                       required>
                   </div>
                 </div>
@@ -1483,7 +1480,7 @@
                       <strong>Overall Taxes (GST)
                       </strong>
                     </span>
-                    <input type="text" name="overallTaxes" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallTaxes=true"
+                    <input type="number" min="0" name="overallTaxes" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                       required>
                   </div>
                 </div>
@@ -1512,7 +1509,7 @@
                         <strong>Overall Toll
                         </strong>
                       </span>
-                      <input type="text" name="overallToll" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallToll=true"
+                      <input type="number" min="0" name="overallToll" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1536,7 +1533,7 @@
                         <strong>Overall GPS
                         </strong>
                       </span>
-                      <input type="text" name="overallGPS" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallGPS=true"
+                      <input type="number" min="0" name="overallGPS" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1566,7 +1563,7 @@
                         <strong>Foreign Exchange Price
                         </strong>
                       </span>
-                      <input type="text" name="foreignExPrice" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.foreignExPrice=true"
+                      <input type="number" min="0" name="foreignExPrice" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
                         required>
                     </div>
                   </div>
@@ -1600,7 +1597,7 @@
       </div>
 
       <table *ngIf="showTransportationReportResult && !showDiv" class="table table-bordered table-hover table-stripped" item-width="30%">
-        <tbody *ngFor="let report of transBillReport"  >
+        <tbody *ngFor="let report of transBillReport">
           <tr>
             <td>
               <strong> Description</strong>
@@ -1633,7 +1630,7 @@
               {{report?.toll_regular_cab}}
             </td>
             <td>
-                {{report?.toll_regular_cab / report?.foreignExPrice}}
+              {{report?.toll_regular_cab / report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1641,10 +1638,10 @@
               GPS
             </td>
             <td>
-             {{report?.gps_regular_cab}}
+              {{report?.gps_regular_cab}}
             </td>
             <td>
-                {{report?.gps_regular_cab / report?.foreignExPrice}}
+              {{report?.gps_regular_cab / report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1655,7 +1652,7 @@
               {{report?.uptax_regular_cab}}
             </td>
             <td>
-                {{report?.uptax_regular_cab / report?.foreignExPrice}}
+              {{report?.uptax_regular_cab / report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1666,7 +1663,7 @@
               {{report?.hrtax_regular_cab}}
             </td>
             <td>
-                {{report?.hrtax_regular_cab /report?.foreignExPrice}}
+              {{report?.hrtax_regular_cab /report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1677,7 +1674,7 @@
               {{report?.gstTax_regular_cab}}
             </td>
             <td>
-                {{report?.gstTax_regular_cab/report?.foreignExPrice}}
+              {{report?.gstTax_regular_cab/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1688,7 +1685,7 @@
               {{report?.Scheduled_Cab_Cost}}
             </td>
             <td>
-                {{report?.Scheduled_Cab_Cost/report?.foreignExPrice}}
+              {{report?.Scheduled_Cab_Cost/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1699,7 +1696,7 @@
               {{report?.emp_contrib_regular}}
             </td>
             <td>
-                {{report?.emp_contrib_regular/report?.foreignExPrice}}
+              {{report?.emp_contrib_regular/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1733,7 +1730,7 @@
               {{report?.toll_shift_cab}}
             </td>
             <td>
-                {{report?.toll_shift_cab/report?.foreignExPrice}}
+              {{report?.toll_shift_cab/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1744,7 +1741,7 @@
               {{report?.gps_shift_cab}}
             </td>
             <td>
-                {{report?.gps_shift_cab/report?.foreignExPrice}}
+              {{report?.gps_shift_cab/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1755,7 +1752,7 @@
               {{report?.uptax_shift_cab}}
             </td>
             <td>
-                {{report?.uptax_shift_cab/report?.foreignExPrice}}
+              {{report?.uptax_shift_cab/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1766,7 +1763,7 @@
               {{report?.hrtax_shift_cab}}
             </td>
             <td>
-                {{report?.hrtax_shift_cab/report?.foreignExPrice}}
+              {{report?.hrtax_shift_cab/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1777,7 +1774,7 @@
               {{report?.gstTax_shift_cab}}
             </td>
             <td>
-                {{report?.gstTax_shift_cab/report?.foreignExPrice}}
+              {{report?.gstTax_shift_cab/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1788,7 +1785,7 @@
               {{report?.Shift_Cab_Cost}}
             </td>
             <td>
-                {{report?.Shift_Cab_Cost/report?.foreignExPrice}}
+              {{report?.Shift_Cab_Cost/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1799,7 +1796,7 @@
               {{report?.emp_contrib_shift}}
             </td>
             <td>
-                {{report?.emp_contrib_shift/report?.foreignExPrice}}
+              {{report?.emp_contrib_shift/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1834,7 +1831,7 @@
               {{report?.toll_unscheduled_cab}}
             </td>
             <td>
-                {{report?.toll_unscheduled_cab/report?.foreignExPrice}}
+              {{report?.toll_unscheduled_cab/report?.foreignExPrice}}
             </td>
           </tr>
           <tr>
@@ -1879,7 +1876,7 @@
               {{report?.Extra_Mileage_Cost}}
             </td>
             <td>
-                {{report?.Extra_Mileage_Cost/report?.foreignExPrice}}
+              {{report?.Extra_Mileage_Cost/report?.foreignExPrice}}
 
             </td>
           </tr>
@@ -1942,16 +1939,16 @@
           </tr>
           <hr>
           <tr>
-              <td>
-                <strong>Total Transportation Cost for the Month</strong>
-              </td>
-              <td>
-                <strong>{{report?.Total_Transportation_Cost_for_the_Month}}</strong>
-              </td>
-              <td>
-                <strong>{{report?.Total_Transportation_Cost_for_the_Month/report?.foreignExPrice}}</strong>
-              </td>
-            </tr>
+            <td>
+              <strong>Total Transportation Cost for the Month</strong>
+            </td>
+            <td>
+              <strong>{{report?.Total_Transportation_Cost_for_the_Month}}</strong>
+            </td>
+            <td>
+              <strong>{{report?.Total_Transportation_Cost_for_the_Month/report?.foreignExPrice}}</strong>
+            </td>
+          </tr>
           <hr>
           <tr>
             <td>
@@ -1987,16 +1984,16 @@
             </td>
           </tr>
           <tr>
-              <td>
-                Escort Security Drop Cost
-              </td>
-              <td>
-                {{report?.escortGuardDropDutyCost}}
-              </td>
-              <td>
-                  {{report?.escortGuardDropDutyCost/report?.foreignExPrice}}
-              </td>
-            </tr>
+            <td>
+              Escort Security Drop Cost
+            </td>
+            <td>
+              {{report?.escortGuardDropDutyCost}}
+            </td>
+            <td>
+              {{report?.escortGuardDropDutyCost/report?.foreignExPrice}}
+            </td>
+          </tr>
 
           <tr>
             <td>
@@ -2006,20 +2003,20 @@
               {{report?.Escort_Security_Guards}}
             </td>
             <td>
-                {{report?.Escort_Security_Guards/report?.foreignExPrice}}
+              {{report?.Escort_Security_Guards/report?.foreignExPrice}}
             </td>
           </tr>
-<hr>
+          <hr>
           <tr>
             <td>
-                <strong> Transport Team Mobile Cost</strong>
+              <strong> Transport Team Mobile Cost</strong>
             </td>
             <td>
               {{report?.tptMobCost}}
             </td>
             <td> {{report?.tptMobCost/report?.foreignExPrice}}</td>
           </tr>
-<hr>
+          <hr>
           <tr>
             <td>
               <strong>Transport+Escort Security</strong>
@@ -2029,7 +2026,7 @@
             </td>
             <td> {{report?.Transport_plus_Escort_Security/report?.foreignExPrice}}</td>
           </tr>
-<hr>
+          <hr>
           <tr>
             <td>
               <strong> Number of employees in Regular Cabs</strong>
@@ -2037,9 +2034,9 @@
             <td>
               {{report?.total_no_of_regular_employees}}
             </td>
-            
+
           </tr>
-    
+
           <tr>
             <td>
               <strong> Number of Employees in Shift Cabs </strong>
@@ -2047,9 +2044,9 @@
             <td>
               {{report?.total_no_shift_cab}}
             </td>
-           
+
           </tr>
-<hr>
+          <hr>
           <tr>
             <td>
               Regular Small Cabs
@@ -2057,7 +2054,7 @@
             <td>
               {{report?.total_no_regular_cab_small}}
             </td>
-           
+
           </tr>
 
           <tr>
@@ -2067,7 +2064,7 @@
             <td>
               {{report?.total_no_regular_cab_big}}
             </td>
-           
+
           </tr>
 
           <tr>
@@ -2077,7 +2074,7 @@
             <td>
               {{report?.total_no_regular_cab}}
             </td>
-            
+
           </tr>
           <tr>
             <td>
@@ -2086,7 +2083,7 @@
             <td>
               {{report?.total_no_shift_cab_small}}
             </td>
-            
+
           </tr>
 
           <tr>
@@ -2096,7 +2093,7 @@
             <td>
               {{report?.total_no_shift_cab_big}}
             </td>
-          
+
           </tr>
           <tr>
             <td>
@@ -2105,7 +2102,7 @@
             <td>
               {{report?.total_no_shift_cab}}
             </td>
-          
+
           </tr>
 
           <tr>
@@ -2115,7 +2112,7 @@
             <td>
               {{report?.total_no_regular_and_shift_cab}}
             </td>
-            
+
           </tr>
 
           <tr>
@@ -2125,7 +2122,7 @@
             <td>
               {{report?.total_no_of_unscheduled_cabs}}
             </td>
-           
+
           </tr>
 
           <tr>
@@ -2144,10 +2141,10 @@
           </tr>
           <tr *ngFor="let v of report?.vendor ">
             <td>
-                {{v?.vendor_name}}
+              {{v?.vendor_name}}
             </td>
             <td>
-                {{v?.vendor_total_cost}}
+              {{v?.vendor_total_cost}}
             </td>
             <td>{{v?.vendor_total_cost/report?.foreignExPrice}}</td>
           </tr>
@@ -2336,7 +2333,7 @@
               Total transportation cost
             </td>
             <td>
-              {{report?.Total_Transortation_Cost_for_the_Month}}
+              {{report?.Total_Transportation_Cost_for_the_Month}}
             </td>
           </tr>
 
@@ -2363,7 +2360,7 @@
               Total spent on transportation
             </td>
             <td>
-              {{report?.Total_Transortation_Cost_for_the_Month}}
+              {{report?.Total_Transortation_Cost_for_the_Month+report?.Escort_Security_Guards+report?.escortGuardDropDutyCost}}
             </td>
           </tr>
 
