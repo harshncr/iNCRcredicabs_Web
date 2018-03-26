@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./employee-header.component.css']
 })
 export class EmployeeHeaderComponent implements OnInit {
-  admin = true;
+  admin = false;
 
   constructor() { }
   ngOnInit() {

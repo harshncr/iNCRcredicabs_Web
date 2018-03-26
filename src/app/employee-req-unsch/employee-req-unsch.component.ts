@@ -113,8 +113,8 @@ export class EmployeeReqUnschComponent implements OnInit {
         Level2_mgr:       this.empData.mgr2Name,
         Other_Addr:       this.otherAddr,
         Reason:           this.reason,
-        Start_Date_Time:  this.reformatDate(this.startDateTime),
-        End_Date_Time:    this.reformatDate(this.endDateTime),
+        Start_Date_Time:  this.reformatDate(this.fromDate),
+        End_Date_Time:    this.reformatDate(this.toDate),
         Destination:      this.destination,
         Source:           this.source,
         Counter:          this.counter

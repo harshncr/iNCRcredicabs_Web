@@ -149,7 +149,7 @@ export class EmployeeService {
     unscheduledRequest(req): Observable<any>{
         return this.apiService.callApiService({
             requestType: REQUEST_TYPE_POST,
-            url: `${environment.employeeManagerDetailsUrl}`,
+            url: `${environment.unscheduledRequestUrl}`,
             headers: this.headers,
             body: JSON.stringify(req),
             shouldBlock: true
