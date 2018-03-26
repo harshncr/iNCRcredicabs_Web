@@ -6,7 +6,9 @@
     Error!
   </div>
    <div class="panel-body">
-     {{ message }}
+     {{ message }} <br />
+     {{ dropMessage }} <br />
+     {{ pickupMessage }}
   </div>
 </div>
 
@@ -48,7 +50,7 @@
                     [(ngModel)]="pickupAddress">
                 </div>          
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-6" *ngIf="showPick">
                   <label>Pickup Time</label>
                 <input type="time" class="form-control" id="time" name="pickup_time"
                   [(ngModel)]="pickupTime" required>
@@ -70,7 +72,7 @@
                     type="text" maxlength="100">
                 </div>  
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-6" *ngIf="showDrop">
                   <label>Drop Time</label>
                 <input type="time" class="form-control" id="time" name="time" placeholder="Reaching Time" required>
               </div>

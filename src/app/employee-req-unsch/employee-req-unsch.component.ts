@@ -33,6 +33,10 @@ export class EmployeeReqUnschComponent implements OnInit {
   fromDate;
   toDate;
   today;
+  showDrop = false;
+  showPick = false;
+  pickupMessage = '';
+  dropMessage = '';
 
   message;
 
@@ -46,7 +50,6 @@ export class EmployeeReqUnschComponent implements OnInit {
   }
 
   ngOnInit() {
-    //// TODO send request....
     this.message = '';
     this.today = new Date();
     this.employeeService.employeeManagerDetails().subscribe((data) => {
@@ -83,12 +86,12 @@ export class EmployeeReqUnschComponent implements OnInit {
 
   validate(){
     this.showError = false;
-    if((new Date()) > new Date(this.fromDate)){
+    if((new Date().getDate()) > new Date(this.fromDate).getDate()){
       this.message += 'From date cannot be before today! ';
       this.showError = true;
     }
 
-    if((new Date()) > new Date(this.toDate)){
+    if((new Date().getDate()) > new Date(this.toDate).getDate()){
       this.message += 'To date cannot be before today! ';
       this.showError = true;
     }
@@ -134,6 +137,31 @@ export class EmployeeReqUnschComponent implements OnInit {
     }else{
       this.show1=false;
     }
+
+    if(this.pickupArea == this.dropArea){
+      this.showError = true;
+      this.pickupMessage = 'Pickup and Drop area cannot be same! ';
+      return;
+    }
+
+    if(selected1 == 'home'){
+      this.showPick = false;
+      this.showDrop = true;
+    }else{
+      this.showPick = true;
+      this.showDrop = false;
+    }
+    if(selected1 == 'office'){
+      this.showDrop = false;
+      this.showPick = true;
+    }else{
+      this.showDrop = true;
+      this.showPick = false;
+    }
+    this.pickupMessage = '';
+    if(this.message == ''){
+      this.showError = false;
+    }
   }
 
   onSelected2(selected2)
@@ -142,6 +170,23 @@ export class EmployeeReqUnschComponent implements OnInit {
     this.show2=true;
     else
     this.show2=false;
+
+    if(this.pickupArea == this.dropArea){
+      this.showError = true;
+      this.dropMessage = 'Pickup and Drop area cannot be same!';
+      return;
+    }
+
+    if(selected2 == 'home'){
+      this.showDrop = false;
+    }else{
+      this.showDrop = true;
+    }
+
+    this.dropMessage = '';
+    if(this.message == ''){
+      this.showError = false;
+    }
   }
   
   onManagerChange(){

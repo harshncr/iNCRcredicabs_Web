@@ -14,5 +14,8 @@ export class NoSessionComponent implements OnInit {
 
   constructor(private loginService:LoginService){}
 
-  ngOnInit() {}
+  ngOnInit() {
+    localStorage.removeItem('role');
+    localStorage.clear();
+  }
 }

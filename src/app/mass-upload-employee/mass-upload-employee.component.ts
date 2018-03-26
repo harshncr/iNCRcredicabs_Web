@@ -26,6 +26,7 @@ export class MassUploadEmployeeComponent implements OnInit {
   message = '';
   resp;
   employeeList;
+  showEmpList = false;
   empShowQuickDetails;
 
   constructor(
@@ -37,30 +38,38 @@ export class MassUploadEmployeeComponent implements OnInit {
   ngOnInit() {}
   
   upload(){
+    this.showEmpList = false;
     this.showLoader = true;
+    this.showSuccess = false;
+    this.showError = false;
     //this.upload_spinner=true;
     let files=this.elem.nativeElement.querySelector("#uploadFile").files;
     let formdata = new FormData();
     let file=files[0];
     formdata.append('uploadFile', file, file.name);
+    
+    this.empShowQuickDetails = [];
     this.emp_service.sendfile(formdata).subscribe((data)=>{
       if(data.success){
         console.log('Successfull');
         this.resp = data;
         this.showSuccess = true;
+        this.showEmpList = true;
         this.showError = false;
         this.message = data.message;
         this.employeeList = data.successfullUpload;
 
-        this.empShowQuickDetails = [];
-        for(var i=0; i<this.employeeList.length; ++i){
-          this.empShowQuickDetails.push(false);
-        }
         console.log(this.employeeList);
       }else{
         this.resp = data;
         this.showError = true;
+        this.showEmpList = true;
+        this.employeeList = data.successfullUpload;
         this.message = 'Mass upload executed with errors!';
+      }
+      
+      for(var i=0; i<this.employeeList.length; ++i){
+        this.empShowQuickDetails.push(false);
       }
       console.log(data);
       this.showLoader = false;
@@ -71,6 +80,8 @@ export class MassUploadEmployeeComponent implements OnInit {
     console.log('!!');
     this.showSuccess = false;
     this.showError = false;
+    this.showEmpList = false;
+
   }
 
   viewDetails(emp,selectedIndex){

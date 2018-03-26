@@ -24,9 +24,6 @@
     </div>
     <div class="panel-body" id="mass-upload-success-body">
         <ul *ngIf="resp" class="list-group">
-            <!-- <li class="list-group-item">
-                {{ message }}
-            </li> -->
             <li *ngIf="resp.totalRows" class="list-group-item">
                 Total rows processed: <strong>{{ resp.totalRows }}</strong>
             </li>
@@ -39,16 +36,35 @@
         </ul>
     </div>
 </div>
-<div *ngIf="employeeList && showSuccess" class="alert alert-success">
+<div *ngIf="showError" class="panel panel-danger">
+    <div class="panel-heading">
+        <strong>Error!</strong>
+        <span class="pull-right close-button" (click)="close()">&times;</span>
+    </div>
+    <div class="panel-body">
+        <ul *ngIf="resp" class="list-group">
+            <li class="list-group-item">
+                {{ message }}
+            </li>
+            <li *ngIf="resp.totalRows" class="list-group-item">
+                Total rows processed: <strong>{{ resp.totalRows }}</strong>
+            </li>
+            <li *ngIf="resp.totalSuccessful" class="list-group-item">
+                Successful add: <strong class="success">{{ resp.totalSuccessful }}</strong>
+            </li>
+            <li *ngIf="resp.totalFailed" class="list-group-item">
+                Unsuccessful add: <strong class="error">{{ resp.totalFailed }}</strong>
+            </li>
+        </ul>
+    </div>
+</div>
+<div *ngIf="showEmpList" class="alert alert-success">
     <strong>Following employees were successfully added:</strong>
     <!-- <span class="pull-right close-button">&times;</span> -->
 </div>
-<div *ngIf="showSuccess">
+<div *ngIf="showEmpList">
     <div *ngFor="let emp of employeeList;let i = index">
-        <div [ngClass]="{
-            'panel panel-info': emp.empStatus == 'A' || emp.empStatus == 'a',
-            'panel panel-default': emp.empStatus == 'I' || emp.empStatus == 'i'
-        }">
+        <div class="panel panel-info">
             <div class="panel-heading clearfix">
                 <h4 class="panel-title pull-left" style="padding-top: 7.5px">
                     <strong>
@@ -68,7 +84,8 @@
                             View Details
                         </span>
                     </span>
-                    <span id="qpb-eed-{{i}}" *ngIf="i != undefined">
+                    <!-- *ngIf="emp != undefined"  -->
+                    <span id="qpb-eed-{{i}}">
                         <button type="button" class="btn btn-default btn-md panel-quick-button"
                             (click)="editEmployee(emp, i)" (mouseenter)="onPanelQuickButtonMouseEnter($event.target)"
                             (mouseleave)="onPanelQuickButtonMouseLeave($event.target)">
@@ -173,38 +190,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div *ngIf="showError" class="panel panel-danger">
-    <div class="panel-heading">
-        <strong>Error!</strong>
-        <span class="pull-right close-button" (click)="close()">&times;</span>
-    </div>
-    <div class="panel-body">
-        <ul *ngIf="response" class="list-group">
-            <li class="list-group-item">
-                {{ message }}
-            </li>
-            <li *ngIf="response.totalRows" class="list-group-item">
-                Total rows processed: <strong>{{ resp.totalRows }}</strong>
-            </li>
-            <li *ngIf="response.totalSuccessful" class="list-group-item">
-                Successful add: <strong class="success">{{ resp.totalSuccessful }}</strong>
-            </li>
-            <li *ngIf="response.totalFailed" class="list-group-item">
-                Unsuccessful add: <strong class="error">{{ resp.totalFailed }}</strong>
-            </li>
-            
-            <li *ngIf="response.totalSuccessful > 0" class="list-group-item">
-                Following employees were successfully added:
-                <ul class="list-group">
-                    <li *ngFor="let emp of resp.successfullUpload" class="list-group-item">
-                        <a routerLink="/employee/view/details/{{emp.qlid}}">{{emp.name}}</a>
-                    </li>
-                </ul>
-            </li>
-            <li>Find details in the log</li>
-        </ul>
     </div>
 </div>
 <app-loader-anim [showLoader]="showLoader" [loaderText]="loaderText"></app-loader-anim>
