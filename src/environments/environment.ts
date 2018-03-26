@@ -31,7 +31,7 @@ export const environment = {
   downloadRequestExcelUrl: BASE_URL + "/RequestService/getUExcel",
   employeeRequest: BASE_URL + "/ReportService/employeereportParamSummary",
   employeeDetailUrl1: BASE_URL + "/ReportService/employeereportDefaultDetail",
-  employeeRequest1: BASE_URL + "/ReportService/employeereportDefaultDetail",
+  employeeRequest1: BASE_URL + "/ReportService/employeereportDefaultSummary",
   employeeDetailUrl: BASE_URL + "/ReportService/employeereportParamDetail",
   managerUrl:                 BASE_URL + "/ReportService/managerreportParamSummary",
   managerDetailUrl:           BASE_URL + "/ReportService/managerreportParamDetail",
