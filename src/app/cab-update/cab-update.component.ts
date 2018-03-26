@@ -293,7 +293,7 @@ validate(){
     console.log(" aur andar pahuch gaye");
     this.message11 = "it has been expired";
   }
-  if(this.Date>today){
+  if(this.Date>todays){
    this. validateStatus=false;
    this.message11="date is above current date";
   }

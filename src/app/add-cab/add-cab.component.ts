@@ -197,7 +197,8 @@ changeCabType(value){
     this.validateStatus = true;
     //let image_pattern = /.*\.(gif|jpe?g|bmp|png)$/igm;
     this.refreshErrorValues();
-    let todays =new Date();
+    let todays = new Date();
+  
     let today = new Date();
     today.setFullYear(today.getFullYear() -3);
     this.mDate = new Date(this.  Mdate); 
