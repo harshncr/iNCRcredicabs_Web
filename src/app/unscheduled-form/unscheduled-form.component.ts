@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import { NewValidators } from './new.validators';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'unscheduled-form',
   templateUrl: './unscheduled-form.component.html',
@@ -69,7 +69,7 @@ export class UnscheduledFormComponent implements OnInit {
   numberofseats: number[] = [1, 2, 3, 4];
   
 
-  constructor(private service: RosterService) {
+  constructor(private service: RosterService,private router:Router) {
   }
 
   ngOnInit() {
@@ -131,8 +131,9 @@ export class UnscheduledFormComponent implements OnInit {
       });
   }
 
-  createPost(input: HTMLInputElement,name){    
-    let empqlid= { "qlid":input.value};
+  createPost(input: HTMLInputElement,f){    
+    let empqlid= { "qlid":input.value,
+    "date":"f.value.RouteStartDate"};
    this.service.getEmployeesDetails(empqlid)
     .subscribe(respone =>{
       this.employee[input.name]=(respone.json());
@@ -177,6 +178,7 @@ export class UnscheduledFormComponent implements OnInit {
   }
 
   success:boolean=false;
+  error:boolean=false;
   submit(f) {
     console.log("f.value.start= "+ f.value.start);
     console.log("before submit=");
@@ -198,12 +200,13 @@ export class UnscheduledFormComponent implements OnInit {
        "qlid":this.employee[i].qlid,
        "guard":f.value.GuardNeeded,
        "picktime":this.PickupTime[i],
-       "pickuparea":temppickup,
-       "droptype":this.DropType[i],
+       "pickup":temppickup,
+       "drop":this.DropType[i],
        "start":f.value.RouteStartDate,
        "end":f.value.RouteEndDate,
        "vendor":f.value.VendorName,
-       "cost":f.value.Cost
+       "cost":f.value.Cost,
+       "cabno":f.value.CabNumber,
      };
 
     console.log(jsonstring);
@@ -211,13 +214,18 @@ export class UnscheduledFormComponent implements OnInit {
      
    
     }
-    this.success=true;
+    
     console.log(JSON.stringify(jsonstring));
     this.service.postunscheduledroute(jsonstring)
       .subscribe(
         reponse => {
           console.log(reponse);
+          this.success=true;
+        },error=>{
+          this.error=true;
+
         }
+        
 
       );
   
@@ -275,6 +283,11 @@ export class UnscheduledFormComponent implements OnInit {
   
   redirect(){
     this.success=false;
+    this.router.navigateByUrl('/roster/go');  
+  }
+
+  closeerror(){
+    this.error=false;
   }
 
 
