@@ -440,6 +440,9 @@
               {{report?.Cab_No}}
             </td>
             <td>
+              {{report?.Trip_Type}}
+            </td>
+            <td>
               {{report?.Source}}
             </td>
 
@@ -448,9 +451,6 @@
             </td>
             <td>
               {{report?.Zone}}
-            </td>
-            <td>
-              {{report?.TripType}}
             </td>
             <td>
               {{report?.Cab_Cost}}
@@ -752,7 +752,7 @@
                         <strong>Toll for Regular Cabs
                         </strong>
                       </span>
-                      <input type="text" name="toll_regular_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.toll_regular_cab=true"
+                      <input type="number" min="0" name="toll_regular_cab"  class="form-control imp-ph" ngModel (change)="validate();altered.toll_regular_cab=true"
                         required>
                     </div>
                   </div>
@@ -776,7 +776,7 @@
                         <strong>HR tax for Regular Cabs
                         </strong>
                       </span>
-                      <input type="text" name="hrtax_regular_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.hrtax_regular_cab=true"
+                      <input type="number" min="0" name="hrtax_regular_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.hrtax_regular_cab=true"
                         required>
                     </div>
                   </div>
@@ -802,7 +802,7 @@
                         <strong>UP tax for Regular Cabs
                         </strong>
                       </span>
-                      <input type="text" name="uptax_regular_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.uptax_regular_cab=true"
+                      <input type="number" min="0" name="uptax_regular_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.uptax_regular_cab=true"
                         required>
                     </div>
                   </div>
@@ -835,7 +835,7 @@
                         <strong>Employee Contribution
                         </strong>
                       </span>
-                      <input type="text" name="emp_contrib_regular" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.emp_contrib_regular=true"
+                      <input type="number" min="0" name="emp_contrib_regular"  class="form-control imp-ph" ngModel (change)="validate();altered.emp_contrib_regular=true"
                         required>
                     </div>
                   </div>
@@ -858,7 +858,7 @@
                         <strong>GPS for Regular Cabs
                         </strong>
                       </span>
-                      <input type="text" name="gps_regular_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.gps_regular_cab=true"
+                      <input type="number" min="0" name="gps_regular_cab"  class="form-control imp-ph" ngModel (change)="validate();altered.gps_regular_cab=true"
                         required>
                     </div>
                   </div>
@@ -883,7 +883,7 @@
                         <strong>GST
                         </strong>
                       </span>
-                      <input type="text" name="gstTax_regular_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.gstTax_regular_cab=true"
+                      <input type="number" min="0" name="gstTax_regular_cab" class="form-control imp-ph" ngModel (change)="validate();altered.gstTax_regular_cab=true"
                         required>
                     </div>
                   </div>
@@ -916,7 +916,7 @@
                         <strong>Toll for Shift Cabs
                         </strong>
                       </span>
-                      <input type="text" name="toll_shift_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.toll_shift_cab=true"
+                      <input type="number" min="0" name="toll_shift_cab"  class="form-control imp-ph" ngModel (change)="validate();altered.toll_shift_cab=true"
                         required>
                     </div>
                   </div>
@@ -942,7 +942,7 @@
                         <strong>HR tax for Shift Cabs
                         </strong>
                       </span>
-                      <input type="text" name="hrtax_shift_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.hrtax_shift_cab=true"
+                      <input type="number" min="0" name="hrtax_shift_cab" class="form-control imp-ph" ngModel (change)="validate();altered.hrtax_shift_cab=true"
                         required>
                     </div>
                   </div>
@@ -968,7 +968,7 @@
                         <strong>UP tax for Shift Cabs
                         </strong>
                       </span>
-                      <input type="text" name="uptax_shift_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.uptax_shift_cab=true"
+                      <input type="number" min="0" name="uptax_shift_cab"  class="form-control imp-ph" ngModel (change)="validate();altered.uptax_shift_cab=true"
                         required>
                     </div>
                   </div>
@@ -1024,7 +1024,7 @@
                         <strong>GPS for Shift Cabs
                         </strong>
                       </span>
-                      <input type="text" name="gps_shift_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.gps_shift_cab=true"
+                      <input type="number" min="0" name="gps_shift_cab"  class="form-control imp-ph" ngModel (change)="validate();altered.gps_shift_cab=true"
                         required>
                     </div>
                   </div>
@@ -1048,7 +1048,7 @@
                         <strong>GST
                         </strong>
                       </span>
-                      <input type="text" name="gstTax_shift_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.gstTax_shift_cab=true"
+                      <input type="number" min="0" name="gstTax_shift_cab"  class="form-control imp-ph" ngModel (change)="validate();altered.gstTax_shift_cab=true"
                         required>
                     </div>
                   </div>
@@ -1080,7 +1080,7 @@
                         <strong>Toll for Unscheduled Cabs
                         </strong>
                       </span>
-                      <input type="text" name="toll_unscheduled_cab" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.toll_unscheduled_cab=true"
+                      <input type="number" min="0" name="toll_unscheduled_cab"  class="form-control imp-ph" ngModel (change)="validate();altered.toll_unscheduled_cab=true"
                         required>
                     </div>
                   </div>
@@ -1105,7 +1105,7 @@
                         <strong>GST
                         </strong>
                       </span>
-                      <input type="text" name="gstTax_unscheduled" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.gstTax_unscheduled=true"
+                      <input type="number" min="0" name="gstTax_unscheduled"  class="form-control imp-ph" ngModel (change)="validate();altered.gstTax_unscheduled=true"
                         required>
                     </div>
                   </div>
@@ -1139,7 +1139,7 @@
                         <strong>Extra kms
                         </strong>
                       </span>
-                      <input type="text" name="standByCab_extraKms" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.standByCab_extraKms=true"
+                      <input type="number" min="0" name="standByCab_extraKms"  class="form-control imp-ph" ngModel (change)="validate();altered.standByCab_extraKms=true"
                         required>
                     </div>
                   </div>
@@ -1163,7 +1163,7 @@
                         <strong>Rate per km
                         </strong>
                       </span>
-                      <input type="text" name="ratePerKm" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.ratePerKm=true"
+                      <input type="number" min="0" name="ratePerKm" class="form-control imp-ph" ngModel (change)="validate();altered.ratePerKm=true"
                         required>
                     </div>
                   </div>
@@ -1186,7 +1186,7 @@
                         <strong>Extra Mileage Cost
                         </strong>
                       </span>
-                      <input type="text" name="extraMileageCost" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.extraMileageCost=true"
+                      <input type="number" min="0" name="extraMileageCost"  class="form-control imp-ph" ngModel (change)="validate();altered.extraMileageCost=true"
                         required>
                     </div>
                   </div>
@@ -1214,7 +1214,7 @@
                         <strong>Cost of standby cab -Fixed mileage
                         </strong>
                       </span>
-                      <input type="text" name="standByCost" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.standByCost=true"
+                      <input type="number" min="0" name="standByCost"  class="form-control imp-ph" ngModel (change)="validate();altered.standByCost=true"
                         required>
                     </div>
                   </div>
@@ -1237,7 +1237,7 @@
                         <strong>GST
                         </strong>
                       </span>
-                      <input type="text" name="standByTax" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.standByTax=true"
+                      <input type="number" min="0" name="standByTax" class="form-control imp-ph" ngModel (change)="validate();altered.standByTax=true"
                         required>
                     </div>
                   </div>
@@ -1266,7 +1266,7 @@
                         <strong>Others Cab Cost
                         </strong>
                       </span>
-                      <input type="text" name="otherCabCost" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.otherCabCost=true"
+                      <input type="number" min="0" name="otherCabCost"  class="form-control imp-ph" ngModel (change)="validate();altered.otherCabCost=true"
                         required>
                     </div>
                   </div>
@@ -1291,7 +1291,7 @@
                         <strong>GST
                         </strong>
                       </span>
-                      <input type="text" name="otherCabGST" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.otherCabCost=true"
+                      <input type="number" min="0" name="otherCabGST"  class="form-control imp-ph" ngModel (change)="validate();altered.otherCabCost=true"
                         required>
                     </div>
                   </div>
@@ -1326,7 +1326,7 @@
                         <strong>Escort Guard Cost
                         </strong>
                       </span>
-                      <input type="text" name="escortGuardCost" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.escortGuardCost=true"
+                      <input type="number" min="0"  name="escortGuardCost"  class="form-control imp-ph" ngModel (change)="validate();altered.escortGuardCost=true"
                         required>
                     </div>
                   </div>
@@ -1349,7 +1349,7 @@
                         <strong>Escort Guard Drop Duty Cost
                         </strong>
                       </span>
-                      <input type="text" name="escortGuardDropDutyCost" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.escortGuardDropDutyCost=true"
+                      <input type="number" min="0"  name="escortGuardDropDutyCost"  class="form-control imp-ph" ngModel (change)="validate();altered.escortGuardDropDutyCost=true"
                         required>
                     </div>
                   </div>
@@ -1373,7 +1373,7 @@
                         <strong>Escort Guard Taxes
                         </strong>
                       </span>
-                      <input type="text" name="escortGuardTaxes" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.escortGuardTaxes=true"
+                      <input type="number" min="0" name="escortGuardTaxes" class="form-control imp-ph" ngModel (change)="validate();altered.escortGuardTaxes=true"
                         required>
                     </div>
                   </div>
@@ -1404,7 +1404,7 @@
                         <strong>Transport Team Mob Cost
                         </strong>
                       </span>
-                      <input type="text" name="tptMobCost" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.tptMobCost=true"
+                      <input type="number" min="0" name="tptMobCost"  class="form-control imp-ph" ngModel (change)="validate();altered.tptMobCost=true"
                         required>
                     </div>
                   </div>
@@ -1435,7 +1435,7 @@
                         <strong>Overall UP tax
                         </strong>
                       </span>
-                      <input type="text" name="overallUPtax" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallUPtax=true"
+                      <input type="number" min="0" name="overallUPtax"  class="form-control imp-ph" ngModel (change)="validate();altered.overallUPtax=true"
                         required>
                     </div>
                   </div>
@@ -1459,7 +1459,7 @@
                       <strong>Overall HR tax
                       </strong>
                     </span>
-                    <input type="text" name="overallHRtax" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallHRtax=true"
+                    <input type="number" min="0" name="overallHRtax"  class="form-control imp-ph" ngModel (change)="validate();altered.overallHRtax=true"
                       required>
                   </div>
                 </div>
@@ -1483,7 +1483,7 @@
                       <strong>Overall Taxes (GST)
                       </strong>
                     </span>
-                    <input type="text" name="overallTaxes" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallTaxes=true"
+                    <input type="number" min="0" name="overallTaxes"  class="form-control imp-ph" ngModel (change)="validate();altered.overallTaxes=true"
                       required>
                   </div>
                 </div>
@@ -1512,7 +1512,7 @@
                         <strong>Overall Toll
                         </strong>
                       </span>
-                      <input type="text" name="overallToll" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallToll=true"
+                      <input type="number" min="0" name="overallToll"  class="form-control imp-ph" ngModel (change)="validate();altered.overallToll=true"
                         required>
                     </div>
                   </div>
@@ -1536,7 +1536,7 @@
                         <strong>Overall GPS
                         </strong>
                       </span>
-                      <input type="text" name="overallGPS" maxlength="15" class="form-control imp-ph" ngModel (change)="validate();altered.overallGPS=true"
+                      <input type="number" min="0" name="overallGPS"  class="form-control imp-ph" ngModel (change)="validate();altered.overallGPS=true"
                         required>
                     </div>
                   </div>
@@ -1566,7 +1566,7 @@
                         <strong>Foreign Exchange Price
                         </strong>
                       </span>
-                      <input type="text" name="foreignExPrice" maxlength="8" class="form-control imp-ph" ngModel (change)="validate();altered.foreignExPrice=true"
+                      <input type="number" min="0" name="foreignExPrice"  class="form-control imp-ph" ngModel (change)="validate();altered.foreignExPrice=true"
                         required>
                     </div>
                   </div>
