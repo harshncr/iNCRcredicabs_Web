@@ -142,21 +142,21 @@ export class ReportComponent implements OnInit {
         }); break;
 
       case "Checkin_Checkout":
-      this.showLoader = true;
+        this.showLoader = true;
         this.reportService.getVendorNames().subscribe((data) => {
           this.showLoader = false;
           this.vname = data;
           console.log(data);
         }); break;
 
-      case "Billing_Summary":
+      case "Vendor_Billing_Summary":
         this.reportService.getVendorNames().subscribe((data) => {
           this.vname = data;
 
           console.log(data);
         }); break;
 
-     
+
     }
 
 
@@ -175,7 +175,7 @@ export class ReportComponent implements OnInit {
   // to download Excel
   downloadExcel() {
 
-    if (this.filterReport == 'Billing_Summary') {
+    if (this.filterReport == 'Vendor_Billing_Summary') {
       //Calculations start
       console.log(">>>filtertype: " + this.filterReport);
 
@@ -247,18 +247,6 @@ export class ReportComponent implements OnInit {
   //filter method
   onFilterGo(f) {
 
-    // console.log("onfilterGo()"+JSON.stringify(f)+"  "+this.filterReport);
-
-
-    if (this.filterReport == 'Transportation_Billing') {
-      var d = new Date();
-      if (f.month > (d.getMonth() + 1)) {
-        alert("Cannot show report until this month is complete.");
-        return;
-      }
-    }
-
-
     // console.log(this.filterType + " " + this.filterValue);
 
     switch (this.filterReport) {
@@ -267,6 +255,8 @@ export class ReportComponent implements OnInit {
         this.reportService.getManagerReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
+          this.showDiv=true;
+
           console.log(data);
         });
         break;
@@ -275,6 +265,8 @@ export class ReportComponent implements OnInit {
         this.reportService.getEmployeeReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
+          this.showDiv=true;
+
           console.log(data);
         }); break;
 
@@ -282,36 +274,48 @@ export class ReportComponent implements OnInit {
         this.reportService.getVendorReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
+          this.showDiv=true;
+
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByVendor":
         this.reportService.getVendorReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
+          this.showDiv=true;
+
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByEmployee":
         this.reportService.getEmployeeReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
+          this.showDiv=true;
+
           console.log(data);
         }); break;
       case "Unschedule_Detail_ByManager":
         this.reportService.getManagerReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
+          this.showDiv=true;
+
           console.log(data);
         }); break;
-      case "Billing_Summary":
+      case "Vendor_Billing_Summary":
         this.reportService.getBillingSummary(f.ShiftType, f.VendorName, f.FromDate, f.ToDate).subscribe((data) => {
-          this.reports = data;
+          this.BillingSummaryReport = data;
           this.showLoader = false;
+          this.showDiv=true;
+
           console.log(data);
         }); break;
       case "Checkin_Checkout":
+        this.showDiv = true;
         this.getdata(f);
+
         break;
-        
+
       default:
         console.log(this.filterReport);
     }
@@ -444,7 +448,7 @@ export class ReportComponent implements OnInit {
         this.showLoader = true;
         this.reportService.getManagerReport1(this.filterValue).subscribe((data) => {
           this.showLoader = false;
-
+          this.showDiv = true;
           this.reports = data;
           console.log(data);
         });
@@ -456,6 +460,7 @@ export class ReportComponent implements OnInit {
 
         this.reportService.getEmployeeReport1(this.filterValue).subscribe((data) => {
           this.showLoader = false;
+          this.showDiv = true;
 
           this.reports = data;
           //  this.showDiv = true;
@@ -467,6 +472,7 @@ export class ReportComponent implements OnInit {
 
         this.reportService.getVendorReport1(this.filterValue).subscribe((data) => {
           this.showLoader = false;
+          this.showDiv = true;
 
           this.reports = data;
           //this.showDiv = true;
@@ -478,6 +484,7 @@ export class ReportComponent implements OnInit {
 
         this.reportService.getVendorReportDetail1(this.filterValue).subscribe((data) => {
           this.showLoader = false;
+          this.showDiv = true;
 
           this.reports = data;
           //this.showDiv = true;
@@ -489,6 +496,7 @@ export class ReportComponent implements OnInit {
 
         this.reportService.getEmployeeReportDetail1(this.filterValue).subscribe((data) => {
           this.showLoader = false;
+          this.showDiv = true;
 
           this.reports = data;
           //this.showDiv = true;
@@ -500,6 +508,7 @@ export class ReportComponent implements OnInit {
 
         this.reportService.getManagerReportDetail1(this.filterValue).subscribe((data) => {
           this.showLoader = false;
+          this.showDiv = true;
 
           this.reports = data;
           //this.showDiv = true;
@@ -508,17 +517,21 @@ export class ReportComponent implements OnInit {
         }); break;
 
       case "Checkin_Checkout":
-      this.showLoader = true;
+        this.showLoader = true;
         this.reportService.getVendorNames().subscribe((data) => {
           this.vname = data;
+          this.showDiv = true;
+
           this.showLoader = false;
           console.log(data);
         }); break;
 
-      case "Billing_Summary":
-      this.showLoader = true;
+      case "Vendor_Billing_Summary":
+        this.showLoader = true;
         this.reportService.getVendorNames().subscribe((data) => {
           this.vname = data;
+          this.showDiv = true;
+
           this.showLoader = false;
           console.log(data);
         }); break;
@@ -547,13 +560,22 @@ export class ReportComponent implements OnInit {
   // Transportation Cost Report ---Start
 
   onTptCostForm(f) {
-    this.showLoader=true;    
+
+
+    var d = new Date();
+    if ((this.fromMonth > (d.getMonth() + 1)) || typeof this.fromMonth == "undefined") {
+      alert("Cannot show report until this month is complete.");
+      return;
+    }
+
+
+    this.showLoader = true;
     this.reportService.getTransportationReport(this.fromMonth, this.year, f).subscribe((data) => {
       console.log(data);
-      this.showLoader=false;
+      this.showLoader = false;
       this.transBillReport = data;
-      this.showTransportationReportResult=true;
-      this.showDiv=false;
+      this.showTransportationReportResult = true;
+      this.showDiv = false;
     });
 
   }
