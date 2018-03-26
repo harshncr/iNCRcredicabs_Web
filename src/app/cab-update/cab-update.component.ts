@@ -164,6 +164,7 @@ validateStatus : boolean;
 
 }
 validate(){
+  let todays =new Date();
   let today = new Date();
   today.setFullYear(today.getFullYear() -3);
   this.Date = new Date(this.cab.manufacture_date); 
@@ -287,7 +288,7 @@ validate(){
 
   if(this.cab.manufacture_date != null){
     console.log("andar pahuch gaye");
-    if(this.Date<=today){
+    if(this.Date<=todays){
     this.validateStatus = false;
     console.log(" aur andar pahuch gaye");
     this.message11 = "it has been expired";
