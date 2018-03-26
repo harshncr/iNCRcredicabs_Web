@@ -47,6 +47,12 @@ export class ReportComponent implements OnInit {
   public tdate;
   public fromMonth;
   public year;
+  public shiftValue;
+  public fromDate;
+  public toDate;
+
+
+
 
 
   public filterReport;
@@ -255,7 +261,7 @@ export class ReportComponent implements OnInit {
         this.reportService.getManagerReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
-          this.showDiv=true;
+          this.showDiv = true;
 
           console.log(data);
         });
@@ -265,7 +271,7 @@ export class ReportComponent implements OnInit {
         this.reportService.getEmployeeReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
-          this.showDiv=true;
+          this.showDiv = true;
 
           console.log(data);
         }); break;
@@ -274,7 +280,7 @@ export class ReportComponent implements OnInit {
         this.reportService.getVendorReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
-          this.showDiv=true;
+          this.showDiv = true;
 
           console.log(data);
         }); break;
@@ -282,7 +288,7 @@ export class ReportComponent implements OnInit {
         this.reportService.getVendorReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
-          this.showDiv=true;
+          this.showDiv = true;
 
           console.log(data);
         }); break;
@@ -290,7 +296,7 @@ export class ReportComponent implements OnInit {
         this.reportService.getEmployeeReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
-          this.showDiv=true;
+          this.showDiv = true;
 
           console.log(data);
         }); break;
@@ -298,15 +304,15 @@ export class ReportComponent implements OnInit {
         this.reportService.getManagerReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
-          this.showDiv=true;
+          this.showDiv = true;
 
           console.log(data);
         }); break;
       case "Vendor_Billing_Summary":
-        this.reportService.getBillingSummary(f.ShiftType, f.VendorName, f.FromDate, f.ToDate).subscribe((data) => {
+        this.reportService.getBillingSummary(this.shiftValue, f.VendorName, this.fromDate, this.toDate).subscribe((data) => {
           this.BillingSummaryReport = data;
           this.showLoader = false;
-          this.showDiv=true;
+          this.showDiv = true;
 
           console.log(data);
         }); break;
@@ -328,6 +334,26 @@ export class ReportComponent implements OnInit {
     // other options...
     dateFormat: 'yyyy-mm-dd',
   };
+
+
+  enableshift() {
+    $("select[name=ShiftType]").prop("disabled", false);
+  }
+
+  enablefrom(value) {
+    $("select[name=FromDate]").prop("disabled", false);
+    this.shiftValue = value;
+  }
+
+  enableto(value) {
+    $("select[name=ToDate]").prop("disabled", false);
+    this.fromDate = value;
+  }
+
+  enablego(value) {
+    $("button[name=FinalGo]").prop("disabled", false);
+    this.toDate = value;
+  }
 
 
   // Transportation Cost Report ---Start
@@ -407,11 +433,17 @@ export class ReportComponent implements OnInit {
 
     if (typeof this.modelf === 'undefined')
       this.fdate = "";
+
+    else if (this.modelf == null)
+      this.fdate = "";
     else
       this.fdate = this.modelf.formatted;
 
     if (typeof this.modelt === 'undefined')
       this.tdate = "";
+    else if (this.modelt == null)
+      this.tdate = "";
+
     else
       this.tdate = this.modelt.formatted;
 

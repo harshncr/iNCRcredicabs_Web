@@ -225,14 +225,15 @@
 
           <div class="col-sm-2">
             Vendor Name
-            <select ngModel name="VendorName" class="form-control">
+            <select ngModel name="VendorName" class="form-control" (change)="enableshift()">
               <option *ngFor="let obj of vname" [value]="obj.name">{{obj.name}}</option>
             </select>
           </div>
 
           <div class="col-sm-2">
             Shift Type
-            <select ngModel name="ShiftType" class="form-control">
+            <select ngModel name="ShiftType" class="form-control" disabled="disabled"
+            (change)="enablefrom($event.target.value)">
               <option value="1">7 AM - 4 PM</option>
               <option value="2">10 AM - 7 PM</option>
               <option value="3">12 PM - 9 PM</option>
@@ -241,7 +242,8 @@
           </div>
           <div class="col-sm-2">
             From Date
-            <select ngModel name="FromDate" class="form-control">
+            <select ngModel name="FromDate" class="form-control" disabled="disabled"
+            (change)="enableto($event.target.value)" >
               <option value="1">January</option>
               <option value="2">February</option>
               <option value="3">March</option>
@@ -258,7 +260,8 @@
           </div>
           <div class="col-sm-2">
             To Date
-            <select ngModel name="ToDate" class="form-control">
+            <select ngModel name="ToDate" class="form-control" disabled="disabled"
+            (change)="enablego($event.target.value)"   >
               <option value="1">January</option>
               <option value="2">February</option>
               <option value="3">March</option>
@@ -279,7 +282,7 @@
           </div>
           <div class="col-sm-1">
             <br>
-            <button type="submit" class="btn btn-default form-control">
+            <button type="submit" class="btn btn-default form-control" name="FinalGo"      >
               Go
             </button>
           </div>
