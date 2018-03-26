@@ -188,8 +188,10 @@ export class DriverListComponent implements OnInit {
     if(driver.status == 0){
         this._driverService.enableDriver(JSONStr).subscribe((response)=>{
           this.isDeleted=response.result;
+          console.log(response.result);
           this._driverService.getDrivers().subscribe(resp=>{
             this.drivers=resp.result;
+          
             this.initShowDetails(this.drivers);
           })
         })
