@@ -38,7 +38,7 @@
               <option value="Unschedule_Summary_ByVendor">Unschedule_Summary_ByVendor</option>
               <option value="Unschedule_Summary_ByEmployee">Unschedule_Summary_ByEmployee</option>
               <option value="Checkin_Checkout">Checkin_Checkout</option>
-              <option value="Billing_Summary">Billing_Summary</option>
+              <option value="Vendor_Billing_Summary">Vendor_Billing_Summary</option>
               <option value="Transportation_Billing">Transportation_Billing</option>
             </select>
           </div>
@@ -155,7 +155,13 @@
                                       ||(filterReport =='Unschedule_Summary_ByVendor')
                                       ||(filterReport =='Transportation_Billing')">
             <br>
-            <button type="submit" class="btn btn-default form-control">
+            <button type="submit" class="btn btn-default form-control" *ngIf="(filterReport == 'Unschedule_Detail_ByManager')
+            ||(filterReport =='Unschedule_Detail_ByVendor')    
+            ||(filterReport =='Unschedule_Detail_ByEmployee')    
+            ||(filterReport =='Unschedule_Summary_ByManager')    
+            ||(filterReport =='Unschedule_Summary_ByVendor')    
+            ||(filterReport =='Unschedule_Summary_ByEmployee')    
+            ||(filterReport =='Unschedule_Summary_ByVendor')">
               Go
             </button>
           </div>
@@ -215,7 +221,7 @@
 
 
         <!-- Filters for Vendorwise Report -->
-        <div class="row top-buffer" *ngIf="filterReport=='Billing_Summary'">
+        <div class="row top-buffer" *ngIf="filterReport=='Vendor_Billing_Summary'">
 
 
           <div class="col-sm-2">
@@ -383,7 +389,7 @@
             </td>
 
             <td>
-              {{report?.Cab_No}}
+              {{report?.Cab_Count}}
             </td>
             <td>
               {{report?.Cab_Cost}}
@@ -557,7 +563,7 @@
       </table>
     </div>
 
-    <div *ngIf="filterReport =='Billing_Summary'" class="table-responsive">
+    <div *ngIf="filterReport =='Vendor_Billing_Summary'" class="table-responsive">
       <table class="table table-bordered table-hover table-stripped" id="test">
         <thead>
           <tr>
