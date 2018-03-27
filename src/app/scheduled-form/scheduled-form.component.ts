@@ -143,8 +143,8 @@ getnumberofseats(CabNumber){
 
 createPost(input: HTMLInputElement,f){    
   let empqlid= { "qlid":input.value,
-"date":"f.value.RouteStartDate"};
-console.log(input.value+f.value.RouteStartDate);
+"date":f.value.RouteStartDate};
+console.log(empqlid);
   this.routeexists=[];
  this.service.getEmployeesDetails(empqlid)
   .subscribe(respone =>{

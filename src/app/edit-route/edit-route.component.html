@@ -1,19 +1,33 @@
 <app-header [module]="module" [navLocation]="navLocation"></app-header>
 
 <div *ngIf="update_route_status" >
-    <div *ngIf="update_route_return.err_type == success">
+    <div *ngIf="update_route_return.err_msg == success">
             <div class="alert alert-success" role="alert">
-                    {{update_route_status_msg}}
+                    {{ update_route_status_msg }}
                   <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close()"></span>      
               </div>
     </div>
-    <div *ngIf="!(update_route_return.err_type == success)">
-            <div class="alert alert-info" role="alert">
-                    {{update_route_status_msg}}
+    <div *ngIf="update_route_return.err_msg == fail">
+            <div class="alert alert-danger" role="alert">
+                    {{ update_route_status_msg}}
                   <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_update_popup()"></span>      
               </div>
     </div>
+
+    <div *ngIf="update_route_return.err_msg == exist">
+        <div class="alert alert-danger" role="alert">
+                {{ update_route_status_msg}}
+              <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_update_popup()"></span>      
+          </div>
+</div>
     
+</div>
+
+<div *ngIf="update_error" >
+            <div class="alert alert-danger" role="alert">
+                   Start Date can not be grater than end date.
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_date_error()"></span>      
+              </div>
 </div>
 
 <div class="panel panel-success" id="filter_box" >
@@ -73,6 +87,7 @@
                          <option value="2">10:00AM to 07:00PM</option>
                          <option value="3">12:00PM to 09:00PM</option>
                          <option value="5">02:00PM to 11:00PM</option>
+
                     </select>
                 </div>
             </div>    
@@ -100,12 +115,6 @@
                     <button id="singlebutton" (click)="updateroute()" class="btn btn-default" name="singlebutton" >Update route</button>
                 </div>
             </div>
-            <div class="col-md-2" style="margin-top:24px;">
-                <div class="col-md-1">
-                    <button id="singlebutton" (click)="resetroute()" class="btn btn-default" name="singlebutton" >Reset Form</button>
-                </div>
-            </div>
-            
         </div>
     </div> 
     <!-- form end -->

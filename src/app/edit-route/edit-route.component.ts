@@ -47,6 +47,7 @@ export class EditRouteComponent implements OnInit {
   }
   
   public route=[];
+
    resetroute(){
      this.s_date="";
      this.e_date="";
@@ -54,8 +55,8 @@ export class EditRouteComponent implements OnInit {
      this.cno="";
      this.ven="";
      this.rno="";
-
    }
+
    getRouteData(){
      
    this._http.getAddData1().subscribe(
@@ -64,7 +65,6 @@ export class EditRouteComponent implements OnInit {
   error=>console.log(error),
         ()=>console.log("Finished get route")
       );
-    
   }
     
   public cab=[];
@@ -92,7 +92,8 @@ export class EditRouteComponent implements OnInit {
    public update_route_status:boolean=false;
   public  update_route_status_msg;
   public update_route_return;
-
+ public update_error:boolean;
+ public notdo:boolean=false;
     updateroute(){
     
   console.log(this.rno);
@@ -101,28 +102,46 @@ export class EditRouteComponent implements OnInit {
      
    console.log(this.sid);
    console.log(this.ven);
+   let a:Date=new Date(this.s_date);
+   let b:Date=new Date(this.e_date);
+   if(this.s_date >this.e_date){
+    this.update_error=true;
+    this.notdo=true;
+   }
    console.log(this.s_date+" "+ this.e_date);
+   if(!this.notdo){
       this._http.updater(this.rno,this.cno ,this.sid,this.ven,this.s_date,this.e_date).subscribe(
         data=>{this.update_route_return=data;
-        if(this.update_route_return.err_type == "exist"){
+          console.log(this.update_route_return.err_msg);
+        if(this.update_route_return.err_msg == "exist"){
           this.update_route_status_msg="Route Already Exist with this cabnumber and shift.";
         }
-        else if(this.update_route_return.err_type == "fail"){
+        else if(this.update_route_return.err_msg == "fail"){
           this.update_route_status_msg="An Error Occured During Updation.";
         }
-        else if(this.update_route_return.err_type == "success"){
+        else if(this.update_route_return.err_msg == "success"){
           this.update_route_status_msg="Route Successfully Updated.";
         }
+        else{
+
+        }
+        this.update_route_status=true;
+        console.log(this.update_route_status_msg);
         },
         error=>console.log("error"),
         ()=>{this.update_route_status=true;}
       );
+    }
    
      console.log(this.msg);
     }
   
     close_update_popup(){
 this.update_route_status=false;
+    }
+
+    close_date_error(){
+      this.update_error=false;
     }
 
   close(){

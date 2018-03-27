@@ -26,32 +26,59 @@
 
 <!-- Upload popup -->
 <div *ngIf="uploadPopupClicked" >
-    <div class="alert alert-info" role="alert">
+    <div class="alert alert-success" role="alert">
        <h3> Item Processed :-  {{uploadinfo.tr}} and Errored out :- {{uploadinfo.eo}}</h3>
         <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_upload_popup()"></span>      
     </div>
 </div>
 
 <div *ngIf="add_emp_status" >
+    <div *ngIf="add_return_msg.error_type == success">
+            <div class="alert alert-success" role="alert">
+                    {{ add_emp_status_msg }}
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_add_status_popup()"></span>      
+            
+                    <!-- <a (click)="close_add_status_popup()" class="alert-link">Click Here</a>  -->
+                </div>
+    </div>
+    <div *ngIf="add_return_msg.error_type == success">   
     <div class="alert alert-danger" role="alert">
         {{ add_emp_status_msg }}
         <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_add_status_popup()"></span>      
 
         <!-- <a (click)="close_add_status_popup()" class="alert-link">Click Here</a>  -->
     </div>
+    </div>
+
+    <div *ngIf="add_return_msg.error_type == fail">   
+        <div class="alert alert-danger" role="alert">
+            {{ add_emp_status_msg }}
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_add_status_popup()"></span>      
     
+            <!-- <a (click)="close_add_status_popup()" class="alert-link">Click Here</a>  -->
+        </div>
+        </div>
     </div>  
     <!-- delete status box start -->
 
     <div *ngIf="delete_emp_status" >
-        <div class="alert alert-danger" role="alert">
+        <div *ngIf="delete_emp_return.error_msg == success">
+        <div class="alert alert-success" role="alert">
             {{ delete_emp_status_message }}
             <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_delete_emp_msg()"></span>      
 
             <!-- <a (click)="close_delete_emp_msg()" class="alert-link">Click Here</a>  -->
         </div>
+        </div>
+        <div *ngIf="!(delete_emp_return.error_msg == success)">
+                <div class="alert alert-danger" role="alert">
+                    {{ delete_emp_status_message }}
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_delete_emp_msg()"></span>      
         
-        </div>  
+                    <!-- <a (click)="close_delete_emp_msg()" class="alert-link">Click Here</a>  -->
+                </div>
+       </div>
+    </div>  
         <!-- delete status box-ends-->
 
 <!-- filter data not founderror box starts-->
@@ -70,14 +97,22 @@
 <!-- download data error box starts-->
 
 <div *ngIf="download_error_exist" >
-    <div class="alert alert-danger" role="alert">
-        {{download_error_msg}} 
-        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_dowload_error_popup()"></span>      
-
-        <!-- <a (click)="close_dowload_error_popup()" class="alert-link">Click Here</a>  -->
+    <div *ngIf="download_error_status.error_type == success">
+            <div class="alert alert-success" role="alert">
+                    {{download_error_msg}} 
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_dowload_error_popup()"></span>      
+                    <!-- <a (click)="close_dowload_error_popup()" class="alert-link">Click Here</a>  -->
+                </div>
+    </div>
+    <div *ngIf="!(download_error_status.error_type == success)">
+            <div class="alert alert-danger" role="alert">
+                    {{download_error_msg}} 
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_dowload_error_popup()"></span>      
+                    <!-- <a (click)="close_dowload_error_popup()" class="alert-link">Click Here</a>  -->
+                </div>
     </div>
     
-    </div>  
+ </div>  
     <!--download data error error box ends-->
 
 <!-- filter incorrect data  box starts-->
@@ -114,9 +149,9 @@
                 <div class="form-group">
                     <label style="margin-left:5px;">Choose Vendor </label>
                     <select  name="v_n" [(ngModel)]="bind_vendor_name"  class="form-control" (change)="change_vendor()">
-                         <option value="" disabled selected> Vendor Name</option>
+                         <option  name="v_n" value="" disabled selected> Vendor Name</option>
                         
-                          <option value="{{i.vname}}" *ngFor="let i of filter_vendor_data" >{{i.vname}} </option> 
+                          <option name="v_n" value="{{i.vname}}" *ngFor="let i of filter_vendor_data" >{{i.vname}} </option> 
                     </select>
                 </div>
             </div>
@@ -176,6 +211,7 @@
                          <option value="1">07:00AM to 04:00PM</option>
                          <option value="2">10:00AM to 07:00PM</option>
                          <option value="3">12:00PM to 09:00PM</option>
+                         <option value="5">02:00PM to 11:00PM</option>
                          <option value="4">Unscheduled</option>
                          <option value="">All Shifts </option>
                     </select>
@@ -365,13 +401,13 @@
 
 <!-- common error  box starts-->
 
-<div *ngIf="common_error_exist" >
+<!-- <div *ngIf="common_error_exist" >
     <div class="alert alert-danger" role="alert">
         {{ commom_error_msg }}
         <a (click)="close_upload_popup()" class="alert-link">Click Here</a> 
     </div>
     
-    </div>  
+    </div>   -->
     <!-- common error box ends-->
     <!-- common error  box starts-->
 

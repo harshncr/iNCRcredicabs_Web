@@ -4,6 +4,7 @@ import { ElementRef, ViewChild,Input} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { addEmp } from '../Model/AddEmp';
 import {ActivatedRoute,Params} from '@angular/router';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-show-route',
@@ -20,6 +21,7 @@ export class ShowRouteComponent implements OnInit {
    
   public text='Loading...';
   public uploadinfo;
+
   public downloadstatus:boolean=false;
   msg="";
   errorexist:boolean=false;
@@ -192,6 +194,7 @@ gettingPostData(){
     this.msg='Incorrect Format Data Found  ';
   }
   else{
+    console.log("vendor:- "+this.bind_vendor_name);
   this.Max_arr=[];
   this.cab_arr=[];
   this.cab_number=[];
@@ -366,17 +369,17 @@ upload(){
   let file=files[0];
   formdata.append('uploadFile',file,file.name);
   this._http1.sendfile(formdata).subscribe(
-     data =>{this.uploadinfo=data.json();
-            console.log(this.trecord);
+     data =>{this.uploadinfo=JSON.stringify(data);
+            console.log(this.uploadinfo.tr);
     
-    
+            console.log(this.uploadinfo.eo);
     },
      error=>{ console.log(this.uploadinfo.length);
      for(let i:number=0;i<this.uploadinfo.length;i++){
          console.log(this.uploadinfo[i].tr);
          console.log(this.uploadinfo[i].eo);
      }},
-    ()=>{this.uploadPopupClicked=true;this.upload_spinner=false;},
+    ()=>{this.uploadPopupClicked=true;this.upload_spinner=false;}
   );
  
 }
@@ -405,6 +408,7 @@ add_emp(){
  this._http1.addEmpToDb(this.emp_selected,this.cab_box_selected,this.currentshift_id).subscribe(
    data=>{
            this.add_return_msg=data;
+           console.log(this.add_return_msg.error_type);
            if(this.add_return_msg.error_type == "success"){
              this.add_emp_status=true;
              this.add_emp_status_msg="Employee Sucessfully Added.";
@@ -498,11 +502,47 @@ deleteMe(a,b)
 
 close_delete_emp_msg(){
   this.delete_emp_status=false;
+  
 }
 //trash clecked
 
  
 //downloading excel starts
+  // public download_error_status;
+  // public download_error_msg;
+  // public download_error_exist:boolean;
+  // public downloadexcel(){ 
+  //   if((this.error_cab)||(this.error_name)||(this.error_qlid)||(this.error_shift)){
+  //     this.filter_error=true;
+  //     this.msg='Incorrect Format Data Found  ';
+  //   }
+  //   else{
+  //    this.downloadstatus=true; 
+  //   this._http1.downloadExcelData(this.bind_cab_no,this.bind_qlid,this.bind_shift_i,this.bind_emp_name,this.bind_vendor_name).subscribe(
+  //     data=>{
+  //       this.download_error_status=data;
+  //       console.log(this.download_error_status.err_type);
+  //       console.log(this.download_error_status.err_in);
+  //        if(this.download_error_status.error_type == "fail"){
+  //       this.downloadstatus=false; 
+  //       this.download_error_exist=true;
+  //       this.download_error_msg="Some Error Occured during Downloading."
+  //      }
+  //      else{
+  //         this.download_error_exist=true;
+  //         this.downloadstatus=false;
+  //         this.download_error_msg="File successfully downloaded.Check Your Desktop."
+  //      }
+  //     this.downloadstatus=false;
+  //     // this.common_error();
+  //     },
+  //     (error)=>console.log(error),
+  //     ()=>this.downloadstatus=false
+  //   );
+  // }
+  // }
+//downloading excel ends
+public urlpulldata;
   public download_error_status;
   public download_error_msg;
   public download_error_exist:boolean;
@@ -515,18 +555,35 @@ close_delete_emp_msg(){
      this.downloadstatus=true; 
     this._http1.downloadExcelData(this.bind_cab_no,this.bind_qlid,this.bind_shift_i,this.bind_emp_name,this.bind_vendor_name).subscribe(
       data=>{
+        console.log(data.fileName);
+        if(data.fileName!="")
+          {
+            console.log("data success: ");
+            console.log(environment.pullExcelfileUrl);
+            // this._http1.getfileurl().subscribe(
+            //   data=>{this.urlpulldata=data;
+            //   })
+              console.log(this.urlpulldata);
+            window.open(environment.pullExcelfileUrl+"/"+data.fileName, '_blank');
+          }
+          else{
+            console.log("data fail: "+data.status);
+          }  
+
         this.download_error_status=data;
+        console.log("this is the name of filename");
+        console.log(this.download_error_status.fileName);
         console.log(this.download_error_status.err_type);
         console.log(this.download_error_status.err_in);
          if(this.download_error_status.error_type == "fail"){
         this.downloadstatus=false; 
         this.download_error_exist=true;
-        this.download_error_msg="Some Error Occured during Downloading."
+       this.download_error_msg="Some Error Occured during Downloading."
        }
        else{
           this.download_error_exist=true;
           this.downloadstatus=false;
-          this.download_error_msg="File successfully downloaded.Check Your Desktop."
+          this.download_error_msg="File successfully downloaded."
        }
       this.downloadstatus=false;
       // this.common_error();
@@ -537,6 +594,11 @@ close_delete_emp_msg(){
   }
   }
 //downloading excel ends
+
+
+
+
+
 
 //route expand start
 public checkshift;
@@ -582,11 +644,11 @@ close_spinner(){
 close_delete_popup(){
   if((this.emp_to_delete.length)&&(this.emp_shift_to_delete.length)){
   this.deleteClicked=false;
-  this.ngOnInit();
   }
   else{
     this.deleteClicked=false;
   }
+  this.ngOnInit();
   }
   
 // close add popup  
