@@ -19,14 +19,12 @@ export class EmployeeReqUnschComponent implements OnInit {
 
   startDateTime;
   endDateTime;
-  otherAddr;
-  reason;
-  source;
-  destination;
-  counter;
+  otherAddr = '';
+  reason = '';
+  counter = 1;
   dropArea;
   dropTime;
-  dropAddress;
+  dropAddress = '';
   pickupArea;
   pickupTime;
   pickupAddress;
@@ -41,6 +39,8 @@ export class EmployeeReqUnschComponent implements OnInit {
   message;
 
   currentManagerSelection;
+
+  showSuccess = false;
 
   empData;
   
@@ -103,25 +103,126 @@ export class EmployeeReqUnschComponent implements OnInit {
     if(this.showError){
       console.log('Error Encountered!');
     }else{
+      let startDateTemp = new Date(this.reformatDate(this.fromDate));
+      let endDateTemp = new Date(this.reformatDate(this.toDate));
+
+      let startDateDay = startDateTemp.getDay()+'';
+      let startDateMonth = startDateTemp.getMonth()+'';
+      let startDateYear = startDateTemp.getFullYear()+'';
+      let startDateHours = startDateTemp.getHours()+'';
+      let startDateMinutes = startDateTemp.getMinutes()+'';
+      let startDateSeconds = startDateTemp.getSeconds()+'';
+
+      if(parseInt(startDateDay) < 10){
+        startDateDay = '0' + startDateDay;
+      }
+
+      if(parseInt(startDateMonth) < 10){
+        startDateMonth = '0' + startDateMonth;
+      }
+
+      if(parseInt(startDateHours) < 10){
+        startDateHours = '0' + startDateHours;
+      }
+
+      if(parseInt(startDateMinutes) < 10){
+        startDateMinutes = '0' + startDateMinutes;
+      }
+
+      if(parseInt(startDateSeconds) < 10){
+        startDateSeconds = '0' + startDateSeconds;
+      }
+
+      let endDateDay = startDateTemp.getDay()+'';
+      let endDateMonth = startDateTemp.getMonth()+'';
+      let endDateYear = startDateTemp.getFullYear()+'';
+      let endDateHours = startDateTemp.getHours()+'';
+      let endDateMinutes = startDateTemp.getMinutes()+'';
+      let endDateSeconds = startDateTemp.getSeconds()+'';
+
+      if(parseInt(endDateDay) < 10){
+        endDateDay = '0' + endDateDay;
+      }
+
+      if(parseInt(endDateMonth) < 10){
+        endDateMonth = '0' + endDateMonth;
+      }
+
+      if(parseInt(endDateHours) < 10){
+        endDateHours = '0' + endDateHours;
+      }
+
+      if(parseInt(endDateMinutes) < 10){
+        endDateMinutes = '0' + endDateMinutes;
+      }
+
+      if(parseInt(endDateSeconds) < 10){
+        endDateSeconds = '0' + endDateSeconds;
+      }
+
+      let startDateStr = startDateDay+"-"+startDateMonth+"-"+startDateYear
+                          +" "+startDateHours+':'+startDateMinutes+':'+startDateSeconds;
+
+      let endDateStr = endDateDay+"-"+endDateMonth+"-"+endDateYear
+                          +" "+endDateHours+':'+endDateMinutes+':'+endDateSeconds;
+
+      console.log('Start Date Str: ' + startDateStr);
+      console.log('End Date Str: ' + endDateStr);
+
+      let source = '';
+      let destination = '';
+
+      this.otherAddr = this.pickupArea.toUpperCase() + ' TO ' + this.dropArea.toUpperCase();
+
+      if(this.show1 == true){
+        source = this.pickupAddress;
+      }else{
+        source = this.pickupArea;
+      }
+
+      if(this.show2 == true){
+        destination = this.pickupAddress;
+      }else{
+        destination = this.pickupArea;
+      }
+
+
+
       let req = {
-        Emp_QLID:         this.empData.empQlid,
-        Shift_ID:         this.empData.shiftId,
-        Mgr_QLID:         this.empData.empMgrQlid1,
-        Mgr_QLID_Level1:  this.empData.empMgrQlid1,
-        Mgr_QLID_Level2:  this.empData.empMgrQlid2,
-        Level1_mgr:       this.empData.mgr1Name,
-        Level2_mgr:       this.empData.mgr2Name,
-        Other_Addr:       this.otherAddr,
-        Reason:           this.reason,
-        Start_Date_Time:  this.reformatDate(this.fromDate),
-        End_Date_Time:    this.reformatDate(this.toDate),
-        Destination:      this.destination,
-        Source:           this.source,
-        Counter:          this.counter
+        Emp_QLID:                 this.empData.empQlid,
+        Employee_Name:            this.empData.empName,
+        Shift_ID:                 this.empData.shiftId,
+        Mgr_QLID:                 this.empData.empMgrQlid1,
+        Employee_Manager_1_Name:  this.empData.mgr1Name,
+        Employee_Manager_2_Name:  this.empData.mgr2Name,
+        Other_Addr:               this.otherAddr,
+        Reason:                   this.reason,
+        Start_Date_Time:          startDateStr,
+        End_Date_Time:            endDateStr,
+        Destination:              destination,
+        Source:                   source,
+        Mgr_QLID_Level1:          this.empData.empMgrQlid1,
+        Mgr_QLID_Level2:          this.empData.empMgrQlid2,
+        Level1_mgr:               this.empData.mgr1Name,
+        Level2_mgr:               this.empData.mgr2Name,
+        Counter:                  this.counter
       }
 
       this.employeeService.unscheduledRequest(req).subscribe((data) => {
+        this.showLoader = true;
+        if(data != null && data != undefined){
+          if(data.status != null && data.status != undefined){
+            this.showSuccess = true;
+            this.showError = false;
+            this.message = 'Success! your request has been submitted, please wait for approval!';
+          }else{
+            this.showSuccess = false;
+            this.showError = true;
+            this.message = 'Failed to connect to request server, please try again later!';
+          }
 
+          this.showLoader = false;
+        }
       });
     }
   }
@@ -130,8 +231,7 @@ export class EmployeeReqUnschComponent implements OnInit {
     console.log(this.fromDate);
   }
 
-  onSelected1(selected1)
-  {
+  onSelected1(selected1){
     if(selected1=="other"){
       this.show1=true;
     }else{
@@ -164,8 +264,7 @@ export class EmployeeReqUnschComponent implements OnInit {
     }
   }
 
-  onSelected2(selected2)
-  {
+  onSelected2(selected2){
     if(selected2=="other")
     this.show2=true;
     else
@@ -190,6 +289,10 @@ export class EmployeeReqUnschComponent implements OnInit {
   }
   
   onManagerChange(){
-    
+    if(this.currentManagerSelection = 'MANAGER1'){
+      this.counter = 1;
+    }else{
+      this.counter = 2;
+    }        
   }
 }

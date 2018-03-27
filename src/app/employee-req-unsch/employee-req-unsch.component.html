@@ -12,6 +12,15 @@
   </div>
 </div>
 
+<div *ngIf="showSuccess" id="success" class="panel panel-success">
+  <div class="panel-heading">
+    Success!
+  </div>
+   <div class="panel-body">
+     {{ message }}
+  </div>
+</div>
+
 <app-loader-anim [showLoader]="showLoader" [loaderText]="loaderText"></app-loader-anim>
 
 <div class="container">
@@ -69,7 +78,8 @@
                 </select>     
                 <div *ngIf="show2 == true">
                   <input class="form-control show-textbox" name="drop_address" placeholder="Drop Address"
-                    type="text" maxlength="100">
+                    type="text" maxlength="100"
+                    [(ngModel)]="pickupAddress">
                 </div>  
               </div>
               <div class="col-sm-6" *ngIf="showDrop">
