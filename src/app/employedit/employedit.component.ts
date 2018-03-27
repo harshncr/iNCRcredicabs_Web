@@ -23,7 +23,7 @@ public standend=[];
 public cabno="";
 public pickuptime="";
 public shifttime="";
-public qlid="HG250097";
+public qlid="";
 public stime:string;
 public etime:string;
 public jary:any[];

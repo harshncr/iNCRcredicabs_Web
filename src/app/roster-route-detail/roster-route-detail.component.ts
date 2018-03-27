@@ -12,6 +12,12 @@ import { Router } from '@angular/router';
 })
 export class RosterRouteDetailComponent implements OnInit {
   constructor(private obj:RosterService,private ac:ActivatedRoute,private router:Router ) { }
+
+    
+  // handling header start
+  module = "roster";
+  navLocation = "/Route Detail";
+
   public cab_no;
   public shift_no;
   public route_no;
