@@ -1,14 +1,16 @@
 <!-- Name Section -->
 <app-header [module]="module" [navLocation]="navLocation" [loadb]="loadb"></app-header>
-
+<div>
 <div class="row">
   <div class = "form-group">
-    <div class="pull-right">
+      
+       <div class="pull-right">
        
           <button type="button" (click)="add_cab()" class="btn btn-primary">Save</button>
           <button type="button" routerLink="/cab-list" class="btn btn-basic">Cancel</button>        
           
-          
+       
+ 
           <div *ngIf="new" id="over">
               <div id="box">
                      <b><h4>Cab Details Already Exists !!!</h4></b><br><br>
@@ -18,6 +20,8 @@
               </div>
             </div>
   </div>
+  </div>
+  <div>
 
         
       
