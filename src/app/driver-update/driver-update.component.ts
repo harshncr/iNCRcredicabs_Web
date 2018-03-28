@@ -133,6 +133,8 @@ export class DriverUpdateComponent implements OnInit {
     let file3=this.elem.nativeElement.querySelector("#d_local_Address_proof").files;
     let file4=this.elem.nativeElement.querySelector("#d_permanent_address_proof").files;
     let file5=this.elem.nativeElement.querySelector("#d_photo").files;
+    let today = new Date();
+    let current_expiry = new Date(this.driver.license_exp_date);
     if(this.driver.d_contact_num != null && this.driver.d_contact_num != "")
     {
       if(this.driver.d_contact_num.match(mobPattern) == null)
@@ -165,6 +167,14 @@ export class DriverUpdateComponent implements OnInit {
     {
       this.validatestatus = false;
       this.message5 = 'License Expiry Date cannot be empty!';
+    }
+    else
+    {
+      if(current_expiry < today)
+      {
+        this.validatestatus = false;
+        this.message5 = "License has been expired ";
+      }
     }
   
   // if(file1.length != 0){

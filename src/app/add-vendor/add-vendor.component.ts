@@ -148,7 +148,7 @@ export class AddVendorComponent {
     if(this.agreement_expiry_date != null){
       if(this.expiryDate<=today){
         validateStatus = false;
-        this.message7 = 'License has been expired!';
+        this.message7 = 'Agreement Date has been expired!';
       }
       }
       else{

@@ -170,7 +170,7 @@ public message15; public message16;
     if(this.vendor.agreementExpiry != null){
       if(this.expiryDate<=today){
         this.validateStatus = false;
-        this.message7 = 'License has been expired!';
+        this.message7 = 'Agreement Date has been expired!';
       }
       }
       else{

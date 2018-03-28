@@ -309,10 +309,7 @@ changeCabType(value){
 
 
     if(this.Mdate != null){
-      if(this.mDate<=today){
-      this.validateStatus = false;
-      this.message11 = "it has been expired";
-    }
+     
     if(this.mDate>todays){
      this. validateStatus=false;
      this.message11="date is above current date";

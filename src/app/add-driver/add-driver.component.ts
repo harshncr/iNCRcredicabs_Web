@@ -143,6 +143,8 @@ let validateStatus:boolean = true;
 this.refreshErrorValues();
 let mobPattern = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
 let dname = /^([a-zA-Z]+|\s)*$/;
+let today = new Date();
+let current_expiry = new Date(this.license_exp_date);
 
 let file1=this.elem.nativeElement.querySelector("#d_comercial_liscence").files;
 let file2=this.elem.nativeElement.querySelector("#d_police_verification").files;
@@ -203,6 +205,7 @@ if(this.driver_license_num == null){
   this.message3 = 'Driver License Number cannot be empty!';
 }
 
+
 if(this.permanent_Address == null){
   validateStatus = false;
   this.message4 = 'Permanent Address cannot be empty!';
@@ -217,6 +220,16 @@ if(this.license_exp_date == null){
   validateStatus = false;
   this.message6 = 'License Expiry Date cannot be empty!';
 }
+else{
+  if(current_expiry < today)
+  {
+   
+    validateStatus = false;
+    this.message6 = "License has been expired ";
+
+  }
+}
+
 
   //Now Image uploading
  if(file1.length != 0){
