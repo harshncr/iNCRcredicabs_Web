@@ -1,14 +1,16 @@
 <!-- Name Section -->
 <app-header [module]="module" [navLocation]="navLocation" [loadb]="loadb"></app-header>
-
+<div>
 <div class="row">
   <div class = "form-group">
-    <div class="pull-right">
+      
+       <div class="pull-right">
        
           <button type="button" (click)="add_cab()" class="btn btn-primary">Save</button>
           <button type="button" routerLink="/cab-list" class="btn btn-basic">Cancel</button>        
           
-          
+       
+ 
           <div *ngIf="new" id="over">
               <div id="box">
                      <b><h4>Cab Details Already Exists !!!</h4></b><br><br>
@@ -18,6 +20,8 @@
               </div>
             </div>
   </div>
+  </div>
+  <div>
 
         
       
@@ -29,13 +33,7 @@
           <!-- Form Name -->
           <legend><b>Personal Information Details</b></legend>
           
-          <div class="form group">
-            
-              <input type="radio" value="owned" name="onrshp" [(ngModel)]="onrshp"> Owned 
-               <input type="radio" value="contracted" name="onrshp" [(ngModel)]="onrshp"> Contracted
-              <span class="text-danger" ng-show="onrshp.$error.required">{{message1}}</span> 
-    
-          </div> <br>  
+         
           <!-- Text input-->
           <div class="form-group">
             
@@ -69,7 +67,7 @@
                   <span class="text-danger" ng-show="type.$error.required">{{message5}}</span>
                 </div>
                 <div class="col-sm-4">
-                  <b>Occupancy* :</b><input type="number" disabled name="occupancy" [(ngModel)]="occupancy" placeholder="occupancy" class="form-control">
+                  <b>Capacity* :</b><input type="number" disabled name="occupancy" [(ngModel)]="occupancy" placeholder="occupancy" class="form-control">
                   <span class="text-danger" ng-show="occupancy.$error.required">{{message6}}</span>     
                 </div>
                 <div class="col-sm-4">

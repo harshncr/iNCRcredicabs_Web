@@ -1,9 +1,12 @@
 <app-header [module]="module" [navLocation]="navLocation"></app-header>
+<div>
 <div class="row">
     <span class = "pull-right">
         <button type="button"  routerLink="/cab-update" class="btn btn-primary" >Edit</button>
         <button routerLink="/cab-list" type="submit" class="btn btn-basic">Cancel</button>  
-      </span>   
+      </span>
+    </div>
+    <div>   
   <!--<div class="success">{{message}}</div>-->
   <div class="col-md-8 col-md-offset-2">
       
@@ -43,11 +46,7 @@
               <br>
               <input type="text" name="cab_rate" id="cab_rate" [(ngModel)]="cab.cab_rate"class="form-control">
           </div>
-          <div class="col-sm-3">
-              <b>Contracted or Owned</b>
-              <br>
-              <input type="text" name="contract_owned" id="contract_owned" [(ngModel)]="cab.contract_owned"class="form-control">
-          </div> 
+         
           <div class="col-sm-3">
               <b>Manufacture Date</b>
               <br>

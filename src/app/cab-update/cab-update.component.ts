@@ -203,10 +203,7 @@ validate(){
 
   let licensePattern=/^(([A-Za-z]){2,3}(|-)(?:[0-9]){1,2}(|-)(?:[A-Za-z]){2}(|-)([0-9]){1,4})|(([A-Za-z]){2,3}(|-)([0-9]){1,4})$/;
 
-  if(this.cab.contract_owned == null ){
-    this.validateStatus = false;
-    this.message1 = "Ownership Should Not Be Empty!";
-  }
+  
  if(this.cab.cab_no != null && this.cab.cab_no.trim() != ''){
     
     if(this.cab.cab_no.match(licensePattern)==null){

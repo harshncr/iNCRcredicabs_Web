@@ -1,4 +1,5 @@
 <app-header [module]= "module" [navLocation]= "navLocation"></app-header>
+<div>
 <div class="row">
     <span class="pull-right">
           
@@ -6,6 +7,8 @@
         <button routerLink="/vendor-list" type="submit" class="btn btn-basic">Cancel</button>              
       
     </span>
+  </div>
+<div>
   <div class="success">{{message}}</div>
 <div class="col-md-8 col-md-offset-2">
   <form class="form-horizontal" role="form" #f="ngForm" (ngSubmit)="upd(f.value)">
