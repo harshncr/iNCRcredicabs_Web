@@ -15,27 +15,21 @@
                     <div class="row">           
                         <div class="col-md-8">
                             <div id="user-detail-left" >
-                                <div class="user-detail-heading">
-                                    <small> <b> <u> Name </u> </b> </small>  
-                                </div>
-                                <div class="user-detail-data">                       
-                                    <span class="glyphicon glyphicon-user"></span> 
+                                <div class="user-detail-heading">Name</div>
+                                <div class="user-detail-data">
+                                    <span class="user-detail-icon glyphicon glyphicon-user"></span> 
                                         {{emp?.empFName}} {{ emp?.empMName }} {{emp?.empLName}} ({{emp?.empQlid}})
-                                </div>    
-                                <div class="user-detail-heading">
-                                    <small> <b> <u> Contact no</u> </b> </small>
                                 </div>
+                                <div class="user-detail-heading">Contact no</div>
                                 <div class="user-detail-data"> 
-                                    <span class="glyphicon glyphicon-phone"></span>
+                                    <span class="user-detail-icon glyphicon glyphicon-phone"></span>
                                         {{ emp?.empMobNbr }}
                                 </div>
-                                <div  class="user-detail-heading">
-                                    <small> <b> <u> Address </u> </b> </small>
-                                </div>
+                                <div  class="user-detail-heading">Address</div>
                                 <div class="user-detail-data">
                                     <table>
                                         <tr>
-                                            <td><span class="glyphicon glyphicon-home"></span></td>
+                                            <td><span class="user-detail-icon glyphicon glyphicon-home"></span></td>
                                             <td class="data-col">
                                                 {{emp?.empAddLine1}}
                                                 <br />
@@ -44,41 +38,31 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div  class="user-detail-heading">
-                                    <small> <b> <u> Postal Code </u> </b> </small>  
-                                </div>
+                                <div  class="user-detail-heading">Postal Code</div>
                                 <div class="user-detail-data">
-                                    <img src="assets/img/postbox.svg" class="img-thumbnail">
+                                    <img id="postbox" src="assets/img/postbox.svg" class="img-thumbnail">
                                     {{ emp?.empPin }}
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4" id="user-detail-right">
-                            <div  class="user-detail-heading">
-                                <small> <b> <u> Pickup Area </u> </b> </small>
-                            </div>
+                            <div  class="user-detail-heading">Pickup Area</div>
                             <div class="user-detail-data">
                                 {{ emp?.empPickupArea }}
                             </div>
-                            <div  class="user-detail-heading">
-                                <small> <b> <u>Zone </u> </b> </small> 
-                            </div>
+                            <div  class="user-detail-heading">Zone</div>
                             <div class="user-detail-data">
                                 {{ emp?.empZone }}
                             </div>
-                            <div  class="user-detail-heading">
-                                <small> <b> <u> L1 Manager </u> </b> </small> 
-                            </div>
+                            <div  class="user-detail-heading">L1 Manager</div>
                             <div class="user-detail-data">
                                 <strong>{{ emp.mgr1Name }}</strong>
-                                ( {{ emp?.empMgrQlid1 }} )
+                                ({{ emp?.empMgrQlid1 }})
                             </div>
-                            <div  class="user-detail-heading">
-                                <small> <b> <u> L2 Manager </u> </b> </small>  
-                            </div>
+                            <div  class="user-detail-heading">L2 Manager</div>
                             <div class="user-detail-data">
                                 <strong>{{ emp.mgr2Name }}</strong>
-                                ( {{ emp?.empMgrQlid2 }} )
+                                ({{ emp?.empMgrQlid2 }})
                             </div>
                         </div>
                     </div>
@@ -87,52 +71,99 @@
         </div>
     </div>
 
+    <!-- <div class="row">
+        <div class="card card-block">
+            <span class="glyphicon glyphicon-user"></span>
+            <b>{{i.f_name }} {{i.m_name }} {{i.l_name}}</b> [{{i.Qlid}}]
+        </div>
+    </div>  -->
+
     <div *ngIf="rosterInfo" class="panel panel-info col-md-8 col-md-offset-2"
         id="employee-roster-info">
         <div class="panel-heading clearfix">
-            <h4 class="panel-title pull-left col-sm-2 text-center">
-                Roster No:  {{ rosterInfo[0].Route_number }}
-            </h4>
-            <div>
-                <h4 class="panel-title pull-left col-sm-3 text-center">
-                    Shift Time: 
-                    <span *ngIf="rosterInfo[0].shift_id">
-                        <span *ngIf="rosterInfo[0].shift_id == 1">07:00 AM - 04:00 PM</span>
-                        <span *ngIf="rosterInfo[0].shift_id == 2">10:00 AM - 07:00 PM</span>
-                        <span *ngIf="rosterInfo[0].shift_id == 4">12:00 PM - 09:00 PM</span>
-                        <span *ngIf="rosterInfo[0].shift_id == 3">Unsched Shift HR</span>  
-                    </span>
-                </h4>
-            </div>
-            
-            <h4 class="panel-title pull-left col-sm-2 text-center">
-                Cab No: {{ rosterInfo[0].Cab_number }}
-            </h4>
-            <h4 *ngIf="emp.driverDetails" class="panel-title pull-left col-sm-4 text-center">
-                Driver Name: {{ emp.driverDetails.driverName }}
-                (Mob: {{ emp.driverDetails.driverContact }})
-            </h4>
+            <span class="panel-title pull-left col-sm-2 text-center">
+                <strong>Route No:</strong> {{ rosterInfo[0].Route_number }}
+            </span>
+            <span class="panel-title pull-left col-sm-3 text-center">
+                <strong>Shift Time:</strong>
+                <span *ngIf="rosterInfo[0].shift_id">
+                    <span *ngIf="rosterInfo[0].shift_id == 1">07:00 AM - 04:00 PM</span>
+                    <span *ngIf="rosterInfo[0].shift_id == 2">10:00 AM - 07:00 PM</span>
+                    <span *ngIf="rosterInfo[0].shift_id == 4">12:00 PM - 09:00 PM</span>
+                    <span *ngIf="rosterInfo[0].shift_id == 3">Unsched Shift HR</span>  
+                </span>
+            </span>
+            <span class="panel-title pull-left col-sm-2 text-center">
+                <strong>Cab No:</strong> {{ rosterInfo[0].Cab_number }}
+            </span>
+            <span *ngIf="emp.driverDetails" class="panel-title pull-left col-sm-4 text-center">
+                <strong>Driver Name:</strong> {{ emp.driverDetails.driverName }}
+                (<strong>Mob:</strong> {{ emp.driverDetails.driverContact }})
+            </span>
         </div>
         <div *ngFor="let i of emp.rosterInfo" id="rowcss">
             <!-- <div *ngIf="i.Cab_number == rosterInfo.Cab_number"> -->
             <!-- <div> -->
-            <div class="card" id="emp">
+            <div class="roster-card">
+                <table class="roster-outer-table">
+                    <tr>
+                        <td>
+                            <table class="roster-row1">
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-user icon"></span>
+                                        {{i.f_name }} {{i.m_name }} {{i.l_name}}
+                                        [{{i.Qlid}}]
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="roster-row2">
+                                <tr>
+                                    <td>
+                                    <!-- <td class="icon-col"> -->
+                                        <span class="glyphicon glyphicon-phone icon">
+                                        </span>
+                                    <!-- </td>
+                                    <td class="icon-val"> -->
+                                        {{i.e_mob}}
+                                    <!-- </td>
+                                    <td class="icon-col" style="padding:3px 0px; width: 30px"> -->
+                                        <span class="glyphicon glyphicon-home icon"></span>
+                                    <!-- </td>
+                                    <td class="icon-val"> -->
+                                        {{i.p_a}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- <div class="card" id="emp">
                 <div class="card-block" style="height:68px;">
-                    <button type="button" class="btn btn-default btn-md" style="background:white;">
-                                <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>  
-                    </button>
-                    <button type="button" class="btn btn-default btn-md" style="background:white;width:250px;"><b>{{i.f_name }} {{i.m_name }} {{i.l_name}}</b> [{{i.Qlid}}]</button>
+                    <span class="btn btn-default btn-md t-l-icon">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </span>
+                    <span class="btn btn-default btn-md t-r-icon" style="background:white;width:250px">
+                        <span style="padding-top: 5px">
+                            <b>{{i.f_name }} {{i.m_name }} {{i.l_name}}</b> [{{i.Qlid}}]
+                        </span>
+                    </span>
                     <br>
-                    <button type="button" class="btn btn-default btn-md" style="background:white;">
-                            <span class="glyphicon glyphicon-phone" aria-hidden="true" ></span>  
-                </button>
-                <button type="button" class="btn btn-default btn-md" style="padding-left:5px;background:white;width:90px;">{{i.e_mob}}</button>
-                    <button type="button" class="btn btn-default btn-md" style="background:white;">
-                            <span class="glyphicon glyphicon-home" aria-hidden="true" ></span>  
-                        </button>
-                    <button type="button" class="btn btn-default btn-md" style="background:white;width:110px;">{{i.p_a}}</button>
+                    <span class="btn btn-default btn-md b-l-icon">
+                        <span class="glyphicon glyphicon-phone"></span>
+                    </span>
+                    <span class="btn btn-default btn-md b-icon" style="padding-left:5px;background:white;width:90px;">{{i.e_mob}}</span>
+                    <span class="btn btn-default btn-md b-icon">
+                        <span class="glyphicon glyphicon-home"></span>
+                    </span>
+                    <span class="btn btn-default btn-md b-r-icon">{{i.p_a}}</span>
                 </div>
-            </div> 
+            </div>  -->
             <!-- </div> -->
         </div>    
     </div>

@@ -1,17 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Raleway');
+
+.panel{
+    font-family: 'Open sans', sans-serif;
+}
+
+.btn.btn-default.btn-md{
+    font-size: 14px;
+}
+.btn.btn-default.btn-md:active, .btn.btn-default.btn-md:hover{
+    box-shadow: none;
+    border: 1px solid #cccccc;
+    background: #ffffff;
+}
+
 .user-detail-data{
-    padding-left :10px
+    padding-left :10px;
+    font-family: 'Open Sans', sasns-serif;
+}
+
+/* Top Left Icon */
+.t-l-icon{
+    border-radius: 4px 0px 0px 0px;
+    margin: 0px -2px -1px 0px;
+    border-right: none;
+}
+
+/* Top Right Icon */
+.t-r-icon{
+    border-radius: 0px 4px 0px 0px;
+    margin: 1px 0px -1px -2px;
+    /* font-size: 15px; */
+    height: 36px;
+    /* border-left:none; */
+    /* padding-bottom: 5px; */
+}
+
+/* Bottom Left Icon */
+.b-l-icon{
+    border-radius: 0px 0px 0px 4px;
+    margin: -1px -2px 0px 0px;
+}
+
+/* Bottom Icon */
+.b-icon{
+    border-radius: 0px;
+    margin: -1px -3px 0px -3px;
+    height: 36px;
+    text-align: center;
+    padding: 7px 0px;
+    width: 45px;
+}
+
+/* Bottom Right Icon */
+.b-r-icon{
+    border-radius: 0px 0px 4px 0px;
+    margin: -1px 0px 0px -2px;
+    height: 36px;
+    width: 118px;
+}
+
+.user-detail-heading{
+    text-decoration: underline;
+    color: #777777;
+}
+
+#postbox{
+    margin: 5px;
 }
 
 #user-detail-left .user-detail-data{
-    font-size: 20px
+    font-size: 22px;
+    font-family: 'Open Sans', sasns-serif;
 }
 .glyphicon{
-    font-size: 17px
+    font-size: 17px;
+}
+
+.user-detail-icon{
+    margin-right: 10px;
 }
 
 #user-detail-right .user-detail-data{
-    font-size: 16px;
-    color: #666666;
+    font-size: 18px;
 }
 .img-thumbnail{
     border: none;
@@ -112,7 +182,6 @@ opacity: 0.8;
 
 #over {
     position: fixed; /* Sit on top of the page content */
-    /* display: none; Hidden by default */
     width: 100%; /* Full width (cover the whole page) */
     height: 100%; /* Full height (cover the whole page) */
     top: 0; 
@@ -184,17 +253,89 @@ opacity: 0.8;
     margin-right: 10%;
     animation: spin 2s linear infinite;
 }
-@-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
 
 
 
+.roster-outer-table{
+	table-layout: fixed;
+	padding: 0px;
+}
 
+table td{
+	margin: 0px;
+	padding: 0px;
+}
 
+.roster-card{
+	border-radius: 5px;
+    padding: 0px;
+    margin: 12px 5px 0px 12px;
+	width: 300px;
+    height: 68px;
+    border: 1px solid #cccccc;    
+}
+
+.roster-row1 td, .roster-row2 td{
+	text-align: center;
+	margin: 0px;
+	padding: 3px 5px 0px 5px;
+}
+
+.roster-card .tl{
+	border-radius: 4px 0px 0px 0px;
+}
+
+.roster-card .icon{
+	font-size: 18px;
+}
+
+.icon-col{
+	width: 40px;
+	height: 32px;
+}
+
+.name-width{
+	width: 260px;	
+}
+
+.icon-val{
+	width: 110px;
+}
+
+.roster-card table{
+	border-radius: 4px;
+}
+
+.roster-row1{
+	width: 300px;
+}
+
+.roster-row1 .icon-col{
+	width: 30px;
+}
+
+.roster-row1 tr td{
+	padding: 5px 0px 0px 0px;
+	border-radius: 4px 4px 0px 0px;
+}
+
+.roster-row1 .icon{
+	padding: 0px 10px;
+}
+
+.roster-row2 .icon{
+	padding: 0px 10px;
+}
+
+.roster-row2{
+    width: 300px;
+}
+
+.roster-row2 tr td:first-child{
+	border-radius: 0px 0px 0px 4px;
+}
+
+.roster-row2 tr td:last-child{
+	border-radius: 0px 0px 4px 0px;
+    width: 120px;
+}

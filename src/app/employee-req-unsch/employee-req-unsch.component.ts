@@ -14,8 +14,11 @@ export class EmployeeReqUnschComponent implements OnInit {
   ////-----------------------------------------
   showError = false;
 
-  show1?:boolean;
-  show2?:boolean;
+
+  showDrop:boolean = false;
+  showDropTime: boolean = false;
+  showPick:boolean = false;
+  showPickTime: boolean = false;
 
   startDateTime;
   endDateTime;
@@ -31,8 +34,6 @@ export class EmployeeReqUnschComponent implements OnInit {
   fromDate;
   toDate;
   today;
-  showDrop = false;
-  showPick = false;
   pickupMessage = '';
   dropMessage = '';
 
@@ -44,10 +45,7 @@ export class EmployeeReqUnschComponent implements OnInit {
 
   empData;
   
-  constructor(private employeeService: EmployeeService) { 
-    this.show1=false;
-    this.show2=false;
-  }
+  constructor(private employeeService: EmployeeService) {}
 
   ngOnInit() {
     this.message = '';
@@ -174,19 +172,17 @@ export class EmployeeReqUnschComponent implements OnInit {
 
       this.otherAddr = this.pickupArea.toUpperCase() + ' TO ' + this.dropArea.toUpperCase();
 
-      if(this.show1 == true){
+      if(this.showPick == true){
         source = this.pickupAddress;
       }else{
         source = this.pickupArea;
       }
 
-      if(this.show2 == true){
+      if(this.showDrop == true){
         destination = this.pickupAddress;
       }else{
         destination = this.pickupArea;
       }
-
-
 
       let req = {
         Emp_QLID:                 this.empData.empQlid,
@@ -231,58 +227,49 @@ export class EmployeeReqUnschComponent implements OnInit {
     console.log(this.fromDate);
   }
 
-  onSelected1(selected1){
-    if(selected1=="other"){
-      this.show1=true;
-    }else{
-      this.show1=false;
+  onSelectedLocation(selectedVal){
+    this.showPick = false;
+    this.showPickTime = false;
+    this.showDrop = false;
+    this.showDropTime = false;
+
+    switch(this.pickupArea){
+      case 'other':
+        this.showPick = true;
+        break;
+      case 'office':
+        this.showPick = false;
+        this.showPickTime = true;
+        break;
+      case 'home':
+        this.showPick = false;
+        this.showDropTime = true;
+        break;
     }
 
-    if(this.pickupArea == this.dropArea){
+    switch(this.dropArea){
+      case 'other':
+        this.showDrop = true;
+        this.showPickTime = true;
+        this.showDropTime = false;
+        break;
+      case 'office':
+        this.showDrop = false;
+        this.showDropTime = true;
+        break;
+      case 'home':
+        this.showDrop = false;
+        this.showPickTime = true;
+        break;
+    }
+
+    if(this.pickupArea == this.dropArea && this.pickupArea != 'other'){
       this.showError = true;
       this.pickupMessage = 'Pickup and Drop area cannot be same! ';
       return;
     }
 
-    if(selected1 == 'home'){
-      this.showPick = false;
-      this.showDrop = true;
-    }else{
-      this.showPick = true;
-      this.showDrop = false;
-    }
-    if(selected1 == 'office'){
-      this.showDrop = false;
-      this.showPick = true;
-    }else{
-      this.showDrop = true;
-      this.showPick = false;
-    }
     this.pickupMessage = '';
-    if(this.message == ''){
-      this.showError = false;
-    }
-  }
-
-  onSelected2(selected2){
-    if(selected2=="other")
-    this.show2=true;
-    else
-    this.show2=false;
-
-    if(this.pickupArea == this.dropArea){
-      this.showError = true;
-      this.dropMessage = 'Pickup and Drop area cannot be same!';
-      return;
-    }
-
-    if(selected2 == 'home'){
-      this.showDrop = false;
-    }else{
-      this.showDrop = true;
-    }
-
-    this.dropMessage = '';
     if(this.message == ''){
       this.showError = false;
     }
