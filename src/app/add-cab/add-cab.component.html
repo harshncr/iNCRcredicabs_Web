@@ -29,13 +29,7 @@
           <!-- Form Name -->
           <legend><b>Personal Information Details</b></legend>
           
-          <div class="form group">
-            
-              <input type="radio" value="owned" name="onrshp" [(ngModel)]="onrshp"> Owned 
-               <input type="radio" value="contracted" name="onrshp" [(ngModel)]="onrshp"> Contracted
-              <span class="text-danger" ng-show="onrshp.$error.required">{{message1}}</span> 
-    
-          </div> <br>  
+         
           <!-- Text input-->
           <div class="form-group">
             
@@ -69,7 +63,7 @@
                   <span class="text-danger" ng-show="type.$error.required">{{message5}}</span>
                 </div>
                 <div class="col-sm-4">
-                  <b>Occupancy* :</b><input type="number" disabled name="occupancy" [(ngModel)]="occupancy" placeholder="occupancy" class="form-control">
+                  <b>Capacity* :</b><input type="number" disabled name="occupancy" [(ngModel)]="occupancy" placeholder="occupancy" class="form-control">
                   <span class="text-danger" ng-show="occupancy.$error.required">{{message6}}</span>     
                 </div>
                 <div class="col-sm-4">

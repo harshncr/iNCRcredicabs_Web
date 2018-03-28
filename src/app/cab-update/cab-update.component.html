@@ -12,8 +12,8 @@
         <!-- Form Name -->
         <legend>Cab Details</legend>
         <div class="form-group">
-        <input type="radio" value="owned" name="onrshp" [(ngModel)]="cab.contract_owned"> owned 
-        <input type="radio" value="contracted" name="onrshp" [(ngModel)]="cab.contract_owned"> contracted
+        
+        
        <span class="text-danger" ng-show="onrshp.$error.required">{{message1}}</span> 
       </div>
         <!-- Text input-->
@@ -22,7 +22,7 @@
             
            
              <div class="col-sm-3"> 
-            <b>Cab License Plate No</b> 
+            <b>Cab License Plate No*</b> 
             <br>
             <input type="text" name="cab_license_plate_no" id="cab_license_plate_no" [(ngModel)]="cab.cab_no" class="form-control">
             <span class="text-danger" ng-show="icert.$error.required">{{message2}}</span>
@@ -30,20 +30,20 @@
           </div>
         
           <div class="col-sm-3">
-            <b>Model</b>
+            <b>Model*</b>
             <br>
             <input type="text" name="cab_model" id="cab_model" [(ngModel)]="cab.model"class="form-control">
             <span class="text-danger" ng-show="icert.$error.required">{{message3}}</span>
           </div>
           <div class="col-sm-3">
-            <b>Cab Capacity</b>
+            <b>Cab Capacity*</b>
             <br>
              <input type="text" name="cab_type" id="cab_type" [(ngModel)]="cab.cab_type"class="form-control">
              <span class="text-danger" ng-show="icert.$error.required">{{message5}}</span>
           </div>
           
           <div class="col-sm-3">
-              <b>Fuel</b>
+              <b>Fuel*</b>
               <br>
               <select type="text" name="fuel" id="fuel" [(ngModel)]="cab.fuel"class="form-control">
               <option value = "Petrol">Petrol</option>
@@ -60,7 +60,7 @@
           </div>
          
           <div class="col-sm-3">
-              <b>Manufacture Date</b>
+              <b>Manufacture Date*</b>
               <br>
               <input type="date" name="date" id="date" [(ngModel)]="cab.manufacture_date"class="form-control">
               <span class="text-danger" ng-show="icert.$error.required">{{message11}}</span>
@@ -117,7 +117,7 @@
         <legend>Cerificates</legend>
         <div class="form-group">
           <div class="col-sm-3">
-            <b>Registration Certificate</b>
+            <b>Registration Certificate*</b>
             <br>
            <!-- <a ng-href="/usr/share/tomcat8/webapps/vendor-documents//img.jpeg">link1</a> -->
            <a href="/tmp/vendor-documents/{{cab.reg_certi}}" 
@@ -128,7 +128,7 @@
             
           </div>
           <div class="col-sm-3">
-            <b>Pollution Certificate</b>
+            <b>Pollution Certificate*</b>
             <br>
             <a href="/tmp/vendor-documents/{{cab.poll_certi}}" 
             target="_blank" >
@@ -136,7 +136,7 @@
              </a>
           </div>
           <div class="col-sm-3">
-              <b>Fitness Certificate</b>
+              <b>Fitness Certificate*</b>
               <br>
               <a href="/tmp/vendor-documents/{{cab.fit_certi}}" 
               target="_blank" >
@@ -144,7 +144,7 @@
                </a>
           </div>
           <div class="col-sm-3">
-              <b>Insurance Certificate</b>
+              <b>Insurance Certificate*</b>
               <br>
               <a href="/tmp/vendor-documentss/{{cab.insur_certi}}" 
               target="_blank" >

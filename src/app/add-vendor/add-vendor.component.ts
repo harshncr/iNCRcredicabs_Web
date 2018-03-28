@@ -78,14 +78,23 @@ export class AddVendorComponent {
     let email = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i;
     let panPattern=("[A-Z]{5}[0-9]{4}[A-Z]{1}");
     let gstPattern=/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
-   
+    let vendname = /^([a-zA-Z]+|\s)*$/ ;
+    let cabzeropattern = /^(0+|(\-[0-9]+))$/;
+    let cabdecimalpattern = /[\.]+/;
     this.refreshErrorValues();
 
     if(this.vendor_name!= null && this.vendor_name !=""){
-      if(this.vendor_name.length > 20){
+      if(this.vendor_name.length > 50){
+        
         validateStatus = false;
-        this.message1 = 'First name cannot exceed 20 characters';
+        this.message1 = 'First name cannot exceed 50 characters';
       }
+{
+      if(this.vendor_name.match(vendname) == null){
+        validateStatus = false;
+        this.message1 = 'First name will accept only alphabets';
+      }
+    }
     }
     else{
       validateStatus = false;
@@ -146,15 +155,38 @@ export class AddVendorComponent {
         validateStatus=false;
         this.message7='cannot be empty';
       }
-    if(this.cabs_provided == null){
-      validateStatus = false;
-      this.message8 = 'cannot be empty!';
-    }
+  
+      if(this.cabs_provided == null){
+        validateStatus = false;
+        this.message8 = 'cannot be empty!';
+      }
+      
+      //if(parseInt(this.cabs_provided) < 1){
+      if((this.cabs_provided+'').match(cabzeropattern) != null){
+        validateStatus = false;
+        this.message8 = 'Cabs Provided cannot be less than 1';
+        
+      }
+      
+    if((this.cabs_provided+'').match(cabdecimalpattern) != null){
+        validateStatus = false;
+        this.message8 = 'Cabs Provided cannot be a fractional no!';
+      }
+
+      
+
     if(this.business_address == null ){
       validateStatus = false;
       this.message9 = 'Address cannot be empty!';
     }
-   
+
+    if(this.business_address!= null && this.business_address !=""){
+      if(this.business_address.length > 100){
+        
+        validateStatus = false;
+        this.message9 = 'Address cannot exceed 100 characters';
+      }
+    }
     if(this.sup_contact_num != null && this.sup_contact_num != ""){
       if(this.sup_contact_num.match(mobPattern) == null){
         validateStatus = false;
@@ -175,11 +207,37 @@ export class AddVendorComponent {
         this.message12 = 'Please enter a valid Phone number';
       }
     }
-    if(this.owner_name == "" || this.owner_name == null)
+
+ 
+    if(this.owner_name!= null && this.owner_name !=""){
+      if(this.owner_name.length > 30){
+        
+        validateStatus = false;
+        this.message16 = 'Owner name cannot exceed 30 characters';
+      }
+{
+      if(this.owner_name.match(vendname) == null){
+        validateStatus = false;
+        this.message16 = 'Owner name will accept only alphabets';
+      }
+    }
+    }
+    else{
+      validateStatus = false;
+      this.message16 = 'Owner Name cannot be empty!';
+    }
+
+
+
+
+
+
+   /* if(this.owner_name == "" || this.owner_name == null)
     {
       validateStatus = false;
       this.message16 = 'Owner Name cannot be empty'
     }
+    */
    
     if(this.manager_mail_id != "" && this.manager_mail_id != null){
       if(this.manager_mail_id.match(email) == null){
@@ -210,6 +268,11 @@ export class AddVendorComponent {
       if(this.owner_mail_id.match(email) == null){
         validateStatus = false;
         this.message15 = 'Email Address format invalid!';
+      }
+      if(this.owner_mail_id.length > 40){
+        
+        validateStatus = false;
+        this.message15 = 'Owner email cannot exceed 40 characters';
       }
     }
 

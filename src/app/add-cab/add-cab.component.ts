@@ -188,7 +188,7 @@ changeCabType(value){
     this.type = value;
   }
   else if(value == "Big"){
-    this.occupancy = 6;
+    this.occupancy = 7;
     this.type = value;
   }
 }
@@ -234,10 +234,8 @@ changeCabType(value){
 
  
 
-    if(this.onrshp == null ){
-      this.validateStatus = false;
-      this.message1 = "Ownership Should Not Be Empty!";
-    }
+   
+    
    if(this.license_plate_number == null || this.license_plate_number.trim() == ''){
       this.validateStatus = false;
       this.message2 = "License Plate Number Should Not Be Empty!";

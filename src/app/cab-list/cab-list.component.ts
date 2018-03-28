@@ -59,7 +59,7 @@ export class CabListComponent implements OnInit {
          
     this._cabService.getCabs().subscribe(resp=>{
       this.cabs = resp.result;
-     // console.log(this.cabs)
+     console.log(this.cabs)
       if(this.cabs.length != 0)
       {
         this.showLoading= false;

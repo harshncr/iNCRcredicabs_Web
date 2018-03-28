@@ -142,6 +142,7 @@ validate(){
 let validateStatus:boolean = true;
 this.refreshErrorValues();
 let mobPattern = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
+let dname = /^([a-zA-Z]+|\s)*$/;
 
 let file1=this.elem.nativeElement.querySelector("#d_comercial_liscence").files;
 let file2=this.elem.nativeElement.querySelector("#d_police_verification").files;
@@ -150,19 +151,42 @@ let file4=this.elem.nativeElement.querySelector("#d_permanent_address_proof").fi
 let file5=this.elem.nativeElement.querySelector("#d_photo").files;
 
 
-if(this.Name != null){
+
+if(this.Name!= null && this.Name !=""){
+  if(this.Name.length > 30){
+    
+    validateStatus = false;
+    this.message1 = 'Driver name cannot exceed 30 characters';
+  }
+{
+  if(this.Name.match(dname) == null){
+    validateStatus = false;
+    this.message1 = 'Driver name will accept only alphabets';
+  }
+}
+}
+else{
+  validateStatus = false;
+  this.message1 = 'Driver Name cannot be empty!';
+}
+
+
+
+
+
+/*if(this.Name != null){
   if(this.Name.length > 20){
     validateStatus = false;
-    this.message1 = 'First name cannot exceed 20 characters';
+    this.message1 = 'Driver name cannot exceed 20 characters';
   }
 }
 else{
   validateStatus = false;
-  this.message1 = 'First Name cannot be empty!';
+  this.message1 = 'Driver name cannot be empty!';
 }
 
 
-
+*/
 
 if(this.dPhone_Nbr != null){
   if(this.dPhone_Nbr.match(mobPattern) == null){
