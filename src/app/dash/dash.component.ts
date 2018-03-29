@@ -34,6 +34,7 @@ export class DashComponent implements OnInit {
   public filterValue;
   public reportService: ReportService;
 
+  // router: Router;
   showMenu = false;
   showError = false;
   constructor(private router: Router, private employeeService: EmployeeService,public _dashData: DashData) {}
@@ -57,9 +58,22 @@ export class DashComponent implements OnInit {
     }
 
     console.log('outside #1');
+
   }
   
+  
   headerUpdate(){}
+  
+  
+  // redirect(filterIt: String)
+  // {
+  //   var a="oh my god"
+  //  var checkIt= this._dashData.setItem('filterIt');
+  //  console.log("Here I am");
+  //  console.log(checkIt);
+  //  console.log(a);
+  // }
+
 
   view(){
    this._dashData.setItem(this.filterReport);
