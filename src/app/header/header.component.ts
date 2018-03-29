@@ -60,6 +60,9 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
     if(localStorage.getItem('role') != null && localStorage.getItem('role') != 'null'
       && localStorage.getItem('role') != "" && localStorage.getItem('role') != undefined
       && localStorage.getItem('role') != 'undefined'
+      && localStorage.getItem('empFName') != null && localStorage.getItem('role') != 'null'
+      && localStorage.getItem('role') != "" && localStorage.getItem('role') != undefined
+      && localStorage.getItem('role') != 'undefined'
     ){
       console.log(localStorage.getItem('role'));
       if(localStorage.getItem('role') != 'ADMIN'){
