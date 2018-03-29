@@ -72,6 +72,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
           console.log(data);
           // debugger;
           localStorage.setItem('role', resp);
+          localStorage.setItem('empFName', data.empFName);
           if(localStorage.getItem('role') != 'ADMIN'){
             this.router.navigateByUrl('/employee-dash');
           }

@@ -2,13 +2,40 @@ body {
     background-color: white;
 }
 
-#loginbox {
-    margin-top: 10%;
-    margin-bottom: 10%;
+#login-title{
+    font-size: 20px;
+    font-family: sans-serif;
+    padding: 15px 0px;
+    margin: 0px 0px 15px 0px
 }
 
-#loginbox > div:first-child {        
-    padding-bottom: 10px;    
+#form{
+    margin-top: 10px;
+}
+
+#loginboxalign{
+/* position: fixed; */
+    
+}
+
+#ncr-logo{
+    display: block;
+    position: fixed;
+    width: 100px;
+}
+
+#loginbox {
+    background-color: transparent;
+    z-index: 1000;
+    position: fixed; 
+    height: 100%;
+    width: 100%;
+    margin-top: 10%;
+    left: 0px;
+}
+
+#loginbox > div:first-child {   
+    padding-bottom: 10px;
 }
 
 .iconmelon {
@@ -25,25 +52,21 @@ body {
     margin-bottom: 10px;
 }
 
-.panel {    
-    background-color: transparent;
+.panel {
+    border-radius: 0px;
+    border: none;
 }
 
 .panel-body {
     padding-top: 30px;
-    background-color: rgba(2555,255,255,.3);
+    background-color: #f2f2f2;
+    border-radius: 0px;
 }
 
-#particles {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    top: 0;                        
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute;
-    z-index: -2;
+.panel-heading{
+    background: linear-gradient(to right, #54b948, #0099bf);
+    border-top-left-raduis: 0px;
+    border-top-right-raduis: 0px;
 }
 
 .iconmelon,
@@ -82,7 +105,7 @@ body {
 }
 
 .panel-body{
-    padding: 10px 10px 0px 10px;
+    padding: 10px 15px 0px 20px;
 }
 
 .panel-body .input-group{
@@ -92,4 +115,30 @@ body {
 
 table td{
     padding: 0px;
+}
+
+/* For video  */
+
+#videosrc {
+   position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    z-axis: 10;
+}
+
+#login-td{
+    /* margin-top: 5px; */
+    padding: 0px 0px 0px 0px;
+    vertical-align: top;
+}
+
+#login-button{
+    background: #0099bf;
+    width: 100px;
+    border: 0px;
+    font-size: 16px;
+    padding: 10px 15px;
+    /* margin-top: 5px; */
 }
