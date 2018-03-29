@@ -74,9 +74,13 @@ export class DashComponent implements OnInit {
   //  console.log(a);
   // }
 
+  select_mode(value:string){
+    this.router.navigate([value]);
 
-  view(){
-   this._dashData.setItem(this.filterReport);
+  }
+
+  view(value:string){
+   this._dashData.setItem(value);
   
     this.router.navigate(['report']);
     if (this.filterType == '') {
@@ -84,55 +88,6 @@ export class DashComponent implements OnInit {
         return;
       }
       // console.log(this.filterType + " " + this.filterValue);
-  
-      switch (this.filterType) {
-  
-        case "Unschedule_Summary_ByManager":
-          this.reportService.getManagerReport1(this.filterValue).subscribe((data) => {
-            this.managerReport = data;
-            console.log(data);
-          }); 
-          this.showDiv = true;
-          break;
-  
-        case "Unschedule_Summary_ByEmployee":
-          this.reportService.getEmployeeReport1(this.filterValue).subscribe((data) => {
-            this.employeeReport = data;
-            this.showDiv = true;
-            console.log(data);
-          }); break;
-  
-        case "Unschedule_Summary_ByVendor":
-          this.reportService.getVendorReport1(this.filterValue).subscribe((data) => {
-            this.vendorReport = data;
-            this.showDiv = true;
-  
-            console.log(data);
-          }); break;
-          case "Unschedule_Detail_ByVendor":
-          this.reportService.getVendorReportDetail1(this.filterValue).subscribe((data) => {
-            this.vendorDetailReport = data;
-            this.showDiv = true;
-  
-            console.log(data);
-          }); break;
-          case "Unschedule_Detail_ByEmployee":
-          this.reportService.getEmployeeReportDetail1(this.filterValue).subscribe((data) => {
-            this.employeeDetailReport = data;
-            this.showDiv = true;
-  
-            console.log(data);
-          }); break;
-          case "Unschedule_Detail_ByManager":
-          this.reportService.getManagerReportDetail1(this.filterValue).subscribe((data) => {
-            this.managerDetailReport = data;
-            this.showDiv = true;
-  
-            console.log(data);
-          }); break;
-      
-  
-  }
   
   }
 }

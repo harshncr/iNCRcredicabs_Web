@@ -750,16 +750,16 @@
                         </strong>
                       </span>
                       <input type="number" min="0" name="toll_regular_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                        required>
+                       (change)="altered.toll_regular_cab=true;" required>
                     </div>
                   </div>
 
                   <!-- Error row -->
                   <div class="row">
                     <div class="col-sm-12">
-                      <div *ngIf="formError.empQlid != null && formError.empQlid.error
-                          && ( altered.empQlid || saveClicked )" class="text-danger form-error">
-                        {{ formError.empQlid.message }}
+                      <div *ngIf="formError.toll_regular_cab != null && formError.toll_regular_cab.error
+                          &&  altered.toll_regular_cab  " class="text-danger form-error">
+                        {{ formError.toll_regular_cab.message }}
                       </div>
                     </div>
                   </div>
