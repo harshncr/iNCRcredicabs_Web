@@ -56,7 +56,7 @@ export class ReportComponent implements OnInit {
 
 
   public filterReport;
-  public tf = true;
+  public tf = false;
   public showTransportationReportResult = false;
   public showDiv = true;
   message = "";
@@ -612,6 +612,22 @@ export class ReportComponent implements OnInit {
   }
 
   validate() {
+   var flag=false;
+
+
+    for(var property in this.altered )
+    {
+      if(this.altered[property]){
+        // console.log(">>"+JSON.stringify(property)+" >>"+this.altered[property]);
+        flag=true;
+        break;
+      }
+    }
+
+    if(flag)
+    {
+      return false;
+    }
 
   }
 
