@@ -52,9 +52,6 @@ export class ReportComponent implements OnInit {
   public toDate;
 
 
-
-
-
   public filterReport;
   public tf = true;
   public showTransportationReportResult = false;
@@ -359,6 +356,7 @@ export class ReportComponent implements OnInit {
 
   //// Stores which fields have been altered by the user....
   altered = {
+    toll_regular_cab: false,
     hrtax_regular_cab: false,
     uptax_regular_cab: false,
     emp_contrib_regular: false,
@@ -392,6 +390,7 @@ export class ReportComponent implements OnInit {
   };
   //// Initialise formError
   formError = {
+    toll_regular_cab: { error: false, message: '' },
     hrtax_regular_cab: { error: false, message: '' },
     uptax_regular_cab: { error: false, message: '' },
     emp_contrib_regular: { error: false, message: '' },
@@ -594,24 +593,36 @@ export class ReportComponent implements OnInit {
 
 
     var d = new Date();
-    if ((this.fromMonth > (d.getMonth() + 1)) || typeof this.fromMonth == "undefined") {
+    if ((this.fromMonth >= (d.getMonth() + 1)) || typeof this.fromMonth == "undefined") {
       alert("Cannot show report until this month is complete.");
       return;
     }
 
+    if (this.validate()) {
+      this.showLoader = true;
+      this.reportService.getTransportationReport(this.fromMonth, this.year, f).subscribe((data) => {
+        console.log(data);
+        this.showLoader = false;
+        this.transBillReport = data;
+        this.showTransportationReportResult = true;
+        this.showDiv = false;
+      });
 
-    this.showLoader = true;
-    this.reportService.getTransportationReport(this.fromMonth, this.year, f).subscribe((data) => {
-      console.log(data);
-      this.showLoader = false;
-      this.transBillReport = data;
-      this.showTransportationReportResult = true;
-      this.showDiv = false;
-    });
+    }
 
   }
 
   validate() {
+
+    for(var property in this.altered )
+    {
+      if(property){
+        console.log(">>"+JSON.stringify(property));
+
+      }
+      console.log(JSON.stringify(property));
+
+    }
 
   }
 
