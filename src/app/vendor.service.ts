@@ -16,7 +16,6 @@ export class VendorService {
     var data;
     let body=[{"name":"rishabh","gender":"male","age":"30"},
               {"name":"sonia","gender":"female","age":"40"}];
-    debugger;
     return this._http.post(env.environment.url+"/VendorService/VendorDetails",'').map((response)=>{
       return response.json()
       

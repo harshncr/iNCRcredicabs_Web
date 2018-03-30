@@ -65,107 +65,14 @@ export class ReportComponent implements OnInit {
   public loaderText = "Loading...";
   ////-----------------------------------------
 
+  constructor(public reportService: ReportService, public _dashData: DashData) {
+    // console.log("constructor");
+  }
 
-  // public reports = [{ "ManagerName": "Sonia Chawla", "NumberOfEmpl": "32", "NumberOfCabs": "12", "Cost": "3600", "RequestID": "1234", "Shift": "Regular", "EmployeeQlid": "re124111", "TimeAndDate": "21-12-18,6:12pm", "CabNumber": "2675", "VendorName": "ABC CAB SERVICE", "TypeOfCab": "Micro" },
-  // { "ManagerName": "Ruchi Chawla", "NumberOfEmpl": "2", "NumberOfCabs": "1", "Cost": "300", "RequestID": "8234", "Shift": "Regular", "EmployeeQlid": "pp222191", "TimeAndDate": "21-12-18,6:12pm", "CabNumber": "5566", "VendorName": "Rose CAB SERVICE", "TypeOfCab": "Mini" },
-  // { "ManagerName": "Aman Chawla", "NumberOfEmpl": "12", "NumberOfCabs": "10", "Cost": "4600", "RequestID": "1534", "Shift": "Regular", "EmployeeQlid": "yu123161", "TimeAndDate": "21-12-18,6:12pm", "CabNumber": "6464", "VendorName": "COdeCatchers CAB SERVICE", "TypeOfCab": "Mini" }];
 
   ngOnInit() {
     //  console.log("ngOnInit");
-    this.filterReport = this._dashData.getItem();
-
-    //when report type is selected from dashboard
-    switch (this.filterReport) {
-      case "Unschedule_Summary_ByManager":
-        this.showLoader = true;
-        this.reportService.getManagerReport1(this.filterValue).subscribe((data) => {
-          this.showLoader = false;
-
-          this.reports = data;
-          console.log(data);
-        });
-        //  this.showDiv = true;
-        break;
-
-      case "Unschedule_Summary_ByEmployee":
-        this.showLoader = true;
-
-        this.reportService.getEmployeeReport1(this.filterValue).subscribe((data) => {
-          this.showLoader = false;
-
-          this.reports = data;
-          //  this.showDiv = true;
-          console.log(data);
-        }); break;
-
-      case "Unschedule_Summary_ByVendor":
-        this.showLoader = true;
-
-        this.reportService.getVendorReport1(this.filterValue).subscribe((data) => {
-          this.showLoader = false;
-
-          this.reports = data;
-          //this.showDiv = true;
-
-          console.log(data);
-        }); break;
-      case "Unschedule_Detail_ByVendor":
-        this.showLoader = true;
-
-        this.reportService.getVendorReportDetail1(this.filterValue).subscribe((data) => {
-          this.showLoader = false;
-
-          this.reports = data;
-          //this.showDiv = true;
-
-          console.log(data);
-        }); break;
-      case "Unschedule_Detail_ByEmployee":
-        this.showLoader = true;
-
-        this.reportService.getEmployeeReportDetail1(this.filterValue).subscribe((data) => {
-          this.showLoader = false;
-
-          this.reports = data;
-          //this.showDiv = true;
-
-          console.log(data);
-        }); break;
-      case "Unschedule_Detail_ByManager":
-        this.showLoader = true;
-
-        this.reportService.getManagerReportDetail1(this.filterValue).subscribe((data) => {
-          this.showLoader = false;
-
-          this.reports = data;
-          //this.showDiv = true;
-
-          console.log(data);
-        }); break;
-
-      case "Checkin_Checkout":
-        this.showLoader = true;
-        this.reportService.getVendorNames().subscribe((data) => {
-          this.showLoader = false;
-          this.vname = data;
-          console.log(data);
-        }); break;
-
-      case "Vendor_Billing_Summary":
-        this.reportService.getVendorNames().subscribe((data) => {
-          this.vname = data;
-
-          console.log(data);
-        }); break;
-
-
-    }
-
-
-  }
-
-  constructor(public reportService: ReportService, public _dashData: DashData) {
-    // console.log("constructor");
+    // this.filterReport = this._dashData.getItem();
   }
 
   //to toggle filter panel
@@ -249,7 +156,8 @@ export class ReportComponent implements OnInit {
   //filter method
   onFilterGo(f) {
 
-    // console.log(this.filterType + " " + this.filterValue);
+    console.log("in FilterGo()"+JSON.stringify(f));
+    console.log(this.filterType + " " + this.filterValue);
 
     switch (this.filterReport) {
 
@@ -325,31 +233,103 @@ export class ReportComponent implements OnInit {
 
   }
 
-  // date picker
-  public myDatePickerOptions: IMyDpOptions = {
-    // other options...
-    dateFormat: 'yyyy-mm-dd',
-  };
+
+  showDefaultData(val) {
+
+    this.filterReport=val;
+
+    console.log("in showDefault()"+this.filterReport);
+
+    switch (val) {
+      case "Unschedule_Summary_ByManager":
+        this.showLoader = true;
+        this.reportService.getManagerReport1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+          this.showDiv = true;
+          this.reports = data;
+          console.log(data);
+        });
+        break;
+
+      case "Unschedule_Summary_ByEmployee":
+        this.showLoader = true;
+
+        this.reportService.getEmployeeReport1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+          this.showDiv = true;
+
+          this.reports = data;
+          console.log(data);
+        }); break;
+
+      case "Unschedule_Summary_ByVendor":
+        this.showLoader = true;
+
+        this.reportService.getVendorReport1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+          this.showDiv = true;
+          this.reports = data;
+          console.log(data);
+        }); break;
+      case "Unschedule_Detail_ByVendor":
+        this.showLoader = true;
+
+        this.reportService.getVendorReportDetail1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+          this.showDiv = true;
+          this.reports = data;
+          console.log(data);
+        }); break;
+      case "Unschedule_Detail_ByEmployee":
+        this.showLoader = true;
+
+        this.reportService.getEmployeeReportDetail1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+          this.showDiv = true;
+
+          this.reports = data;
+          //this.showDiv = true;
+
+          console.log(data);
+        }); break;
+      case "Unschedule_Detail_ByManager":
+        this.showLoader = true;
+
+        this.reportService.getManagerReportDetail1(this.filterValue).subscribe((data) => {
+          this.showLoader = false;
+          this.showDiv = true;
+
+          this.reports = data;
+          //this.showDiv = true;
+
+          console.log(data);
+        }); break;
+
+      case "Checkin_Checkout":
+        this.showLoader = true;
+        this.reportService.getVendorNames().subscribe((data) => {
+          this.vname = data;
+          this.showDiv = true;
+
+          this.showLoader = false;
+          console.log(data);
+        }); break;
+
+      case "Vendor_Billing_Summary":
+        this.showLoader = true;
+        this.reportService.getVendorNames().subscribe((data) => {
+          this.vname = data;
+          this.showDiv = true;
+
+          this.showLoader = false;
+          console.log(data);
+        }); break;
+
+    }
 
 
-  enableshift() {
-    $("select[name=ShiftType]").prop("disabled", false);
   }
 
-  enablefrom(value) {
-    $("select[name=FromDate]").prop("disabled", false);
-    this.shiftValue = value;
-  }
-
-  enableto(value) {
-    $("select[name=ToDate]").prop("disabled", false);
-    this.fromDate = value;
-  }
-
-  enablego(value) {
-    $("button[name=FinalGo]").prop("disabled", false);
-    this.toDate = value;
-  }
 
 
   // Transportation Cost Report ---Start
@@ -426,6 +406,7 @@ export class ReportComponent implements OnInit {
   // Transportation Cost Report ---END
 
   // to get checkin checkout data
+  
   getdata(f) {
 
 
@@ -469,106 +450,30 @@ export class ReportComponent implements OnInit {
       });
   }
 
+  
+  public myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'yyyy-mm-dd',
+  };
 
 
-  refreshBody() {
+  enableshift() {
+    $("select[name=ShiftType]").prop("disabled", false);
+  }
 
-    switch (this.filterReport) {
-      case "Unschedule_Summary_ByManager":
-        this.showLoader = true;
-        this.reportService.getManagerReport1(this.filterValue).subscribe((data) => {
-          this.showLoader = false;
-          this.showDiv = true;
-          this.reports = data;
-          console.log(data);
-        });
-        //  this.showDiv = true;
-        break;
+  enablefrom(value) {
+    $("select[name=FromDate]").prop("disabled", false);
+    this.shiftValue = value;
+  }
 
-      case "Unschedule_Summary_ByEmployee":
-        this.showLoader = true;
+  enableto(value) {
+    $("select[name=ToDate]").prop("disabled", false);
+    this.fromDate = value;
+  }
 
-        this.reportService.getEmployeeReport1(this.filterValue).subscribe((data) => {
-          this.showLoader = false;
-          this.showDiv = true;
-
-          this.reports = data;
-          //  this.showDiv = true;
-          console.log(data);
-        }); break;
-
-      case "Unschedule_Summary_ByVendor":
-        this.showLoader = true;
-
-        this.reportService.getVendorReport1(this.filterValue).subscribe((data) => {
-          this.showLoader = false;
-          this.showDiv = true;
-
-          this.reports = data;
-          //this.showDiv = true;
-
-          console.log(data);
-        }); break;
-      case "Unschedule_Detail_ByVendor":
-        this.showLoader = true;
-
-        this.reportService.getVendorReportDetail1(this.filterValue).subscribe((data) => {
-          this.showLoader = false;
-          this.showDiv = true;
-
-          this.reports = data;
-          //this.showDiv = true;
-
-          console.log(data);
-        }); break;
-      case "Unschedule_Detail_ByEmployee":
-        this.showLoader = true;
-
-        this.reportService.getEmployeeReportDetail1(this.filterValue).subscribe((data) => {
-          this.showLoader = false;
-          this.showDiv = true;
-
-          this.reports = data;
-          //this.showDiv = true;
-
-          console.log(data);
-        }); break;
-      case "Unschedule_Detail_ByManager":
-        this.showLoader = true;
-
-        this.reportService.getManagerReportDetail1(this.filterValue).subscribe((data) => {
-          this.showLoader = false;
-          this.showDiv = true;
-
-          this.reports = data;
-          //this.showDiv = true;
-
-          console.log(data);
-        }); break;
-
-      case "Checkin_Checkout":
-        this.showLoader = true;
-        this.reportService.getVendorNames().subscribe((data) => {
-          this.vname = data;
-          this.showDiv = true;
-
-          this.showLoader = false;
-          console.log(data);
-        }); break;
-
-      case "Vendor_Billing_Summary":
-        this.showLoader = true;
-        this.reportService.getVendorNames().subscribe((data) => {
-          this.vname = data;
-          this.showDiv = true;
-
-          this.showLoader = false;
-          console.log(data);
-        }); break;
-
-    }
-
-
+  enablego(value) {
+    $("button[name=FinalGo]").prop("disabled", false);
+    this.toDate = value;
   }
 
   //to get route no vendor

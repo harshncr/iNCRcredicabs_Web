@@ -46,7 +46,6 @@ import { UserCredService } from './Services/user-cred.service';
 import { UnscheduledRequestService } from './Services/unscheduled-request.service';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ReportComponent } from './report/report.component';
-import { HeaderReportlistComponent } from './header-reportlist/header-reportlist.component';
 import { SetPasswordEmployeeComponent } from './set-password-employee/set-password-employee.component';
 import { ForgotPasswordChangeEmployeeComponent } from './forgot-password-change-employee/forgot-password-change-employee.component';
 import { ReportService } from './Services/reportservice';
@@ -108,7 +107,6 @@ import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-d
     NoSessionComponent,
     EditEmployeeComponent,
     ReportComponent,
-    HeaderReportlistComponent,
     UnscheduledRequestComponent,
     NewAccSetupComponent,
     ForgotPasswordComponent,
