@@ -20,7 +20,7 @@
           <span *ngIf="navLocation">{{ navLocation }}</span>
         </li>
         <li class="navbar-navlocation" *ngIf="reports">
-            Reports / <span><select [(ngModel)]="filterReport" name="filterIt" class="report-navlocation" (change)="refreshBody()">
+            <span><select [(ngModel)]="filterReport" name="filterIt" class="report-navlocation" (change)="refreshBody()">
                 <!-- <option value="Regular_Detailed_ByManager">Regular_Detailed_ByManager</option>
                 <option value="Regular_Detailed_ByVendor">Regular_Detailed_ByVendor</option>
                 <option value="Regular_Detailed_ByEmployee">Regular_Detailed_ByEmployee</option>

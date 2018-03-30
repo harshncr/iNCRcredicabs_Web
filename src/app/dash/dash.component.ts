@@ -38,6 +38,7 @@ export class DashComponent implements OnInit {
   showMenu = false;
   showError = false;
   constructor(private router: Router, private employeeService: EmployeeService,public _dashData: DashData) {}
+ 
   ngOnInit() {
     this.checkRole();
   }
@@ -64,15 +65,6 @@ export class DashComponent implements OnInit {
   
   headerUpdate(){}
   
-  
-  // redirect(filterIt: String)
-  // {
-  //   var a="oh my god"
-  //  var checkIt= this._dashData.setItem('filterIt');
-  //  console.log("Here I am");
-  //  console.log(checkIt);
-  //  console.log(a);
-  // }
 
   select_mode(value:string){
     this.router.navigate([value]);

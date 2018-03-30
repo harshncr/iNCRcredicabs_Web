@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   loginService: LoginService;
   public showDownload; 
   public uploadValue:boolean=true;
-  public filterReport;
+  public filterReport='';
 
 
   @Output() public childevent =new EventEmitter(); 
@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
               private unscheduledRequestComponent:UnscheduledRequestComponent,
               private reportComponent:ReportComponent,
               private employeeService: EmployeeService,
-              private _dashData: DashData
+              private _dashData: DashData,
             ) {
     			this.router = _router;
     			this.loginService = _loginService;
