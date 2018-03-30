@@ -12,7 +12,7 @@ import { Data } from '../Model/Data';
 export class CabUpdateComponent implements OnInit {
 public cab:Data;
 module = "vendor";
-navLocation = "Update Cab";
+navLocation = "/ Update Cab";
 public message: any;
 entry_tax_haryana = "";
 entry_tax_delhi = "";

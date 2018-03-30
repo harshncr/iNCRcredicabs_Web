@@ -156,9 +156,6 @@ export class ReportComponent implements OnInit {
   //filter method
   onFilterGo(f) {
 
-    console.log("in FilterGo()"+JSON.stringify(f));
-    console.log(this.filterType + " " + this.filterValue);
-
     switch (this.filterReport) {
 
       case "Unschedule_Summary_ByManager":
@@ -237,8 +234,6 @@ export class ReportComponent implements OnInit {
   showDefaultData(val) {
 
     this.filterReport=val;
-
-    console.log("in showDefault()"+this.filterReport);
 
     switch (val) {
       case "Unschedule_Summary_ByManager":
@@ -403,96 +398,7 @@ export class ReportComponent implements OnInit {
     foreignExPrice: { error: false, message: '' }
   };
 
-  // Transportation Cost Report ---END
 
-  // to get checkin checkout data
-  
-  getdata(f) {
-
-
-    if (typeof this.modelf === 'undefined')
-      this.fdate = "";
-
-    else if (this.modelf == null)
-      this.fdate = "";
-    else
-      this.fdate = this.modelf.formatted;
-
-    if (typeof this.modelt === 'undefined')
-      this.tdate = "";
-    else if (this.modelt == null)
-      this.tdate = "";
-
-    else
-      this.tdate = this.modelt.formatted;
-
-    var valarr = [f.RouteNo, this.fdate, this.tdate, f.CabNo, this.EmpName, f.VendorName];
-
-    for (var x in valarr)
-      if (typeof valarr[x] === 'undefined')
-        valarr[x] = "";
-
-    var emp_fname = "";
-    var emp_lname = "";
-
-    if (valarr[4] != "") {
-      var arr = valarr[4].split(" ");
-      emp_fname = arr[0];
-      emp_lname = arr[1];
-    }
-
-    this.reportService.getCheckinoutreport(valarr[0], valarr[1], valarr[2], valarr[3], emp_fname, emp_lname, valarr[5]).subscribe
-      ((data) => {
-        this.Checkinoutreport = data;
-
-        console.log("in subscribe()" + data);
-
-      });
-  }
-
-  
-  public myDatePickerOptions: IMyDpOptions = {
-    // other options...
-    dateFormat: 'yyyy-mm-dd',
-  };
-
-
-  enableshift() {
-    $("select[name=ShiftType]").prop("disabled", false);
-  }
-
-  enablefrom(value) {
-    $("select[name=FromDate]").prop("disabled", false);
-    this.shiftValue = value;
-  }
-
-  enableto(value) {
-    $("select[name=ToDate]").prop("disabled", false);
-    this.fromDate = value;
-  }
-
-  enablego(value) {
-    $("button[name=FinalGo]").prop("disabled", false);
-    this.toDate = value;
-  }
-
-  //to get route no vendor
-  getRouteNosbyVendor(f) {
-    this.reportService.getRouteNos(f.value.VendorName).subscribe((data) => {
-      this.rname = data;
-    })
-  }
-
-  // to get cab no by vendor and route no
-  getCabnobyVendorandRouteNo(f) {
-    this.reportService.getCabnobyVendorandRouteNo(f.value.VendorName, f.value.RouteNo).subscribe((data) => {
-      this.cno = data;
-    })
-  }
-
-
-
-  // Transportation Cost Report ---Start
 
   onTptCostForm(f) {
 
@@ -616,7 +522,97 @@ export class ReportComponent implements OnInit {
   //   this.altered.empBloodGrp = false;
   // }
 
-  // Transportation Cost Report ---End
+
+  // Transportation Cost Report ---END
+
+
+
+
+  // Checkin Checkout and Vendor Billing Summary Report -----Start
+  
+  getdata(f) {
+
+
+    if (typeof this.modelf === 'undefined')
+      this.fdate = "";
+
+    else if (this.modelf == null)
+      this.fdate = "";
+    else
+      this.fdate = this.modelf.formatted;
+
+    if (typeof this.modelt === 'undefined')
+      this.tdate = "";
+    else if (this.modelt == null)
+      this.tdate = "";
+
+    else
+      this.tdate = this.modelt.formatted;
+
+    var valarr = [f.RouteNo, this.fdate, this.tdate, f.CabNo, this.EmpName, f.VendorName];
+
+    for (var x in valarr)
+      if (typeof valarr[x] === 'undefined')
+        valarr[x] = "";
+
+    var emp_fname = "";
+    var emp_lname = "";
+
+    if (valarr[4] != "") {
+      var arr = valarr[4].split(" ");
+      emp_fname = arr[0];
+      emp_lname = arr[1];
+    }
+
+    this.reportService.getCheckinoutreport(valarr[0], valarr[1], valarr[2], valarr[3], emp_fname, emp_lname, valarr[5]).subscribe
+      ((data) => {
+        this.Checkinoutreport = data;
+
+        console.log("in subscribe()" + data);
+
+      });
+  }
+
+  
+  public myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'yyyy-mm-dd',
+  };
+
+
+  enableshift() {
+    $("select[name=ShiftType]").prop("disabled", false);
+  }
+
+  enablefrom(value) {
+    $("select[name=FromDate]").prop("disabled", false);
+    this.shiftValue = value;
+  }
+
+  enableto(value) {
+    $("select[name=ToDate]").prop("disabled", false);
+    this.fromDate = value;
+  }
+
+  enablego(value) {
+    $("button[name=FinalGo]").prop("disabled", false);
+    this.toDate = value;
+  }
+
+  //to get route no vendor
+  getRouteNosbyVendor(f) {
+    this.reportService.getRouteNos(f.value.VendorName).subscribe((data) => {
+      this.rname = data;
+    })
+  }
+
+  // to get cab no by vendor and route no
+  getCabnobyVendorandRouteNo(f) {
+    this.reportService.getCabnobyVendorandRouteNo(f.value.VendorName, f.value.RouteNo).subscribe((data) => {
+      this.cno = data;
+    })
+  }
+  // Checkin Checkout and Vendor Billing Summary Report -----End
 
 
 }

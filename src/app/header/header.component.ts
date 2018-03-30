@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   public showDownload; 
   public uploadValue:boolean=true;
   public filterReport='';
-
+  public mode='';
 
   @Output() public childevent =new EventEmitter(); 
   @Output() onRoleChange: EventEmitter<any> = new EventEmitter();
@@ -95,6 +95,11 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
       this.refreshBody();  
     }
 
+    if(this.vendor)
+    {
+      this.mode=this._dashData.getItem();
+    }
+
 
   }
 
@@ -107,7 +112,6 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   }
 
   refreshBody(){
-    console.log("in refreshBody()"+this.filterReport);
     this.reportComponent.showDefaultData(this.filterReport); 
   }
 
@@ -115,6 +119,11 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   
   emitUpload(){
     this.childevent.emit(this.uploadValue);
+  }
+
+  select_mode(){
+    this._dashData.setItem(this.mode);
+    this.router.navigate([this.mode]);
   }
 
   headerUpdate(){    

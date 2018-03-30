@@ -41,7 +41,11 @@
           <!-- <span *ngIf="navLocation">{{ navLocation }}</span> -->
         </li>
         <li class="navbar-navlocation" *ngIf="vendor">
-          Vendor
+            <select class="report-navlocation" [(ngModel)]="mode" (change)="select_mode()">
+                <option value="/vendor-list">Vendor</option>
+                <option value="/cab-list">Cab</option>
+                <option value="/driver-list">Driver</option>
+              </select>
           <span *ngIf="navLocation">{{ navLocation }}</span>
         </li>
         <li class="navbar-navlocation" *ngIf="unscheduledRequest">

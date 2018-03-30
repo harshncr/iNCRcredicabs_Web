@@ -12,7 +12,7 @@ import { CabService } from '../cab.service';
 })
 export class AddCabComponent implements OnInit {
   module = 'vendor';
-  navLocation = 'Add Cab';
+  navLocation = '/ Add Cab';
   public onrshp;
   public license_plate_number;
   public model;

@@ -16,7 +16,7 @@ import { CabService } from '../cab.service';
 })
 export class ViewCabComponent implements OnInit {
   module= "vendor";
-  navLocation = "Cab Details";
+  navLocation = "/ Cab Details";
 
   public selectedItem: any;
   public vendor;

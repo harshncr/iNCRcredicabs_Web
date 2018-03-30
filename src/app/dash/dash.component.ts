@@ -67,6 +67,7 @@ export class DashComponent implements OnInit {
   
 
   select_mode(value:string){
+    this._dashData.setItem(value);
     this.router.navigate([value]);
 
   }

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ViewVendorComponent implements OnInit {
   module= "vendor";
-  navLocation = "Vendor Details";
+  navLocation = "/ Vendor Details";
 
   public vendor;
   public selectedItem;

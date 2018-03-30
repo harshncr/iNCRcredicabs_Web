@@ -12,7 +12,7 @@ import { Data} from '../Model/Data'
 })
 export class UpdateVendorComponent implements OnInit {
   module ="vendor";
-  navLocation ="Update Vendor";
+  navLocation ="/ Update Vendor";
   
  /* public fname;
   public lname;
