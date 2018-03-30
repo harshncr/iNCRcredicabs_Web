@@ -6,6 +6,8 @@ import { UnscheduledRequestComponent } from '../unscheduled-request/unscheduled-
 import { RosterService } from '../Services/roster.service';
 import { ReportComponent } from '../report/report.component';
 import { EmployeeService } from '../Services/employee.service';
+import { DashData } from '../dash/dashData';
+
 declare var jquery:any;
 declare var $ :any;
 
@@ -24,6 +26,8 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   loginService: LoginService;
   public showDownload; 
   public uploadValue:boolean=true;
+  public filterReport;
+
 
   @Output() public childevent =new EventEmitter(); 
   @Output() onRoleChange: EventEmitter<any> = new EventEmitter();
@@ -40,7 +44,8 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
               private _http:RosterService,
               private unscheduledRequestComponent:UnscheduledRequestComponent,
               private reportComponent:ReportComponent,
-              private employeeService: EmployeeService
+              private employeeService: EmployeeService,
+              private _dashData: DashData
             ) {
     			this.router = _router;
     			this.loginService = _loginService;
@@ -49,7 +54,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   }
   ngOnInit() {
     this.headerUpdate();
-        
+
     this.loginService.checkLoginStatus().subscribe((data)=>{
       if(data['login'] == false){
         return this.router.navigateByUrl('/no-session');
@@ -84,6 +89,13 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
         setTimeout(this.onRoleChange.emit(), 1000);
       });
     }
+
+    if(this.reports){
+      this.filterReport = this._dashData.getItem();
+      this.refreshBody();  
+    }
+
+
   }
 
   downloadRequestExcel(){
@@ -92,6 +104,11 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
 
   downloadReportExcel(){
     this.reportComponent.downloadExcel(); 
+  }
+
+  refreshBody(){
+    console.log("in refreshBody()"+this.filterReport);
+    this.reportComponent.showDefaultData(this.filterReport); 
   }
 
   ngAfterViewChecked() {}

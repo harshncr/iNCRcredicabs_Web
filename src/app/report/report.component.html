@@ -22,7 +22,7 @@
         <div class="row">
 
           <!-- Type of Report Selector  -->
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             Type of Reports:
             <select [(ngModel)]="filterReport" name="filterIt" class="form-control" (change)="refreshBody()">
               <!-- <option value="Regular_Detailed_ByManager">Regular_Detailed_ByManager</option>
@@ -31,7 +31,7 @@
               <option value="Regular_Summary_ByManager">Regular_Summary_ByManager</option>
               <option value="Regular_Summary_ByVendor">Regular_Summary_ByVendor</option>
               <option value="Regular_Summary_ByEmployee">Regular_Summary_ByEmployee</option> -->
-              <option value="Unschedule_Detail_ByManager">Unschedule_Detail_ByManager</option>
+              <!-- <option value="Unschedule_Detail_ByManager">Unschedule_Detail_ByManager</option>
               <option value="Unschedule_Detail_ByVendor">Unschedule_Detail_ByVendor</option>
               <option value="Unschedule_Detail_ByEmployee">Unschedule_Detail_ByEmployee</option>
               <option value="Unschedule_Summary_ByManager">Unschedule_Summary_ByManager</option>
@@ -41,7 +41,7 @@
               <option value="Vendor_Billing_Summary">Vendor_Billing_Summary</option>
               <option value="Transportation_Billing">Transportation_Billing</option>
             </select>
-          </div>
+          </div>  -->
 
           <!-- Filter for Unscheduled -->
           <div class="col-md-4" *ngIf="(filterReport == 'Unschedule_Detail_ByManager')
@@ -220,7 +220,7 @@
 
 
         <!-- Filters for Vendorwise Report -->
-        <div class="row top-buffer" *ngIf="filterReport=='Vendor_Billing_Summary'">
+        <div class="row top-buffer" *ngIf="filterReport=='Vendor_Billing_Detail'">
 
 
           <div class="col-sm-2">
@@ -562,7 +562,7 @@
       </table>
     </div>
 
-    <div *ngIf="filterReport =='Vendor_Billing_Summary'" class="table-responsive">
+    <div *ngIf="filterReport =='Vendor_Billing_Detail'" class="table-responsive">
       <table class="table table-bordered table-hover table-stripped" id="test">
         <thead>
           <tr>

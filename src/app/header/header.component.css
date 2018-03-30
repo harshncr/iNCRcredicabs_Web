@@ -78,6 +78,12 @@ nav a:hover{
     font-size: 14px;
 }
 
+.report-navlocation{
+    color: #000000;
+    font-size: 14px;
+}
+
+
 .separator{
     display: block;
     width: 1px;
