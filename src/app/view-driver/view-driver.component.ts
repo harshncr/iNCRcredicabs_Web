@@ -14,7 +14,7 @@ import { CabService } from '../cab.service';
 export class ViewDriverComponent implements OnInit {
   private dimage : any;
   module="vendor";
-  navLocation="Driver Details"
+  navLocation="/ Driver Details"
   private pimage : any;
   private readonly imageType : string = 'data:image/PNG;base64,';  
  

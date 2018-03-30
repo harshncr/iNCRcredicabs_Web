@@ -23,7 +23,7 @@ export class DriverUpdateComponent implements OnInit {
   constructor(public _driverData:DriverData,public _driverService:DriverService,private router:Router, private elem:ElementRef) { }
   public driver:Driver;
   module= "vendor";
-  navLocation = "Update Driver";
+  navLocation = "/ Update Driver";
   public message;
   public driver_type;
   public first_Name;

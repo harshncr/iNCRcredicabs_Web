@@ -14,7 +14,7 @@ import { DriverService } from '../driver.service';
 export class AddDriverComponent implements OnInit {
   validateStatus: boolean;
   module = "vendor";
-  navLocation = "Add Driver";
+  navLocation = "/ Add Driver";
 
   public driver_license_num;
   public Name;

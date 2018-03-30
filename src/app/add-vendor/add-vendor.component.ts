@@ -12,7 +12,7 @@ export class AddVendorComponent {
   public today;
   //validateStatus: boolean;
   module ="vendor";
-  navLocation = "Add Vendor";
+  navLocation = "/ Add Vendor";
   public expiryDate:Date;
   public validateStatus:boolean;
   public vendor_name;

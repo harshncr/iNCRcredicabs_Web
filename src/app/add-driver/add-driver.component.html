@@ -1,29 +1,30 @@
 <app-header [module] = "module" [navLocation] = "navLocation"></app-header>
 <!-- Name Section -->
 <div>
-<div class="row">
-    <div class="form-group">
-        <div class="pull-right">
-          
-            <button type="submit" (click)="driver_add()" class="btn btn-primary">Save</button>
-            <button type="submit" routerLink = "/driver-list" class="btn btn-basic">Cancel</button>              
-          
-            <div *ngIf="new" id="over">
-              <div id="box">
-                     <b><h4>Driver Details Already Exists !!!</h4></b><br><br>
-              <!-- <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-success"id="other" (click)=update()> Update </button> -->
-              <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary"id="close" (click)=close()> Close </button>
-              </div>
-              </div>
-              
-              
-
-        </div>
-      </div>
 </div>
 <div>
   <div class="col-md-8 col-md-offset-2">
       <div class="success">{{success}}</div>
+      <div class="row">
+          <div class="form-group">
+              <div class="pull-right">
+                
+                  <button type="submit" (click)="driver_add()" class="btn btn-primary">Save</button>
+                  <button type="submit" routerLink = "/driver-list" class="btn btn-basic">Cancel</button>              
+                
+                  <div *ngIf="new" id="over">
+                    <div id="box">
+                           <b><h4>Driver Details Already Exists !!!</h4></b><br><br>
+                    <!-- <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-success"id="other" (click)=update()> Update </button> -->
+                    <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary"id="close" (click)=close()> Close </button>
+                    </div>
+                    </div>
+                    
+                    
+      
+              </div>
+            </div>
+      
     <form class="form-horizontal" role="form">
       <fieldset>
 
