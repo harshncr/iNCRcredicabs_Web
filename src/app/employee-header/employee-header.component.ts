@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeeHeaderComponent implements OnInit {
   admin = false;
+  empFName = 'Me';
 
   constructor() { }
   ngOnInit() {
@@ -18,6 +19,11 @@ export class EmployeeHeaderComponent implements OnInit {
       if(localStorage.getItem('role') == 'ADMIN'){
         this.admin = true;
       }
+
+      if(localStorage.getItem('empFName') != undefined && localStorage.getItem('empFName') != null){
+        this.empFName = localStorage.getItem('empFName');
+      }
     }
+
   }
 }

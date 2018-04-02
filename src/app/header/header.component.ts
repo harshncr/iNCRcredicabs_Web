@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   unscheduledRequest = false;
   router: Router;
   loginService: LoginService;
+  empFName = 'Me';
   public showDownload; 
   public uploadValue:boolean=true;
   public filterReport='';
@@ -73,10 +74,14 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
       if(localStorage.getItem('role') != 'ADMIN'){
         this.router.navigateByUrl('/employee-dash');
       }
+      if(localStorage.getItem('empFName') != undefined){
+        this.empFName = localStorage.getItem('empFName');
+      }
     }else{
       this.employeeService.getRole().subscribe((data) => {
         if(data != null || data != "" || data != undefined){
           resp = data.roleName;
+          this.empFName = data.empFName;
           console.log(data);
           // debugger;
           localStorage.setItem('role', resp);

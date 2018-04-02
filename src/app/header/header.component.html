@@ -74,10 +74,10 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            Abhinav
+            {{ empFName }}
             <span class="glyphicon glyphicon-triangle-bottom profile-menu-button"></span>
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div *ngIf="empFName != 'Me'" class="dropdown-menu" aria-labelledby="navbarDropdown">
             <ul class="nav navbar-nav">
               <li class="nav-item">
                 <a class="dropdown-item" routerLink="/employee-dash">My Profile</a>
