@@ -9,6 +9,12 @@ a.nav-tabs:hover{
     /* background-color: greenyellow;  */
 
 }
+
+.container-fluid{
+    padding-top:10px;
+}
+
+
 .dash-btn.btn-default.btn{
     color: #ffffff;
     background: none;
@@ -27,7 +33,7 @@ h3{
 
 .caption{
     padding: 5px;
-    color: #ffffff;
+    /* color: #ffffff; */
 }
 
 .thumbnail{
@@ -37,11 +43,12 @@ h3{
     margin-bottom: 25px;
     border-top: none;
     font-family: 'Raleway', sans-serif;
+    border-bottom:5px solid #0099bf;
 }
 
-.thumbnail .caption{
-    /* font-family: 'Raleway', sans-serif; */
-}
+/* .thumbnail .caption{
+    font-family: 'Raleway', sans-serif;
+} */
 
 .thumbnail .content{
     padding: 5px 0px 10px 0px;
@@ -53,7 +60,7 @@ h3{
 
 .button-link:hover{
     text-emphasis: none;
-}
+}   
 
 /* .thumbnail:hover{
     border:#0084ff 1px solid;
@@ -81,7 +88,7 @@ h3{
 }
 
 #top-bar2{
-    background: #008d9b;
+    background: #0099bf;
 }
 
 #top-bar3{
@@ -90,25 +97,25 @@ h3{
 
 
 #top-bar4{
-    background: #008d9b;
+    background: #0099bf;
 }
 
-#thumb1{
+/* #thumb1{
     /* background: #0099bf; */
-    background: linear-gradient(to bottom right, #54b948, #2ba981);
-}
+    /* background: linear-gradient(to bottom right, #54b948, #2ba981); */
+/* }  */
 
-#thumb2{
+/* #thumb2{ */
     /* background: #00a77e; */
-    background: linear-gradient(to bottom right, #3caf69, #109fa7);
-}
+    /* background: linear-gradient(to bottom right, #3caf69, #109fa7);
+} */
 
-#thumb3{
+/* #thumb3{ */
     /* background: #0099bf; */
-    background: linear-gradient(to bottom right, #3eb066, #1da495);
-}
+    /* background: linear-gradient(to bottom right, #3eb066, #1da495);
+} */
 
-#thumb4{
+/* #thumb4{ */
     /* background: #008d9b; */
-    background: linear-gradient(to bottom right, #24a78c, #0099bf)
-}
+    /* background: linear-gradient(to bottom right, #24a78c, #0099bf)
+} */
