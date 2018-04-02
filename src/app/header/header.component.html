@@ -2,12 +2,12 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <div class="navbar-brand"><strong><a routerLink="/dash">iNCRediCabs</a></strong></div>
-      <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-      </button> -->
+      </button>
     </div>
     <div class="collapse navbar-collapse" id="incredicabs-navbar-collapse">
       <ul class="nav navbar-nav navbar-left">
@@ -20,24 +20,24 @@
           <span *ngIf="navLocation">{{ navLocation }}</span>
         </li>
         <li class="navbar-navlocation" *ngIf="reports">
-            <span><select [(ngModel)]="filterReport" name="filterIt" class="report-navlocation" (change)="refreshBody()">
+              <select [(ngModel)]="filterReport" name="filterIt" class="report-navlocation" (change)="refreshBody()">
                 <!-- <option value="Regular_Detailed_ByManager">Regular_Detailed_ByManager</option>
                 <option value="Regular_Detailed_ByVendor">Regular_Detailed_ByVendor</option>
                 <option value="Regular_Detailed_ByEmployee">Regular_Detailed_ByEmployee</option>
                 <option value="Regular_Summary_ByManager">Regular_Summary_ByManager</option>
                 <option value="Regular_Summary_ByVendor">Regular_Summary_ByVendor</option>
                 <option value="Regular_Summary_ByEmployee">Regular_Summary_ByEmployee</option> -->
-                  <option value="" selected>---Select One--</option>
-                  <option value="Unschedule_Detail_ByManager">Unschedule Detail-ByManager</option>
-                  <option value="Unschedule_Detail_ByVendor">Unschedule Detail-ByVendor</option>
-                  <option value="Unschedule_Detail_ByEmployee">Unschedule Detail-ByEmployee</option>
-                  <option value="Unschedule_Summary_ByManager">Unschedule Summary-ByManager</option>
-                  <option value="Unschedule_Summary_ByVendor">Unschedule Summary-ByVendor</option>
-                  <option value="Unschedule_Summary_ByEmployee">Unschedule Summary-ByEmployee</option>
-                  <option value="Checkin_Checkout">Checkin Checkout</option>
-                  <option value="Vendor_Billing_Detail">Vendor Billing Detail</option>
-                  <option value="Transportation_Billing">Transportation Billing</option>
-                </select></span>
+                <option value="" selected>---Select One--</option>
+                <option value="Unschedule_Detail_ByManager">Unschedule Detail-ByManager</option>
+                <option value="Unschedule_Detail_ByVendor">Unschedule Detail-ByVendor</option>
+                <option value="Unschedule_Detail_ByEmployee">Unschedule Detail-ByEmployee</option>
+                <option value="Unschedule_Summary_ByManager">Unschedule Summary-ByManager</option>
+                <option value="Unschedule_Summary_ByVendor">Unschedule Summary-ByVendor</option>
+                <option value="Unschedule_Summary_ByEmployee">Unschedule Summary-ByEmployee</option>
+                <option value="Checkin_Checkout">Checkin Checkout</option>
+                <option value="Vendor_Billing_Detail">Vendor Billing Detail</option>
+                <option value="Transportation_Billing">Transportation Billing</option>
+              </select>
           <!-- <span *ngIf="navLocation">{{ navLocation }}</span> -->
         </li>
         <li class="navbar-navlocation" *ngIf="vendor">
@@ -80,22 +80,21 @@
           <div *ngIf="empFName != 'Me'" class="dropdown-menu" aria-labelledby="navbarDropdown">
             <ul class="nav navbar-nav">
               <li class="nav-item">
-                <a class="dropdown-item" routerLink="/employee-dash">My Profile</a>
+                <a class="dropdown-item nav-tabs" routerLink="/employee-dash">My Profile</a>
               </li>
               <li class="nav-item">
-                <a routerLink="/unscheduledRequest"><span class="glyphicon glyphicon-exclamation-sign"></span>Request</a>
+                <a routerLink="/unscheduledRequest" class="nav-tabs"><span class="glyphicon glyphicon-exclamation-sign"></span>Request</a>
               </li>
-              <li class="nav-item">
-                <!-- <div class="dropdown-divider"></div> -->
+              <!-- <li class="nav-item">
                 <hr />
-              </li>
+              </li> -->
               <li class="nav-item">
-                <a class="dropdown-item" routerLink="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a>
+                <a class="dropdown-item nav-tabs" routerLink="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a>
               </li>
             </ul>
           </div>
         </li>
-        <li *ngIf="employee || roster || vendor || unscheduledRequest" role="separator" class="divider"></li>        
+        <!-- <li *ngIf="employee || roster || vendor || unscheduledRequest" role="separator" class="divider"></li>         -->
         <!-- <li><a routerLink="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li> -->
       </ul>
     </div>

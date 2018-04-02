@@ -7,6 +7,7 @@
 .btn.btn-default.btn-md{
     font-size: 14px;
 }
+
 .btn.btn-default.btn-md:active, .btn.btn-default.btn-md:hover{
     box-shadow: none;
     border: 1px solid #cccccc;
@@ -156,6 +157,8 @@ text-align:center;
 .panel-heading{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-style:inherit;
+    background: #54b948;
+    color: #ffffff;
 }
 
 #filter_box{

@@ -57,16 +57,9 @@ body {
     border: none;
 }
 
-.panel-body {
-    padding-top: 30px;
-    background-color: #f2f2f2;
-    border-radius: 0px;
-}
-
 .panel-heading{
     background: linear-gradient(to right, #54b948, #0099bf);
-    border-top-left-raduis: 0px;
-    border-top-right-raduis: 0px;
+    /* border-raduis: 0px;  */
 }
 
 .iconmelon,
@@ -105,7 +98,9 @@ body {
 }
 
 .panel-body{
-    padding: 10px 15px 0px 20px;
+    padding: 10px 20px 0px 20px;
+    background-color: #f2f2f2;
+    border-radius: 0px;
 }
 
 .panel-body .input-group{
@@ -141,4 +136,14 @@ table td{
     font-size: 16px;
     padding: 10px 15px;
     /* margin-top: 5px; */
+}
+
+#login-error{
+    margin: 0px 10px 10px 10px;
+}
+
+.error-close{
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
 }

@@ -23,7 +23,7 @@ export class EmployeeChangePasswordComponent implements OnInit {
   password1?:string;
   password2?:string;
   buttonDisabled?:String;
-  qlid:string;
+  qlid:string = 'zz000000';
   token:string;
   responseJSON = {success: false, message: ''};
   showResponse = false;
@@ -41,6 +41,7 @@ export class EmployeeChangePasswordComponent implements OnInit {
   };
 
   formError = {
+    currentPassword: {error: false, message: ''},
     password1: {error: false, message: ''},
     password2: {error: false, message: ''}
   };
@@ -79,25 +80,22 @@ export class EmployeeChangePasswordComponent implements OnInit {
     this.refreshErrorValues();
     let validateStatus = true;
 
-    if(this.password1 == null || this.password1 == undefined){
+    if(this.currentPassword == null || this.currentPassword == ''){
       validateStatus = false;
-    }else{
-      // if(this.password1.toUpperCase() == this.qlid.toUpperCase()){
-      //   validateStatus = false;
-      //   this.formError.password1.error = true;
-      //   this.formError.password1.message = 'Error! Password cannot be qlid!'; 
-      // }
+      this.formError.currentPassword.error = true;
+      this.formError.currentPassword.message = 'Current password cannot be blank!';
     }
     
-    if(this.password2 != null && this.password2 != undefined){
+    if(this.password1 != null && this.password1 != undefined
+      && this.password2 != null && this.password2 != undefined
+    ){
       if(this.password1 != this.password2){
         validateStatus = false;
+      }else if(this.password2.toUpperCase() == this.qlid.toUpperCase()){
+        validateStatus = false;
+        this.formError.password2.error = true;
+        this.formError.password2.message = 'Error! Password cannot be qlid!';
       }
-      // if(this.password2.toUpperCase() == this.qlid.toUpperCase()){
-      //   validateStatus = false;
-      //   this.formError.password2.error = true;
-      //   this.formError.password2.message = 'Error! Password cannot be qlid!'; 
-      // }
     }else{
       validateStatus = false;
     }
@@ -159,6 +157,7 @@ export class EmployeeChangePasswordComponent implements OnInit {
       && this.formTest.num && this.formTest.pwdmatch
       && this.formError.password1.error == false
       && this.formError.password2.error == false
+      && this.currentPassword != '' && this.currentPassword.length > 1
     ){
       $('#submit-button').css({
         'background-color': '#337ab7', 'border-color': '#2e6da4', 'cursor': 'pointer'
@@ -168,6 +167,17 @@ export class EmployeeChangePasswordComponent implements OnInit {
         'background-color': '#888888', 'border-color': '#888888', 'cursor': 'no-drop'
       });
     }
+  }
+
+  closeErrorBox(){
+    this.showError = false;
+  }
+
+  closeSuccessBox(){
+    this.showSuccess = false;
+    this.password1 = '';
+    this.password2 = '';
+    this.currentPassword = '';
   }
 
   refreshErrorValues(){

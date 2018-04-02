@@ -8,10 +8,8 @@
         </strong>
       </div>
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span>
+        <span class="icon-bar"></span><span class="icon-bar"></span>
       </button>
     </div>
     <div class="collapse navbar-collapse" id="incredicabs-navbar-collapse">
@@ -26,12 +24,10 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <ul class="nav navbar-nav">
-                <li class="nav-item">
-                  <a class="dropdown-item" routerLink="/employee-dash">My Profile</a>
-                </li>
+              <li class="nav-item"><a routerLink="/employee-dash" class="nav-tabs">My Profile</a></li>
               <li class="nav-item"><a routerLink="/employee-dash/unscheduled-cab-request" class="nav-tabs">Request for unscheduled cab</a></li>
               <li class="nav-item"><a routerLink="/employee-dash/change-password" class="nav-tabs">change password</a></li>
-              <li class="nav-item"><a routerLink="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+              <li class="nav-item"><a routerLink="/logout" class="nav-tabs"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
             </ul>
           </div>
         </li>        

@@ -100,6 +100,10 @@ h3{
     background: #0099bf;
 }
 
+.thumbnail-link{
+    width: 100%;
+}
+
 /* #thumb1{
     /* background: #0099bf; */
     /* background: linear-gradient(to bottom right, #54b948, #2ba981); */

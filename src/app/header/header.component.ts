@@ -16,6 +16,7 @@ declare var $ :any;
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent implements OnInit, AfterViewChecked {
   employee = false;
   roster = false;
@@ -40,18 +41,18 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   @Input() loadc:boolean;
   @Input() loadd:boolean;
   
-  constructor(private _router: Router,
-              private _loginService: LoginService,
-              private _http:RosterService,
-              private unscheduledRequestComponent:UnscheduledRequestComponent,
-              private reportComponent:ReportComponent,
-              private employeeService: EmployeeService,
-              private _dashData: DashData,
-            ) {
-    			this.router = _router;
-    			this.loginService = _loginService;
-          this.showDownload=true;
-
+  constructor(
+    private _router: Router,
+    private _loginService: LoginService,
+    private _http:RosterService,
+    private unscheduledRequestComponent:UnscheduledRequestComponent,
+    private reportComponent:ReportComponent,
+    private employeeService: EmployeeService,
+    private _dashData: DashData,
+  ) {
+    this.router = _router;
+    this.loginService = _loginService;
+    this.showDownload=true;
   }
   ngOnInit() {
     this.headerUpdate();
@@ -100,12 +101,9 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
       this.refreshBody();  
     }
 
-    if(this.vendor)
-    {
+    if(this.vendor){
       this.mode=this._dashData.getItem();
     }
-
-
   }
 
   downloadRequestExcel(){
@@ -174,7 +172,6 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
       }
     }
 
-
     //// If margins are not set
     if(($(id).attr('marginset')) == undefined){
       leftMargin = -20;
@@ -189,5 +186,4 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   onMouseLeaveLink(){
     $('.tooltip-text').css('display', 'none');
   }
-
 }

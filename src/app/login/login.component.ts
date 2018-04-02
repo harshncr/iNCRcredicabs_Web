@@ -5,6 +5,8 @@ import { Router }                                   from '@angular/router';
 
 declare var grecaptcha:any;
 declare var grecaptchaLoaded: boolean;
+declare var jquery:any;
+declare var $:any;
 
 @Component({
   selector: 'app-login',
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
   reCaptchaResponse;
 
   ngOnInit() {    
+    $('#login-error').hide();  
     console.log(grecaptchaLoaded);
     this.loginService.checkLoginStatus().subscribe(
       (data) => {
@@ -56,6 +59,7 @@ export class LoginComponent implements OnInit {
               this.router.navigateByUrl('dash');
             }else{
               this.error = true;
+              $('#login-error').slideDown();
               this.errorMessage = this.responseJSON['message'];
             }
           });
@@ -69,9 +73,14 @@ export class LoginComponent implements OnInit {
       // }
     }catch(e){
       console.log(e);
-      this.error = true;
-      this.errorMessage = 'reCaptcha could not be loaded, refresh the page and try again!';
+      // this.error = true;
+      // this.errorMessage = 'reCaptcha could not be loaded, refresh the page and try again!';
     }
     this.showLoader = false;
+  }
+
+  errorClose(){
+    // $('#login-error').slideDown();
+    this.error = false;
   }
 }

@@ -152,8 +152,20 @@ hr{
     color: #777777;
 }
 
+.navbar-toggle .icon-bar{
+    background: #ffffff;
+}
+
 .dropdown-menu .navbar-nav > li > a{
     color: #777777;
+}
+
+.dropdown-menu{
+    padding: 0px;
+}
+
+.dropdown-menu .nav-tabs{
+    background: #ffffff;
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover{
