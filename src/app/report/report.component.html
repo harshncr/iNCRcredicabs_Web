@@ -291,696 +291,701 @@
   </div>
 </div>
 
-<h3>{{filterReport}} Reports:</h3>
-
 <app-loader-anim [showLoader]="showLoader" [loaderText]="loaderText">
-  </app-loader-anim>
-  
-
-<div *ngIf="filterReport == 'Unschedule_Summary_ByManager'">
-  <table class="table table-bordered table-hover table-stripped">
-    <thead>
-      <tr>
-        <th>Manager Id</th>
-        <th>Manager Name</th>
-        <th> Number of Employees</th>
-        <th>Cost</th>
-        <th>Number of cabs</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let report of reports  |  filter:filterValue">
-        <td>
-          {{report?.Manager}}
-        </td>
-        <td>
-          {{report?.ManagerName}}
-        </td>
-        <td>
-          {{report?.NE}}
-        </td>
-        <td>
-          {{report?.Cost}}
-        </td>
-        <td>
-          {{report?.NC}}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div *ngIf="filterReport == 'Unschedule_Summary_ByVendor'">
-  <table class="table table-bordered table-hover table-stripped">
-    <thead>
-      <tr>
-        <th>Vendor Name</th>
-        <th> Number of Cabs</th>
-        <th>Cost</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let report of reports |  filter:filterValue">
-        <td>
-          {{report?.Vendor_Name}}
-        </td>
-        <td>
-          {{report?.Cabs_Count}}
-        </td>
-        <td>
-          {{report?.Cab_Cost}}
-        </td>
-
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div *ngIf="filterReport == 'Unschedule_Summary_ByEmployee'">
-  <table class="table table-bordered table-hover table-stripped">
-    <thead>
-      <tr>
-        <th>Employee QLId</th>
-        <th>Employee Name</th>
-        <th>Manager QLId</th>
-        <th>No. of cabs</th>
-        <th>Cost</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let report of reports  |  filter:filterValue">
-        <td>
-          {{report?.Emp_Qlid}}
-        </td>
-        <td>
-          {{report?.Emp_FName}}
-        </td>
-        <td>
-          {{report?.Emp_Mgr_Qlid1}}
-        </td>
-
-        <td>
-          {{report?.Cab_Count}}
-        </td>
-        <td>
-          {{report?.Cab_Cost}}
-        </td>
-
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div *ngIf="filterReport == 'Unschedule_Detail_ByEmployee'">
-  <table class="table table-bordered table-hover table-stripped">
-    <thead>
-      <tr>
-        <th>Employee Qlid</th>
-        <th>Employee Name</th>
-        <th>Date </th>
-        <th>Vendor Name</th>
-        <th> Cab Type</th>
-        <th> Cab No.</th>
-        <th>Trip Type</th>
-        <th>Source</th>
-        <th>Destination</th>
-        <th>Zone</th>
-        <th>Cost</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let report of reports  |  filter:filterValue">
-        <td>
-          {{report?.Emp_Qlid}}
-        </td>
-        <td>
-          {{report?.Emp_FName}}
-        </td>
-        <td>
-          {{report?.Start_Date_Time}}
-        </td>
-        <td>
-          {{report?.Vendor_Name}}
-        </td>
-        <td>
-          {{report?.Cab_Type}}
-        </td>
-        <td>
-          {{report?.Cab_No}}
-        </td>
-        <td>
-          {{report?.TripType||report?.Trip_Type}}
-        </td>
-        <td>
-          {{report?.Source}}
-        </td>
-
-        <td>
-          {{report?.Destination}}
-        </td>
-        <td>
-          {{report?.Zone}}
-        </td>
-        <td>
-          {{report?.Cab_Cost}}
-        </td>
-
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div *ngIf="filterReport == 'Unschedule_Detail_ByManager'">
-  <table class="table table-bordered table-hover table-stripped">
-    <thead>
-      <tr>
-        <th>Manager Name</th>
-        <th>Employee Name</th>
-        <th>Employee Qlid</th>
-        <th>Date</th>
-        <th>Vendor Name</th>
-        <th>Trip Type</th>
-        <th>Source</th>
-        <th>Destination</th>
-        <th>Zone</th>
-        <th>Cost</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let report of reports  |  filter:filterValue">
-
-        <td>
-          {{report?.Manager_Name}}
-        </td>
+</app-loader-anim>
 
 
-        <td>
-          {{report?.Emp_Name}}
-        </td>
-        <td>
-          {{report?.Emp_Qlid}}
-        </td>
-        <td>
-          {{report?.Start_Date}}
-        </td>
-        <td>
-          {{report?.Vendor_Name}}
-        </td>
 
-        <td>
-          {{report?.Trip_Type}}
-        </td>
-        <td>
-          {{report?.Source}}
-        </td>
-        <td>
-          {{report?.Destination}}
-        </td>
-        <td>
-          {{report?.Emp_Zone}}
-        </td>
-        <td>
-          {{report?.Cab_Cost}}
-        </td>
+<div class="panel panel-default report-panel">
 
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div class="panel-heading report-heading clearfix">
+    <h3 class="panel-title pull-left">{{filterReport}} Reports:</h3>
+  </div>
 
-<div *ngIf="filterReport == 'Unschedule_Detail_ByVendor'">
-  <table class="table table-bordered table-hover table-stripped">
-    <thead>
-      <tr>
-        <th>Vendor Name</th>
-        <th>Employee Name</th>
-        <th>Date and Time</th>
-        <th>Trip Type</th>
-        <th>Source</th>
-        <th>Destination</th>
-        <th>Zone</th>
-        <th>Cost</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let report of reports |  filter:filterValue">
-        <td>
-          {{report?.Vendor_Name}}
-        </td>
+  <div class="panel-body"  *ngIf="filterReport == 'Unschedule_Summary_ByManager'">
+    <table class="table table-bordered table-hover table-stripped">
+      <thead>
+        <tr>
+          <th>Manager Id</th>
+          <th>Manager Name</th>
+          <th> Number of Employees</th>
+          <th>Cost</th>
+          <th>Number of cabs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of reports  |  filter:filterValue">
+          <td>
+            {{report?.Manager}}
+          </td>
+          <td>
+            {{report?.ManagerName}}
+          </td>
+          <td>
+            {{report?.NE}}
+          </td>
+          <td>
+            {{report?.Cost}}
+          </td>
+          <td>
+            {{report?.NC}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-        <td>
-          {{report?.Emp_FName}}
-        </td>
-        <td>
-          {{report?.Date}}
-        </td>
-        <td>
-          {{report?.Other_Addr}}
-        </td>
-        <td>
-          {{report?.Source}}
-        </td>
-        <td>
-          {{report?.Destination}}
-        </td>
-        <td>
-          {{report?.Emp_Zone}}
-        </td>
-        <td>
-          {{report?.Cab_Cost}}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div *ngIf="filterReport == 'Unschedule_Summary_ByVendor'">
+    <table class="table table-bordered table-hover table-stripped">
+      <thead>
+        <tr>
+          <th>Vendor Name</th>
+          <th> Number of Cabs</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of reports |  filter:filterValue">
+          <td>
+            {{report?.Vendor_Name}}
+          </td>
+          <td>
+            {{report?.Cabs_Count}}
+          </td>
+          <td>
+            {{report?.Cab_Cost}}
+          </td>
 
-<div *ngIf="filterReport =='Vendor_Billing_Detail'" class="table-responsive">
-  <table class="table table-bordered table-hover table-stripped" id="test">
-    <thead>
-      <tr>
-        <th>S. No.</th>
-        <th>Period</th>
-        <th>Cab No</th>
-        <th>Shift Time</th>
-        <th>Source</th>
-        <th>Model</th>
-        <th>Working Days</th>
-        <th>Actual Working Days</th>
-        <th>Rate</th>
-        <th>Cab Charge</th>
-        <th>H.R. Tax</th>
-        <th>U.P. Tax</th>
-        <th>Gps</th>
-        <th>Toll</th>
-        <th>Total Amount</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let report of BillingSummaryReport |  filter:filterValue; let i = index">
-        <td>
-          {{i+1}}
-        </td>
-        <td>
-          {{report?.Period}}
-        </td>
-        <td>
-          {{report?.Cab_No}}
-        </td>
-        <td>
-          {{report?.Shift_Time}}
-        </td>
-        <td>
-          {{report?.Source}}
-        </td>
-        <td>
-          {{report?.Model}}
-        </td>
-        <td class="Working_Days">
-          20
-        </td>
-        <td>
-          <input type="text" name="Actual_Working_Days" />
-        </td>
-        <td class="rate">
-          {{report?.Rate}}
-        </td>
-        <td class="Cab_Charge">
-        </td>
-        <td>
-          <input type="text" name="HR_Tax" />
-        </td>
-        <td>
-          <input type="text" name="UP_Tax" />
-        </td>
-        <td>
-          <input type="text" name="Gps" />
-        </td>
-        <td>
-          <input type="text" name="Toll" />
-        </td>
-        <td class="Total_Amount">
-        </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td *ngFor="let n of [0,1,2,3,4,5,6,7,8]"></td>
-        <td class="Total"></td>
-        <td class="Total_HR_Tax"></td>
-        <td class="Total_UP_Tax"></td>
-        <td class="Total_Gps"></td>
-        <td class="Total_Toll"></td>
-        <td class="indsum"></td>
-      </tr>
-      <tr>
-        <th *ngFor="let n of [0,1,2,3,4,5,6,7,8]"></th>
-        <th id="Gst_Rate">Gst Tax</th>
-        <td class="gst_rate">
-          <input type="text" value=12 name="Gst_Rate" />
-        </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="Gst_Tax"></td>
-      </tr>
-      <tr>
-        <td *ngFor="let n of [0,1,2,3,4,5,6,7,8]"></td>
-        <th>Total</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="Final_Total_Amount"></td>
-      </tr>
+  <div *ngIf="filterReport == 'Unschedule_Summary_ByEmployee'">
+    <table class="table table-bordered table-hover table-stripped">
+      <thead>
+        <tr>
+          <th>Employee QLId</th>
+          <th>Employee Name</th>
+          <th>Manager QLId</th>
+          <th>No. of cabs</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of reports  |  filter:filterValue">
+          <td>
+            {{report?.Emp_Qlid}}
+          </td>
+          <td>
+            {{report?.Emp_FName}}
+          </td>
+          <td>
+            {{report?.Emp_Mgr_Qlid1}}
+          </td>
+
+          <td>
+            {{report?.Cab_Count}}
+          </td>
+          <td>
+            {{report?.Cab_Cost}}
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="filterReport == 'Unschedule_Detail_ByEmployee'">
+    <table class="table table-bordered table-hover table-stripped">
+      <thead>
+        <tr>
+          <th>Employee Qlid</th>
+          <th>Employee Name</th>
+          <th>Date </th>
+          <th>Vendor Name</th>
+          <th> Cab Type</th>
+          <th> Cab No.</th>
+          <th>Trip Type</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Zone</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of reports  |  filter:filterValue">
+          <td>
+            {{report?.Emp_Qlid}}
+          </td>
+          <td>
+            {{report?.Emp_FName}}
+          </td>
+          <td>
+            {{report?.Start_Date_Time}}
+          </td>
+          <td>
+            {{report?.Vendor_Name}}
+          </td>
+          <td>
+            {{report?.Cab_Type}}
+          </td>
+          <td>
+            {{report?.Cab_No}}
+          </td>
+          <td>
+            {{report?.TripType||report?.Trip_Type}}
+          </td>
+          <td>
+            {{report?.Source}}
+          </td>
+
+          <td>
+            {{report?.Destination}}
+          </td>
+          <td>
+            {{report?.Zone}}
+          </td>
+          <td>
+            {{report?.Cab_Cost}}
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="filterReport == 'Unschedule_Detail_ByManager'">
+    <table class="table table-bordered table-hover table-stripped">
+      <thead>
+        <tr>
+          <th>Manager Name</th>
+          <th>Employee Name</th>
+          <th>Employee Qlid</th>
+          <th>Date</th>
+          <th>Vendor Name</th>
+          <th>Trip Type</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Zone</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of reports  |  filter:filterValue">
+
+          <td>
+            {{report?.Manager_Name}}
+          </td>
 
 
-    </tfoot>
-  </table>
+          <td>
+            {{report?.Emp_Name}}
+          </td>
+          <td>
+            {{report?.Emp_Qlid}}
+          </td>
+          <td>
+            {{report?.Start_Date}}
+          </td>
+          <td>
+            {{report?.Vendor_Name}}
+          </td>
 
-</div>
+          <td>
+            {{report?.Trip_Type}}
+          </td>
+          <td>
+            {{report?.Source}}
+          </td>
+          <td>
+            {{report?.Destination}}
+          </td>
+          <td>
+            {{report?.Emp_Zone}}
+          </td>
+          <td>
+            {{report?.Cab_Cost}}
+          </td>
 
-<div *ngIf="filterReport =='Checkin_Checkout'" class="table-responsive">
-  <table id="test" class="table table-bordered table-hover table-stripped">
-    <thead>
-      <tr>
-        <th>S. No.</th>
-        <th>Date</th>
-        <th>Route No</th>
-        <th>Cab No</th>
-        <th>Vendor Name</th>
-        <th>Trip Type</th>
-        <th>Employee Name</th>
-        <th>Shift Time</th>
-        <th>Check in Time</th>
-        <th>Check out Time</th>
-        <th>Late Arrival</th>
-        <th>Late Departure</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let report of Checkinoutreport |  filter:filterValue; let i = index">
-        <td>
-          {{i+1}}
-        </td>
-        <td>
-          {{report?.DATE}}
-        </td>
-        <td>
-          {{report?.route_no}}
-        </td>
-        <td>
-          {{report?.cab_No}}
-        </td>
-        <td>
-          {{report?.vendor_name}}
-        </td>
-        <td>
-          {{report?.trip_type}}
-        </td>
-        <td>
-          {{report?.Employee_Name}}
-        </td>
-        <td>
-          {{report?.Shift_Time}}
-        </td>
-        <td>
-          {{report?.check_in_time}}
-        </td>
-        <td>
-          {{report?.check_out_time}}
-        </td>
-        <td>
-          {{report?.late_arrival}}
-        </td>
-        <td>
-          {{report?.late_departure}}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<div class="col-md-9 col-md-offset-2" id="employee-form" *ngIf="filterReport =='Transportation_Billing'&& showDiv">
-  <form name="myForm" #f="ngForm" (ngSubmit)="onTptCostForm(f.value)" class="form-horizontal" role="form">
-    <fieldset>
+  <div *ngIf="filterReport == 'Unschedule_Detail_ByVendor'">
+    <table class="table table-bordered table-hover table-stripped">
+      <thead>
+        <tr>
+          <th>Vendor Name</th>
+          <th>Employee Name</th>
+          <th>Date and Time</th>
+          <th>Trip Type</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Zone</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of reports |  filter:filterValue">
+          <td>
+            {{report?.Vendor_Name}}
+          </td>
 
-      <legend>Regular cabs</legend>
+          <td>
+            {{report?.Emp_FName}}
+          </td>
+          <td>
+            {{report?.Date}}
+          </td>
+          <td>
+            {{report?.Other_Addr}}
+          </td>
+          <td>
+            {{report?.Source}}
+          </td>
+          <td>
+            {{report?.Destination}}
+          </td>
+          <td>
+            {{report?.Emp_Zone}}
+          </td>
+          <td>
+            {{report?.Cab_Cost}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-      <div class="form-group">
-        <!-- Input Field & Labels -->
-        <div class="row">
-          <!-- Toll  for Regular Cabs -->
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Toll for Regular Cabs
-                  </strong>
-                </span>
-                <input type="number" min="0" name="toll_regular_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  (change)="altered.toll_regular_cab=true;" required>
+  <div *ngIf="filterReport =='Vendor_Billing_Detail'" class="table-responsive">
+    <table class="table table-bordered table-hover table-stripped" id="test">
+      <thead>
+        <tr>
+          <th>S. No.</th>
+          <th>Period</th>
+          <th>Cab No</th>
+          <th>Shift Time</th>
+          <th>Source</th>
+          <th>Model</th>
+          <th>Working Days</th>
+          <th>Actual Working Days</th>
+          <th>Rate</th>
+          <th>Cab Charge</th>
+          <th>H.R. Tax</th>
+          <th>U.P. Tax</th>
+          <th>Gps</th>
+          <th>Toll</th>
+          <th>Total Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of BillingSummaryReport |  filter:filterValue; let i = index">
+          <td>
+            {{i+1}}
+          </td>
+          <td>
+            {{report?.Period}}
+          </td>
+          <td>
+            {{report?.Cab_No}}
+          </td>
+          <td>
+            {{report?.Shift_Time}}
+          </td>
+          <td>
+            {{report?.Source}}
+          </td>
+          <td>
+            {{report?.Model}}
+          </td>
+          <td class="Working_Days">
+            20
+          </td>
+          <td>
+            <input type="text" name="Actual_Working_Days" />
+          </td>
+          <td class="rate">
+            {{report?.Rate}}
+          </td>
+          <td class="Cab_Charge">
+          </td>
+          <td>
+            <input type="text" name="HR_Tax" />
+          </td>
+          <td>
+            <input type="text" name="UP_Tax" />
+          </td>
+          <td>
+            <input type="text" name="Gps" />
+          </td>
+          <td>
+            <input type="text" name="Toll" />
+          </td>
+          <td class="Total_Amount">
+          </td>
+
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td *ngFor="let n of [0,1,2,3,4,5,6,7,8]"></td>
+          <td class="Total"></td>
+          <td class="Total_HR_Tax"></td>
+          <td class="Total_UP_Tax"></td>
+          <td class="Total_Gps"></td>
+          <td class="Total_Toll"></td>
+          <td class="indsum"></td>
+        </tr>
+        <tr>
+          <th *ngFor="let n of [0,1,2,3,4,5,6,7,8]"></th>
+          <th id="Gst_Rate">Gst Tax</th>
+          <td class="gst_rate">
+            <input type="text" value=12 name="Gst_Rate" />
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="Gst_Tax"></td>
+        </tr>
+        <tr>
+          <td *ngFor="let n of [0,1,2,3,4,5,6,7,8]"></td>
+          <th>Total</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="Final_Total_Amount"></td>
+        </tr>
+
+
+      </tfoot>
+    </table>
+
+  </div>
+
+  <div *ngIf="filterReport =='Checkin_Checkout'" class="table-responsive">
+    <table id="test" class="table table-bordered table-hover table-stripped">
+      <thead>
+        <tr>
+          <th>S. No.</th>
+          <th>Date</th>
+          <th>Route No</th>
+          <th>Cab No</th>
+          <th>Vendor Name</th>
+          <th>Trip Type</th>
+          <th>Employee Name</th>
+          <th>Shift Time</th>
+          <th>Check in Time</th>
+          <th>Check out Time</th>
+          <th>Late Arrival</th>
+          <th>Late Departure</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of Checkinoutreport |  filter:filterValue; let i = index">
+          <td>
+            {{i+1}}
+          </td>
+          <td>
+            {{report?.DATE}}
+          </td>
+          <td>
+            {{report?.route_no}}
+          </td>
+          <td>
+            {{report?.cab_No}}
+          </td>
+          <td>
+            {{report?.vendor_name}}
+          </td>
+          <td>
+            {{report?.trip_type}}
+          </td>
+          <td>
+            {{report?.Employee_Name}}
+          </td>
+          <td>
+            {{report?.Shift_Time}}
+          </td>
+          <td>
+            {{report?.check_in_time}}
+          </td>
+          <td>
+            {{report?.check_out_time}}
+          </td>
+          <td>
+            {{report?.late_arrival}}
+          </td>
+          <td>
+            {{report?.late_departure}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-9 col-md-offset-2" id="employee-form" *ngIf="filterReport =='Transportation_Billing'&& showDiv">
+    <form name="myForm" #f="ngForm" (ngSubmit)="onTptCostForm(f.value)" class="form-horizontal" role="form">
+      <fieldset>
+
+        <legend>Regular cabs</legend>
+
+        <div class="form-group">
+          <!-- Input Field & Labels -->
+          <div class="row">
+            <!-- Toll  for Regular Cabs -->
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Toll for Regular Cabs
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="toll_regular_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    (change)="altered.toll_regular_cab=true;" required>
+                </div>
               </div>
-            </div>
 
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-12">
-                <div *ngIf="formError.toll_regular_cab != null && formError.toll_regular_cab.error
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <div *ngIf="formError.toll_regular_cab != null && formError.toll_regular_cab.error
                           &&  altered.toll_regular_cab  " class="text-danger form-error">
-                  {{ formError.toll_regular_cab.message }}
+                    {{ formError.toll_regular_cab.message }}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- HR tax for Regular Cabs -->
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>HR tax for Regular Cabs
-                  </strong>
-                </span>
-                <input type="number" min="0" name="hrtax_regular_cab" maxlength="8" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+            <!-- HR tax for Regular Cabs -->
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>HR tax for Regular Cabs
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="hrtax_regular_cab" maxlength="8" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
               </div>
-            </div>
 
-            <!-- Error row -->
-            <div class="row">
-              <!-- HR tax for Regular Cabs -->
-              <div class="col-sm-12">
-                <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+              <!-- Error row -->
+              <div class="row">
+                <!-- HR tax for Regular Cabs -->
+                <div class="col-sm-12">
+                  <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
                                   && ( altered.empQlid || saveClicked )" class="text-danger form-error">
                                   {{ formError.empQlid.message }}
                                 </div> -->
-              </div>
-            </div>
-          </div>
-
-
-          <!-- UP tax for Regular Cabs -->
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>UP tax for Regular Cabs
-                  </strong>
-                </span>
-                <input type="number" min="0" name="uptax_regular_cab" maxlength="8" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+                </div>
               </div>
             </div>
 
-            <!-- Error row -->
-            <div class="row">
-              <!-- UP tax for Regular Cabs -->
-              <div class="col-sm-12">
-                <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+
+            <!-- UP tax for Regular Cabs -->
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>UP tax for Regular Cabs
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="uptax_regular_cab" maxlength="8" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+
+              <!-- Error row -->
+              <div class="row">
+                <!-- UP tax for Regular Cabs -->
+                <div class="col-sm-12">
+                  <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
                                   && ( altered.empQlid || saveClicked )" class="text-danger form-error">
                                   {{ formError.empQlid.message }}
                                 </div> -->
+                </div>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <!-- Input Field & Labels -->
-        <div class="row">
+        <div class="form-group">
+          <!-- Input Field & Labels -->
+          <div class="row">
 
-          <!-- Employee Contribution for Regular Cabs  -->
-          <div class="col-md-4">
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Employee Contribution
-                  </strong>
-                </span>
-                <input type="number" min="0" name="emp_contrib_regular" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+            <!-- Employee Contribution for Regular Cabs  -->
+            <div class="col-md-4">
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Employee Contribution
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="emp_contrib_regular" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
               </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-12">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
                           || saveClicked )" class="text-danger form-error">
                 {{ formError.empFName.message }}
               </div> -->
-              </div>
-            </div>
-          </div>
-
-          <!-- GPS for Regular Cabs -->
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>GPS for Regular Cabs
-                  </strong>
-                </span>
-                <input type="number" min="0" name="gps_regular_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
-              </div>
-            </div>
-
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-12">
-                <div *ngIf="formError.empQlid != null && formError.empQlid.error
-                  && ( altered.empQlid || saveClicked )" class="text-danger form-error">
-                  {{ formError.empQlid.message }}
                 </div>
               </div>
             </div>
-          </div>
 
-
-          <!-- GST tax for Regular Cabs -->
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>GST
-                  </strong>
-                </span>
-                <input type="number" min="0" name="gstTax_regular_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+            <!-- GPS for Regular Cabs -->
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>GPS for Regular Cabs
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="gps_regular_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
               </div>
-            </div>
 
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-12">
-                <div *ngIf="formError.empQlid != null && formError.empQlid.error
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <div *ngIf="formError.empQlid != null && formError.empQlid.error
                   && ( altered.empQlid || saveClicked )" class="text-danger form-error">
-                  {{ formError.empQlid.message }}
+                    {{ formError.empQlid.message }}
+                  </div>
                 </div>
               </div>
             </div>
+
+
+            <!-- GST tax for Regular Cabs -->
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>GST
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="gstTax_regular_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <div *ngIf="formError.empQlid != null && formError.empQlid.error
+                  && ( altered.empQlid || saveClicked )" class="text-danger form-error">
+                    {{ formError.empQlid.message }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
           </div>
-
-
         </div>
-      </div>
 
-      <legend>Shift cabs</legend>
+        <legend>Shift cabs</legend>
 
-      <div class="form-group">
-        <!-- Input Field & Labels -->
-        <div class="row">
-          <!-- Toll  for Shift Cabs -->
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Toll for Shift Cabs
-                  </strong>
-                </span>
-                <input type="number" min="0" name="toll_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+        <div class="form-group">
+          <!-- Input Field & Labels -->
+          <div class="row">
+            <!-- Toll  for Shift Cabs -->
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Toll for Shift Cabs
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="toll_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
               </div>
-            </div>
 
-            <!-- Error row -->
-            <div class="row">
-              <!-- Toll  for Shift Cabs -->
-              <div class="col-sm-12">
-                <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+              <!-- Error row -->
+              <div class="row">
+                <!-- Toll  for Shift Cabs -->
+                <div class="col-sm-12">
+                  <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
                             && ( altered.empQlid || saveClicked )" class="text-danger form-error">
                               {{ formError.empQlid.message }}
                             </div> -->
-              </div>
-            </div>
-          </div>
-
-
-          <!-- HR tax for Shift Cabs -->
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>HR tax for Shift Cabs
-                  </strong>
-                </span>
-                <input type="number" min="0" name="hrtax_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+                </div>
               </div>
             </div>
 
-            <!-- Error row -->
-            <div class="row">
-              <!-- HR tax for Shift Cabs -->
-              <div class="col-sm-12">
-                <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+
+            <!-- HR tax for Shift Cabs -->
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>HR tax for Shift Cabs
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="hrtax_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+
+              <!-- Error row -->
+              <div class="row">
+                <!-- HR tax for Shift Cabs -->
+                <div class="col-sm-12">
+                  <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
                                 && ( altered.empQlid || saveClicked )" class="text-danger form-error">
                                 {{ formError.empQlid.message }}
                               </div> -->
-              </div>
-            </div>
-          </div>
-
-
-          <!-- UP tax for Shift Cabs -->
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>UP tax for Shift Cabs
-                  </strong>
-                </span>
-                <input type="number" min="0" name="uptax_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+                </div>
               </div>
             </div>
 
-            <!-- Error row -->
-            <div class="row">
-              <!-- UP tax for Shift Cabs -->
-              <div class="col-sm-12">
-                <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+
+            <!-- UP tax for Shift Cabs -->
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>UP tax for Shift Cabs
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="uptax_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+
+              <!-- Error row -->
+              <div class="row">
+                <!-- UP tax for Shift Cabs -->
+                <div class="col-sm-12">
+                  <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
                                 && ( altered.empQlid || saveClicked )" class="text-danger form-error">
                                 {{ formError.empQlid.message }}
                               </div> -->
+                </div>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <div class="row">
+        <div class="form-group">
+          <div class="row">
 
-          <!-- Employee Contribution for Shift Cabs  -->
-          <!-- <div class="col-md-4"> -->
-          <!-- Input Field & Labels -->
-          <!-- <div class="row">
+            <!-- Employee Contribution for Shift Cabs  -->
+            <!-- <div class="col-md-4"> -->
+            <!-- Input Field & Labels -->
+            <!-- <div class="row">
                       <div class="col-sm-12">
                         <span class="input-label fadeIn">
                           <strong>Employee Contribution
@@ -990,8 +995,8 @@
                           (change)="validate();altered.emp_contrib_shift=true" required>
                       </div>
                     </div> -->
-          <!-- Error row -->
-          <!-- <div class="row">
+            <!-- Error row -->
+            <!-- <div class="row">
                       <div class="col-sm-12">
                         <div *ngIf="formError.empFName.error && ( altered.empFName
                             || saveClicked )" class="text-danger form-error">
@@ -1002,1358 +1007,1360 @@
                   </div> -->
 
 
-          <!-- GPS for Shift Cabs -->
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>GPS for Shift Cabs
-                  </strong>
-                </span>
-                <input type="number" min="0" name="gps_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+            <!-- GPS for Shift Cabs -->
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>GPS for Shift Cabs
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="gps_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
               </div>
-            </div>
 
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-12">
-                <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
                 && ( altered.empQlid || saveClicked )" class="text-danger form-error">
                             {{ formError.empQlid.message }}
                           </div> -->
-              </div>
-            </div>
-          </div>
-
-          <!-- GST tax Shift Cabs -->
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>GST
-                  </strong>
-                </span>
-                <input type="number" min="0" name="gstTax_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+                </div>
               </div>
             </div>
 
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-12">
-                <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+            <!-- GST tax Shift Cabs -->
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>GST
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="gstTax_shift_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
                 && ( altered.empQlid || saveClicked )" class="text-danger form-error">
                             {{ formError.empQlid.message }}
                           </div> -->
+                </div>
               </div>
             </div>
+
+
           </div>
-
-
         </div>
-      </div>
 
-      <legend>Unscheduled Cabs</legend>
+        <legend>Unscheduled Cabs</legend>
 
-      <div class="form-group">
-        <div class="row">
-          <!-- Toll  for Unscheduled Cabs -->
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Toll for Unscheduled Cabs
-                  </strong>
-                </span>
-                <input type="number" min="0" name="toll_unscheduled_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+        <div class="form-group">
+          <div class="row">
+            <!-- Toll  for Unscheduled Cabs -->
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Toll for Unscheduled Cabs
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="toll_unscheduled_cab" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
               </div>
-            </div>
 
-            <!-- Error row -->
-            <div class="row">
-              <!-- Toll  for Shift Cabs -->
-              <div class="col-sm-12">
-                <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+              <!-- Error row -->
+              <div class="row">
+                <!-- Toll  for Shift Cabs -->
+                <div class="col-sm-12">
+                  <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
                           && ( altered.empQlid || saveClicked )" class="text-danger form-error">
                             {{ formError.empQlid.message }}
                           </div> -->
-              </div>
-            </div>
-          </div>
-
-          <!-- GST tax Shift Cabs -->
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>GST
-                  </strong>
-                </span>
-                <input type="number" min="0" name="gstTax_unscheduled" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+                </div>
               </div>
             </div>
 
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-12">
-                <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
+            <!-- GST tax Shift Cabs -->
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>GST
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="gstTax_unscheduled" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <!-- <div *ngIf="formError.empQlid != null && formError.empQlid.error
                           && ( altered.empQlid || saveClicked )" class="text-danger form-error">
                             {{ formError.empQlid.message }}
                           </div> -->
+                </div>
               </div>
             </div>
+
+
+
           </div>
-
-
-
         </div>
-      </div>
 
-      <legend>Standby Cabs</legend>
-      <div class="form-group">
-        <div class="row">
+        <legend>Standby Cabs</legend>
+        <div class="form-group">
+          <div class="row">
 
-          <!-- Extra kms standby cabs  -->
-          <div class="col-md-4">
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Extra kms
-                  </strong>
-                </span>
-                <input type="number" min="0" name="standByCab_extraKms" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+            <!-- Extra kms standby cabs  -->
+            <div class="col-md-4">
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Extra kms
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="standByCab_extraKms" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
               </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <!-- <div class="col-md-12" *ngIf="formError.empFName.error && ( altered.empFName
+              <!-- Error row -->
+              <div class="row">
+                <!-- <div class="col-md-12" *ngIf="formError.empFName.error && ( altered.empFName
                     || saveClicked )" class="text-danger form-error">
                       
                         {{ formError.empFName.message }}
                      
                     </div> -->
-            </div>
-          </div>
-
-          <!-- Rate per km  -->
-          <div class="col-md-4">
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Rate per km
-                  </strong>
-                </span>
-                <input type="number" min="0" name="ratePerKm" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
               </div>
             </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-md-12">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName || saveClicked )" class="text-danger form-error">
+
+            <!-- Rate per km  -->
+            <div class="col-md-4">
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Rate per km
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="ratePerKm" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-md-12">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName || saveClicked )" class="text-danger form-error">
                         {{ formError.empFName.message }}
                       </div> -->
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Extra Mileage Cost  -->
-          <div class="col-md-4">
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Extra Mileage Cost
-                  </strong>
-                </span>
-                <input type="number" min="0" name="extraMileageCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+            <!-- Extra Mileage Cost  -->
+            <div class="col-md-4">
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Extra Mileage Cost
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="extraMileageCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
               </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-3">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName    || saveClicked )" class="text-danger form-error">
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName    || saveClicked )" class="text-danger form-error">
                         {{ formError.empFName.message }}
                       </div> -->
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="form-group">
-        <div class="row">
-          <!-- Cost of standby cab -Fixed mileage   -->
-          <div class="col-md-4">
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Cost of standby cab -Fixed mileage
-                  </strong>
-                </span>
-                <input type="number" min="0" name="standByCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
-              </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-3">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName   || saveClicked )" class="text-danger form-error">
-                        {{ formError.empFName.message }}
-                      </div> -->
-              </div>
-            </div>
-          </div>
-
-          <!-- GST StandBy Cab  -->
-          <div class="col-md-4">
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>GST
-                  </strong>
-                </span>
-                <input type="number" min="0" name="standByTax" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
-              </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-3">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName   || saveClicked )" class="text-danger form-error">
-                        {{ formError.empFName.message }}
-                      </div> -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <legend>Other cabs</legend>
-
-      <div class="form-group">
-
-        <div class="row">
-          <!-- Others Cab Cost  -->
-          <div class="col-md-4">
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Others Cab Cost
-                  </strong>
-                </span>
-                <input type="number" min="0" name="otherCabCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
-              </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-3">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-                      || saveClicked )" class="text-danger form-error">
-                        {{ formError.empFName.message }}
-                      </div> -->
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Others Cab GST   -->
-          <div class="col-md-4">
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>GST
-                  </strong>
-                </span>
-                <input type="number" min="0" name="otherCabGST" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
-              </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-3">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-                      || saveClicked )" class="text-danger form-error">
-                        {{ formError.empFName.message }}
-                      </div> -->
+                </div>
               </div>
             </div>
 
           </div>
         </div>
 
-      </div>
-
-      <legend>Guard</legend>
-
-      <div class="form-group">
-
-        <!-- Guard Drop Slip Cost with GST Regular Cabs  -->
-
-        <div class="row">
-          <div class="col-md-4">
-
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Escort Guard Cost
-                  </strong>
-                </span>
-                <input type="number" min="0" name="escortGuardCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+        <div class="form-group">
+          <div class="row">
+            <!-- Cost of standby cab -Fixed mileage   -->
+            <div class="col-md-4">
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Cost of standby cab -Fixed mileage
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="standByCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
               </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-3">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-                              || saveClicked )" class="text-danger form-error">
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName   || saveClicked )" class="text-danger form-error">
                         {{ formError.empFName.message }}
                       </div> -->
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="col-md-4">
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Escort Guard Drop Duty Cost
-                  </strong>
-                </span>
-                <input type="number" min="0" name="escortGuardDropDutyCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
+            <!-- GST StandBy Cab  -->
+            <div class="col-md-4">
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>GST
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="standByTax" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
               </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-3">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-                                || saveClicked )" class="text-danger form-error">
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName   || saveClicked )" class="text-danger form-error">
                         {{ formError.empFName.message }}
                       </div> -->
-              </div>
-            </div>
-          </div>
-
-
-          <div class="col-md-4">
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Escort Guard Taxes
-                  </strong>
-                </span>
-                <input type="number" min="0" name="escortGuardTaxes" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
-              </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-3">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-                                  || saveClicked )" class="text-danger form-error">
-                        {{ formError.empFName.message }}
-                      </div> -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <legend>Transport Team Expense</legend>
-
-      <div class="form-group">
-        <div class="row">
-          <!-- Transport Team Mob Cost   -->
-          <div class="col-md-4">
-
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Transport Team Mob Cost
-                  </strong>
-                </span>
-                <input type="number" min="0" name="tptMobCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
-              </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-3">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName || saveClicked )" class="text-danger form-error">
-                        {{ formError.empFName.message }}
-                      </div> -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <legend>Overall Cost Summary</legend>
-      <div class="form-group">
-
-        <div class="row">
-
-          <!-- Overall UP tax  -->
-          <div class="col-md-4">
-
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Overall UP tax
-                  </strong>
-                </span>
-                <input type="number" min="0" name="overallUPtax" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
-              </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-3">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName || saveClicked )" class="text-danger form-error">
-                        {{ formError.empFName.message }} -->
-              </div>
-            </div>
-          </div>
-
-          <!-- Overall HR tax  -->
-          <div class="col-md-4">
-
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Overall HR tax</strong>
-                </span>
-                <input type="number" min="0" name="overallHRtax" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
-              </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-3">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName   || saveClicked )" class="text-danger form-error">
-            {{ formError.empFName.message }}
-          </div> -->
-              </div>
-            </div>
-          </div>
-
-          <!-- Overall Taxes -->
-          <div class="col-md-4">
-
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Overall Taxes (GST)
-                  </strong>
-                </span>
-                <input type="number" min="0" name="overallTaxes" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
-              </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-3">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName   || saveClicked )" class="text-danger form-error">
-            {{ formError.empFName.message }}
-          </div> -->
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-
-      </div>
-
-
-      <div class="form-group">
-        <div class="row">
-
-          <!-- Overall Toll   -->
-          <div class="col-md-4">
-
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Overall Toll
-                  </strong>
-                </span>
-                <input type="number" min="0" name="overallToll" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
-              </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-3">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName  || saveClicked )" class="text-danger form-error">
-                        {{ formError.empFName.message }}
-                      </div> -->
-              </div>
-            </div>
-          </div>
-
-          <!-- Overall GPS -->
-          <div class="col-md-4">
-
-            <!-- Input Field & Labels -->
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Overall GPS
-                  </strong>
-                </span>
-                <input type="number" min="0" name="overallGPS" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
-              </div>
-            </div>
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-3">
-                <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
-                          || saveClicked )" class="text-danger form-error">
-                        {{ formError.empFName.message }}
-                      </div> -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <legend>Foreign Exchange Price</legend>
-
-      <div class="form-group">
-        <!-- Input Field & Labels -->
-        <div class="row">
-          <!-- Foreign Exchange Price -->
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-sm-12">
-                <span class="input-label fadeIn">
-                  <strong>Foreign Exchange Price
-                  </strong>
-                </span>
-                <input type="number" min="0" name="foreignExPrice" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
-                  required>
-              </div>
-            </div>
-
-            <!-- Error row -->
-            <div class="row">
-              <div class="col-sm-12">
-                <div *ngIf="formError.empQlid != null && formError.empQlid.error
-                          && ( altered.empQlid || saveClicked )" class="text-danger form-error">
-                  {{ formError.empQlid.message }}
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <legend>Other cabs</legend>
+
+        <div class="form-group">
+
+          <div class="row">
+            <!-- Others Cab Cost  -->
+            <div class="col-md-4">
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Others Cab Cost
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="otherCabCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+                      || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Others Cab GST   -->
+            <div class="col-md-4">
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>GST
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="otherCabGST" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+                      || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
+                </div>
+              </div>
+
+            </div>
+          </div>
 
         </div>
-      </div>
 
-      <!-- Command -->
-      <div class="form-group">
-        <div class="col-sm-10 col-sm-offset-0">
-          <button type="submit" class="btn btn-primary">Save</button>
-          <button type="reset" class="btn btn-basic" (click)="resetForm()">Reset</button>
+        <legend>Guard</legend>
+
+        <div class="form-group">
+
+          <!-- Guard Drop Slip Cost with GST Regular Cabs  -->
+
+          <div class="row">
+            <div class="col-md-4">
+
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Escort Guard Cost
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="escortGuardCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+                              || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Escort Guard Drop Duty Cost
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="escortGuardDropDutyCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+                                || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-4">
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Escort Guard Taxes
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="escortGuardTaxes" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+                                  || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+
+        <legend>Transport Team Expense</legend>
+
+        <div class="form-group">
+          <div class="row">
+            <!-- Transport Team Mob Cost   -->
+            <div class="col-md-4">
+
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Transport Team Mob Cost
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="tptMobCost" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <legend>Overall Cost Summary</legend>
+        <div class="form-group">
+
+          <div class="row">
+
+            <!-- Overall UP tax  -->
+            <div class="col-md-4">
+
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Overall UP tax
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="overallUPtax" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }} -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Overall HR tax  -->
+            <div class="col-md-4">
+
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Overall HR tax</strong>
+                  </span>
+                  <input type="number" min="0" name="overallHRtax" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName   || saveClicked )" class="text-danger form-error">
+            {{ formError.empFName.message }}
+          </div> -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Overall Taxes -->
+            <div class="col-md-4">
+
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Overall Taxes (GST)
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="overallTaxes" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName   || saveClicked )" class="text-danger form-error">
+            {{ formError.empFName.message }}
+          </div> -->
+                </div>
+              </div>
+            </div>
+
+          </div>
 
 
-    </fieldset>
+        </div>
 
-  </form>
+
+        <div class="form-group">
+          <div class="row">
+
+            <!-- Overall Toll   -->
+            <div class="col-md-4">
+
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Overall Toll
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="overallToll" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName  || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Overall GPS -->
+            <div class="col-md-4">
+
+              <!-- Input Field & Labels -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Overall GPS
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="overallGPS" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <!-- <div *ngIf="formError.empFName.error && ( altered.empFName
+                          || saveClicked )" class="text-danger form-error">
+                        {{ formError.empFName.message }}
+                      </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <legend>Foreign Exchange Price</legend>
+
+        <div class="form-group">
+          <!-- Input Field & Labels -->
+          <div class="row">
+            <!-- Foreign Exchange Price -->
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="input-label fadeIn">
+                    <strong>Foreign Exchange Price
+                    </strong>
+                  </span>
+                  <input type="number" min="0" name="foreignExPrice" class="form-control imp-ph" ngModel onkeypress="return event.charCode >= 48"
+                    required>
+                </div>
+              </div>
+
+              <!-- Error row -->
+              <div class="row">
+                <div class="col-sm-12">
+                  <div *ngIf="formError.empQlid != null && formError.empQlid.error
+                          && ( altered.empQlid || saveClicked )" class="text-danger form-error">
+                    {{ formError.empQlid.message }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Command -->
+        <div class="form-group">
+          <div class="col-sm-10 col-sm-offset-0">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="reset" class="btn btn-basic" (click)="resetForm()">Reset</button>
+          </div>
+        </div>
+
+
+      </fieldset>
+
+    </form>
+  </div>
+
+  <table *ngIf="showTransportationReportResult && !showDiv" class="table table-bordered table-hover table-stripped" item-width="30%">
+    <tbody *ngFor="let report of transBillReport">
+      <tr>
+        <td>
+          <strong> Description</strong>
+        </td>
+        <td>
+          <strong> Cost(in INR)</strong>
+        </td>
+        <td>
+          <strong>Cost(in USD)</strong>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <strong>Cost of Regular Cabs</strong>
+        </td>
+        <td>
+          <strong> {{report?.Cost_of_Scheduled_Cabs}}</strong>
+        </td>
+        <td>
+          <strong>{{report?.Cost_of_Scheduled_Cabs / report?.foreignExPrice}}</strong>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Toll
+        </td>
+        <td>
+          {{report?.toll_regular_cab}}
+        </td>
+        <td>
+          {{report?.toll_regular_cab / report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          GPS
+        </td>
+        <td>
+          {{report?.gps_regular_cab}}
+        </td>
+        <td>
+          {{report?.gps_regular_cab / report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          UP Tax
+        </td>
+        <td>
+          {{report?.uptax_regular_cab}}
+        </td>
+        <td>
+          {{report?.uptax_regular_cab / report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Haryana Tax
+        </td>
+        <td>
+          {{report?.hrtax_regular_cab}}
+        </td>
+        <td>
+          {{report?.hrtax_regular_cab /report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          GST
+        </td>
+        <td>
+          {{report?.gstTax_regular_cab}}
+        </td>
+        <td>
+          {{report?.gstTax_regular_cab/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Regular Cab Cost </strong>
+        </td>
+        <td>
+          {{report?.Scheduled_Cab_Cost}}
+        </td>
+        <td>
+          {{report?.Scheduled_Cab_Cost/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Employee Contribution
+        </td>
+        <td>
+          {{report?.emp_contrib_regular}}
+        </td>
+        <td>
+          {{report?.emp_contrib_regular/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong> Regular Cab Cost less Emp Contribution</strong>
+        </td>
+        <td>
+          <strong>{{report?.Scheduled_Cab_Cost_less_Emp_Contribution}} </strong>
+        </td>
+        <td>
+          <strong>{{report?.Scheduled_Cab_Cost_less_Emp_Contribution/report?.foreignExPrice}} </strong>
+        </td>
+      </tr>
+      <hr>
+      <tr>
+        <td>
+          <strong>Cost of Shift Cabs</strong>
+        </td>
+        <td>
+          <strong>{{report?.Cost_of_Shift_Cabs}}</strong>
+        </td>
+        <td>
+          <strong>{{report?.Cost_of_Shift_Cabs/report?.foreignExPrice}}</strong>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Toll
+        </td>
+        <td>
+          {{report?.toll_shift_cab}}
+        </td>
+        <td>
+          {{report?.toll_shift_cab/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          GPS
+        </td>
+        <td>
+          {{report?.gps_shift_cab}}
+        </td>
+        <td>
+          {{report?.gps_shift_cab/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          UP Tax
+        </td>
+        <td>
+          {{report?.uptax_shift_cab}}
+        </td>
+        <td>
+          {{report?.uptax_shift_cab/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Haryana Tax
+        </td>
+        <td>
+          {{report?.hrtax_shift_cab}}
+        </td>
+        <td>
+          {{report?.hrtax_shift_cab/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          GST
+        </td>
+        <td>
+          {{report?.gstTax_shift_cab}}
+        </td>
+        <td>
+          {{report?.gstTax_shift_cab/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Shift Cab Cost </strong>
+        </td>
+        <td>
+          {{report?.Shift_Cab_Cost}}
+        </td>
+        <td>
+          {{report?.Shift_Cab_Cost/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Employee Contribution
+        </td>
+        <td>
+          {{report?.emp_contrib_shift}}
+        </td>
+        <td>
+          {{report?.emp_contrib_shift/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong> Shift Cab Cost less Emp Contribution</strong>
+        </td>
+        <td>
+          <strong>{{report?.Shift_Cab_Cost_less_Emp_Contribution}} </strong>
+        </td>
+        <td>
+          <strong>{{report?.Shift_Cab_Cost_less_Emp_Contribution/report?.foreignExPrice}}</strong>
+        </td>
+      </tr>
+
+      <hr>
+      <tr>
+        <td>
+          <strong>Cost of Unscheduled Cabs</strong>
+        </td>
+        <td>
+          <strong>{{report?.Cost_of_Unscheduled_Cabs}}</strong>
+        </td>
+        <td>
+          <strong>{{report?.Cost_of_Unscheduled_Cabs/report?.foreignExPrice}}</strong>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Toll
+        </td>
+        <td>
+          {{report?.toll_unscheduled_cab}}
+        </td>
+        <td>
+          {{report?.toll_unscheduled_cab/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          GST
+        </td>
+        <td>
+          <strong>{{report?.gstTax_unscheduled}}</strong>
+        </td>
+        <td>{{report?.gstTax_unscheduled/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Unscheduled Cabs Cost</strong>
+        </td>
+        <td>
+          <strong>{{report?.Unscheduled_Cab_Costs}}</strong>
+        </td>
+        <td>
+          <strong>{{report?.Unscheduled_Cab_Costs/report?.foreignExPrice}}</strong>
+        </td>
+      </tr>
+      <hr>
+
+      <tr>
+        <td>
+          <strong>Cost of Stand-By Cab-Fixed Mileage</strong>
+        </td>
+        <td>
+          <strong>{{report?.Cost_of_Standby_Cab}}</strong>
+        </td>
+        <td>
+          <strong>{{report?.Cost_of_Standby_Cab/report?.foreignExPrice}}</strong>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Extra Mileage Cost
+        </td>
+        <td>
+          {{report?.Extra_Mileage_Cost}}
+        </td>
+        <td>
+          {{report?.Extra_Mileage_Cost/report?.foreignExPrice}}
+
+        </td>
+      </tr>
+      <tr>
+        <td>
+          GST
+        </td>
+        <td>
+          <strong>{{report?.standByTax}}</strong>
+        </td>
+        <td>{{report?.standByTax/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Standby Cab Cost</strong>
+        </td>
+        <td>
+          <strong>{{report?.Standby_Cab_Cost}}</strong>
+        </td>
+        <td>
+          <strong>{{report?.Standby_Cab_Cost/report?.foreignExPrice}}</strong>
+        </td>
+      </tr>
+
+      <hr>
+
+      <tr>
+        <td>
+          <strong>Cost of cabs for other purposes</strong>
+        </td>
+        <td>
+          <strong>{{report?.Cost_of_Cabs_for_Other_Purposes}}</strong>
+        </td>
+        <td>
+          <strong>{{report?.Cost_of_Cabs_for_Other_Purposes/report?.foreignExPrice}}</strong>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          GST
+        </td>
+        <td>
+          {{report?.otherCabGST}}
+        </td>
+        <td>{{report?.otherCabGST/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong> Cab Cost for other purposes</strong>
+        </td>
+        <td>
+          <strong>{{report?.Cabs_for_Other_Purposes_Cost}}</strong>
+        </td>
+        <td>
+          <strong>{{report?.Cabs_for_Other_Purposes_Cost/report?.foreignExPrice}}</strong>
+        </td>
+      </tr>
+      <hr>
+      <tr>
+        <td>
+          <strong>Total Transportation Cost for the Month</strong>
+        </td>
+        <td>
+          <strong>{{report?.Total_Transportation_Cost_for_the_Month}}</strong>
+        </td>
+        <td>
+          <strong>{{report?.Total_Transportation_Cost_for_the_Month/report?.foreignExPrice}}</strong>
+        </td>
+      </tr>
+      <hr>
+      <tr>
+        <td>
+          <strong>Cost of Escort Security Guard</strong>
+        </td>
+        <td>
+          <strong>{{report?.escortGuardCost}}</strong>
+        </td>
+        <td>
+          <strong>{{report?.escortGuardCost/report?.foreignExPrice}}</strong>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Taxes
+        </td>
+        <td>
+          {{report?.escortGuardTaxes}}
+        </td>
+        <td>{{report?.escortGuardTaxes/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong> Total Amount Security Guard</strong>
+        </td>
+        <td>
+          <strong>{{report?.Total_Amount_Security_Guard}}</strong>
+        </td>
+        <td>
+          <strong>{{report?.Total_Amount_Security_Guard/report?.foreignExPrice}}</strong>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Escort Security Drop Cost
+        </td>
+        <td>
+          {{report?.escortGuardDropDutyCost}}
+        </td>
+        <td>
+          {{report?.escortGuardDropDutyCost/report?.foreignExPrice}}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <strong>Escort Security Guards Cost</strong>
+        </td>
+        <td>
+          {{report?.Escort_Security_Guards}}
+        </td>
+        <td>
+          {{report?.Escort_Security_Guards/report?.foreignExPrice}}
+        </td>
+      </tr>
+      <hr>
+      <tr>
+        <td>
+          <strong> Transport Team Mobile Cost</strong>
+        </td>
+        <td>
+          {{report?.tptMobCost}}
+        </td>
+        <td> {{report?.tptMobCost/report?.foreignExPrice}}</td>
+      </tr>
+      <hr>
+      <tr>
+        <td>
+          <strong>Transport+Escort Security</strong>
+        </td>
+        <td>
+          {{report?.Transport_plus_Escort_Security}}
+        </td>
+        <td> {{report?.Transport_plus_Escort_Security/report?.foreignExPrice}}</td>
+      </tr>
+      <hr>
+      <tr>
+        <td>
+          <strong> Number of employees in Regular Cabs</strong>
+        </td>
+        <td>
+          {{report?.total_no_of_regular_employees}}
+        </td>
+
+      </tr>
+
+      <tr>
+        <td>
+          <strong> Number of Employees in Shift Cabs </strong>
+        </td>
+        <td>
+          {{report?.total_no_shift_cab}}
+        </td>
+
+      </tr>
+      <hr>
+      <tr>
+        <td>
+          Regular Small Cabs
+        </td>
+        <td>
+          {{report?.total_no_regular_cab_small}}
+        </td>
+
+      </tr>
+
+      <tr>
+        <td>
+          Regular Big Cabs
+        </td>
+        <td>
+          {{report?.total_no_regular_cab_big}}
+        </td>
+
+      </tr>
+
+      <tr>
+        <td>
+          <strong>Total Regular Cabs</strong>
+        </td>
+        <td>
+          {{report?.total_no_regular_cab}}
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          Shift Cabs Small
+        </td>
+        <td>
+          {{report?.total_no_shift_cab_small}}
+        </td>
+
+      </tr>
+
+      <tr>
+        <td>
+          Shift Cabs Big
+        </td>
+        <td>
+          {{report?.total_no_shift_cab_big}}
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          <strong>Total Shift Cabs</strong>
+        </td>
+        <td>
+          {{report?.total_no_shift_cab}}
+        </td>
+
+      </tr>
+
+      <tr>
+        <td>
+          Total Shift and Scheduled Cabs
+        </td>
+        <td>
+          {{report?.total_no_regular_and_shift_cab}}
+        </td>
+
+      </tr>
+
+      <tr>
+        <td>
+          Unscheduled Cabs
+        </td>
+        <td>
+          {{report?.total_no_of_unscheduled_cabs}}
+        </td>
+
+      </tr>
+
+      <tr>
+
+      </tr>
+      <tr>
+        <td bgcolor="cyan">
+          <strong> Vendor-wise Cost</strong>
+        </td>
+        <td>
+          <strong>Cost(in INR)</strong>
+        </td>
+        <td>
+          <strong>Cost(in USD)</strong>
+        </td>
+      </tr>
+      <tr *ngFor="let v of report?.vendor ">
+        <td>
+          {{v?.vendor_name}}
+        </td>
+        <td>
+          {{v?.vendor_total_cost}}
+        </td>
+        <td>{{v?.vendor_total_cost/report?.foreignExPrice}}</td>
+      </tr>
+      <tr>
+        <td>
+          Total
+        </td>
+        <td>
+
+          {{report?.total}}
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <Td></Td>
+      </tr>
+      <tr>
+        <td bgcolor="cyan">
+          <strong>Overall transportation Cost</strong>
+        </td>
+        <td>Values</td>
+      </tr>
+
+      <tr>
+        <td>
+          Regular Cab Number of Users
+        </td>
+        <td>
+          {{report?.total_no_of_regular_employees}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Regular Cab Number of Big Cabs
+        </td>
+        <td>
+          {{report?.total_no_regular_cab_big}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Regular Cab Big Cab Cost
+        </td>
+        <td>
+          {{report?.total_cost_regular_cab_big}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Regular Cab Number of Small Cabs
+        </td>
+        <td>
+          {{report?.total_no_regular_cab_small}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Regular Cab Small Cabs Cost
+        </td>
+        <td>
+          {{report?.total_cost_regular_cab_small}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Regular Cab Cost with Taxes,Toll,GPS Charges
+        </td>
+        <td>
+          {{report?.Scheduled_Cab_Cost_less_Emp_Contribution}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Shift Cab Users
+        </td>
+        <td>
+          {{report?.total_no_of_shift_employees}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Shift Cabs Number of Big Cabs
+        </td>
+        <td>
+          {{report?.total_no_shift_cab_big}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Shift Cabs Big Cabs Cost
+        </td>
+        <td>
+          {{report?.total_cost_shift_cab_big}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Shift Cab Number of Small Cabs
+        </td>
+        <td>
+          {{report?.total_no_shift_cab_small}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Shift Cabs Small Cab Cost
+        </td>
+        <td>
+          {{report?.total_cost_shift_cab_small}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Shift Cab Cost with Taxes,Toll,GPS Charges
+        </td>
+        <td>
+          {{report?.Shift_Cab_Cost_less_Emp_Contribution}}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Unschedule Cab Qty
+        </td>
+        <td>
+          {{report?.total_no_of_unscheduled_cabs}}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Unschedule Cab Users
+        </td>
+        <td>
+          {{report?.total_no_of_unscheduled_employees}}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Unschedule Cab Cost with Taxes
+        </td>
+        <td>
+          {{report?.Unscheduled_Cab_Costs}}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Stand By Cab Cost with Taxes
+        </td>
+        <td>
+          {{report?.Standby_Cab_Cost}}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Cabs for other purposes with taxes
+        </td>
+        <td>
+          {{report?.Cabs_for_Other_Purposes_Cost}}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Total Cost
+        </td>
+        <td>
+          {{report?.total_cost}}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Emp. Contribution
+        </td>
+        <td>
+          {{report?.overall_emp_contri}}
+        </td>
+      </tr>
+
+      <tr>
+        <td bgcolor="yellow">
+          Total transportation cost
+        </td>
+        <td>
+          {{report?.Total_Transportation_Cost_for_the_Month}}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Escort Guard Billing
+        </td>
+        <td>
+          {{report?.Escort_Security_Guards}}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Escort guard drop duty cost
+        </td>
+        <td>
+          {{report?.escortGuardDropDutyCost}}
+        </td>
+      </tr>
+
+      <tr>
+        <td bgcolor="yellow">
+          Total spent on transportation
+        </td>
+        <td>
+          {{report?.Total_Transortation_Cost_for_the_Month+report?.Escort_Security_Guards+report?.escortGuardDropDutyCost}}
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
 </div>
-
-<table *ngIf="showTransportationReportResult && !showDiv" class="table table-bordered table-hover table-stripped" item-width="30%">
-  <tbody *ngFor="let report of transBillReport">
-    <tr>
-      <td>
-        <strong> Description</strong>
-      </td>
-      <td>
-        <strong> Cost(in INR)</strong>
-      </td>
-      <td>
-        <strong>Cost(in USD)</strong>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        <strong>Cost of Regular Cabs</strong>
-      </td>
-      <td>
-        <strong> {{report?.Cost_of_Scheduled_Cabs}}</strong>
-      </td>
-      <td>
-        <strong>{{report?.Cost_of_Scheduled_Cabs / report?.foreignExPrice}}</strong>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Toll
-      </td>
-      <td>
-        {{report?.toll_regular_cab}}
-      </td>
-      <td>
-        {{report?.toll_regular_cab / report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        GPS
-      </td>
-      <td>
-        {{report?.gps_regular_cab}}
-      </td>
-      <td>
-        {{report?.gps_regular_cab / report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        UP Tax
-      </td>
-      <td>
-        {{report?.uptax_regular_cab}}
-      </td>
-      <td>
-        {{report?.uptax_regular_cab / report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Haryana Tax
-      </td>
-      <td>
-        {{report?.hrtax_regular_cab}}
-      </td>
-      <td>
-        {{report?.hrtax_regular_cab /report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        GST
-      </td>
-      <td>
-        {{report?.gstTax_regular_cab}}
-      </td>
-      <td>
-        {{report?.gstTax_regular_cab/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <strong>Regular Cab Cost </strong>
-      </td>
-      <td>
-        {{report?.Scheduled_Cab_Cost}}
-      </td>
-      <td>
-        {{report?.Scheduled_Cab_Cost/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Employee Contribution
-      </td>
-      <td>
-        {{report?.emp_contrib_regular}}
-      </td>
-      <td>
-        {{report?.emp_contrib_regular/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <strong> Regular Cab Cost less Emp Contribution</strong>
-      </td>
-      <td>
-        <strong>{{report?.Scheduled_Cab_Cost_less_Emp_Contribution}} </strong>
-      </td>
-      <td>
-        <strong>{{report?.Scheduled_Cab_Cost_less_Emp_Contribution/report?.foreignExPrice}} </strong>
-      </td>
-    </tr>
-    <hr>
-    <tr>
-      <td>
-        <strong>Cost of Shift Cabs</strong>
-      </td>
-      <td>
-        <strong>{{report?.Cost_of_Shift_Cabs}}</strong>
-      </td>
-      <td>
-        <strong>{{report?.Cost_of_Shift_Cabs/report?.foreignExPrice}}</strong>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Toll
-      </td>
-      <td>
-        {{report?.toll_shift_cab}}
-      </td>
-      <td>
-        {{report?.toll_shift_cab/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        GPS
-      </td>
-      <td>
-        {{report?.gps_shift_cab}}
-      </td>
-      <td>
-        {{report?.gps_shift_cab/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        UP Tax
-      </td>
-      <td>
-        {{report?.uptax_shift_cab}}
-      </td>
-      <td>
-        {{report?.uptax_shift_cab/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Haryana Tax
-      </td>
-      <td>
-        {{report?.hrtax_shift_cab}}
-      </td>
-      <td>
-        {{report?.hrtax_shift_cab/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        GST
-      </td>
-      <td>
-        {{report?.gstTax_shift_cab}}
-      </td>
-      <td>
-        {{report?.gstTax_shift_cab/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <strong>Shift Cab Cost </strong>
-      </td>
-      <td>
-        {{report?.Shift_Cab_Cost}}
-      </td>
-      <td>
-        {{report?.Shift_Cab_Cost/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Employee Contribution
-      </td>
-      <td>
-        {{report?.emp_contrib_shift}}
-      </td>
-      <td>
-        {{report?.emp_contrib_shift/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <strong> Shift Cab Cost less Emp Contribution</strong>
-      </td>
-      <td>
-        <strong>{{report?.Shift_Cab_Cost_less_Emp_Contribution}} </strong>
-      </td>
-      <td>
-        <strong>{{report?.Shift_Cab_Cost_less_Emp_Contribution/report?.foreignExPrice}}</strong>
-      </td>
-    </tr>
-
-    <hr>
-    <tr>
-      <td>
-        <strong>Cost of Unscheduled Cabs</strong>
-      </td>
-      <td>
-        <strong>{{report?.Cost_of_Unscheduled_Cabs}}</strong>
-      </td>
-      <td>
-        <strong>{{report?.Cost_of_Unscheduled_Cabs/report?.foreignExPrice}}</strong>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Toll
-      </td>
-      <td>
-        {{report?.toll_unscheduled_cab}}
-      </td>
-      <td>
-        {{report?.toll_unscheduled_cab/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        GST
-      </td>
-      <td>
-        <strong>{{report?.gstTax_unscheduled}}</strong>
-      </td>
-      <td>{{report?.gstTax_unscheduled/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <strong>Unscheduled Cabs Cost</strong>
-      </td>
-      <td>
-        <strong>{{report?.Unscheduled_Cab_Costs}}</strong>
-      </td>
-      <td>
-        <strong>{{report?.Unscheduled_Cab_Costs/report?.foreignExPrice}}</strong>
-      </td>
-    </tr>
-    <hr>
-
-    <tr>
-      <td>
-        <strong>Cost of Stand-By Cab-Fixed Mileage</strong>
-      </td>
-      <td>
-        <strong>{{report?.Cost_of_Standby_Cab}}</strong>
-      </td>
-      <td>
-        <strong>{{report?.Cost_of_Standby_Cab/report?.foreignExPrice}}</strong>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Extra Mileage Cost
-      </td>
-      <td>
-        {{report?.Extra_Mileage_Cost}}
-      </td>
-      <td>
-        {{report?.Extra_Mileage_Cost/report?.foreignExPrice}}
-
-      </td>
-    </tr>
-    <tr>
-      <td>
-        GST
-      </td>
-      <td>
-        <strong>{{report?.standByTax}}</strong>
-      </td>
-      <td>{{report?.standByTax/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <strong>Standby Cab Cost</strong>
-      </td>
-      <td>
-        <strong>{{report?.Standby_Cab_Cost}}</strong>
-      </td>
-      <td>
-        <strong>{{report?.Standby_Cab_Cost/report?.foreignExPrice}}</strong>
-      </td>
-    </tr>
-
-    <hr>
-
-    <tr>
-      <td>
-        <strong>Cost of cabs for other purposes</strong>
-      </td>
-      <td>
-        <strong>{{report?.Cost_of_Cabs_for_Other_Purposes}}</strong>
-      </td>
-      <td>
-        <strong>{{report?.Cost_of_Cabs_for_Other_Purposes/report?.foreignExPrice}}</strong>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        GST
-      </td>
-      <td>
-        {{report?.otherCabGST}}
-      </td>
-      <td>{{report?.otherCabGST/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <strong> Cab Cost for other purposes</strong>
-      </td>
-      <td>
-        <strong>{{report?.Cabs_for_Other_Purposes_Cost}}</strong>
-      </td>
-      <td>
-        <strong>{{report?.Cabs_for_Other_Purposes_Cost/report?.foreignExPrice}}</strong>
-      </td>
-    </tr>
-    <hr>
-    <tr>
-      <td>
-        <strong>Total Transportation Cost for the Month</strong>
-      </td>
-      <td>
-        <strong>{{report?.Total_Transportation_Cost_for_the_Month}}</strong>
-      </td>
-      <td>
-        <strong>{{report?.Total_Transportation_Cost_for_the_Month/report?.foreignExPrice}}</strong>
-      </td>
-    </tr>
-    <hr>
-    <tr>
-      <td>
-        <strong>Cost of Escort Security Guard</strong>
-      </td>
-      <td>
-        <strong>{{report?.escortGuardCost}}</strong>
-      </td>
-      <td>
-        <strong>{{report?.escortGuardCost/report?.foreignExPrice}}</strong>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Taxes
-      </td>
-      <td>
-        {{report?.escortGuardTaxes}}
-      </td>
-      <td>{{report?.escortGuardTaxes/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <strong> Total Amount Security Guard</strong>
-      </td>
-      <td>
-        <strong>{{report?.Total_Amount_Security_Guard}}</strong>
-      </td>
-      <td>
-        <strong>{{report?.Total_Amount_Security_Guard/report?.foreignExPrice}}</strong>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Escort Security Drop Cost
-      </td>
-      <td>
-        {{report?.escortGuardDropDutyCost}}
-      </td>
-      <td>
-        {{report?.escortGuardDropDutyCost/report?.foreignExPrice}}
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        <strong>Escort Security Guards Cost</strong>
-      </td>
-      <td>
-        {{report?.Escort_Security_Guards}}
-      </td>
-      <td>
-        {{report?.Escort_Security_Guards/report?.foreignExPrice}}
-      </td>
-    </tr>
-    <hr>
-    <tr>
-      <td>
-        <strong> Transport Team Mobile Cost</strong>
-      </td>
-      <td>
-        {{report?.tptMobCost}}
-      </td>
-      <td> {{report?.tptMobCost/report?.foreignExPrice}}</td>
-    </tr>
-    <hr>
-    <tr>
-      <td>
-        <strong>Transport+Escort Security</strong>
-      </td>
-      <td>
-        {{report?.Transport_plus_Escort_Security}}
-      </td>
-      <td> {{report?.Transport_plus_Escort_Security/report?.foreignExPrice}}</td>
-    </tr>
-    <hr>
-    <tr>
-      <td>
-        <strong> Number of employees in Regular Cabs</strong>
-      </td>
-      <td>
-        {{report?.total_no_of_regular_employees}}
-      </td>
-
-    </tr>
-
-    <tr>
-      <td>
-        <strong> Number of Employees in Shift Cabs </strong>
-      </td>
-      <td>
-        {{report?.total_no_shift_cab}}
-      </td>
-
-    </tr>
-    <hr>
-    <tr>
-      <td>
-        Regular Small Cabs
-      </td>
-      <td>
-        {{report?.total_no_regular_cab_small}}
-      </td>
-
-    </tr>
-
-    <tr>
-      <td>
-        Regular Big Cabs
-      </td>
-      <td>
-        {{report?.total_no_regular_cab_big}}
-      </td>
-
-    </tr>
-
-    <tr>
-      <td>
-        <strong>Total Regular Cabs</strong>
-      </td>
-      <td>
-        {{report?.total_no_regular_cab}}
-      </td>
-
-    </tr>
-    <tr>
-      <td>
-        Shift Cabs Small
-      </td>
-      <td>
-        {{report?.total_no_shift_cab_small}}
-      </td>
-
-    </tr>
-
-    <tr>
-      <td>
-        Shift Cabs Big
-      </td>
-      <td>
-        {{report?.total_no_shift_cab_big}}
-      </td>
-
-    </tr>
-    <tr>
-      <td>
-        <strong>Total Shift Cabs</strong>
-      </td>
-      <td>
-        {{report?.total_no_shift_cab}}
-      </td>
-
-    </tr>
-
-    <tr>
-      <td>
-        Total Shift and Scheduled Cabs
-      </td>
-      <td>
-        {{report?.total_no_regular_and_shift_cab}}
-      </td>
-
-    </tr>
-
-    <tr>
-      <td>
-        Unscheduled Cabs
-      </td>
-      <td>
-        {{report?.total_no_of_unscheduled_cabs}}
-      </td>
-
-    </tr>
-
-    <tr>
-
-    </tr>
-    <tr>
-      <td bgcolor="cyan">
-        <strong> Vendor-wise Cost</strong>
-      </td>
-      <td>
-        <strong>Cost(in INR)</strong>
-      </td>
-      <td>
-        <strong>Cost(in USD)</strong>
-      </td>
-    </tr>
-    <tr *ngFor="let v of report?.vendor ">
-      <td>
-        {{v?.vendor_name}}
-      </td>
-      <td>
-        {{v?.vendor_total_cost}}
-      </td>
-      <td>{{v?.vendor_total_cost/report?.foreignExPrice}}</td>
-    </tr>
-    <tr>
-      <td>
-        Total
-      </td>
-      <td>
-
-        {{report?.total}}
-      </td>
-      <td></td>
-    </tr>
-    <tr>
-      <Td></Td>
-    </tr>
-    <tr>
-      <td bgcolor="cyan">
-        <strong>Overall transportation Cost</strong>
-      </td>
-      <td>Values</td>
-    </tr>
-
-    <tr>
-      <td>
-        Regular Cab Number of Users
-      </td>
-      <td>
-        {{report?.total_no_of_regular_employees}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Regular Cab Number of Big Cabs
-      </td>
-      <td>
-        {{report?.total_no_regular_cab_big}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Regular Cab Big Cab Cost
-      </td>
-      <td>
-        {{report?.total_cost_regular_cab_big}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Regular Cab Number of Small Cabs
-      </td>
-      <td>
-        {{report?.total_no_regular_cab_small}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Regular Cab Small Cabs Cost
-      </td>
-      <td>
-        {{report?.total_cost_regular_cab_small}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Regular Cab Cost with Taxes,Toll,GPS Charges
-      </td>
-      <td>
-        {{report?.Scheduled_Cab_Cost_less_Emp_Contribution}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Shift Cab Users
-      </td>
-      <td>
-        {{report?.total_no_of_shift_employees}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Shift Cabs Number of Big Cabs
-      </td>
-      <td>
-        {{report?.total_no_shift_cab_big}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Shift Cabs Big Cabs Cost
-      </td>
-      <td>
-        {{report?.total_cost_shift_cab_big}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Shift Cab Number of Small Cabs
-      </td>
-      <td>
-        {{report?.total_no_shift_cab_small}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Shift Cabs Small Cab Cost
-      </td>
-      <td>
-        {{report?.total_cost_shift_cab_small}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Shift Cab Cost with Taxes,Toll,GPS Charges
-      </td>
-      <td>
-        {{report?.Shift_Cab_Cost_less_Emp_Contribution}}
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Unschedule Cab Qty
-      </td>
-      <td>
-        {{report?.total_no_of_unscheduled_cabs}}
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Unschedule Cab Users
-      </td>
-      <td>
-        {{report?.total_no_of_unscheduled_employees}}
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Unschedule Cab Cost with Taxes
-      </td>
-      <td>
-        {{report?.Unscheduled_Cab_Costs}}
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Stand By Cab Cost with Taxes
-      </td>
-      <td>
-        {{report?.Standby_Cab_Cost}}
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Cabs for other purposes with taxes
-      </td>
-      <td>
-        {{report?.Cabs_for_Other_Purposes_Cost}}
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Total Cost
-      </td>
-      <td>
-        {{report?.total_cost}}
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Emp. Contribution
-      </td>
-      <td>
-        {{report?.overall_emp_contri}}
-      </td>
-    </tr>
-
-    <tr>
-      <td bgcolor="yellow">
-        Total transportation cost
-      </td>
-      <td>
-        {{report?.Total_Transportation_Cost_for_the_Month}}
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Escort Guard Billing
-      </td>
-      <td>
-        {{report?.Escort_Security_Guards}}
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Escort guard drop duty cost
-      </td>
-      <td>
-        {{report?.escortGuardDropDutyCost}}
-      </td>
-    </tr>
-
-    <tr>
-      <td bgcolor="yellow">
-        Total spent on transportation
-      </td>
-      <td>
-        {{report?.Total_Transortation_Cost_for_the_Month+report?.Escort_Security_Guards+report?.escortGuardDropDutyCost}}
-      </td>
-    </tr>
-
-  </tbody>
-</table>
