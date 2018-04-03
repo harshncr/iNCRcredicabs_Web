@@ -126,12 +126,12 @@ export class EmployeeService {
         });
     }
 
-    employeeDash(qlid): Observable<any>{
+    employeeDash(): Observable<any>{
         return this.apiService.callApiService({
             requestType: REQUEST_TYPE_POST,
             url: `${environment.employeeDashUrl}`,
             headers: this.headers,
-            body: JSON.stringify({empQlid:qlid}),
+            body: JSON.stringify({}),
             shouldBlock: true
         });
     }

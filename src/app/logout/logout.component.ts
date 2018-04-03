@@ -22,7 +22,9 @@ export class LogoutComponent implements OnInit {
       }
     );
     localStorage.setItem('role', null);
+    localStorage.setItem('empFName', null);
     localStorage.removeItem('role');
+    localStorage.removeItem('empFName');
     localStorage.clear();
   }
 }
