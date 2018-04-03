@@ -25,6 +25,13 @@ opacity: 0.8;
  
 }
 
+#filter-title{display: inline-block;margin: 0px;}
+#filter-panel{margin-bottom: 8px;}
+
+.panel-title {
+  font-size: 18px;
+}
+
 .vendor-details-panel{
   display: none;
 }
@@ -36,4 +43,15 @@ opacity: 0.8;
 
 .loading_gif{
   text-align: center;
+}
+
+.panel {
+  margin-bottom: 5px;
+}
+
+#filter_body{
+  padding-left: 0px;
+  padding-bottom: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
 }
