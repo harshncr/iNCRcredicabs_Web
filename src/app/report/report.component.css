@@ -2,5 +2,18 @@
     text-align: center; 
 }
 
+table>thead>tr>th{
+    vertical-align: top;
+}
 
 .top-buffer { margin-top:20px; }
+
+.report-panel{
+    border:none;
+}
+
+.report-heading{
+    background-color: #0099bf;
+    color:#fff;
+}
+
