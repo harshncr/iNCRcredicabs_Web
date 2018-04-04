@@ -27,7 +27,7 @@
 
 
         <div class="col-sm-3">
-          <b>Cab Registration Number*</b>
+          <b>Registration Number*</b>
           <br>
           <input type="text" name="cab_license_plate_no" id="cab_license_plate_no" [(ngModel)]="cab.cab_no" class="form-control">
           <span class="text-danger"  ng-show="icert.$error.required">{{message2}}</span>
@@ -43,7 +43,7 @@
         <div class="col-sm-3">
           <b>Cab Capacity*</b>
           <br>
-          <input type="text" name="cab_type" id="cab_type" [(ngModel)]="cab.cab_type" class="form-control">
+          <input type="text" disabled name="cab_type" id="cab_type" [(ngModel)]="cab.cab_type" class="form-control">
           <span class="text-danger"  ng-show="icert.$error.required">{{message5}}</span>
         </div>
 

@@ -208,13 +208,13 @@ validate(){
     
     if(this.cab.cab_no.match(licensePattern)==null){
       this.validateStatus = false;
-      this.message2 = "Invalid License Plate Number!";
+      this.message2 = "Invalid Registration Number!";
     }
 
   }
   else{
     this.validateStatus = false;
-    this.message2 = "License Plate Number Should Not Be Empty!";
+    this.message2 = "Registration Number Should Not Be Empty!";
   }
    if(this.cab.model == null || this.cab.model.trim() == ''){
     this.validateStatus = false;
@@ -230,7 +230,7 @@ validate(){
   }
   if(this.cab.occupancy == 0){
     this.validateStatus = false;
-    this.message6 = "Occupancy Cannot Be Blank.";
+    this.message6 = "Capacity Cannot Be Blank.";
   }
  
   // if(file1.length!=0){
@@ -297,7 +297,7 @@ this.validateStatus=false;
 this.message11="cannot be empty";
 }
   if(this.cab.poll_exp!=null){
-    if(this.pDate<=today1){
+    if(this.pDate<=todays){
     this.validateStatus = false;
     this.message12 = "it has been expired";
   }
@@ -308,7 +308,7 @@ else{
 }
   
   if(this.cab.fit_exp !=null){
-    if(this.fDate<=today6){
+    if(this.fDate<=todays){
     this.validateStatus = false;
     this.message13 = "it has been expired";
  }
@@ -319,7 +319,7 @@ else{
 }
 
   if(this.cab.insur_exp!=null){
-    if(this.iDate<=today2){
+    if(this.iDate<=todays){
     this.validateStatus = false;
     this.message14 = "it has been expired.";
   }
@@ -329,21 +329,21 @@ else{
   this.message14="it cannot be null";
 }
 if(this.cab.tax_haryana_exp!=null && this.cab.tax_haryana_exp!=""){
-  if(this.hrDate<today3){
+  if(this.hrDate<=todays){
   this.validateStatus = false;
   this.message15 = "it has been expired.";
 }
 }
 
 if(this.cab.tax_up_exp != null && this.cab.tax_up_exp != ""){
-if(this.upDate<today4){
+if(this.upDate<todays){
 this.validateStatus = false;
 this.message16 = "it has been expired.";
 }
 }
 
 if(this.cab.tax_delhi_exp != null && this.cab.tax_delhi_exp != ""){
-if(this.dlDate<today5){
+if(this.dlDate<=todays){
 this.validateStatus = false;
 this.message17 = "it has been expired.";
 }
