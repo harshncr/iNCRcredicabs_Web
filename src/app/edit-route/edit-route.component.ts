@@ -148,7 +148,16 @@ this.update_route_status=false;
   // alert("Successful");
     this.router.navigateByUrl('/roster/go');  
   }
-  
+  public show_update:boolean=false;
+  changedefaultvalue(){
+    if(!this.rno.length){
+      this.show_update=false;
+    }
+    else{
+      this.show_update=true;
+    }
+  }
+
   }
   
   

@@ -60,6 +60,8 @@ export const environment = {
   getEmployeeDetailUrl:       BASE_URL + "/RosterService/empDetails",
   getAvailableCabUrl:         BASE_URL + "/RosterService/getCab",
   getQlidUrl:                 BASE_URL + "/RosterService/empqlid",
+  
+  getUnshEmpDetails:          BASE_URL + "/RosterService/unschdetails",
   createScheduleRouteUrl:     BASE_URL + "/RosterService/insertRouteSCH",
   empDeactiveUrl:             BASE_URL + "/RosterService/empDeactive",
   insertRouteUnschUrl:        BASE_URL + "/RosterService/insertRouteUnSCH",
@@ -68,6 +70,8 @@ export const environment = {
   getEmpToDbUrl:              BASE_URL + "/RosterService/AddEmpToDb",
   uploadFileDataUrl:          BASE_URL + "/RosterService/UploadFileData",
   inactiveDataUrl:            BASE_URL + "/RosterService/inactiveqlid",
+  getdefaultdataUrl:          BASE_URL + "/RosterService/fetchdefaultdata",
+  getunchQlidUrl:             BASE_URL + "/RosterService/unschqlid",
   editDataUrl:                BASE_URL + "/RosterService/editd",
   getRouteUrl:                BASE_URL + "/RosterService/getRoute",
   getCabNumberUrl:            BASE_URL + "/RosterService/getCabNo",

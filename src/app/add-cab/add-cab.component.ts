@@ -193,6 +193,8 @@ changeCabType(value){
   }
 }
   validate(){
+    
+  let licensePattern=/^(([A-Za-z]){2,3}(|-)(?:[0-9]){1,2}(|-)(?:[A-Za-z]){2}(|-)([0-9]){1,4})|(([A-Za-z]){2,3}(|-)([0-9]){1,4})$/;
    
     this.validateStatus = true;
     //let image_pattern = /.*\.(gif|jpe?g|bmp|png)$/igm;
@@ -239,6 +241,13 @@ changeCabType(value){
    if(this.license_plate_number == null || this.license_plate_number.trim() == ''){
       this.validateStatus = false;
       this.message2 = "License Plate Number Should Not Be Empty!";
+    }
+    else{
+      if(this.license_plate_number.match(licensePattern)==null){
+        this.validateStatus = false;
+        this.message2 = "Invalid Registration Number!";
+      }
+  
     }
      if(this.model == null || this.model.trim() == ''){
       this.validateStatus = false;
@@ -321,7 +330,7 @@ else{
   this.message11="cannot be empty";
 }
     if(this.Pdate!=null){
-      if(this.pDate<=today1){
+      if(this.pDate<=todays){
       this.validateStatus = false;
       this.message12 = "it has been expired";
     }
@@ -332,7 +341,7 @@ else{
   }
     
     if(this.Fdate !=null){
-      if(this.fDate<=today6){
+      if(this.fDate<=todays){
       this.validateStatus = false;
       this.message13 = "it has been expired";
    }
@@ -343,7 +352,7 @@ else{
   }
 
     if(this.idate!=null){
-      if(this.iDate<=today2){
+      if(this.iDate<=todays){
       this.validateStatus = false;
       this.message14 = "it has been expired.";
     }
@@ -353,14 +362,14 @@ else{
     this.message14="it cannot be null";
   }
   if(this.entry_tax_haryana_exp_date!=null && this.entry_tax_haryana_exp_date!=""){
-    if(this.hrDate<today3){
+    if(this.hrDate<todays){
     this.validateStatus = false;
     this.message15 = "it has been expired.";
   }
 }
 
 if(this.entry_tax_up_exp_date!=null && this.entry_tax_up_exp_date!=""){
-  if(this.upDate<today4){
+  if(this.upDate<todays){
   this.validateStatus = false;
   this.message16 = "it has been expired.";
 }
@@ -368,7 +377,7 @@ if(this.entry_tax_up_exp_date!=null && this.entry_tax_up_exp_date!=""){
 
 
 if(this.entry_tax_delhi_exp_date!=null && this.entry_tax_delhi_exp_date!=""){
-  if(this.dlDate<today5){
+  if(this.dlDate<todays){
   this.validateStatus = false;
   this.message17 = "it has been expired.";
 }

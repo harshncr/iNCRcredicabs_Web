@@ -43,11 +43,19 @@ getdriverdetails(){
    getQlidList(){
     return this._http.post(`${environment.getQlidUrl}`,"");
    }
+ 
+   getunchQlidList(){
+    return this._http.post(`${environment.getunchQlidUrl}`,"");
+   }
   
    postunscheduledroute(jsonstring){
     const headers= new Headers({'Content-Type': 'application/json'});
     return this._http.post(`${environment.insertRouteUnschUrl}`,JSON.stringify(jsonstring),{headers:headers});
    }
+  
+   getUnshEmpDetails(empqlid){
+    return this._http.post(`${environment.getUnshEmpDetails}`,empqlid);
+  }
   
    postEmployeeDeactive(jsonstring){
     const headers= new Headers({'Content-Type': 'application/json'});
@@ -129,7 +137,7 @@ public sendData(){
 // Sending Excel Data
 public sendfile(formdata:any){
   let body=formdata;
-    return this._http.post(`${environment.uploadFileDataUrl}`,body);   
+    return this._http.post(`${environment.uploadFileDataUrl}`,body).map(res =>res.json());   
 }
 
 public changeUploadValue(){
@@ -209,6 +217,13 @@ getAddData1(){
           let headers=new Headers();
           headers.append('Content-Type','application/JSON');
           return this._http.post(`${environment.getStartAndEndUrl}`,body,{headers: headers}).map(res=>res.json());
+          }
+
+          fetchdefaultdata(rno){
+            let body={"r_n":rno};
+            let headers=new Headers();
+            headers.append('Content-Type','application/JSON');
+            return this._http.post(`${environment.getdefaultdataUrl}`,body,{headers: headers}).map(res=>res.json());
           }
 
 }

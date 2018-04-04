@@ -27,7 +27,7 @@
 <!-- Upload popup -->
 <div *ngIf="uploadPopupClicked" >
     <div class="alert alert-success" role="alert">
-       <h3> Item Processed :-  {{uploadinfo.tr}} and Errored out :- {{uploadinfo.eo}}</h3>
+        <b>Item Processed :-  {{_tr}} and Errored out :- {{_eo}}</b>
         <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_upload_popup()"></span>      
     </div>
 </div>
@@ -97,14 +97,14 @@
 <!-- download data error box starts-->
 
 <div *ngIf="download_error_exist" >
-    <div *ngIf="download_error_status.error_type == success">
+    <div *ngIf="download_error_status.err_type == success">
             <div class="alert alert-success" role="alert">
                     {{download_error_msg}} 
                     <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_dowload_error_popup()"></span>      
                     <!-- <a (click)="close_dowload_error_popup()" class="alert-link">Click Here</a>  -->
                 </div>
     </div>
-    <div *ngIf="!(download_error_status.error_type == success)">
+    <div *ngIf="download_error_status.err_type == fail">
             <div class="alert alert-danger" role="alert">
                     {{download_error_msg}} 
                     <span class="glyphicon glyphicon-remove" aria-hidden="true" style="float:right;" (click)="close_dowload_error_popup()"></span>      
@@ -306,17 +306,28 @@
                         <button type="button" (click)="checkentry(cab_arr[u],shift_arr[u])" class="btn btn-default btn-md" style="background:white;"> 
                                  <span class="glyphicon glyphicon-trash" aria-hidden="true" style="float:right;"></span>          
                         </button>
-                        <button type="button" (click)="editinfo(cab_arr[u],shift_arr[u])" class="btn btn-default btn-md" style="background:white;">
+
+                            <button type="button" *ngIf="shift_arr[u]==4" (click)="editinfo(cab_arr[u],shift_arr[u])" class="btn btn-default btn-md" style="background:white;" disabled>
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="float:right;"></span>      
+                            </button>
+
+                             <button type="button" *ngIf="!(shift_arr[u]==4)" (click)="editinfo(cab_arr[u],shift_arr[u])" class="btn btn-default btn-md" style="background:white;">
                                  <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="float:right;"></span>      
-                        </button>
-                        <button type="button" routerLinkActive="active" [routerLink]="['/roster/viewrdetail', cab_arr[u], shift_arr[u] , seats_left[u] , Max_arr[u],vendor_arr[u]]" class="btn btn-default btn-md" style="background:white;">
-                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span>      
-                         </button>
+                            </button>
+                      
+                            <button type="button" *ngIf="shift_arr[u]==4" routerLinkActive="active" [routerLink]="['/roster/viewrdetail', cab_arr[u], shift_arr[u] , seats_left[u] , Max_arr[u],vendor_arr[u]]" class="btn btn-default btn-md" style="background:white;" disabled>
+                                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span>      
+                            </button>
+              
+                  
+                            <button type="button" *ngIf="!(shift_arr[u]==4)" routerLinkActive="active" [routerLink]="['/roster/viewrdetail', cab_arr[u], shift_arr[u] , seats_left[u] , Max_arr[u],vendor_arr[u]]" class="btn btn-default btn-md" style="background:white;">
+                                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span>      
+                            </button>
+                     
                         <button type="button" (click)="showme(u)" (dblclick)="isShow= !isShow"  class="btn btn-default btn-md" style="background:white;">
                                 <span *ngIf="(!(str==u)) && !isShow" class="glyphicon glyphicon-menu-down" aria-hidden="true" style="float:right;"></span>      
-                                <span *ngIf="(str==u) || isShow" class="glyphicon glyphicon-menu-up" aria-hidden="true" style="float:right;"></span>      
-                                
-                            </button>
+                                <span *ngIf="(str==u) || isShow" class="glyphicon glyphicon-menu-up" aria-hidden="true" style="float:right;"></span>         
+                        </button>
                        
                 </div>
          </div>
@@ -337,19 +348,19 @@
                </div>
                     <div class="card" id="emp">
                         <div class="card-block" style="height:68px;">
-                               <button type="button" class="btn btn-default btn-md" style="background:white;">
+                               <button type="button" class="btn btn-default btn-md" style="background:white;margin-right:0px;">
                                         <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>  
                                </button>
-                               <button type="button" class="btn btn-default btn-md" style="background:white;width:250px;"><b>{{i.f_name }} {{i.m_name }} {{i.l_name}}</b> [{{i.Qlid}}]</button>
+                               <button type="button" class="btn btn-default btn-md" style="background:white;width:300px;"><b>{{i.f_name }} {{i.m_name }} {{i.l_name}}</b> [{{i.Qlid}}]</button>
                                <br>
-                               <button type="button" class="btn btn-default btn-md" style="background:white;">
+                               <button type="button" class="btn btn-default btn-md" style="background:white;float:left;">
                                     <span class="glyphicon glyphicon-phone" aria-hidden="true" ></span>  
                            </button>
-                           <button type="button" class="btn btn-default btn-md" style="padding-left:5px;background:white;width:90px;">{{i.e_mob}}</button>
-                               <button type="button" class="btn btn-default btn-md" style="background:white;">
+                           <button type="button" class="btn btn-default btn-md" style="padding-left:5px;background:white;width:85px;">{{i.e_mob}}</button>
+                               <button type="button" class="btn btn-default btn-md" style="background:white;margin-right:0px;margin-left:0px;">
                                     <span class="glyphicon glyphicon-home" aria-hidden="true" ></span>  
                                 </button>
-                               <button type="button" class="btn btn-default btn-md" style="background:white;width:110px;">{{i.p_a}}</button>
+                               <button type="button" class="btn btn-default btn-md" style="background:white;width:170px;margin-left:0px;">{{i.p_a}}</button>
                         </div>
                     </div> 
                 </div>

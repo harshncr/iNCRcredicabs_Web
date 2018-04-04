@@ -54,10 +54,10 @@ export class UnscheduledFormComponent implements OnInit {
     return this.form.get('Cost');
   }
 
-
-
   display = true;
   qlidlist = [];
+  clicked:boolean=true;
+  routeexistserror:string="";
   Numbersofemp = [];
   b_qlid = '';
   vendorNameList: any[];
@@ -77,9 +77,10 @@ export class UnscheduledFormComponent implements OnInit {
       .subscribe(response => {
         this.vendorNameList = response.json();
       });
-    this.service.getQlidList()
+    this.service.getunchQlidList()
       .subscribe(response => {
         this.qlidlist = response.json();
+        console.log(response);
       });
   }
 
@@ -92,7 +93,7 @@ export class UnscheduledFormComponent implements OnInit {
 
   numberofemp(NumberOfEmployees) {
     this.Numbersofemp = [];
-    var jsontext = '{"fname":"","mname":"","lname":"","qlid":"","parea":"","ph":"","route":""}';
+    var jsontext = '{"fname":"","mname":"","lname":"","qlid":"","source":"","dest":"","type":""}';
     if (this.employee.length == 0) {
       for (let i = 0; i < NumberOfEmployees.value; i++) {
         this.employee[i] = JSON.parse(jsontext);
@@ -101,7 +102,7 @@ export class UnscheduledFormComponent implements OnInit {
       }
     }
     else if (this.employee.length > NumberOfEmployees.value) {
-      for (let i = NumberOfEmployees.value; i <=this.employee.length; i++) {
+      while(NumberOfEmployees.value<this.employee.length) {
 
         this.employee.pop();
         this.PickupArea.pop();
@@ -131,12 +132,21 @@ export class UnscheduledFormComponent implements OnInit {
       });
   }
 
-  createPost(input: HTMLInputElement,f){    
-    let empqlid= { "qlid":input.value,
-    "date":"f.value.RouteStartDate"};
-   this.service.getEmployeesDetails(empqlid)
-    .subscribe(respone =>{
-      this.employee[input.name]=(respone.json());
+  createPost(input: HTMLInputElement){    
+    let empqlid= { "qlid":input.value};
+   this.service.getUnshEmpDetails(empqlid)
+    .subscribe(response =>{
+      this.employee[input.name]=(response.json());
+      console.log(response);
+      if((this.employee[input.name].route as string)=="RN000"){
+        this.routeexists[input.name]=true;
+        this.routeexistserror=this.employee[input.name].fname+" "+this.employee[input.name].lname+" with qlid "+this.employee[input.name].qlid+" already exits on route number "+this.employee[input.name].route;
+        this.clicked=true;
+      }
+      else{
+        this.routeexists[input.name]=false;
+        this.clicked=false;
+      }
       console.log(this.employee);
       this.checkduplicateqlid();
       
@@ -150,11 +160,17 @@ export class UnscheduledFormComponent implements OnInit {
       this.PickupTime[PickupTime.name]=PickupTime.value;
   }
 
-  deactivateemployee(num, f) {
-    let jsonobject = { "qlid": this.employee[num].qlid, "month": f.value.RouteStartDate.substring(5, 7), };
+  deactivateemployee(num,f){       
+    console.log(num);
+    let jsonobject= { "qlid": this.employee[num].qlid,"startdate":f.value.RouteStartDate};
     console.log(JSON.stringify(jsonobject));
-    this.service.postEmployeeDeactive(jsonobject).subscribe(response => {
+    this.clicked=false;
+    this.service.postEmployeeDeactive(jsonobject).subscribe(
+      response=>{
       console.log(jsonobject);
+    },error=>{
+      var jsontext = '{"fname":"","mname":"","lname":"","qlid":"","parea":"","ph":"","route":""}';
+      this.employee[num]=JSON.parse(jsontext);
     });
   }
   PickupArea=[];
@@ -188,25 +204,22 @@ export class UnscheduledFormComponent implements OnInit {
     let temppickup;
     console.log("form data");
     console.log(f);
-    if(!this.checkemptyqlid()&&!this.checkduplicateqlid()){ 
+    if(!this.checkemptyqlid()&&!this.checkduplicateqlid()&&!this.checkdate(f)){ 
     for(let i=0;i<this.employee.length;i++){
-      if(this.PickupArea[i]==""){
-      temppickup=this.employee[i].parea;
-      }
-      else{
-        temppickup=this.PickupArea[i];        
-      }
+      // let queue=(this.employee[i].source as string).split(" ")[0]
+      // +(this.employee[i].source as string).split(" ")[1]
+      // +(this.employee[i].source as string).split(" ")[2];
      jsonrespone={
        "qlid":this.employee[i].qlid,
        "guard":f.value.GuardNeeded,
        "picktime":this.PickupTime[i],
-       "pickup":temppickup,
-       "drop":this.DropType[i],
+       "pickup":(this.employee[i].source as string).substring(0,25),
+       "drop":this.employee[i].type,
        "start":f.value.RouteStartDate,
        "end":f.value.RouteEndDate,
        "vendor":f.value.VendorName,
        "cost":f.value.Cost,
-       "cabno":f.value.CabNumber,
+      "cabno":f.value.CabNumber,
      };
 
     console.log(jsonstring);
@@ -232,8 +245,6 @@ export class UnscheduledFormComponent implements OnInit {
   }
 
   }
-
-
 
   duplicateqlid:boolean;
   
@@ -272,6 +283,27 @@ export class UnscheduledFormComponent implements OnInit {
     console.log(this.emptyqlid);
     return this.emptyqlid;
   }
+
+  dateerror:boolean;
+checkdate(f){
+  this.dateerror=false;
+  console.log("checkdate");
+  if(f.value.RouteStartDate!=""&&f.value.RouteEndDate!=""&&f.value.RouteStartDate>f.value.RouteEndDate)
+  {
+  console.log(f.value.RouteStartDate>f.value.RouteEndDate);
+  console.log("checkdate true");
+  this.dateerror=true;
+  }
+  else
+  {
+  this.dateerror=false;
+  console.log(f.value.RouteStartDate>f.value.RouteEndDate);
+  console.log("checkdate false");
+  }
+
+  return this.dateerror;
+
+}
   
   closeemptyqlid(){
     this.emptyqlid=false;
@@ -285,30 +317,20 @@ export class UnscheduledFormComponent implements OnInit {
     this.success=false;
     this.router.navigateByUrl('/roster/go');  
   }
+  closedateerror(){
+    this.dateerror=false;
 
+  }
   closeerror(){
     this.error=false;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  close_add_popup(num){
+    console.log(num);
+    this.clicked=false;
+    var jsontext = '{"fname":"","mname":"","lname":"","qlid":"","parea":"","ph":"","route":""}';
+    this.employee[num]=JSON.parse(jsontext);
+  
+  }
 }
+
+

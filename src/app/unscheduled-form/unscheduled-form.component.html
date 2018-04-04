@@ -62,7 +62,7 @@
             <span class="red">*</span>
           </label>
           <input formControlName="RouteStartDate" type="date" name="RouteStartDate" placeholder="Route Start Date*" class="form-control"
-            required>
+            required (change)="checkdate(f)">
 
           <div class="alert alert-danger" *ngIf="RouteStartDate.touched && RouteStartDate.invalid">
             Select a valid Route Start Date
@@ -73,7 +73,7 @@
             <span class="red">*</span>
           </label>
           <input formControlName="RouteEndDate" type="date" name="RouteEndDate" placeholder="Route End Date*" class="form-control"
-            required>
+            required (change)="checkdate(f)">
 
           <div class="alert alert-danger" *ngIf="RouteEndDate.touched && RouteEndDate.invalid">
             Select a valid Route End Date
@@ -86,6 +86,12 @@
           </label>
         </div>
       </div>
+      <div *ngIf="dateerror" id="over">          
+        <div id="box">
+             <b><h4>Start date can't be less than End date </h4></b><br>
+             <button class="btn btn-primary" style="width:30%"(click)="closedateerror()"> OK </button>
+      </div>
+    </div>
 
 
 
@@ -138,7 +144,7 @@
 
 
 
-  <div *ngIf="NumberOfEmployees.valid && RouteStartDate.valid" class="panel panel-info">
+  <div *ngIf="NumberOfEmployees.valid" class="panel panel-info">
     <div class="panel-heading clearfix">
       <h4 class="panel-title pull-left" style="padding-top: 7.5px">
         Employees information
@@ -154,7 +160,7 @@
             <label>Qlid
               <span class="red">*</span>
             </label>
-            <select required [ngModelOptions]="{standalone: true}" ngModel #qlid="ngModel" name={{num}} (change)="createPost(qlid,f)" class="form-control">
+            <select required [ngModelOptions]="{standalone: true}" ngModel #qlid="ngModel" name={{num}} (change)="createPost(qlid)" class="form-control">
               <option value="" disabled selected>Qlid*</option>
               <option *ngFor="let qlid of qlidlist" value="{{qlid.qlid}}">{{qlid.qlid}} {{qlid.name}}</option>
             </select>
@@ -208,6 +214,17 @@
           </div>
         </div>
 
+        <div *ngIf="qlid.valid && routeexists[num]">
+          <div *ngIf="clicked" id="over">          
+            <div id="box">
+              <div> <h4>{{routeexistserror}}</h4></div>
+                 <b><h4>Click CONTINUE to deactive from existing route or NO if you don't want to add to this new route</h4></b><br><br>
+          <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-danger" id="other" (click)="deactivateemployee(num,f)"> Continue </button>
+          <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary" id="close" (click)="close_add_popup(num)"> No </button>
+          </div>
+        </div>
+          </div>
+
 
 
 
@@ -228,33 +245,30 @@
             <input type="text" name="lastName{{Numbersofemp[num]}}" placeholder="{{employee[num].lname}}" class="form-control" disabled>
           </div>
         </div>
-        <div class="row form-group">
+        <div class="row form-group">         
           <div class="col-sm-3 ">
-            <label>Contact Number</label>
-            <input type="text" name="contactNumber{{Numbersofemp[num]}}" placeholder="{{employee[num].ph}}" maxlength="10" class="form-control"
+            <label>Drop Type
+            </label>
+            <input type="text" name="dropType{{Numbersofemp[num]}}" placeholder="{{employee[num].type}}" maxlength="10" class="form-control"
               disabled>
           </div>
           <div class="col-sm-3 ">
-            <label>Drop Type
-              <span class="red">*</span>
-            </label>
-            <select required [ngModelOptions]="{standalone: true}" ngModel  #DropType="ngModel" name="{{num}}" class="form-control"
-            (change)="createDropType(DropType)">
-              <option value="" selected>Home to Office</option>
-              <option>Office to Home</option>
-              <option>Home to Others</option>
-              <option>Office to Others</option>
-              <option>Office to Others</option>
-              <option>Others to Others</option>
-            </select>
+            <label>Pickup Area</label>
+            <input type="text" name="pickupArea{{Numbersofemp[num]}}" placeholder="{{employee[num].source}}" maxlength="10" class="form-control"
+              disabled>
           </div>
           <div class="col-sm-3 ">
-            <label>Pickup Area</label>
-            <input  required [ngModelOptions]="{standalone: true}" ngModel  #PickupArea="ngModel" name="{{num}}" type="text" placeholder="{{employee[num].parea}}" maxlength="10" 
-            class="form-control" (change)=createPickupArea(PickupArea)>
-          </div>
+              <label>Destination</label>
+              <input type="text" name="destination{{Numbersofemp[num]}}" placeholder="{{employee[num].dest}}" maxlength="10" class="form-control"
+                disabled>
+            </div>
         </div>
         <div class="row form-group">
+            <div class="col-sm-3 ">
+                <label>Contact Number</label>
+                <input type="text" name="contactNumber{{Numbersofemp[num]}}" placeholder="{{employee[num].phone}}" maxlength="10" class="form-control"
+                  disabled>
+              </div>
           <div class="col-sm-3 ">
             <label>Pickup Time</label>
             <input required [ngModelOptions]="{standalone: true}" ngModel  #PickupTime="ngModel" name="{{num}}" type="time" placeholder="Pickup Time"
