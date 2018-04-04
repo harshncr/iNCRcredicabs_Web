@@ -79,7 +79,7 @@ export class SetPasswordEmployeeComponent implements OnInit {
     if(this.password1 == null || this.password1 == undefined){
       validateStatus = false;
     }else{
-      if(this.password1.toUpperCase() == this.qlid.toUpperCase()){
+      if(this.password1.toUpperCase().match(this.qlid.toUpperCase()) != null){
         validateStatus = false;
         this.formError.password1.error = true;
         this.formError.password1.message = 'Error! Password cannot be qlid!'; 
@@ -90,7 +90,7 @@ export class SetPasswordEmployeeComponent implements OnInit {
       if(this.password1 != this.password2){
         validateStatus = false;
       }
-      if(this.password2.toUpperCase() == this.qlid.toUpperCase()){
+      if(this.password2.toUpperCase().match(this.qlid.toUpperCase()) != null){
         validateStatus = false;
         this.formError.password2.error = true;
         this.formError.password2.message = 'Error! Password cannot be qlid!'; 
