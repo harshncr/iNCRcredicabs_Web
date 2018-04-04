@@ -26,14 +26,14 @@ export class EmployeeReqUnschComponent implements OnInit {
   reason = '';
   counter = 1;
   dropArea;
-  dropTime;
+  dropTime = '00:00';
   dropAddress = '';
   defaultDropAdd = '';
   showDefaultDropAdd = false;
   homeAddress = '';
   officeAddress = '';
   pickupArea;
-  pickupTime;
+  pickupTime = '00:00';
   pickupAddress;
   defaultPickupAdd = '';
   showDefaultPickupAdd = false;
@@ -66,7 +66,7 @@ export class EmployeeReqUnschComponent implements OnInit {
         this.currentManagerSelection = 'MANAGER1';
         console.log(data);
         this.homeAddress = this.empData.empAddLine1 + ', ' + this.empData.empAddLine2;
-        this.officeAddress = '5th Floor, Vipul Plaza, Suncity, Sector-54, Gurgaon';
+        this.officeAddress = 'NCR Corporation, 5th Floor, Vipul Plaza, Suncity, Sector 54, Gurgoan';
       }else{
         this.showError = true;
       }
@@ -106,10 +106,10 @@ export class EmployeeReqUnschComponent implements OnInit {
     let todaySeconds = (new Date()).getTime();
     let todayStartOfDaySeconds = todayStartOfDay.getTime();
 
-    console.log(fromDateSeconds);
-    console.log(toDateSeconds);
-    console.log(todayStartOfDay.getTime());
-    console.log(todayStartOfDaySeconds);
+    // console.log(fromDateSeconds);
+    // console.log(toDateSeconds);
+    // console.log(todayStartOfDay.getTime());
+    // console.log(todayStartOfDaySeconds);
 
     
     if(todayStartOfDaySeconds > fromDateSeconds){
@@ -139,8 +139,8 @@ export class EmployeeReqUnschComponent implements OnInit {
   }
 
   onSave(f){
-    console.log(this.fromDate);
-    console.log(this.dropTime);
+    // console.log(this.fromDate);
+    // console.log(this.dropTime);
     this.validate();
     if(this.showError){
       console.log('Error Encountered!');
@@ -148,12 +148,19 @@ export class EmployeeReqUnschComponent implements OnInit {
       let startDateTemp = new Date(this.reformatDate(this.fromDate));
       let endDateTemp = new Date(this.reformatDate(this.toDate));
 
+      // let startDateDay = startDateTemp.getDay()+'';
+      // let startDateMonth = startDateTemp.getMonth()+'';
+      // let startDateYear = startDateTemp.getFullYear()+'';
+      // let startDateHours = startDateTemp.getHours()+'';
+      // let startDateMinutes = startDateTemp.getMinutes()+'';
+      // let startDateSeconds = startDateTemp.getSeconds()+'';
       let startDateDay = startDateTemp.getDay()+'';
       let startDateMonth = startDateTemp.getMonth()+'';
       let startDateYear = startDateTemp.getFullYear()+'';
-      let startDateHours = startDateTemp.getHours()+'';
-      let startDateMinutes = startDateTemp.getMinutes()+'';
-      let startDateSeconds = startDateTemp.getSeconds()+'';
+      // console.log(this.dropTime);
+      let startDateHours = (this.pickupTime+'').split(':')[0];
+      let startDateMinutes = (this.pickupTime+'').split(':')[1];
+      let startDateSeconds = '00';
 
       if(parseInt(startDateDay) < 10){
         startDateDay = '0' + startDateDay;
@@ -163,24 +170,27 @@ export class EmployeeReqUnschComponent implements OnInit {
         startDateMonth = '0' + startDateMonth;
       }
 
-      if(parseInt(startDateHours) < 10){
-        startDateHours = '0' + startDateHours;
-      }
+      // if(parseInt(startDateHours) < 10){
+      //   startDateHours = '0' + startDateHours;
+      // }
 
-      if(parseInt(startDateMinutes) < 10){
-        startDateMinutes = '0' + startDateMinutes;
-      }
+      // if(parseInt(startDateMinutes) < 10){
+      //   startDateMinutes = '0' + startDateMinutes;
+      // }
 
-      if(parseInt(startDateSeconds) < 10){
-        startDateSeconds = '0' + startDateSeconds;
-      }
+      // if(parseInt(startDateSeconds) < 10){
+      //   startDateSeconds = '0' + startDateSeconds;
+      // }
 
       let endDateDay = startDateTemp.getDay()+'';
       let endDateMonth = startDateTemp.getMonth()+'';
       let endDateYear = startDateTemp.getFullYear()+'';
-      let endDateHours = startDateTemp.getHours()+'';
-      let endDateMinutes = startDateTemp.getMinutes()+'';
-      let endDateSeconds = startDateTemp.getSeconds()+'';
+      // let endDateHours = startDateTemp.getHours()+'';
+      // let endDateMinutes = startDateTemp.getMinutes()+'';
+      // let endDateSeconds = startDateTemp.getSeconds()+'';
+      let endDateHours = (this.dropTime+'').split(':')[0];
+      let endDateMinutes = (this.dropTime+'').split(':')[1];
+      let endDateSeconds = '00';
 
       if(parseInt(endDateDay) < 10){
         endDateDay = '0' + endDateDay;
@@ -190,23 +200,23 @@ export class EmployeeReqUnschComponent implements OnInit {
         endDateMonth = '0' + endDateMonth;
       }
 
-      if(parseInt(endDateHours) < 10){
-        endDateHours = '0' + endDateHours;
-      }
+      // if(parseInt(endDateHours) < 10){
+      //   endDateHours = '0' + endDateHours;
+      // }
 
-      if(parseInt(endDateMinutes) < 10){
-        endDateMinutes = '0' + endDateMinutes;
-      }
+      // if(parseInt(endDateMinutes) < 10){
+      //   endDateMinutes = '0' + endDateMinutes;
+      // }
 
-      if(parseInt(endDateSeconds) < 10){
-        endDateSeconds = '0' + endDateSeconds;
-      }
+      // if(parseInt(endDateSeconds) < 10){
+      //   endDateSeconds = '0' + endDateSeconds;
+      // }
 
-      let startDateStr = startDateDay+"-"+startDateMonth+"-"+startDateYear
-                          +" "+startDateHours+':'+startDateMinutes+':'+startDateSeconds;
+      let startDateStr = startDateYear+"-"+startDateMonth+"-"+startDateDay
+              +" "+startDateHours+':'+startDateMinutes+':'+startDateSeconds;
 
-      let endDateStr = endDateDay+"-"+endDateMonth+"-"+endDateYear
-                          +" "+endDateHours+':'+endDateMinutes+':'+endDateSeconds;
+      let endDateStr = endDateYear+"-"+endDateMonth+"-"+endDateDay
+              +" "+endDateHours+':'+endDateMinutes+':'+endDateSeconds;
 
       console.log('Start Date Str: ' + startDateStr);
       console.log('End Date Str: ' + endDateStr);
@@ -216,16 +226,24 @@ export class EmployeeReqUnschComponent implements OnInit {
 
       this.otherAddr = this.pickupArea.toUpperCase() + ' TO ' + this.dropArea.toUpperCase();
 
-      if(this.showPick == true){
-        source = this.pickupAddress;
+      if(this.showDefaultPickupAdd){
+        source = this.defaultPickupAdd;
       }else{
-        source = this.pickupArea;
+        if(this.showPick == true){
+          source = this.pickupAddress;
+        }else{
+          source = this.pickupArea;
+        }
       }
 
-      if(this.showDrop == true){
-        destination = this.pickupAddress;
+      if(this.showDefaultDropAdd){
+        destination = this.defaultDropAdd;
       }else{
-        destination = this.pickupArea;
+        if(this.showDrop == true){
+          destination = this.dropAddress;
+        }else{
+          destination = this.dropArea;
+        }
       }
 
       let req = {
@@ -247,6 +265,8 @@ export class EmployeeReqUnschComponent implements OnInit {
         Level2_mgr:               this.empData.mgr2Name,
         Counter:                  this.counter
       }
+
+      console.log(req);
 
       this.employeeService.unscheduledRequest(req).subscribe((data) => {
         this.showLoader = true;
@@ -302,6 +322,7 @@ export class EmployeeReqUnschComponent implements OnInit {
         this.showPick = false;
         this.showDropTime = true;
         this.defaultPickupAdd = this.homeAddress;
+        console.log('Pickup Address set to: ' + this.defaultPickupAdd);
         this.showDefaultPickupAdd = true;
         break;
     }
