@@ -362,6 +362,8 @@ public isShow:boolean=false;
 //uploading actions starts
 
 //send excel to server
+public _tr;
+public _eo;
 upload(){
   this.upload_spinner=true;
   let files=this.elem.nativeElement.querySelector("#uploadFile").files;
@@ -369,10 +371,17 @@ upload(){
   let file=files[0];
   formdata.append('uploadFile',file,file.name);
   this._http1.sendfile(formdata).subscribe(
-     data =>{this.uploadinfo=JSON.stringify(data);
+     data =>{this.uploadinfo=data;
+      this._tr=data.tr;
+      this._eo=data.eo;
+      console.log("_tr :- "+this._tr);
+      console.log("_eo :- "+this._eo);
+            console.log("data:- "+data);
+            console.log("upload info :- "+this.uploadinfo);
             console.log(this.uploadinfo.tr);
     
             console.log(this.uploadinfo.eo);
+            this.uploadPopupClicked=true;this.upload_spinner=false;
     },
      error=>{ console.log(this.uploadinfo.length);
      for(let i:number=0;i<this.uploadinfo.length;i++){
@@ -575,7 +584,7 @@ public urlpulldata;
         console.log(this.download_error_status.fileName);
         console.log(this.download_error_status.err_type);
         console.log(this.download_error_status.err_in);
-         if(this.download_error_status.error_type == "fail"){
+         if(this.download_error_status.err_type == "fail"){
         this.downloadstatus=false; 
         this.download_error_exist=true;
        this.download_error_msg="Some Error Occured during Downloading."

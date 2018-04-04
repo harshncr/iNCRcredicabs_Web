@@ -106,16 +106,20 @@ numberofemp(NumberOfEmployeeees){
   if(this.employee.length==0){
       for( let i=0;i<NumberOfEmployeeees.value;i++){
       this.employee[i]=JSON.parse(jsontext);
+      console.log(this.employee);
     }
   }
   else if(this.employee.length>NumberOfEmployeeees.value){
-    for(let i=NumberOfEmployeeees.value;i<=this.employee.length;i++){
+    while(NumberOfEmployeeees.value<this.employee.length){
+      console.log(this.employee);
       this.employee.pop();
+      console.log(this.employee);
     }
   }
   else{
     for(let i=this.employee.length;i<NumberOfEmployeeees.value;i++){
       this.employee[i]=JSON.parse(jsontext);
+      console.log(this.employee);
     }
   }
 
@@ -190,7 +194,7 @@ submit(f){
  let jsonstring=[];
  console.log("form data");
  console.log(f);
- if(!this.checkemptyqlid()&&!this.checkduplicateqlid()){ 
+ if(!this.checkemptyqlid()&&!this.checkduplicateqlid()&&!this.checkdate(f)){ 
  for(let i=0;i<this.employee.length;i++){
   jsonrespone={
     "qlid":this.employee[i].qlid,
@@ -262,6 +266,25 @@ checkduplicateqlid(){
  console.log(this.emptyqlid);
  return this.emptyqlid;
 }
+dateerror:boolean;
+checkdate(f){
+  this.dateerror=false;
+  console.log("checkdate");
+  if(f.value.RouteStartDate!=""&&f.value.RouteEndDate!=""&&f.value.RouteStartDate>f.value.RouteEndDate)
+  {
+  console.log(f.value.RouteStartDate>f.value.RouteEndDate);
+  console.log("checkdate true");
+  this.dateerror=true;
+  }
+  else
+  {
+  this.dateerror=false;
+  console.log(f.value.RouteStartDate>f.value.RouteEndDate);
+  console.log("checkdate false");
+  }
+  return this.dateerror;
+
+}
 
 PickupTime=[];
 createTime(PickupTime: HTMLInputElement){   
@@ -273,7 +296,9 @@ createTime(PickupTime: HTMLInputElement){
 closeemptyqlid(){
  this.emptyqlid=false;
 }
-
+closedateerror(){
+  this.dateerror=false;
+}
 closeduplicateqlid(){
  this.duplicateqlid=false;
 }

@@ -64,7 +64,7 @@
         <li class="nav-item"><a *ngIf="employee" class="nav-link" routerLink="/employee/view">View Employee</a></li>
         <li class="nav-item"><a *ngIf="roster" routerLink="/roster/addRoute">Add Route</a></li>
         <li class="nav-item"><a *ngIf="roster" routerLink="/roster/editroute">Edit Route</a></li>
-        <li class="nav-item"><a *ngIf="roster" (click)="emitUpload()" >Upload Roster</a></li>
+        <li class="nav-item"><a *ngIf="roster" routerLink="#" (click)="emitUpload()" >Upload Roster</a></li>
         <li class="nav-item"><a *ngIf="vendor && loada" routerLink="/add-vendor" class="nav-tabs">Add Vendor</a></li>
         <li class="nav-item"><a *ngIf="vendor && loadb" routerLink="/add-cab" class="nav-tabs" >Add Cab</a></li>
         <li class="nav-item"><a *ngIf="vendor && loadc" routerLink="/add-driver" class="nav-tabs">Add Driver</a></li>

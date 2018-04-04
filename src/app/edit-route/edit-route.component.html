@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <label style="margin-left:5px;">Enter Route Number</label>
 
-                    <select  name="r_n" [(ngModel)]="rno" class="form-control">
+                    <select  name="r_n" [(ngModel)]="rno" class="form-control" (change)="changedefaultvalue()">
                             <option value="" selected disabled> Route Number</option>
 
                             <option *ngFor="let i of route" name="r_n" value="{{i.r_n}}" > {{i.r_n}}</option>
@@ -111,9 +111,12 @@
             <!-- Button -->
          
             <div class="col-md-2" style="margin-top:24px;">
-                <div class="col-md-1">
+                <div class="col-md-1" *ngIf="show_update">
                     <button id="singlebutton" (click)="updateroute()" class="btn btn-default" name="singlebutton" >Update route</button>
                 </div>
+                <div class="col-md-1" *ngIf="!show_update">
+                        <button id="singlebutton"  class="btn btn-default" name="singlebutton" disabled>Update route</button>
+                    </div>
             </div>
         </div>
     </div> 
