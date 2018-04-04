@@ -28,9 +28,15 @@ export class EmployeeReqUnschComponent implements OnInit {
   dropArea;
   dropTime;
   dropAddress = '';
+  defaultDropAdd = '';
+  showDefaultDropAdd = false;
+  homeAddress = '';
+  officeAddress = '';
   pickupArea;
   pickupTime;
   pickupAddress;
+  defaultPickupAdd = '';
+  showDefaultPickupAdd = false;
   fromDate;
   toDate;
   today;
@@ -44,11 +50,12 @@ export class EmployeeReqUnschComponent implements OnInit {
   showSuccess = false;
 
   empData;
+
+  responseJSON;
   
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit() {
-    this.message = '';
     this.today = new Date();
     this.employeeService.employeeManagerDetails().subscribe((data) => {
       this.showLoader = true;
@@ -58,6 +65,8 @@ export class EmployeeReqUnschComponent implements OnInit {
 
         this.currentManagerSelection = 'MANAGER1';
         console.log(data);
+        this.homeAddress = this.empData.empAddLine1 + ', ' + this.empData.empAddLine2;
+        this.officeAddress = '5th Floor, Vipul Plaza, Suncity, Sector-54, Gurgaon';
       }else{
         this.showError = true;
       }
@@ -83,20 +92,55 @@ export class EmployeeReqUnschComponent implements OnInit {
   }
 
   validate(){
+    this.message = '';
     this.showError = false;
-    if((new Date().getDate()) > new Date(this.fromDate).getDate()){
+
+    let todayStartOfDay = new Date();
+    todayStartOfDay.setHours(0);
+    todayStartOfDay.setMinutes(0);
+    todayStartOfDay.setSeconds(0);
+    todayStartOfDay.setMilliseconds(0);
+
+    let fromDateSeconds = (new Date(this.fromDate)).getTime();
+    let toDateSeconds = (new Date(this.toDate)).getTime();
+    let todaySeconds = (new Date()).getTime();
+    let todayStartOfDaySeconds = todayStartOfDay.getTime();
+
+    console.log(fromDateSeconds);
+    console.log(toDateSeconds);
+    console.log(todayStartOfDay.getTime());
+    console.log(todayStartOfDaySeconds);
+
+    
+    if(todayStartOfDaySeconds > fromDateSeconds){
       this.message += 'From date cannot be before today! ';
       this.showError = true;
     }
 
-    if((new Date().getDate()) > new Date(this.toDate).getDate()){
+    if(todayStartOfDaySeconds > toDateSeconds){
       this.message += 'To date cannot be before today! ';
+      this.showError = true;
+    }
+
+    if(fromDateSeconds > toDateSeconds){
+      this.message += 'To date cannot preceed From Date! ';
+      this.showError = true;
+    }
+
+    if(this.showDropTime && (this.dropTime == '' || this.dropTime == null || this.dropTime == undefined)){
+      this.dropMessage += 'Please set a drop time....';
+      this.showError = true;
+    }
+
+    if(this.showPickTime && (this.pickupTime == '' || this.pickupTime == null || this.pickupTime == undefined)){
+      this.dropMessage += 'Please set a drop time....';
       this.showError = true;
     }
   }
 
   onSave(f){
     console.log(this.fromDate);
+    console.log(this.dropTime);
     this.validate();
     if(this.showError){
       console.log('Error Encountered!');
@@ -187,7 +231,7 @@ export class EmployeeReqUnschComponent implements OnInit {
       let req = {
         Emp_QLID:                 this.empData.empQlid,
         Employee_Name:            this.empData.empName,
-        Shift_ID:                 this.empData.shiftId,
+        Shift_ID:                 4,
         Mgr_QLID:                 this.empData.empMgrQlid1,
         Employee_Manager_1_Name:  this.empData.mgr1Name,
         Employee_Manager_2_Name:  this.empData.mgr2Name,
@@ -207,10 +251,20 @@ export class EmployeeReqUnschComponent implements OnInit {
       this.employeeService.unscheduledRequest(req).subscribe((data) => {
         this.showLoader = true;
         if(data != null && data != undefined){
+          console.log(data);
           if(data.status != null && data.status != undefined){
+            this.responseJSON = data;
             this.showSuccess = true;
             this.showError = false;
-            this.message = 'Success! your request has been submitted, please wait for approval!';
+            if(this.responseJSON != null && this.responseJSON != undefined 
+                && this.responseJSON.Request_Id != null && this.responseJSON.Request_Id != undefined
+            ){
+              this.message = 'Success! your request has been submitted(Req ID: '
+                    + this.responseJSON.Request_Id
+                    +'), please wait for approval!';
+            }else{
+              this.message = 'Success! your request has been submitted, please wait for approval!';              
+            }
           }else{
             this.showSuccess = false;
             this.showError = true;
@@ -236,14 +290,19 @@ export class EmployeeReqUnschComponent implements OnInit {
     switch(this.pickupArea){
       case 'other':
         this.showPick = true;
+        this.showDefaultPickupAdd = false;
         break;
       case 'office':
         this.showPick = false;
         this.showPickTime = true;
+        this.defaultPickupAdd = this.officeAddress;
+        this.showDefaultPickupAdd = true;
         break;
       case 'home':
         this.showPick = false;
         this.showDropTime = true;
+        this.defaultPickupAdd = this.homeAddress;
+        this.showDefaultPickupAdd = true;
         break;
     }
 
@@ -252,14 +311,19 @@ export class EmployeeReqUnschComponent implements OnInit {
         this.showDrop = true;
         this.showPickTime = true;
         this.showDropTime = false;
+        this.showDefaultDropAdd = false;
         break;
       case 'office':
         this.showDrop = false;
         this.showDropTime = true;
+        this.defaultDropAdd = this.officeAddress;
+        this.showDefaultDropAdd = true;
         break;
       case 'home':
         this.showDrop = false;
         this.showPickTime = true;
+        this.defaultDropAdd = this.homeAddress;
+        this.showDefaultDropAdd = true;
         break;
     }
 
