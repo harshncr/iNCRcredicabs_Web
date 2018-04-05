@@ -84,7 +84,7 @@ export class ReportComponent implements OnInit {
   // to download Excel
   downloadExcel() {
 
-    if (this.filterReport == 'Vendor_Billing_Summary') {
+    if (this.filterReport == 'Vendor_Billing_Detail') {
       //Calculations start
       console.log(">>>filtertype: " + this.filterReport);
 
@@ -209,7 +209,7 @@ export class ReportComponent implements OnInit {
 
           console.log(data);
         }); break;
-      case "Vendor_Billing_Summary":
+      case "Vendor_Billing_Detail":
         this.reportService.getBillingSummary(this.shiftValue, f.VendorName, this.fromDate, this.toDate).subscribe((data) => {
           this.BillingSummaryReport = data;
           this.showLoader = false;
@@ -310,7 +310,7 @@ export class ReportComponent implements OnInit {
           console.log(data);
         }); break;
 
-      case "Vendor_Billing_Summary":
+      case "Vendor_Billing_Detail":
         this.showLoader = true;
         this.reportService.getVendorNames().subscribe((data) => {
           this.vname = data;
@@ -608,10 +608,16 @@ export class ReportComponent implements OnInit {
 
   // to get cab no by vendor and route no
   getCabnobyVendorandRouteNo(f) {
-    this.reportService.getCabnobyVendorandRouteNo(f.value.VendorName, f.value.RouteNo).subscribe((data) => {
-      this.cno = data;
-    })
+    if (typeof f.value.RouteNo === 'undefined')
+    return;
+    else
+   this.reportService.getCabnobyVendorandRouteNo(f.value.VendorName,f.value.RouteNo).subscribe((data ) =>{
+      this.cno=data;
+    }  )
+  
   }
+ 
+
   // Checkin Checkout and Vendor Billing Summary Report -----End
 
 
