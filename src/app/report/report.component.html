@@ -172,7 +172,7 @@
           <div class="col-sm-2">
 
             Vendor Name
-            <select ngModel name="VendorName" class="form-control" (change)="getRouteNosbyVendor(f)">
+            <select ngModel name="VendorName" class="form-control" (change)="getCabnobyVendorandRouteNo(f);getRouteNosbyVendor(f)">
               <option *ngFor="let obj of vname" [value]="obj.name">{{obj.name}}</option>
             </select>
           </div>
