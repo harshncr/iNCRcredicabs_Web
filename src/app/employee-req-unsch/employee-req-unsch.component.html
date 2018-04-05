@@ -39,13 +39,19 @@
             <div class="row">
               <div class="col-sm-6">
                 <label>From Date</label>
-                <input type="date" class="form-control" id="fromDate" name="fromDate"
-                  [(ngModel)]="fromDate" (change)="printDate()" required>
+                <input type="date" onkeydown="return false" class="form-control" id="fromDate" name="fromDate"
+                  [(ngModel)]="fromDate" (change)="altered.fromDate=true;validate()" required>
+                <div class="error" *ngIf="formError.fromDate.error">
+                  {{ formError.fromDate.message }}
+                </div>
               </div>
               <div class="col-sm-6">
                 <label> To Date</label>
-                <input type="date" class="form-control" id="toDate" name="toDate"
-                  [(ngModel)]="toDate" placeholder="To Date" required>     
+                <input type="date" onkeydown="return false" class="form-control" id="toDate" name="toDate"
+                  [(ngModel)]="toDate" (change)="altered.toDate=true;validate()" placeholder="To Date" required>
+                  <div class="error" *ngIf="formError.toDate.error">
+                    {{ formError.toDate.message }}
+                  </div>
               </div>
             </div>
           </div>
@@ -58,17 +64,21 @@
                   <option value="home">Home</option>
                   <option value="office">Office</option>
                   <option value="other">Other</option>
-                </select>      
+                </select>
                 <div *ngIf="showPick">
                   <input class="form-control show-textbox" name="pickup_address"
                     placeholder="Pickup Address" type="text" maxlength="100"
                     [(ngModel)]="pickupAddress">
-                </div>          
+                </div>
+                <div class="error" *ngIf="formError.pickupArea.error">
+                  {{ formError.pickupArea.message }}
+                </div>
               </div>
               <div class="col-sm-6" *ngIf="showPickTime">
                   <label>Pickup Time</label>
                 <input type="time" class="form-control" id="time" name="pickup_time"
-                  [(ngModel)]="pickupTime" required>
+                  [(ngModel)]="pickupTime" (change)="altered.pickupTime=true;validate()"
+                  required>
               </div>
             </div>
           </div>
@@ -90,14 +100,19 @@
                   <option value="other">Other</option> 
                 </select>     
                 <div *ngIf="showDrop">
-                  <input class="form-control show-textbox" name="drop_address" placeholder="Drop Address"
-                    type="text" maxlength="100"
+                  <input class="form-control show-textbox" name="drop_address"
+                    placeholder="Drop Address" type="text" maxlength="100"
                     [(ngModel)]="dropAddress">
-                </div>  
+                </div>
+                <div class="error" *ngIf="formError.dropArea.error">
+                  {{ formError.dropArea.message }}
+                </div>
               </div>
               <div class="col-sm-6" *ngIf="showDropTime">
-                  <label>Drop Time</label>
-                <input type="time" class="form-control" id="time" name="time" placeholder="Reaching Time" [(ngModel)]="dropTime" required>
+                <label>Drop Time</label>
+                <input type="time" class="form-control" id="time" name="time"
+                  placeholder="Reaching Time" [(ngModel)]="dropTime"
+                  (change)="altered.dropTime=true;validate()" required>
               </div>
             </div>
           </div>

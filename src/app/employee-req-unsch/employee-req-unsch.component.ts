@@ -13,6 +13,7 @@ export class EmployeeReqUnschComponent implements OnInit {
   loaderText            = "Loading...";
   ////-----------------------------------------
   showError = false;
+  error = false;
 
 
   showDrop:boolean = false;
@@ -52,6 +53,24 @@ export class EmployeeReqUnschComponent implements OnInit {
   empData;
 
   responseJSON;
+
+  formError = {
+    fromDate: {error: false, message: ''},
+    toDate: {error: false, message: ''},
+    pickupArea: {error: false, message: ''},
+    pickupTime: {error: false, message: ''},
+    dropArea: {error: false, message: ''},
+    dropTime: {error: false, message: ''}
+  }
+
+  altered = {
+    fromDate: false,
+    toDate: false,
+    pickupArea: false,
+    pickupTime: false,
+    dropArea: false,
+    dropTime: false
+  }
   
   constructor(private employeeService: EmployeeService) {}
 
@@ -92,6 +111,8 @@ export class EmployeeReqUnschComponent implements OnInit {
   }
 
   validate(){
+    this.refreshErrorValues();
+    this.error = false;
     this.message = '';
     this.showError = false;
 
@@ -112,37 +133,52 @@ export class EmployeeReqUnschComponent implements OnInit {
     // console.log(todayStartOfDaySeconds);
 
     
-    if(todayStartOfDaySeconds > fromDateSeconds){
-      this.message += 'From date cannot be before today! ';
-      this.showError = true;
+    if(this.altered.fromDate){
+      if(todayStartOfDaySeconds > fromDateSeconds){
+        this.error = true;
+        this.formError.fromDate.error = true;
+        this.formError.fromDate.message = 'From date cannot be before today!';
+      }
     }
 
-    if(todayStartOfDaySeconds > toDateSeconds){
-      this.message += 'To date cannot be before today! ';
-      this.showError = true;
+    if(this.altered.toDate){
+      if(todayStartOfDaySeconds > toDateSeconds){
+        this.error = true;
+        this.formError.toDate.error = true;
+        this.formError.toDate.message = 'To date cannot be before today!';
+      }
+
+      if(fromDateSeconds > toDateSeconds){
+        this.error = true;
+        this.formError.toDate.error = true;
+        this.formError.toDate.message = 'To date cannot preceed From Date! ';
+      }
     }
 
-    if(fromDateSeconds > toDateSeconds){
-      this.message += 'To date cannot preceed From Date! ';
-      this.showError = true;
+    if(this.altered.dropTime){
+      if(this.showDropTime && (this.dropTime == '' || this.dropTime == null || this.dropTime == undefined)){
+        this.error = true;
+        this.formError.dropTime.error = true;      
+        this.formError.dropTime.message = 'Please set a drop time....';
+      }
     }
 
-    if(this.showDropTime && (this.dropTime == '' || this.dropTime == null || this.dropTime == undefined)){
-      this.dropMessage += 'Please set a drop time....';
-      this.showError = true;
+    if(this.altered.pickupTime){
+      if(this.showPickTime && (this.pickupTime == '' || this.pickupTime == null || this.pickupTime == undefined)){
+        this.error = true;
+        this.formError.pickupTime.error = true;      
+        this.formError.pickupTime.message = 'Please set a pickup time....';
+      }
     }
 
-    if(this.showPickTime && (this.pickupTime == '' || this.pickupTime == null || this.pickupTime == undefined)){
-      this.dropMessage += 'Please set a drop time....';
-      this.showError = true;
-    }
+    return this.error;
   }
 
   onSave(f){
     // console.log(this.fromDate);
     // console.log(this.dropTime);
-    this.validate();
-    if(this.showError){
+    
+    if(this.validate()){
       console.log('Error Encountered!');
     }else{
       let startDateTemp = new Date(this.reformatDate(this.fromDate));
@@ -302,6 +338,8 @@ export class EmployeeReqUnschComponent implements OnInit {
   }
 
   onSelectedLocation(selectedVal){
+    this.refreshErrorValues();
+    this.error = false;
     this.showPick = false;
     this.showPickTime = false;
     this.showDrop = false;
@@ -349,8 +387,14 @@ export class EmployeeReqUnschComponent implements OnInit {
     }
 
     if(this.pickupArea == this.dropArea && this.pickupArea != 'other'){
-      this.showError = true;
-      this.pickupMessage = 'Pickup and Drop area cannot be same! ';
+      // this.showError = true;
+      // this.pickupMessage = 'Pickup and Drop area cannot be same! ';
+      this.error = true;
+      this.formError.pickupArea.error = true;
+      this.formError.dropArea.error = true;
+
+      this.formError.pickupArea.message = 'Pickup and Drop areas cannot be the same!';
+      this.formError.dropArea.message = 'Pickup and Drop areas cannot be the same!';
       return;
     }
 
@@ -366,5 +410,16 @@ export class EmployeeReqUnschComponent implements OnInit {
     }else{
       this.counter = 2;
     }        
+  }
+
+  refreshErrorValues(){
+    this.formError = {
+      fromDate: {error: false, message: ''},
+      toDate: {error: false, message: ''},
+      pickupArea: {error: false, message: ''},
+      pickupTime: {error: false, message: ''},
+      dropArea: {error: false, message: ''},
+      dropTime: {error: false, message: ''}
+    }
   }
 }

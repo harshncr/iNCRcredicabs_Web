@@ -9,3 +9,6 @@ legend{padding: 5px 0px 10px 0px;}
     border: 1px solid #dddddd;
     border-radius: 3px;	
 }
+.error{
+    color: #dd0000;
+}
