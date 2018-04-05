@@ -5,61 +5,380 @@
 <div *ngIf="showError && showLoader == false" class="alert alert-danger">
     <strong>Error!</strong> {{ errorMessage }}
 </div>
-<div class="container"> 
+
+<div class="container-fluid" *ngIf="emp && showLoader == false">
+
+    <!-- Main content -->
+    <!-- <section class="content"> -->
+        <!-- <div class="row"> -->
+
+            <!-- <div class="col-md-3">
+
+
+                <!-- Profile Image -->
+                <!-- <div class="box box-primary"> -->
+                    <!-- <div class="box-body box-profile"> -->
+                        <!-- <img class="profile-user-img img-responsive img-circle" src="assets\img\user4-128x128.jpg" alt="User profile picture"> -->
+<!-- 
+                        <h3 class="profile-username text-center">{{emp?.empFName}} {{ emp?.empMName }} {{emp?.empLName}}</h3>
+
+                        <p class="text-muted text-center">{{emp?.empQlid}}</p>
+
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>Mobile:</b>
+                                <br><a>{{ emp?.empMobNbr }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Address:</b><br>
+                                <a>{{emp?.empAddLine1}}</a>
+                                <a>{{emp?.empAddLine2}}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Postal Code:</b><br>
+                                <a>{{ emp?.empPin }}</a>
+                            </li>
+                        </ul>
+                    </div> -->
+                    <!-- /.box-body -->
+                <!-- </div> -->
+                <!-- /.box -->
+
+            <!-- </div>  -->
+            <!-- /.col -->
+
+            <!-- <div class="col-md-9">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#about-me" data-toggle="tab">Cab Mates</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="about-me">
+                            <br>
+                            <div class="col-md-12"> -->
+
+                                <!-- <div class="col-md-6"> -->
+                                    <!-- Widget: user widget style 1 -->
+                                    <!-- <div class="box box-widget widget-user"> -->
+                                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                                        <!-- <div class="widget-user-header bg-aqua-active">
+                                            <h3 class="widget-user-username">Alexander Pierce</h3>
+                                        </div>
+                                        <div class="widget-user-image">
+                                            <img class="img-circle" src="assets\img\user1-128x128.jpg" alt="User Avatar">
+                                        </div>
+                                        <div class="box-footer">
+                                            <div class="row">
+                                                <div class="col-sm-4 border-right">
+                                                    <div class="description-block">
+                                                        <h5 class="description-header">3,200</h5>
+                                                        <span class="description-text">SALES</span>
+                                                    </div> -->
+                                                    <!-- /.description-block -->
+                                                <!-- </div> -->
+                                                <!-- /.col -->
+                                                <!-- <div class="col-sm-4 border-right">
+                                                    <div class="description-block">
+                                                        <h5 class="description-header">13,000</h5>
+                                                        <span class="description-text">FOLLOWERS</span>
+                                                    </div> -->
+                                                    <!-- /.description-block -->
+                                                <!-- </div> -->
+                                                <!-- /.col -->
+                                                <!-- <div class="col-sm-4">
+                                                    <div class="description-block">
+                                                        <h5 class="description-header">35</h5>
+                                                        <span class="description-text">PRODUCTS</span>
+                                                    </div> -->
+                                                    <!-- /.description-block -->
+                                                <!-- </div> -->
+                                                <!-- /.col -->
+                                            <!-- </div> -->
+                                            <!-- /.row -->
+                                        <!-- </div>
+                                    </div> -->
+                                    <!-- /.widget-user -->
+                                <!-- </div> -->
+                                <!-- /.col -->
+
+                                <!-- <div class="col-md-6"> -->
+                                        <!-- Widget: user widget style 1 -->
+                                        <!-- <div class="box box-widget widget-user"> -->
+                                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                                            <!-- <div class="widget-user-header bg-aqua-active">
+                                                <h3 class="widget-user-username">Alexander Pierce</h3>
+                                            </div>
+                                            <div class="widget-user-image">
+                                                <img class="img-circle" src="assets\img\user1-128x128.jpg" alt="User Avatar">
+                                            </div>
+                                            <div class="box-footer">
+                                                <div class="row">
+                                                    <div class="col-sm-4 border-right">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">3,200</h5>
+                                                            <span class="description-text">SALES</span>
+                                                        </div> -->
+                                                        <!-- /.description-block -->
+                                                    <!-- </div> -->
+                                                    <!-- /.col -->
+                                                    <!-- <div class="col-sm-4 border-right"> -->
+                                                        <!-- <div class="description-block"> -->
+                                                            <!-- <h5 class="description-header">13,000</h5>
+                                                            <span class="description-text">FOLLOWERS</span>
+                                                        </div> -->
+                                                        <!-- /.description-block -->
+                                                    <!-- </div> -->
+                                                    <!-- /.col -->
+                                                    <!-- <div class="col-sm-4">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">35</h5>
+                                                            <span class="description-text">PRODUCTS</span>
+                                                        </div> -->
+                                                        <!-- /.description-block -->
+                                                    <!-- </div> -->
+                                                    <!-- /.col -->
+                                                <!-- </div> -->
+                                                <!-- /.row -->
+                                            <!-- </div>
+                                        </div> -->
+                                        <!-- /.widget-user -->
+                                    <!-- </div> -->
+                                    <!-- /.col -->
+                               
+
+
+                            <!-- </div> -->
+                            <!-- /.col -->
+                        <!-- </div> -->
+                        <!-- /.tab-pane -->
+                        <!-- <div class="tab-pane" id="timeline"> -->
+                            <!-- The timeline -->
+                            <!-- <ul class="timeline timeline-inverse"> -->
+                                <!-- timeline time label -->
+                                <!-- <li class="time-label">
+                                    <span class="bg-red">
+                                        10 Feb. 2014
+                                    </span>
+                                </li> -->
+                                <!-- /.timeline-label -->
+                                <!-- timeline item -->
+                                <!-- <li>
+                                    <i class="fa fa-envelope bg-blue"></i>
+
+                                    <div class="timeline-item">
+                                        <span class="time">
+                                            <i class="fa fa-clock-o"></i> 12:05</span>
+
+                                        <h3 class="timeline-header">
+                                            <a href="#">Support Team</a> sent you an email</h3>
+
+                                        <div class="timeline-body">
+                                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle quora plaxo
+                                            ideeli hulu weebly balihoo...
+                                        </div>
+                                        <div class="timeline-footer">
+                                            <a class="btn btn-primary btn-xs">Read more</a>
+                                            <a class="btn btn-danger btn-xs">Delete</a>
+                                        </div>
+                                    </div>
+                                </li> -->
+                                <!-- END timeline item -->
+                                <!-- timeline item -->
+                                <!-- <li>
+                                    <i class="fa fa-user bg-aqua"></i>
+
+                                    <div class="timeline-item">
+                                        <span class="time">
+                                            <i class="fa fa-clock-o"></i> 5 mins ago</span>
+
+                                        <h3 class="timeline-header no-border">
+                                            <a href="#">Sarah Young</a> accepted your friend request
+                                        </h3>
+                                    </div>
+                                </li> -->
+                                <!-- END timeline item -->
+                                <!-- timeline item -->
+                                <!-- <li>
+                                    <i class="fa fa-comments bg-yellow"></i>
+
+                                    <div class="timeline-item">
+                                        <span class="time">
+                                            <i class="fa fa-clock-o"></i> 27 mins ago</span>
+
+                                        <h3 class="timeline-header">
+                                            <a href="#">Jay White</a> commented on your post</h3>
+
+                                        <div class="timeline-body">
+                                            Take me to your leader! Switzerland is small and neutral! We are more like Germany, ambitious and misunderstood!
+                                        </div>
+                                        <div class="timeline-footer">
+                                            <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                                        </div>
+                                    </div>
+                                </li> -->
+                                <!-- END timeline item -->
+                                <!-- timeline time label -->
+                                <!-- <li class="time-label">
+                                    <span class="bg-green">
+                                        3 Jan. 2014
+                                    </span>
+                                </li> -->
+                                <!-- /.timeline-label -->
+                                <!-- timeline item -->
+                                <!-- <li>
+                                    <i class="fa fa-camera bg-purple"></i>
+
+                                    <div class="timeline-item">
+                                        <span class="time">
+                                            <i class="fa fa-clock-o"></i> 2 days ago</span>
+
+                                        <h3 class="timeline-header">
+                                            <a href="#">Mina Lee</a> uploaded new photos</h3>
+
+                                        <div class="timeline-body">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                        </div>
+                                    </div>
+                                </li> -->
+                                <!-- END timeline item -->
+                                <!-- <li>
+                                    <i class="fa fa-clock-o bg-gray"></i>
+                                </li>
+                            </ul>
+                        </div> -->
+                        <!-- /.tab-pane -->
+
+                        <!-- <div class="tab-pane" id="settings">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">Name</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">Name</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputName" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
+
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> I agree to the
+                                                <a href="#">terms and conditions</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-danger">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div> -->
+                        <!-- /.tab-pane -->
+                    <!-- </div> -->
+                    <!-- /.tab-content -->
+                <!-- </div> -->
+                <!-- /.nav-tabs-custom -->
+            <!-- </div> -->
+            <!-- /.col -->
+
+        <!-- </div> -->
+        <!-- /.row -->
+
+    <!-- </section> -->
+    <!-- /.content -->
+
+
+    <!-- <br>
+    <br>
+    <br> -->
+
     <div class="row">
-        <div *ngIf="emp && showLoader == false" id="user-profile-content"
-            class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2"
-            align="left">
-            <div class="panel panel-info">             
+        <div *ngIf="emp && showLoader == false" id="user-profile-content" class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2" align="left">
+            <div class="panel panel-info">
                 <div class="panel-body">
-                    <div class="row">           
+                    <div class="row">
                         <div class="col-md-8">
-                            <div id="user-detail-left" >
+                            <div id="user-detail-left">
                                 <div class="user-detail-heading">Name</div>
                                 <div class="user-detail-data">
-                                    <span class="user-detail-icon glyphicon glyphicon-user"></span> 
-                                        {{emp?.empFName}} {{ emp?.empMName }} {{emp?.empLName}} ({{emp?.empQlid}})
+                                    <span class="user-detail-icon glyphicon glyphicon-user"></span>
+                                    {{emp?.empFName}} {{ emp?.empMName }} {{emp?.empLName}} ({{emp?.empQlid}})
                                 </div>
                                 <div class="user-detail-heading">Contact no</div>
-                                <div class="user-detail-data"> 
+                                <div class="user-detail-data">
                                     <span class="user-detail-icon glyphicon glyphicon-phone"></span>
-                                        {{ emp?.empMobNbr }}
+                                    {{ emp?.empMobNbr }}
                                 </div>
-                                <div  class="user-detail-heading">Address</div>
+                                <div class="user-detail-heading">Address</div>
                                 <div class="user-detail-data">
                                     <table>
                                         <tr>
-                                            <td><span class="user-detail-icon glyphicon glyphicon-home"></span></td>
+                                            <td>
+                                                <span class="user-detail-icon glyphicon glyphicon-home"></span>
+                                            </td>
                                             <td class="data-col">
                                                 {{emp?.empAddLine1}}
-                                                <br />
-                                                {{emp?.empAddLine2}}
+                                                <br /> {{emp?.empAddLine2}}
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
-                                <div  class="user-detail-heading">Postal Code</div>
+                                <div class="user-detail-heading">Postal Code</div>
                                 <div class="user-detail-data">
-                                    <img id="postbox" src="assets/img/postbox.svg" class="img-thumbnail">
-                                    {{ emp?.empPin }}
+                                    <img id="postbox" src="assets/img/postbox.svg" class="img-thumbnail"> {{ emp?.empPin }}
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4" id="user-detail-right">
-                            <div  class="user-detail-heading">Pickup Area</div>
+                            <div class="user-detail-heading">Pickup Area</div>
                             <div class="user-detail-data">
                                 {{ emp?.empPickupArea }}
                             </div>
-                            <div  class="user-detail-heading">Zone</div>
+                            <div class="user-detail-heading">Zone</div>
                             <div class="user-detail-data">
                                 {{ emp?.empZone }}
                             </div>
-                            <div  class="user-detail-heading">L1 Manager</div>
+                            <div class="user-detail-heading">L1 Manager</div>
                             <div class="user-detail-data">
                                 <strong>{{ emp.mgr1Name }}</strong>
                                 ({{ emp?.empMgrQlid1 }})
                             </div>
-                            <div  class="user-detail-heading">L2 Manager</div>
+                            <div class="user-detail-heading">L2 Manager</div>
                             <div class="user-detail-data">
                                 <strong>{{ emp.mgr2Name }}</strong>
                                 ({{ emp?.empMgrQlid2 }})
@@ -78,8 +397,7 @@
         </div>
     </div>  -->
 
-    <div *ngIf="rosterInfo" class="panel panel-info col-md-8 col-md-offset-2"
-        id="employee-roster-info">
+    <div *ngIf="rosterInfo" class="panel panel-info col-md-8 col-md-offset-2" id="employee-roster-info">
         <div class="panel-heading clearfix">
             <span class="panel-title pull-left col-sm-2 text-center">
                 <strong>Route No:</strong> {{ rosterInfo[0].Route_number }}
@@ -90,15 +408,15 @@
                     <span *ngIf="rosterInfo[0].shift_id == 1">07:00 AM - 04:00 PM</span>
                     <span *ngIf="rosterInfo[0].shift_id == 2">10:00 AM - 07:00 PM</span>
                     <span *ngIf="rosterInfo[0].shift_id == 4">12:00 PM - 09:00 PM</span>
-                    <span *ngIf="rosterInfo[0].shift_id == 3">Unsched Shift HR</span>  
+                    <span *ngIf="rosterInfo[0].shift_id == 3">Unsched Shift HR</span>
                 </span>
             </span>
             <span class="panel-title pull-left col-sm-2 text-center">
                 <strong>Cab No:</strong> {{ rosterInfo[0].Cab_number }}
             </span>
             <span *ngIf="emp.driverDetails" class="panel-title pull-left col-sm-4 text-center">
-                <strong>Driver Name:</strong> {{ emp.driverDetails.driverName }}
-                (<strong>Mob:</strong> {{ emp.driverDetails.driverContact }})
+                <strong>Driver Name:</strong> {{ emp.driverDetails.driverName }} (
+                <strong>Mob:</strong> {{ emp.driverDetails.driverContact }})
             </span>
         </div>
         <div *ngFor="let i of emp.rosterInfo" id="rowcss">
@@ -112,8 +430,7 @@
                                 <tr>
                                     <td>
                                         <span class="glyphicon glyphicon-user icon"></span>
-                                        {{i.f_name }} {{i.m_name }} {{i.l_name}}
-                                        [{{i.Qlid}}]
+                                        {{i.f_name }} {{i.m_name }} {{i.l_name}} [{{i.Qlid}}]
                                     </td>
                                 </tr>
                             </table>
@@ -124,16 +441,16 @@
                             <table class="roster-row2">
                                 <tr>
                                     <td>
-                                    <!-- <td class="icon-col"> -->
+                                        <!-- <td class="icon-col"> -->
                                         <span class="glyphicon glyphicon-phone icon">
                                         </span>
-                                    <!-- </td>
+                                        <!-- </td>
                                     <td class="icon-val"> -->
                                         {{i.e_mob}}
-                                    <!-- </td>
+                                        <!-- </td>
                                     <td class="icon-col" style="padding:3px 0px; width: 30px"> -->
                                         <span class="glyphicon glyphicon-home icon"></span>
-                                    <!-- </td>
+                                        <!-- </td>
                                     <td class="icon-val"> -->
                                         {{i.p_a}}
                                     </td>
@@ -165,7 +482,6 @@
                 </div>
             </div>  -->
             <!-- </div> -->
-        </div>    
+        </div>
     </div>
 </div>
-
