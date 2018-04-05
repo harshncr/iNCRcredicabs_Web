@@ -346,7 +346,9 @@ table td{
 /* Right side profile */
 .box.box-primary {
     border-top-color: #3c8dbc;
-    border-top-width: 2px;
+    border-top-width: 5px;
+    border-left: 1px solid #d2d6de;
+    border-right: 1px solid #d2d6de;
 }
 
 .box-body {
