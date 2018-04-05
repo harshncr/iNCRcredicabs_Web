@@ -11,7 +11,7 @@ declare var $ :any;
 })
 export class EmployeeChangePasswordComponent implements OnInit {
   ////-------------data for loader-------------
-  showLoader              = false;
+  showLoader              = true;
   loaderText              = "Loading...";
   ////-----------------------------------------
 
@@ -46,11 +46,26 @@ export class EmployeeChangePasswordComponent implements OnInit {
     password2: {error: false, message: ''}
   };
 
-  constructor(private userCredService: UserCredService) { }
+  constructor(
+    private userCredService: UserCredService,
+    private employeeService: EmployeeService
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.employeeService.getQlid().subscribe((data) => {
+      if(data.success){
+        this.qlid = data.qlid;
+        console.log(this.qlid);
+      }else{
+        // do something
+      }
+
+      this.showLoader = false;
+    });
+  }
 
   onSave(f){
+    this.refreshErrorValues();
     if(this.validate()){
       let payload = {
         currentPassword: this.currentPassword,
@@ -69,6 +84,7 @@ export class EmployeeChangePasswordComponent implements OnInit {
           }
           this.message = data.message;
         }else{
+          this.showError = true;
           this.message = 'No data received!';
         }
         console.log(data);
@@ -80,21 +96,25 @@ export class EmployeeChangePasswordComponent implements OnInit {
     this.refreshErrorValues();
     let validateStatus = true;
 
-    if(this.currentPassword == null || this.currentPassword == ''){
+    if(this.password1 != this.password2){
       validateStatus = false;
-      this.formError.currentPassword.error = true;
-      this.formError.currentPassword.message = 'Current password cannot be blank!';
+    }
+
+    if(this.password1 != null && this.password1 != undefined){
+      if(this.password1.toUpperCase().match(this.qlid.toUpperCase()) != null){
+        validateStatus = false;
+        this.formError.password1.error = true;
+        this.formError.password1.message = 'Error! Password cannot be qlid!'; 
+      }
+    }else{
+      validateStatus = false;
     }
     
-    if(this.password1 != null && this.password1 != undefined
-      && this.password2 != null && this.password2 != undefined
-    ){
-      if(this.password1 != this.password2){
-        validateStatus = false;
-      }else if(this.password2.toUpperCase() == this.qlid.toUpperCase()){
+    if(this.password2 != null && this.password2 != undefined){
+      if(this.password2.toUpperCase().match(this.qlid.toUpperCase()) != null){
         validateStatus = false;
         this.formError.password2.error = true;
-        this.formError.password2.message = 'Error! Password cannot be qlid!';
+        this.formError.password2.message = 'Error! Password cannot be qlid!'; 
       }
     }else{
       validateStatus = false;
@@ -187,114 +207,4 @@ export class EmployeeChangePasswordComponent implements OnInit {
     this.formError.password1.message ='';
     this.formError.password2.message ='';
   }
-
-  // currPass: string = null;
-  // pass1: string = null;
-  // pass2: string = null;
-  // valid: boolean = false;
-
-  // constructor(private employeeService: EmployeeService) { }
-
-  // ngOnInit() {
-  //   $("input[type=password]").keyup(function(){
-  //     this.validate();
-  //   });
-  // }
-
-  // validate(){
-  //   let upper = false;
-  //   let lower = false;
-  //   let digit = false;
-  //   let length = false;
-  //   let equal = false;
-
-  //   var ucase = /[A-Z]+/;
-  //   var lcase = /[a-z]+/;
-  //   var num   = /[0-9]+/;
-    
-  //   if(this.pass1.length >= 8){
-  //     length = true;
-  //     $("#8char").removeClass("glyphicon-remove");
-  //     $("#8char").addClass("glyphicon-ok");
-  //     $("#8char").css("color","#00A41E");
-  //   }else{
-  //     $("#8char").removeClass("glyphicon-ok");
-  //     $("#8char").addClass("glyphicon-remove");
-  //     $("#8char").css("color","#FF0004");
-  //   }
-    
-  //   if(ucase.test(this.pass1)){
-  //     upper = true;
-  //     $("#ucase").removeClass("glyphicon-remove");
-  //     $("#ucase").addClass("glyphicon-ok");
-  //     $("#ucase").css("color","#00A41E");
-  //   }else{
-  //     $("#ucase").removeClass("glyphicon-ok");
-  //     $("#ucase").addClass("glyphicon-remove");
-  //     $("#ucase").css("color","#FF0004");
-  //   }
-    
-  //   if(lcase.test(this.pass1)){
-  //     lower = true;
-  //     $("#lcase").removeClass("glyphicon-remove");
-  //     $("#lcase").addClass("glyphicon-ok");
-  //     $("#lcase").css("color","#00A41E");
-  //   }else{
-  //     $("#lcase").removeClass("glyphicon-ok");
-  //     $("#lcase").addClass("glyphicon-remove");
-  //     $("#lcase").css("color","#FF0004");
-  //   }
-    
-  //   if(num.test(this.pass1)){
-  //     digit = true;
-  //     $("#num").removeClass("glyphicon-remove");
-  //     $("#num").addClass("glyphicon-ok");
-  //     $("#num").css("color","#00A41E");
-  //   }else{
-  //     $("#num").removeClass("glyphicon-ok");
-  //     $("#num").addClass("glyphicon-remove");
-  //     $("#num").css("color","#FF0004");
-  //   }
-    
-  //   if(this.pass1 == this.pass2 && this.pass1 != null){
-  //     equal = true;
-  //     $("#pwmatch").removeClass("glyphicon-remove");
-  //     $("#pwmatch").addClass("glyphicon-ok");
-  //     $("#pwmatch").css("color","#00A41E");
-  //   }else{
-  //     $("#pwmatch").removeClass("glyphicon-ok");
-  //     $("#pwmatch").addClass("glyphicon-remove");
-  //     $("#pwmatch").css("color","#FF0004");
-  //   }
-
-  //   this.valid = equal && digit && lower && upper && length;
-  // }
-
-  // onSave(){
-  //   this.showLoader = true;
-  //   if(this.valid){
-  //     let payload = {
-  //       currentPassword:  this.currPass,
-  //       password1:        this.pass1,
-  //       password2:        this.pass2
-  //     };
-  //     this.employeeService.setPassword(payload).subscribe((data) => {
-  //       this.showLoader = true;
-  //       if(data != null || data != '' || data != undefined){
-  //         if(data.success){
-  //           this.showSuccess = true;            
-  //           this.showError = false;
-  //         }else{
-  //           this.showError = true;
-  //           this.showSuccess = false;
-  //         }
-  //         this.message = data.message;
-  //       }
-  //       this.showLoader = false;
-  //     });
-  //   }
-
-  //   this.showLoader = false;
-  // }
-
 }

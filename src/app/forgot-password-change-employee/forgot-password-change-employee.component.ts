@@ -10,8 +10,12 @@ declare var $ :any;
   styleUrls: ['./forgot-password-change-employee.component.css']
 })
 export class ForgotPasswordChangeEmployeeComponent implements OnInit {
-  password1?:string;
-  password2?:string;
+  ////-------------data for loader-------------
+  showLoader              = false;
+  loaderText              = "Loading...";
+  ////-----------------------------------------
+  password1?:string = '';
+  password2?:string = '';
   buttonDisabled?:String;
   qlid:string;
   token:string;
@@ -20,7 +24,6 @@ export class ForgotPasswordChangeEmployeeComponent implements OnInit {
   message = "";
   tokenValid = false;
   invalidTokenError = true;
-  showLoading = true;
 
   formTest = {
     char8: false,
@@ -41,20 +44,21 @@ export class ForgotPasswordChangeEmployeeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // this.invalidTokenError = false;
+    // this.showResponse = false;
     this.route.params.subscribe((params)=>{
       this.qlid = params['qlid'];
       this.token = params['token'];
-
       this.userCredService.verifyPwdToken(this.qlid, this.token).subscribe((data) => {
         console.log(data);
         if(data != null && data != undefined){
-          this.showLoading = false;
           if(data.valid){
             this.invalidTokenError = false;
           }else{
             this.invalidTokenError = true;
           }
         }
+        this.showLoader = false;
       });
     });
   }
@@ -75,22 +79,22 @@ export class ForgotPasswordChangeEmployeeComponent implements OnInit {
     this.refreshErrorValues();
     let validateStatus = true;
 
-    if(this.password1 == null || this.password1 == undefined){
+    if(this.password1 != this.password2){
       validateStatus = false;
-    }else{
+    }
+
+    if(this.password1 != null && this.password1 != undefined && this.password1 != ''){
       if(this.password1.toUpperCase().match(this.qlid.toUpperCase()) != null){
-        // if(this.password1.toUpperCase() == this.qlid.toUpperCase()){
         validateStatus = false;
         this.formError.password1.error = true;
         this.formError.password1.message = 'Error! Password cannot contain qlid!'; 
       }
+    }else{
+      console.log('password1 is null');
+      validateStatus = false;
     }
     
-    if(this.password2 != null && this.password2 != undefined){
-      if(this.password1 != this.password2){
-        validateStatus = false;
-      }
-
+    if(this.password2 != null && this.password2 != undefined && this.password2 != ''){
       if(this.password2.toUpperCase().match(this.qlid.toUpperCase()) != null){
         validateStatus = false;
         this.formError.password2.error = true;

@@ -76,20 +76,21 @@ export class SetPasswordEmployeeComponent implements OnInit {
     this.refreshErrorValues();
     let validateStatus = true;
 
-    if(this.password1 == null || this.password1 == undefined){
+    if(this.password1 != this.password2){
       validateStatus = false;
-    }else{
+    }
+
+    if(this.password1 != null && this.password1 != undefined){
       if(this.password1.toUpperCase().match(this.qlid.toUpperCase()) != null){
         validateStatus = false;
         this.formError.password1.error = true;
         this.formError.password1.message = 'Error! Password cannot be qlid!'; 
       }
+    }else{
+      validateStatus = false;
     }
     
     if(this.password2 != null && this.password2 != undefined){
-      if(this.password1 != this.password2){
-        validateStatus = false;
-      }
       if(this.password2.toUpperCase().match(this.qlid.toUpperCase()) != null){
         validateStatus = false;
         this.formError.password2.error = true;

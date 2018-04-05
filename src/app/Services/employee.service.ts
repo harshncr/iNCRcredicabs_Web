@@ -166,6 +166,16 @@ export class EmployeeService {
         });
     }
 
+    getQlid(): Observable<any>{
+        return this.apiService.callApiService({
+            requestType: REQUEST_TYPE_POST,
+            url: `${environment.getEmpQlidUrl}`,
+            headers: this.headers,
+            body: JSON.stringify({}),
+            shouldBlock: true
+        });
+    }
+
     uploadExcel(formData): Observable<any>{
         return this.http.post(`${environment.uploadEmployeeExcelUrl}`, formData)
         .map(res => {

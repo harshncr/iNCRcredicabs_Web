@@ -84,7 +84,7 @@
   <app-loader-anim [showLoader]="showLoader" [loaderText]="loaderText"></app-loader-anim>
   <div *ngIf="arr">
     <div *ngFor="let emp of arr;let i = index">
-      <div [ngClass]="{
+      <div *ngIf="emp" [ngClass]="{
         'panel panel-info': emp.empStatus == 'A' || emp.empStatus == 'a',
         'panel panel-default': emp.empStatus == 'I' || emp.empStatus == 'i'
       }">
