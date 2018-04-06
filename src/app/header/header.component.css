@@ -126,6 +126,13 @@ nav ul{
     padding: 5px 0px 0px 5px;
 }
 
+.profile-dropdown{
+    padding-left: 0px;
+}
+.employee-name{
+    padding-right: 0px;
+}
+
 hr{
     height: 2px;
     margin: 2px 0px 0px 0px;
@@ -161,6 +168,7 @@ hr{
 }
 
 .dropdown-menu{
+    min-width: 166px;
     padding: 0px;
 }
 
@@ -169,5 +177,5 @@ hr{
 }
 
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover{
-    background-color: #54b948;
+    background-color: transparent;
 }
