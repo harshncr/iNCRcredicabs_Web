@@ -21,36 +21,14 @@
 
         <div class="row">
 
-          <!-- Type of Report Selector  -->
-          <!-- <div class="col-md-3">
-            Type of Reports:
-            <select [(ngModel)]="filterReport" name="filterIt" class="form-control" (change)="refreshBody()">
-              <!-- <option value="Regular_Detailed_ByManager">Regular_Detailed_ByManager</option>
-              <option value="Regular_Detailed_ByVendor">Regular_Detailed_ByVendor</option>
-              <option value="Regular_Detailed_ByEmployee">Regular_Detailed_ByEmployee</option>
-              <option value="Regular_Summary_ByManager">Regular_Summary_ByManager</option>
-              <option value="Regular_Summary_ByVendor">Regular_Summary_ByVendor</option>
-              <option value="Regular_Summary_ByEmployee">Regular_Summary_ByEmployee</option> -->
-          <!-- <option value="Unschedule_Detail_ByManager">Unschedule_Detail_ByManager</option>
-              <option value="Unschedule_Detail_ByVendor">Unschedule_Detail_ByVendor</option>
-              <option value="Unschedule_Detail_ByEmployee">Unschedule_Detail_ByEmployee</option>
-              <option value="Unschedule_Summary_ByManager">Unschedule_Summary_ByManager</option>
-              <option value="Unschedule_Summary_ByVendor">Unschedule_Summary_ByVendor</option>
-              <option value="Unschedule_Summary_ByEmployee">Unschedule_Summary_ByEmployee</option>
-              <option value="Checkin_Checkout">Checkin_Checkout</option>
-              <option value="Vendor_Billing_Summary">Vendor_Billing_Summary</option>
-              <option value="Transportation_Billing">Transportation_Billing</option>
-            </select>
-          </div>  -->
-
           <!-- Filter for Unscheduled -->
-          <div class="col-md-4" *ngIf="(filterReport == 'Unschedule_Detail_ByManager')
-                                  ||(filterReport =='Unschedule_Detail_ByVendor')    
-                                  ||(filterReport =='Unschedule_Detail_ByEmployee')    
-                                  ||(filterReport =='Unschedule_Summary_ByManager')    
-                                  ||(filterReport =='Unschedule_Summary_ByVendor')    
-                                  ||(filterReport =='Unschedule_Summary_ByEmployee')    
-                                  ||(filterReport =='Unschedule_Summary_ByVendor')">
+          <div class="col-md-4" *ngIf="(filterReport == 'Unschedule Detail By Manager')
+                                  ||(filterReport =='Unschedule Detail By Vendor')    
+                                  ||(filterReport =='Unschedule Detail By Employee')    
+                                  ||(filterReport =='Unschedule Summary By Manager')    
+                                  ||(filterReport =='Unschedule Summary By Vendor')    
+                                  ||(filterReport =='Unschedule Summary By Employee')
+              ">
             <div class="form-group">
               <div class="col-sm-6">
                 FROM:
@@ -64,38 +42,37 @@
           </div>
 
           <!-- Filter by field for Unscheduled -->
-          <div class="col-md-4" *ngIf="(filterReport == 'Unschedule_Detail_ByManager')
-                                      ||(filterReport =='Unschedule_Detail_ByVendor')    
-                                      ||(filterReport =='Unschedule_Detail_ByEmployee')    
-                                      ||(filterReport =='Unschedule_Summary_ByManager')    
-                                      ||(filterReport =='Unschedule_Summary_ByVendor')    
-                                      ||(filterReport =='Unschedule_Summary_ByEmployee')    
-                                      ||(filterReport =='Unschedule_Summary_ByVendor')">
+          <div class="col-md-4" *ngIf="(filterReport == 'Unschedule Detail By Manager')
+                                      ||(filterReport =='Unschedule Detail By Vendor')    
+                                      ||(filterReport =='Unschedule Detail By Employee')    
+                                      ||(filterReport =='Unschedule Summary By Manager')    
+                                      ||(filterReport =='Unschedule Summary By Vendor')    
+                                      ||(filterReport =='Unschedule Summary By Employee')">
             <div class="form-group">
               <div class="col-md-12">
-                <div *ngIf="filterReport == 'Unschedule_Summary_ByManager'">
+                <div *ngIf="filterReport == 'Unschedule Summary By Manager'">
                   Manager Name:
                   <input name="filManagerName" class="form-control" type="text" [(ngModel)]="filterMan" name="filterVal">
                 </div>
 
-                <div *ngIf="filterReport == 'Unschedule_Summary_ByVendor'">
+                <div *ngIf="filterReport == 'Unschedule Summary By Vendor'">
                   Vendor Name:
                   <input name="filVendorName" class="form-control" type="text" [(ngModel)]="filterValue" name="filterValue">
                 </div>
-                <div *ngIf="filterReport == 'Unschedule_Detail_ByEmployee'">
+                <div *ngIf="filterReport == 'Unschedule Detail By Employee'">
                   Employee Name:
                   <input name="filEmployeeName" class="form-control" type="text" [(ngModel)]="filterValue" name="filterValue">
                 </div>
-                <div *ngIf="filterReport == 'Unschedule_Detail_ByVendor'">
+                <div *ngIf="filterReport == 'Unschedule Detail By Vendor'">
                   Vendor Name:
                   <input type="text" class="form-control" [(ngModel)]="filterValue" name="filterValue">
                 </div>
-                <div *ngIf="filterReport == 'Unschedule_Detail_ByManager'">
+                <div *ngIf="filterReport == 'Unschedule Detail By Manager'">
                   Manager Name:
                   <input type="text" class="form-control" [(ngModel)]="filterValue" name="filterValue">
                 </div>
 
-                <div *ngIf="filterReport == 'Unschedule_Summary_ByEmployee'">
+                <div *ngIf="filterReport == 'Unschedule Summary By Employee'">
                   Employee Name:
                   <input type="text" class="form-control" [(ngModel)]="filterValue" name="filterValue">
                 </div>
@@ -104,7 +81,7 @@
           </div>
 
           <!-- Filter for Transport Billing -->
-          <div class="col-md-4" *ngIf="filterReport == 'Transportation_Billing'">
+          <div class="col-md-4" *ngIf="filterReport == 'Transportation Billing'">
 
             <div class="form-group">
               <div class="col-sm-6">
@@ -145,22 +122,22 @@
           </div>
 
           <!-- Go button in filter -->
-          <div class="col-md-1" *ngIf="(filterReport == 'Unschedule_Detail_ByManager')
-                                      ||(filterReport =='Unschedule_Detail_ByVendor')    
-                                      ||(filterReport =='Unschedule_Detail_ByEmployee')    
-                                      ||(filterReport =='Unschedule_Summary_ByManager')    
-                                      ||(filterReport =='Unschedule_Summary_ByVendor')    
-                                      ||(filterReport =='Unschedule_Summary_ByEmployee')    
-                                      ||(filterReport =='Unschedule_Summary_ByVendor')
-                                      ||(filterReport =='Transportation_Billing')">
+          <div class="col-md-1" *ngIf="(filterReport == 'Unschedule Detail By Manager')
+                                      ||(filterReport =='Unschedule Detail By Vendor')    
+                                      ||(filterReport =='Unschedule Detail By Employee')    
+                                      ||(filterReport =='Unschedule Summary By Manager')    
+                                      ||(filterReport =='Unschedule Summary By Vendor')    
+                                      ||(filterReport =='Unschedule Summary By Employee')    
+                                      ||(filterReport =='Unschedule Summary By Vendor')
+                                      ||(filterReport =='Transportation Billing')">
             <br>
-            <button type="submit" class="btn btn-default form-control" *ngIf="(filterReport == 'Unschedule_Detail_ByManager')
-            ||(filterReport =='Unschedule_Detail_ByVendor')    
-            ||(filterReport =='Unschedule_Detail_ByEmployee')    
-            ||(filterReport =='Unschedule_Summary_ByManager')    
-            ||(filterReport =='Unschedule_Summary_ByVendor')    
-            ||(filterReport =='Unschedule_Summary_ByEmployee')    
-            ||(filterReport =='Unschedule_Summary_ByVendor')">
+            <button type="submit" class="btn btn-default form-control" *ngIf="(filterReport == 'Unschedule Detail By Manager')
+            ||(filterReport =='Unschedule Detail By Vendor')    
+            ||(filterReport =='Unschedule Detail By Employee')    
+            ||(filterReport =='Unschedule Summary By Manager')    
+            ||(filterReport =='Unschedule Summary By Vendor')    
+            ||(filterReport =='Unschedule Summary By Employee')    
+            ||(filterReport =='Unschedule Summary By Vendor')">
               Go
             </button>
           </div>
@@ -168,7 +145,7 @@
         </div>
 
         <!-- Filters for Checkin-out Report -->
-        <div class="row top-buffer" *ngIf="filterReport=='Checkin_Checkout'">
+        <div class="row top-buffer" *ngIf="filterReport=='Checkin Checkout'">
           <div class="col-sm-2">
 
             Vendor Name
@@ -220,7 +197,7 @@
 
 
         <!-- Filters for Vendorwise Report -->
-        <div class="row top-buffer" *ngIf="filterReport=='Vendor_Billing_Detail'">
+        <div class="row top-buffer" *ngIf="filterReport=='Vendor Billing Detail'">
 
 
           <div class="col-sm-2">
@@ -302,7 +279,7 @@
     <h3 class="panel-title pull-left">{{filterReport}} Reports:</h3>
   </div>
 
-  <div class="panel-body"  *ngIf="filterReport == 'Unschedule_Summary_ByManager'">
+  <div class="panel-body"  *ngIf="filterReport == 'Unschedule Summary By Manager'">
     <table class="table table-bordered table-hover table-stripped">
       <thead>
         <tr>
@@ -335,7 +312,7 @@
     </table>
   </div>
 
-  <div *ngIf="filterReport == 'Unschedule_Summary_ByVendor'">
+  <div *ngIf="filterReport == 'Unschedule Summary By Vendor'">
     <table class="table table-bordered table-hover table-stripped">
       <thead>
         <tr>
@@ -361,7 +338,7 @@
     </table>
   </div>
 
-  <div *ngIf="filterReport == 'Unschedule_Summary_ByEmployee'">
+  <div *ngIf="filterReport == 'Unschedule Summary By Employee'">
     <table class="table table-bordered table-hover table-stripped">
       <thead>
         <tr>
@@ -396,7 +373,7 @@
     </table>
   </div>
 
-  <div *ngIf="filterReport == 'Unschedule_Detail_ByEmployee'">
+  <div *ngIf="filterReport == 'Unschedule Detail By Employee'">
     <table class="table table-bordered table-hover table-stripped">
       <thead>
         <tr>
@@ -455,7 +432,7 @@
     </table>
   </div>
 
-  <div *ngIf="filterReport == 'Unschedule_Detail_ByManager'">
+  <div *ngIf="filterReport == 'Unschedule Detail By Manager'">
     <table class="table table-bordered table-hover table-stripped">
       <thead>
         <tr>
@@ -513,7 +490,7 @@
     </table>
   </div>
 
-  <div *ngIf="filterReport == 'Unschedule_Detail_ByVendor'">
+  <div *ngIf="filterReport == 'Unschedule Detail By Vendor'">
     <table class="table table-bordered table-hover table-stripped">
       <thead>
         <tr>
@@ -559,7 +536,7 @@
     </table>
   </div>
 
-  <div *ngIf="filterReport =='Vendor_Billing_Detail'" class="table-responsive">
+  <div *ngIf="filterReport =='Vendor Billing Detail'" class="table-responsive">
     <table class="table table-bordered table-hover table-stripped" id="test">
       <thead>
         <tr>
@@ -665,7 +642,7 @@
 
   </div>
 
-  <div *ngIf="filterReport =='Checkin_Checkout'" class="table-responsive">
+  <div *ngIf="filterReport =='Checkin Checkout'" class="table-responsive">
     <table id="test" class="table table-bordered table-hover table-stripped">
       <thead>
         <tr>
@@ -726,7 +703,7 @@
     </table>
   </div>
 
-  <div class="col-md-9 col-md-offset-2" id="employee-form" *ngIf="filterReport =='Transportation_Billing'&& showDiv">
+  <div class="col-md-9 col-md-offset-2" id="employee-form" *ngIf="filterReport =='Transportation Billing'&& showDiv">
     <form name="myForm" #f="ngForm" (ngSubmit)="onTptCostForm(f.value)" class="form-horizontal" role="form">
       <fieldset>
 

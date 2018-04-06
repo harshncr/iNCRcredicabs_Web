@@ -84,7 +84,7 @@ export class ReportComponent implements OnInit {
   // to download Excel
   downloadExcel() {
 
-    if (this.filterReport == 'Vendor_Billing_Detail') {
+    if (this.filterReport == 'Vendor Billing Detail') {
       //Calculations start
       console.log(">>>filtertype: " + this.filterReport);
 
@@ -158,7 +158,7 @@ export class ReportComponent implements OnInit {
 
     switch (this.filterReport) {
 
-      case "Unschedule_Summary_ByManager":
+      case "Unschedule Summary By Manager":
         this.reportService.getManagerReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
@@ -168,7 +168,7 @@ export class ReportComponent implements OnInit {
         });
         break;
 
-      case "Unschedule_Summary_ByEmployee":
+      case "Unschedule Summary By Employee":
         this.reportService.getEmployeeReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
@@ -177,7 +177,7 @@ export class ReportComponent implements OnInit {
           console.log(data);
         }); break;
 
-      case "Unschedule_Summary_ByVendor":
+      case "Unschedule Summary By Vendor":
         this.reportService.getVendorReport(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
@@ -185,7 +185,7 @@ export class ReportComponent implements OnInit {
 
           console.log(data);
         }); break;
-      case "Unschedule_Detail_ByVendor":
+      case "Unschedule Detail By Vendor":
         this.reportService.getVendorReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
@@ -193,7 +193,7 @@ export class ReportComponent implements OnInit {
 
           console.log(data);
         }); break;
-      case "Unschedule_Detail_ByEmployee":
+      case "Unschedule Detail By Employee":
         this.reportService.getEmployeeReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
@@ -201,7 +201,7 @@ export class ReportComponent implements OnInit {
 
           console.log(data);
         }); break;
-      case "Unschedule_Detail_ByManager":
+      case "Unschedule Detail By Manager":
         this.reportService.getManagerReportDetail(f.toDate, f.fromDate, this.filterVal).subscribe((data) => {
           this.reports = data;
           this.showLoader = false;
@@ -209,7 +209,7 @@ export class ReportComponent implements OnInit {
 
           console.log(data);
         }); break;
-      case "Vendor_Billing_Detail":
+      case "Vendor Billing Detail":
         this.reportService.getBillingSummary(this.shiftValue, f.VendorName, this.fromDate, this.toDate).subscribe((data) => {
           this.BillingSummaryReport = data;
           this.showLoader = false;
@@ -217,7 +217,7 @@ export class ReportComponent implements OnInit {
 
           console.log(data);
         }); break;
-      case "Checkin_Checkout":
+      case "Checkin Checkout":
         this.showDiv = true;
         this.getdata(f);
 
@@ -236,7 +236,7 @@ export class ReportComponent implements OnInit {
     this.filterReport=val;
 
     switch (val) {
-      case "Unschedule_Summary_ByManager":
+      case "Unschedule Summary By Manager":
         this.showLoader = true;
         this.reportService.getManagerReport1(this.filterValue).subscribe((data) => {
           this.showLoader = false;
@@ -246,7 +246,7 @@ export class ReportComponent implements OnInit {
         });
         break;
 
-      case "Unschedule_Summary_ByEmployee":
+      case "Unschedule Summary By Employee":
         this.showLoader = true;
 
         this.reportService.getEmployeeReport1(this.filterValue).subscribe((data) => {
@@ -257,7 +257,7 @@ export class ReportComponent implements OnInit {
           console.log(data);
         }); break;
 
-      case "Unschedule_Summary_ByVendor":
+      case "Unschedule Summary By Vendor":
         this.showLoader = true;
 
         this.reportService.getVendorReport1(this.filterValue).subscribe((data) => {
@@ -266,7 +266,7 @@ export class ReportComponent implements OnInit {
           this.reports = data;
           console.log(data);
         }); break;
-      case "Unschedule_Detail_ByVendor":
+      case "Unschedule Detail By Vendor":
         this.showLoader = true;
 
         this.reportService.getVendorReportDetail1(this.filterValue).subscribe((data) => {
@@ -275,7 +275,7 @@ export class ReportComponent implements OnInit {
           this.reports = data;
           console.log(data);
         }); break;
-      case "Unschedule_Detail_ByEmployee":
+      case "Unschedule Detail By Employee":
         this.showLoader = true;
 
         this.reportService.getEmployeeReportDetail1(this.filterValue).subscribe((data) => {
@@ -287,7 +287,7 @@ export class ReportComponent implements OnInit {
 
           console.log(data);
         }); break;
-      case "Unschedule_Detail_ByManager":
+      case "Unschedule Detail By Manager":
         this.showLoader = true;
 
         this.reportService.getManagerReportDetail1(this.filterValue).subscribe((data) => {
@@ -300,7 +300,7 @@ export class ReportComponent implements OnInit {
           console.log(data);
         }); break;
 
-      case "Checkin_Checkout":
+      case "Checkin Checkout":
         this.showLoader = true;
         this.reportService.getVendorNames().subscribe((data) => {
           this.vname = data;
@@ -310,7 +310,7 @@ export class ReportComponent implements OnInit {
           console.log(data);
         }); break;
 
-      case "Vendor_Billing_Detail":
+      case "Vendor Billing Detail":
         this.showLoader = true;
         this.reportService.getVendorNames().subscribe((data) => {
           this.vname = data;
@@ -321,7 +321,6 @@ export class ReportComponent implements OnInit {
         }); break;
 
     }
-
 
   }
 
