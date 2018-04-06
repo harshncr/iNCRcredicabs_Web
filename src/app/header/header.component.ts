@@ -57,11 +57,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.headerUpdate();
 
-    this.loginService.checkLoginStatus().subscribe((data)=>{
-      if(data['login'] == false){
-        return this.router.navigateByUrl('/no-session');
-      }
-    });
+    this.checkLoginStatus();
 
     let resp;
     if(localStorage.getItem('role') != null && localStorage.getItem('role') != 'null'
@@ -81,11 +77,9 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
     }else{
       this.employeeService.getRole().subscribe((data) => {
         if(data != null || data != "" || data != undefined){
-          resp = data.roleName;
           this.empFName = data.empFName;
           console.log(data);
-          // debugger;
-          localStorage.setItem('role', resp);
+          localStorage.setItem('role', data.roleName);
           localStorage.setItem('empFName', data.empFName);
           if(localStorage.getItem('role') != 'ADMIN'){
             this.router.navigateByUrl('/employee-dash');
@@ -104,6 +98,21 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
     if(this.vendor){
       this.mode=this._dashData.getItem();
     }
+
+    //// check every 90 seconds whether user is logged in!
+    setInterval(()=>{this.checkLoginStatus()}, 90000);
+  }
+
+  checkLoginStatus(){
+    let now = new Date();
+    console.log(now+'] Checking login status....');
+    this.loginService.checkLoginStatus().subscribe((data)=>{
+      if(data['login'] == false){
+        return this.router.navigateByUrl('/no-session');
+      }else{
+        console.log('>>>> logged in!');
+      }
+    });
   }
 
   downloadRequestExcel(){

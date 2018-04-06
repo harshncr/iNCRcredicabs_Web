@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output }  from '@angular/core';
 import { LoginService }                             from '../Services/login.service';
 import { User }                                     from '../Model/user';
 import { Router }                                   from '@angular/router';
+import { EmployeeService } from '../Services/employee.service';
 
 declare var grecaptcha:any;
 declare var grecaptchaLoaded: boolean;
@@ -20,7 +21,11 @@ export class LoginComponent implements OnInit {
   ////-----------------------------------------
 
   @Output() onlogin: EventEmitter<any> = new EventEmitter<any>();
-  constructor(private loginService: LoginService, private _router: Router) {
+  constructor(
+    private loginService: LoginService,
+    private _router: Router,
+    private employeeService: EmployeeService    
+  ) {
     this.router = _router;
   }
 
@@ -46,41 +51,34 @@ export class LoginComponent implements OnInit {
 
   onSubmit(f) {
     this.showLoader = true;
-    console.log(grecaptchaLoaded);
-    console.log('"'+this.user.grecaptchaResponse.length+'"');
-    try{
-      // if(grecaptchaLoaded){
-      //   this.user.grecaptchaResponse = grecaptcha.getResponse();
-      //   if(this.user.grecaptchaResponse != null && this.user.grecaptchaResponse.length > 0){
-          this.loginService.startLogin(this.user).subscribe((data) => {
-            this.responseJSON = data;
-            this.login = this.responseJSON['login'];
-            if(this.login){
-              this.router.navigateByUrl('dash');
-            }else{
-              this.error = true;
-              $('#login-error').slideDown();
-              this.errorMessage = this.responseJSON['message'];
+    // console.log(grecaptchaLoaded);
+    // console.log('"'+this.user.grecaptchaResponse.length+'"');
+    this.loginService.startLogin(this.user).subscribe((data) => {
+      this.responseJSON = data;
+      this.login = this.responseJSON['login'];
+      if(this.login){
+        this.employeeService.getRole().subscribe((data) => {
+          if(data != null || data != "" || data != undefined){
+            console.log(data);
+            localStorage.setItem('role', data.roleName);
+            localStorage.setItem('empFName', data.empFName);
+            if(localStorage.getItem('role') != 'ADMIN'){
+              this.router.navigateByUrl('/employee-dash');
             }
-          });
-        // }else{
-        //   this.error = true;
-        //   this.errorMessage = 'You Must solve the Captcha!';
-        // }
-      // }else{
-      //   this.error = true;
-      //   this.errorMessage = 'reCaptcha could not be loaded, refresh the page and try again!';
-      // }
-    }catch(e){
-      console.log(e);
-      // this.error = true;
-      // this.errorMessage = 'reCaptcha could not be loaded, refresh the page and try again!';
-    }
+          }
+        });
+
+        this.router.navigateByUrl('dash');
+      }else{
+        this.error = true;
+        $('#login-error').slideDown();
+        this.errorMessage = this.responseJSON['message'];
+      }
+    });
     this.showLoader = false;
   }
 
   errorClose(){
-    // $('#login-error').slideDown();
     this.error = false;
   }
 }
