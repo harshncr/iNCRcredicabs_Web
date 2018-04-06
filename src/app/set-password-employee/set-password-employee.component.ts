@@ -11,8 +11,8 @@ declare var $ :any;
   styleUrls: ['./set-password-employee.component.css']
 })
 export class SetPasswordEmployeeComponent implements OnInit {
-  password1?:string = null;
-  password2?:string = null;
+  password1?:string = '';
+  password2?:string = '';
   buttonDisabled?:String;
   qlid:string;
   token:string;
@@ -100,6 +100,14 @@ export class SetPasswordEmployeeComponent implements OnInit {
       validateStatus = false;
     }
 
+    if((this.formTest.char8 && this.formTest.ucase && this.formTest.lcase
+      && this.formTest.num && this.formTest.pwdmatch
+      && this.formError.password1.error == false
+      && this.formError.password2.error == false) == false
+    ){
+      validateStatus = false;
+    }
+
     return validateStatus;
   }
 
@@ -114,7 +122,7 @@ export class SetPasswordEmployeeComponent implements OnInit {
 
     this.validate();
     
-    if(this.password1.length >= 8){
+    if(this.password1.length >= 8 && this.password1.length <= 16){
       $("#8char").removeClass("glyphicon-remove").addClass("glyphicon-ok").css("color","#00A41E");
       this.formTest.char8=true;
     }else{

@@ -11,7 +11,7 @@ declare var $ :any;
 })
 export class ForgotPasswordChangeEmployeeComponent implements OnInit {
   ////-------------data for loader-------------
-  showLoader              = false;
+  showLoader              = true;
   loaderText              = "Loading...";
   ////-----------------------------------------
   password1?:string = '';
@@ -44,8 +44,6 @@ export class ForgotPasswordChangeEmployeeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.invalidTokenError = false;
-    // this.showResponse = false;
     this.route.params.subscribe((params)=>{
       this.qlid = params['qlid'];
       this.token = params['token'];
@@ -104,6 +102,14 @@ export class ForgotPasswordChangeEmployeeComponent implements OnInit {
       validateStatus = false;
     }
 
+    if((this.formTest.char8 && this.formTest.ucase && this.formTest.lcase
+      && this.formTest.num && this.formTest.pwdmatch
+      && this.formError.password1.error == false
+      && this.formError.password2.error == false) == false
+    ){
+      validateStatus = false;
+    }
+
     return validateStatus;
   }
 
@@ -111,10 +117,8 @@ export class ForgotPasswordChangeEmployeeComponent implements OnInit {
     var ucase = /[A-Z]+/;
     var lcase = /[a-z]+/;
     var num = /[0-9]+/;
-
-    this.validate();
     
-    if(this.password1.length >= 8){
+    if(this.password1.length >= 8 && this.password1.length <= 16){
       $("#8char").removeClass("glyphicon-remove").addClass("glyphicon-ok").css("color","#00A41E");
       this.formTest.char8=true;
     }else{
@@ -167,6 +171,8 @@ export class ForgotPasswordChangeEmployeeComponent implements OnInit {
         'background-color': '#888888', 'border-color': '#888888', 'cursor': 'no-drop'
       });
     }
+
+    this.validate();
   }
 
   refreshErrorValues(){

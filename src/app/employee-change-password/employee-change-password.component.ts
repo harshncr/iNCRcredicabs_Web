@@ -19,9 +19,9 @@ export class EmployeeChangePasswordComponent implements OnInit {
   showSuccess             = false;
   message                 = '';
 
-  currentPassword?:string;
-  password1?:string;
-  password2?:string;
+  currentPassword?:string = '';
+  password1?:string = '';
+  password2?:string = '';
   buttonDisabled?:String;
   qlid:string = 'zz000000';
   token:string;
@@ -67,6 +67,7 @@ export class EmployeeChangePasswordComponent implements OnInit {
   onSave(f){
     this.refreshErrorValues();
     if(this.validate()){
+      console.log('!!');
       let payload = {
         currentPassword: this.currentPassword,
         password1: this.password1,
@@ -120,6 +121,14 @@ export class EmployeeChangePasswordComponent implements OnInit {
       validateStatus = false;
     }
 
+    if((this.formTest.char8 && this.formTest.ucase && this.formTest.lcase
+      && this.formTest.num && this.formTest.pwdmatch
+      && this.formError.password1.error == false
+      && this.formError.password2.error == false) == false
+    ){
+      validateStatus = false;
+    }
+
     return validateStatus;
   }
 
@@ -134,7 +143,7 @@ export class EmployeeChangePasswordComponent implements OnInit {
 
     this.validate();
     
-    if(this.password1.length >= 8){
+    if(this.password1.length >= 8 && this.password1.length <= 16){
       $("#8char").removeClass("glyphicon-remove").addClass("glyphicon-ok").css("color","#00A41E");
       this.formTest.char8=true;
     }else{
