@@ -409,7 +409,7 @@ export class ReportComponent implements OnInit {
       return;
     }
 
-    if (this.validate()) {
+    // if (this.validate()) {
       this.showLoader = true;
       this.reportService.getTransportationReport(this.fromMonth, this.year, f).subscribe((data) => {
         console.log(data);
@@ -419,7 +419,7 @@ export class ReportComponent implements OnInit {
         this.showDiv = false;
       });
 
-    }
+    // }
 
   }
 
