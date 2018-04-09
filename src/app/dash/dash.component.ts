@@ -45,9 +45,23 @@ export class DashComponent implements OnInit {
 
   checkRole(){
     console.log('Role has been change!');
-    if(localStorage.getItem('role') != null && localStorage.getItem('role') != undefined){
+    // if(localStorage.getItem('role') != null && localStorage.getItem('role') != undefined){
+    //   console.log('inside #1');
+    //   if(localStorage.getItem('role').toUpperCase() == 'ADMIN'){
+    //     console.log('!!1');
+    //     this.showMenu = true;
+    //     this.showLoader = false;
+    //   }else{
+    //       console.log('You are not admin!');
+    //       this.showError = true;
+    //       this.showLoader = false;
+    //   }
+    // }
+
+    
+    if(sessionStorage.getItem('role') != null && sessionStorage.getItem('role') != undefined){
       console.log('inside #1');
-      if(localStorage.getItem('role').toUpperCase() == 'ADMIN'){
+      if(sessionStorage.getItem('role').toUpperCase() == 'ADMIN'){
         console.log('!!1');
         this.showMenu = true;
         this.showLoader = false;

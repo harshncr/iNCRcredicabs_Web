@@ -60,9 +60,16 @@ export class LoginComponent implements OnInit {
         this.employeeService.getRole().subscribe((data) => {
           if(data != null || data != "" || data != undefined){
             console.log(data);
-            localStorage.setItem('role', data.roleName);
-            localStorage.setItem('empFName', data.empFName);
-            if(localStorage.getItem('role') != 'ADMIN'){
+            // localStorage.setItem('role', data.roleName);
+            // localStorage.setItem('empFName', data.empFName);
+            // if(localStorage.getItem('role') != 'ADMIN'){
+            //   this.router.navigateByUrl('/employee-dash');
+            // }
+
+            
+            sessionStorage.setItem('role', data.roleName);
+            sessionStorage.setItem('empFName', data.empFName);
+            if(sessionStorage.getItem('role') != 'ADMIN'){
               this.router.navigateByUrl('/employee-dash');
             }
           }

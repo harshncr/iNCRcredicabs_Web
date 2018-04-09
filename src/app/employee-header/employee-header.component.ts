@@ -21,17 +21,47 @@ export class EmployeeHeaderComponent implements OnInit {
 
   ngOnInit() {
     this.checkLoginStatus();
-    if(localStorage.getItem('role') != null && localStorage.getItem('role') != 'null'
-      && localStorage.getItem('role') != "" && localStorage.getItem('role') != undefined
-      && localStorage.getItem('role') != 'undefined'
+    // if(localStorage.getItem('role') != null && localStorage.getItem('role') != 'null'
+    //   && localStorage.getItem('role') != "" && localStorage.getItem('role') != undefined
+    //   && localStorage.getItem('role') != 'undefined'
+    // ){
+    //   console.log(localStorage.getItem('role'));
+    //   if(localStorage.getItem('role') == 'ADMIN'){
+    //     this.admin = true;
+    //   }
+
+    //   if(localStorage.getItem('empFName') != undefined && localStorage.getItem('empFName') != null){
+    //     this.empFName = localStorage.getItem('empFName');
+    //   }
+    // }else{
+      // let resp;
+      // this.employeeService.getRole().subscribe((data) => {
+      //   if(data != null || data != "" || data != undefined){
+      //     // resp = data.roleName;
+      //     this.empFName = data.empFName;
+      //     console.log(data);
+      //     localStorage.setItem('role', data.roleName);
+      //     localStorage.setItem('empFName', data.empFName);
+      //     if(localStorage.getItem('role') != 'ADMIN'){
+      //       this.router.navigateByUrl('/employee-dash');
+      //     }
+      //   }        
+      //   setTimeout(this.onRoleChange.emit(), 1000);
+      // });
+    // }
+
+
+    if(sessionStorage.getItem('role') != null && sessionStorage.getItem('role') != 'null'
+      && sessionStorage.getItem('role') != "" && sessionStorage.getItem('role') != undefined
+      && sessionStorage.getItem('role') != 'undefined'
     ){
-      console.log(localStorage.getItem('role'));
-      if(localStorage.getItem('role') == 'ADMIN'){
+      console.log(sessionStorage.getItem('role'));
+      if(sessionStorage.getItem('role') == 'ADMIN'){
         this.admin = true;
       }
 
-      if(localStorage.getItem('empFName') != undefined && localStorage.getItem('empFName') != null){
-        this.empFName = localStorage.getItem('empFName');
+      if(sessionStorage.getItem('empFName') != undefined && sessionStorage.getItem('empFName') != null){
+        this.empFName = sessionStorage.getItem('empFName');
       }
     }else{
       // let resp;
