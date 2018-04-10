@@ -11,3 +11,15 @@
         outline:none;
     }
      
+
+
+    .view-cab-panel{
+        background-color: #0099bf;
+        color: #fff;
+        }
+    
+    .btn-primary{
+        border:none;
+        background: transparent;
+    }
+    
