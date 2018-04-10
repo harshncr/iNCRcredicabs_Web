@@ -55,6 +55,8 @@ export const environment = {
   checkinoutreportUrl:        BASE_URL + "/ReportService/checkinoutreport",
   routenoUrl:                 BASE_URL + "/ReportService/RouteNos",
   cabnobyvendorandrouteUrl:   BASE_URL + "/ReportService/getCabNobyVendorandRoute",
+  checkinoutreportDefualtUrl: BASE_URL + "/ReportService/checkinoutDefault",
+
 
   rosterDataUrl:              BASE_URL + "/RosterService/showRosterInfo",
   getVendorDetailUrl:         BASE_URL + "/RosterService/vendorDetails",

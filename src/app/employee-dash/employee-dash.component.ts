@@ -49,6 +49,7 @@ export class EmployeeDashComponent implements OnInit {
         this.emp = data;
         this.temp=data.rosterInfo.slice(0);
        
+      
         var _len = Math.ceil(data.rosterInfo.length / 3);
 
         for (var i = 0; i < _len; i++) {
