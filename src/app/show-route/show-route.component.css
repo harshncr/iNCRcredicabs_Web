@@ -1,3 +1,5 @@
+input[type=file]::-webkit-file-upload-button{background: #ffffff;padding: 7px 12px;margin-right: 10px;border: 1px solid #cccccc;border-radius: 4px;cursor: pointer;}
+input[type=file]::-webkit-file-upload-button:hover{background: #eeeeee;} 
 #one_row{
     margin-top:10px;
     padding-top:15px;
@@ -19,7 +21,9 @@ float:right;
 #heading{
     height:200px;
 }
-
+#fixedwidth{
+  width:12%;
+}
 #emp{
     
     border:3px dotted lightgray;

@@ -147,7 +147,8 @@ getnumberofseats(CabNumber){
 
 createPost(input: HTMLInputElement,f){    
   let empqlid= { "qlid":input.value,
-"date":f.value.RouteStartDate};
+"sdate":f.value.RouteStartDate,
+"edate":f.value.RouteEndDate};
 console.log(empqlid);
   this.routeexists=[];
  this.service.getEmployeesDetails(empqlid)
@@ -200,8 +201,8 @@ submit(f){
     "qlid":this.employee[i].qlid,
     "shift":f.value.ShiftTime,
     "guard":f.value.GuardNeeded,
-    "dname":(f.value.CabDriver as string).split(" ")[0],
-    "dph":(f.value.CabDriver as string).split(" ")[1],
+    "dname":(f.value.CabDriver as string).split(" ")[1],
+    "dph":(f.value.CabDriver as string).split(" ")[0],
     "picktime":this.PickupTime[i],
     "cabno":(f.value.CabNumber as string).split(" ")[0],
     "start":f.value.RouteStartDate,
