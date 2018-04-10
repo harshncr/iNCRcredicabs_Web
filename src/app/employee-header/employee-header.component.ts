@@ -21,17 +21,31 @@ export class EmployeeHeaderComponent implements OnInit {
 
   ngOnInit() {
     this.checkLoginStatus();
-    if(localStorage.getItem('role') != null && localStorage.getItem('role') != 'null'
-      && localStorage.getItem('role') != "" && localStorage.getItem('role') != undefined
-      && typeof localStorage.getItem('role') != 'undefined'
+    // if(localStorage.getItem('role') != null && localStorage.getItem('role') != 'null'
+    //   && localStorage.getItem('role') != "" && localStorage.getItem('role') != undefined
+    //   && typeof localStorage.getItem('role') != 'undefined'
+    // ){
+    //   console.log(sessionStorage.getItem('role'));
+    //   if(sessionStorage.getItem('role') == 'ADMIN'){
+    //     this.admin = true;
+    //   }
+
+    //   if(typeof localStorage.getItem('empFName') != undefined && localStorage.getItem('empFName') != null){
+    //     this.empFName = localStorage.getItem('empFName');
+    //   }
+    // }else{    
+    if(
+      sessionStorage.getItem('role') != null && sessionStorage.getItem('role') != 'null'
+      && sessionStorage.getItem('role') != "" && sessionStorage.getItem('role') != undefined
+      && typeof sessionStorage.getItem('role') != 'undefined'
     ){
       console.log(sessionStorage.getItem('role'));
       if(sessionStorage.getItem('role') == 'ADMIN'){
         this.admin = true;
       }
 
-      if(typeof localStorage.getItem('empFName') != undefined && localStorage.getItem('empFName') != null){
-        this.empFName = localStorage.getItem('empFName');
+      if(typeof sessionStorage.getItem('empFName') != undefined && sessionStorage.getItem('empFName') != null){
+        this.empFName = sessionStorage.getItem('empFName');
       }
     }else{
       // let resp;
