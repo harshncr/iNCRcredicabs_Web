@@ -126,45 +126,45 @@
                         <div class="tab-pane" id="cab-mate">
                             <br>
                             <div class="col-md-12">
-
-                                <div class="col-md-4 cab-mate-body"  *ngFor="let i of emp.rosterInfo">
-                                    <!-- Widget: user widget style 1 -->
-                                    <div class="box box-widget widget-user">
-                                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                                        <div class="widget-user-image">
+                                <div class="row" *ngFor="let row of cabMates; let i = index">
+                                    <div class="col-md-4 cab-mate-body" *ngFor="let obj of row[i]; let r = index">
+                                        <!-- Widget: user widget style 1 -->
+                                        <div class="box box-widget widget-user">
+                                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                                            <div class="widget-user-image">
                                                 <img class="img-circle" src="assets\img\user1-128x128.jpg" alt="User Avatar">
                                             </div>
-                                        <div class="widget-user-header bg-aqua-active">
-                                            <h3 class="widget-user-username">{{i.f_name }} {{i.m_name }} {{i.l_name}} </h3>
-                                            <h5 class="widget-user-desc">{{i.Qlid}}</h5>
-                                        </div>
-                                        
-                                        <div class="box-footer">
-                                            <div class="row">
-                                                <div class="col-sm-6 border-right">
-                                                    <div class="description-block">
-                                                        <h5 class="description-header">Mobile</h5>
-                                                        <span class="description-text"> {{i.e_mob}}</span>
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-                                                <!-- /.col -->
-                                                <div class="col-sm-6">
-                                                    <div class="description-block">
-                                                        <h5 class="description-header">Pickup Area</h5>
-                                                        <span class="description-text">{{i.p_a}}</span>
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-                                                <!-- /.col -->
+                                            <div class="widget-user-header bg-aqua-active">
+                                                <h3 class="widget-user-username">{{obj.f_name }} {{obj.m_name }} {{obj.l_name}} </h3>
+                                                <h5 class="widget-user-desc">{{obj.Qlid}}</h5>
                                             </div>
-                                            <!-- /.row -->
-                                        </div>
-                                    </div>
-                                    <!-- /.widget-user -->
-                                </div>
-                                <!-- /.col -->
 
+                                            <div class="box-footer">
+                                                <div class="row">
+                                                    <div class="col-sm-6 border-right">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">Mobile</h5>
+                                                            <span class="description-text"> {{obj.e_mob}}</span>
+                                                        </div>
+                                                        <!-- /.description-block -->
+                                                    </div>
+                                                    <!-- /.col -->
+                                                    <div class="col-sm-6">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">Pickup Area</h5>
+                                                            <span class="description-text">{{obj.p_a}}</span>
+                                                        </div>
+                                                        <!-- /.description-block -->
+                                                    </div>
+                                                    <!-- /.col -->
+                                                </div>
+                                                <!-- /.row -->
+                                            </div>
+                                        </div>
+                                        <!-- /.widget-user -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
                             </div>
                             <!-- /.col -->
                         </div>

@@ -14,3 +14,12 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button{
     -webkit-appearance: none;
 }
+
+.edit-emp-panel{
+    background-color: #0099bf;
+    color: #fff;
+    }
+
+    fieldset{
+        padding: 10px;
+    }

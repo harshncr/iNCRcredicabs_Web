@@ -1,5 +1,5 @@
 <app-header [module]="module"></app-header>
-<div class="container">
+<div class="container-fluid">
   <app-loader-anim
     [showLoader] = "showLoader && (employeeLoaded == false || roleLoaded == false)" [loaderText]="loaderText">
   </app-loader-anim>
@@ -25,6 +25,8 @@
       </div>
     </div>
   </div>
+
+
   <div *ngIf="error && showLoader == false" class="panel panel-danger">
     <div class="panel-heading clearfix">
       <div class="panel-title">
@@ -35,13 +37,14 @@
       {{ errorMessage }}
     </div>
   </div>
+
   <div class="row">
     <div *ngIf="emp && employeeLoaded && roleLoaded" id="user-profile-content"
-      class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-lg-offset-2"
+      class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
       align="center">
-    <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" > -->
+          <!-- <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" > -->
       <div class="panel panel-info">
-        <div class="panel-heading clearfix">
+        <div class="panel-heading view-emp-panel clearfix">
           <h3 class="panel-title col-sm-6">User Info<span *ngIf="emp.empFName">: {{ emp?.empFName }} {{ emp?.empLName }}</span></h3>              
           <div class="panel-title pull-right">
             <span class="ed-button">
