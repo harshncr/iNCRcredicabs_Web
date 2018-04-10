@@ -47,6 +47,21 @@ public ptime:any;
     this.e_q= this.ac.snapshot.params['qlid'];
     this.e_c = this.ac.snapshot.params['cn'];
     this.e_s = this.ac.snapshot.params['sid'];
+    if (this.e_s=="1") {
+      this.e_s = "07:00 AM - 04:00 PM";
+    }
+    else if (this.e_s=="2") {
+      this.e_s = "10:00 AM - 07:00 PM";
+    }
+    else if (this.e_s=="3") {
+      this.e_s = "12:00 PM - 09:00 PM";
+    }
+    else if (this.e_s=="4") {
+      this.e_s = "Unscheduled";
+    }
+    else if (this.e_s=="5") {
+      this.e_s = "02:00 PM - 11:00 PM";
+    }
     console.log("This is the shift id");
     console.log(this.e_s);
     this.startandend();
