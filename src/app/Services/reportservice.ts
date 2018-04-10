@@ -303,6 +303,19 @@ export class ReportService {
       })
   
     }
+
+    getCheckinoutDefaultReport():Observable<any>{
+      
+      
+    return this.apiService.callApiService({
+
+      requestType: REQUEST_TYPE_GET,
+      url: `${environment.checkinoutreportDefualtUrl}`,
+      headers: this.headers,
+      body: "",
+      shouldBlock: true
+    });
+    }
   
 
 

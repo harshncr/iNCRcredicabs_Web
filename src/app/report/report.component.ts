@@ -329,7 +329,15 @@ export class ReportComponent implements OnInit {
 
           this.showLoader = false;
           console.log(data);
-        }); break;
+        });
+        
+        this.reportService.getCheckinoutDefaultReport().subscribe((data) => {
+
+          this.Checkinoutreport = data;
+        });
+
+        
+        break;
 
       case "Vendor Billing Detail":
         this.showLoader = true;
