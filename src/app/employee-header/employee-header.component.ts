@@ -23,14 +23,14 @@ export class EmployeeHeaderComponent implements OnInit {
     this.checkLoginStatus();
     if(localStorage.getItem('role') != null && localStorage.getItem('role') != 'null'
       && localStorage.getItem('role') != "" && localStorage.getItem('role') != undefined
-      && localStorage.getItem('role') != 'undefined'
+      && typeof localStorage.getItem('role') != 'undefined'
     ){
       console.log(localStorage.getItem('role'));
       if(localStorage.getItem('role') == 'ADMIN'){
         this.admin = true;
       }
 
-      if(localStorage.getItem('empFName') != undefined && localStorage.getItem('empFName') != null){
+      if(typeof localStorage.getItem('empFName') != undefined && localStorage.getItem('empFName') != null){
         this.empFName = localStorage.getItem('empFName');
       }
     }else{

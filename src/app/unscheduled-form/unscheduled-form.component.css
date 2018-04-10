@@ -48,3 +48,9 @@ button{
     font-size: 120%;
     margin-right: 15%;
 }
+
+
+.unscheduled-cab-panel{
+    background-color: #0099bf;
+    color: #fff;
+    }

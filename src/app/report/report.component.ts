@@ -149,7 +149,13 @@ export class ReportComponent implements OnInit {
 
     var table = document.getElementsByClassName("table")[0]
     var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-    window.location.href = uri + base64(format(template, ctx))
+    // window.location.href = uri + base64(format(template, ctx))
+    var downloadLink = document.createElement("a");
+    downloadLink.href = uri + base64(format(template, ctx));
+    downloadLink.download = this.filterReport +"_"+ new Date().toLocaleString()+".xls";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
 
   }
 
@@ -230,8 +236,23 @@ export class ReportComponent implements OnInit {
 
   }
 
+  resetf(){
+    $(document).ready(function(){
+      $(".panel-body").find("input").each(function(){
+      this.value="";
+      });
+      $(".panel-body").find("select").not("select[name=filterIt]").each(function(){
+        this.selectedIndex=-1;
+        });
+    });
+    }
+
 
   showDefaultData(val) {
+
+    // $("filter_form")[0].reset();
+    this.resetf();
+
 
     this.filterReport=val;
 

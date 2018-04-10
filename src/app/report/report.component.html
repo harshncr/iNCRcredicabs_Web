@@ -16,7 +16,7 @@
   </div>
   <div class="panel-body" *ngIf="tf" id="filter_body">
     <div class="form-group">
-      <form name="form" #f="ngForm" (ngSubmit)="onFilterGo(f.value)" id="form" class="form-horizontal" enctype="multipart/form-data"
+      <form name="filter_form" #f="ngForm" (ngSubmit)="onFilterGo(f.value)" id="filter_form" class="form-horizontal" enctype="multipart/form-data"
         method="POST">
 
         <div class="row">
@@ -52,7 +52,7 @@
               <div class="col-md-12">
                 <div *ngIf="filterReport == 'Unschedule Summary By Manager'">
                   Manager Name:
-                  <input name="filManagerName" class="form-control" type="text" [(ngModel)]="filterMan" name="filterVal">
+                  <input name="filManagerName" class="form-control" type="text" [(ngModel)]="filterValue" name="filterValue">
                 </div>
 
                 <div *ngIf="filterReport == 'Unschedule Summary By Vendor'">
@@ -703,7 +703,7 @@
     </table>
   </div>
 
-  <div class="col-md-9 col-md-offset-2" id="employee-form" *ngIf="filterReport =='Transportation Billing'&& showDiv">
+  <div class="col-md-10 col-md-offset-1" id="employee-form" *ngIf="filterReport =='Transportation Billing'&& showDiv">
     <form name="myForm" #f="ngForm" (ngSubmit)="onTptCostForm(f.value)" class="form-horizontal" role="form">
       <fieldset>
 

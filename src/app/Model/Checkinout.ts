@@ -10,7 +10,8 @@ export class Checkinout {
         public check_in_time?: string,
         public check_out_time?: string,
         public late_arrival?: string,
-        public late_departure?: string
+        public late_departure?: string,
+        public pickup_time  ?:string
     ){}
 
     }

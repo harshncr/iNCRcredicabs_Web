@@ -59,3 +59,12 @@ legend{
     from{ opacity: 0;}
     to{ opacity: 1;}
 } */
+
+fieldset{
+    padding:10px;
+}
+
+.add-emp-panel{
+    background-color: #0099bf;
+    color: #fff;
+}

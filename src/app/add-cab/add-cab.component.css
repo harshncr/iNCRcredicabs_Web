@@ -46,3 +46,15 @@
     font-size: 120%;
     margin-left:15%;
 }
+
+
+.add-cab-panel{
+    background-color: #0099bf;
+    color: #fff;
+    }
+
+    .btn-primary{
+        border:none;
+        background: transparent;
+    }
+    
