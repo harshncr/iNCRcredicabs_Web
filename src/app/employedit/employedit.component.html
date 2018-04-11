@@ -28,32 +28,37 @@
             <div class="col-sm-10" style="padding-right:60%;">
              <input type="text" value="{{e_q}}"  name="qlid" class="form-control" id="inputEmail3" disabled>
             </div>
-            </div><br><br>
+            </div>
             <div class="col-sm-10 row">
-                <label for="inputEmail" class="col-sm-2 control-label">Current Cab Number</label>
+                <label for="inputEmail" class="col-sm-2 control-label">Current Cab</label>
                 <div class="col-sm-10" style="padding-right:60%;">
                  <input type="text" value="{{e_c}}"  name="cabno" class="form-control" id="inputEmail3" disabled>
                 </div>
-                </div><br><br>
+                </div>
                 <div class="col-sm-10 row">
                     <label for="inputEmail" class="col-sm-2 control-label">Current Shift</label>
                     <div class="col-sm-10" style="padding-right:60%;">
                      <input type="text" value="{{e_s}}"  name="sid" class="form-control" id="inputEmail3" disabled>
                     </div>
                     </div>
-            <br><br>
+            
             <div class="col-sm-10 row">
              <label for="cabno" class="col-sm-2 control-label">Cab No</label>
              <div class="col-sm-10" style="padding-right:60%;">
-             <select  name="cab_select" [(ngModel)]="cab_selected" class="form-control" >
-             <option value="" disabled selected> Select Cab</option>
-             <option *ngFor="let i of cabandshift" value="{{i}}">{{i}}</option>
-             </select><br>
+                    <div  *ngIf=!bol> </div>
+                    <div *ngIf=bol>
+                         <select  name="cab_select" [(ngModel)]="cab_selected" class="form-control" >
+                                 <option value="" disabled selected> Select Cab</option>
+                                 <option *ngFor="let i of cabandshift" value="{{i}}">{{i}}</option>
+                                </select>
+                    </div>
+             
+            
              </div>
             </div>
             
             
-            <br><br>
+            
              <div class="col-sm-10 row" >
                  <label for="shiftid" class="col-sm-2 control-label" style="margin-right:3%;">Start Date</label>
                <div  *ngIf=!bol> {{startd}} </div>
@@ -61,7 +66,7 @@
                      <input type="date" [(ngModel)]="stime"  name="sdate"   id="name" placeholder="">
                </div>
                </div>
-            <br><br>
+            
                
                <div class="col-sm-10 row">
                    <label for="shiftid" class="col-sm-2 control-label"  style="margin-right:3%;">End Date</label>
@@ -72,7 +77,7 @@
                </div>
             
             
-              <br><br>
+              
               <div class="col-sm-10 row" >
                  <label for="Pickuptime" class="col-sm-2 control-label "style="margin-right:3%">Pickup Time</label>
               <div  *ngIf=!bol> {{ptime}} </div>

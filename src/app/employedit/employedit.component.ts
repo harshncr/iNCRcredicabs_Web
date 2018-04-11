@@ -44,6 +44,7 @@ public ptime:any;
  public e_c;
  public e_s;
   ngOnInit() {
+    
     this.e_q= this.ac.snapshot.params['qlid'];
     this.e_c = this.ac.snapshot.params['cn'];
     this.e_s = this.ac.snapshot.params['sid'];
@@ -65,6 +66,7 @@ public ptime:any;
     console.log("This is the shift id");
     console.log(this.e_s);
     this.startandend();
+    this.cab_list();
     // this.cab_list();
   }
   startandend(){
@@ -96,7 +98,7 @@ public ptime:any;
       
     this.bol=!this.bol;
     
-    this.cab_list();
+   
   }
 
 //  public show=[];
@@ -151,7 +153,7 @@ this.edit_emp_msg=false;
         // this.cabandshift.splice(0,this.cabandshift.length);
        this.cabandshift=[];
        this.obj.getcablist(this.e_s,this.e_c).subscribe(
-        data => {this.cab=JSON.parse(JSON.stringify(data));
+        data => {this.cab=(data);
 
           if(this.cab.length==0){
 
