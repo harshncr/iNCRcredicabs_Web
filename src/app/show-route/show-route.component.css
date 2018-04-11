@@ -6,6 +6,13 @@ input[type=file]::-webkit-file-upload-button:hover{background: #eeeeee;}
     border:1px solid gray;
 }
 
+#popup{
+  margin:10px;
+}
+#popupbtn{
+  width:20%;
+}
+
 #glificons{
     float:right;
     margin-bottom:10px;

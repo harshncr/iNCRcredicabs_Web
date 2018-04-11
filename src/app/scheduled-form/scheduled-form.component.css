@@ -2,7 +2,10 @@
     margin:10px;
 }
 
-button{
+.btn{
+    width:20%;
+}
+#submit{
     margin:auto;
     display:block;
   }
@@ -25,37 +28,6 @@ button{
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
 }
-#box {
-    display: block;
-    position: relative;
-    top:30%;
-    left: 30%;
-    right: 0;
-    bottom: 0;
-    width: 40%;
-    height: 45%;
-   
-  /* margin: 0 auto; */
-  background:white;
-  padding: 67px;
-  border: 1px solid #fff;
-  /* border-radius: 20px/50px; */
-  text-align: center;
-}
-#close
-{
-    display: block;
-    font-size: 120%;
-    margin-right: 15%;
-}
-#other
-{
-    display: block;
-    font-size: 120%;
-    margin-left:15%;
-} 
-
-
 .scheduled-cab-panel{
     background-color: #0099bf;
     color: #fff;

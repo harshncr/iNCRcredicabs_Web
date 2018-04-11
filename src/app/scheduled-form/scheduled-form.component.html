@@ -8,7 +8,9 @@
     <div class="panel-body">
       <div class="row form-group">
         <div class="col-sm-4 ">
-          <label>Vendor Name<span class="red">*</span></label>
+          <label>Vendor Name
+            <span class="red">*</span>
+          </label>
           <select formControlName="VendorName" name="VendorName" class="form-control" (change)="log(VendorName)">
             <option value="" disabled selected>Vendor Name*</option>
             <option *ngFor="let vendor of vendorNameList">{{vendor.vname}}</option>
@@ -18,7 +20,9 @@
           </div>
         </div>
         <div class="col-sm-4 ">
-          <label>Shift Time<span class="red">*</span></label>
+          <label>Shift Time
+            <span class="red">*</span>
+          </label>
           <select formControlName="ShiftTime" name="ShiftTime" class="form-control" (change)="getAvailableCab(ShiftTime)">
             <option value="" disabled selected>Shift Time*</option>
             <option value="1">07:00AM to 04:00PM</option>
@@ -32,7 +36,9 @@
           </div>
         </div>
         <div class="col-sm-4 " *ngIf="ShiftTime.valid">
-          <label>Cab Number<span class="red">*</span></label>
+          <label>Cab Number
+            <span class="red">*</span>
+          </label>
           <select formControlName="CabNumber" name="CabNumber" class="form-control" (change)="getnumberofseats(CabNumber)">
             <option value="" invalid selected>Cab Number*</option>
             <option *ngFor="let cab of cablist" value="{{cab.cabno}} {{cab.cap}}">{{cab.cabno}}</option>
@@ -43,18 +49,22 @@
         </div>
       </div>
       <div class="row form-group">
-          <div class="col-sm-4 ">
-              <label>Cab Driver<span class="red">*</span></label>
-              <select formControlName="CabDriver" class="form-control">
-                <option value="" disabled selected>Cab Driver*</option>
-                <option *ngFor="let cabdriver of cabdriverlist"> {{cabdriver.ph}} {{cabdriver.name}}</option>
-              </select>
-              <div class="alert alert-danger" *ngIf="CabDriver.touched && CabDriver.invalid">
-                <div *ngIf="CabDriver.errors.required"> Cab Driver is required </div>
-              </div>
-            </div>
         <div class="col-sm-4 ">
-          <label>Route Start Date<span class="red">*</span></label>
+          <label>Cab Driver
+            <span class="red">*</span>
+          </label>
+          <select formControlName="CabDriver" class="form-control">
+            <option value="" disabled selected>Cab Driver*</option>
+            <option *ngFor="let cabdriver of cabdriverlist"> {{cabdriver.ph}} {{cabdriver.name}}</option>
+          </select>
+          <div class="alert alert-danger" *ngIf="CabDriver.touched && CabDriver.invalid">
+            <div *ngIf="CabDriver.errors.required"> Cab Driver is required </div>
+          </div>
+        </div>
+        <div class="col-sm-4 ">
+          <label>Route Start Date
+            <span class="red">*</span>
+          </label>
           <input formControlName="RouteStartDate" type="date" name="RouteStartDate" placeholder="Route Start Date*" class="form-control"
             required (change)="checkdate(f)">
           <div class="alert alert-danger" *ngIf="RouteStartDate.touched && RouteStartDate.invalid">
@@ -62,7 +72,9 @@
           </div>
         </div>
         <div class="col-sm-4 ">
-          <label>Route End Date<span class="red">*</span></label>
+          <label>Route End Date
+            <span class="red">*</span>
+          </label>
           <input formControlName="RouteEndDate" type="date" name="RouteEndDate" placeholder="Route End Date*" class="form-control"
             required (change)="checkdate(f)">
           <div class="alert alert-danger" *ngIf="RouteEndDate.touched && RouteEndDate.invalid">
@@ -70,25 +82,46 @@
           </div>
         </div>
       </div>
-      <div *ngIf="dateerror" id="over">          
-        <div id="box">
+      <div *ngIf="dateerror" id="over">
+        <!-- <div id="box">
              <b><h4>Start date can't be less than End date </h4></b><br>
              <button class="btn btn-primary" style="width:30%"(click)="closedateerror()"> OK </button>
-      </div>
-    </div>
-      <div class="row form-group">
-          <div class="col-sm-4 ">
-              <label>Cost<span class="red">*</span></label>
-              <input formControlName="Cost" name="Cost" class="form-control">
-              <div class="alert alert-danger" *ngIf="Cost.dirty && Cost.invalid || Cost.touched && Cost.invalid ">
-                <div *ngIf="Cost.errors.required"> Cost is required </div>
-                <div *ngIf="Cost.errors.cannotcontainspecialcharacters"> Can not contain special characters</div>
-                <div *ngIf="Cost.errors.cannotcontainalphabets"> Can not contain alphabets</div>
-                <div *ngIf="Cost.errors.cannotstartwithzero"> Can not start with zero</div>
+      </div> -->
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="exampleModalLabel">
+                <b>Error</b>
+              </h4>
+            </div>
+            <div class="modal-body">
+              <p>Start date can't be less than End date</p>
+            </div>
+            <div class="modal-footer">
+              <div class="row">
+                <button class="btn btn-primary" (click)="closedateerror()"> OK </button>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group">
         <div class="col-sm-4 ">
-          <label>Number Of Employees<span class="red">*</span></label>
+          <label>Cost
+            <span class="red">*</span>
+          </label>
+          <input formControlName="Cost" name="Cost" class="form-control">
+          <div class="alert alert-danger" *ngIf="Cost.dirty && Cost.invalid || Cost.touched && Cost.invalid ">
+            <div *ngIf="Cost.errors.required"> Cost is required </div>
+            <div *ngIf="Cost.errors.cannotcontainspecialcharacters"> Can not contain special characters</div>
+            <div *ngIf="Cost.errors.cannotcontainalphabets"> Can not contain alphabets</div>
+            <div *ngIf="Cost.errors.cannotstartwithzero"> Can not start with zero</div>
+          </div>
+        </div>
+        <div class="col-sm-4 ">
+          <label>Number Of Employees
+            <span class="red">*</span>
+          </label>
           <select formControlName="NumberOfEmployees" name="NumberOfEmployees" class="form-control" (change)="numberofemp(NumberOfEmployees)">
             <option value="" invalid selected>Number Of Employees*</option>
             <option *ngFor="let seats of numberofseats">{{seats}}</option>
@@ -116,64 +149,141 @@
       <div *ngFor="let num of Numbersofemp">
         <div class="row form-group">
           <div class="col-sm-3 ">
-            <label>Qlid<span class="red">*</span></label>
-            <select required [ngModelOptions]="{standalone: true}" ngModel #qlid="ngModel"  name={{num}} (change)="createPost(qlid,f)"class="form-control">
+            <label>Qlid
+              <span class="red">*</span>
+            </label>
+            <select required [ngModelOptions]="{standalone: true}" ngModel #qlid="ngModel" name={{num}} (change)="createPost(qlid,f)"
+              class="form-control">
               <option value="" disabled selected>Qlid*</option>
-              <option *ngFor="let qlid of qlidlist" value="{{qlid.qlid}}">{{qlid.qlid}}  {{qlid.name}}</option>
+              <option *ngFor="let qlid of qlidlist" value="{{qlid.qlid}}">{{qlid.qlid}} {{qlid.name}}</option>
             </select>
             <div class="alert alert-danger" *ngIf="qlid .touched && qlid .invalid">
               Qlid can not be empty
             </div>
           </div>
         </div>
-
-
-
-
-        <div *ngIf="duplicateqlid" id="over">          
-            <div id="box">
+        <div *ngIf="duplicateqlid" id="over">
+          <!-- <div id="box">
                  <b><h4>Duplicate qlid in the form. <br><br> Select a different qlid number </h4></b><br>
-                 <button class="btn btn-primary" style="width:30%"(click)="closeduplicateqlid()"> OK </button></div>            
+                 <button class="btn btn-primary" style="width:30%"(click)="closeduplicateqlid()"> OK </button>
+                </div>             -->
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                  <b>Error</b>
+                </h4>
+              </div>
+              <div class="modal-body">
+                <p>Duplicate qlid in the form. Select a different qlid number
+                </p>
+              </div>
+              <div class="modal-footer">
+                <div class="row">
+                  <button class="btn btn-primary" (click)="closeduplicateqlid()"> OK </button>
+                </div>
+              </div>
+            </div>
           </div>
-
-              <div *ngIf="emptyqlid" id="over">          
-                <div id="box">
+        </div>
+        <div *ngIf="emptyqlid" id="over">
+          <!-- <div id="box">
                      <b><h4>Empty qlid in the form.<br><br> Remove a qlid field or select a qlid number </h4></b><br>
                      <button class="btn btn-primary" style="width:30%"(click)="closeemptyqlid()"> OK </button>
+              </div> -->
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                  <b>Error</b>
+                </h4>
+              </div>
+              <div class="modal-body">
+                <p>Empty qlid in the form. Remove a qlid field or select a qlid number
+                </p>
+              </div>
+              <div class="modal-footer">
+                <div class="row">
+                  <button class="btn btn-primary" (click)="closeemptyqlid()"> OK </button>
+                </div>
               </div>
             </div>
-           
-
-            <div *ngIf="success" id="over">          
-                <div id="box">
+          </div>
+        </div>
+        <div *ngIf="success" id="over">
+          <!-- <div id="box">
                      <b><h4>Form submitted successfully </h4></b><br>
                      <button class="btn btn-primary" style="width:30%" (click)="redirect()"> OK </button>
+              </div> -->
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                  <b>Success</b>
+                </h4>
+              </div>
+              <div class="modal-body">
+                <p>Form submitted successfully
+                </p>
+              </div>
+              <div class="modal-footer">
+                <div class="row">
+                  <button class="btn btn-primary" (click)="redirect()"> OK </button>
+                </div>
               </div>
             </div>
-            <div *ngIf="error" id="over">
-              <div id="box">
+          </div>
+        </div>
+        <div *ngIf="error" id="over">
+          <!-- <div id="box">
                 <b>
                   <h4>Form submission failed </h4>
                 </b>
                 <br>
                 <button class="btn btn-primary" style="width:30%" (click)="closeerror()"> OK </button>
+              </div> -->
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                  <b>Error</b>
+                </h4>
+              </div>
+              <div class="modal-body">
+                <p>Form submission failed</p>
+              </div>
+              <div class="modal-footer">
+                <div class="row">
+                  <button class="btn btn-primary" (click)="closeerror()"> OK </button>
+                </div>
               </div>
             </div>
-
-
-            <div *ngIf="qlid.valid && routeexists[num]">
-                <div *ngIf="clicked" id="over">          
-                  <div id="box">
-                    <div> <h4>{{routeexistserror}}</h4></div>
-                       <b><h4>Click CONTINUE to deactive from existing route or NO if you don't want to add to this new route</h4></b><br><br>
-                <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-danger" id="other" (click)="deactivateemployee(num,f)"> Continue </button>
-                <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary" id="close" (click)="close_add_popup(num)"> No </button>
+          </div>
+        </div>
+        <div *ngIf="qlid.valid && routeexists[num]">
+          <div *ngIf="clicked" id="over">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="exampleModalLabel">
+                    <b>Route Exists</b>
+                  </h4>
+                </div>
+                <div class="modal-body">
+                  <p>{{routeexistserror}} Click CONTINUE to deactive from existing route or NO if you don't want to add to this
+                    new route
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <div class="row">
+                    <button class="btn btn-danger" (click)="deactivateemployee(num,f)"> Continue</button>
+                    <button class="btn btn-primary" (click)="close_add_popup(num)"> No </button>
+                  </div>
                 </div>
               </div>
-                </div>
-      
-
-
+            </div>
+          </div>
+        </div>
         <div class="row form-group">
           <div class="col-sm-3 ">
             <label>First Name</label>
@@ -201,13 +311,14 @@
           </div>
           <div class="col-sm-3 ">
             <label>Pickup Time</label>
-            <input required [ngModelOptions]="{standalone: true}" ngModel  #PickupTime="ngModel" name="{{num}}" type="time" placeholder="Pickup Time"
+            <input required [ngModelOptions]="{standalone: true}" ngModel #PickupTime="ngModel" name="{{num}}" type="time" placeholder="Pickup Time"
               class="form-control" (change)=createTime(PickupTime)>
           </div>
         </div>
       </div>
-      <br><br>
-        <button  class="btn btn-default" [disabled]=f.invalid (click)="submit(f)">Submit</button>
+      <br>
+      <br>
+      <button class="btn btn-default" id="submit" [disabled]=f.invalid (click)="submit(f)">Submit</button>
     </div>
   </div>
 </form>

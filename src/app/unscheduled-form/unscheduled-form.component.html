@@ -1,5 +1,4 @@
 <form #f="ngForm" [formGroup]="form" (keydown.enter)="$event.preventDefault()">
-
   <div class="panel panel-info">
     <div class="panel-heading unscheduled-cab-panel clearfix">
       <h4 class="panel-title pull-left" style="padding-top: 7.5px">
@@ -42,14 +41,7 @@
             <div *ngIf="Cost.errors.cannotstartwithzero"> Can not start with zero</div>
           </div>
         </div>
-
       </div>
-
-
-
-
-
-
       <div class="row form-group">
         <div class="col-sm-4 ">
           <label>Route Start Date
@@ -68,7 +60,6 @@
           </label>
           <input formControlName="RouteEndDate" type="date" name="RouteEndDate" placeholder="Route End Date*" class="form-control"
             required (change)="checkdate(f)">
-
           <div class="alert alert-danger" *ngIf="RouteEndDate.touched && RouteEndDate.invalid">
             Select a valid Route End Date
           </div>
@@ -80,21 +71,30 @@
           </label>
         </div>
       </div>
-      <div *ngIf="dateerror" id="over">          
-        <div id="box">
+      <div *ngIf="dateerror" id="over">
+        <!-- <div id="box">
              <b><h4>Start date can't be less than End date </h4></b><br>
              <button class="btn btn-primary" style="width:30%"(click)="closedateerror()"> OK </button>
+      </div> -->
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="exampleModalLabel">
+                <b>Error</b>
+              </h4>
+            </div>
+            <div class="modal-body">
+              <p>Start date can't be less than End date
+              </p>
+            </div>
+            <div class="modal-footer">
+              <div class="row">
+                <button class="btn btn-primary" (click)="closedateerror()"> OK </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-
-
-
-
-
-
-
-
       <div class="row form-group">
         <div class="col-sm-4 ">
           <label>Number Of Employees
@@ -112,32 +112,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <div *ngIf="f.valid" class="panel panel-info">
     <div class="panel-heading clearfix">
       <h4 class="panel-title pull-left" style="padding-top: 7.5px">
@@ -145,9 +119,6 @@
       </h4>
     </div>
     <div class="panel-body">
-
-
-
       <div *ngFor="let num of Numbersofemp">
         <div class="row form-group">
           <div class="col-sm-3 ">
@@ -163,9 +134,8 @@
             </div>
           </div>
         </div>
-
         <div *ngIf="duplicateqlid" id="over">
-          <div id="box">
+          <!-- <div id="box">
             <b>
               <h4>Duplicate qlid in the form.
                 <br>
@@ -173,11 +143,28 @@
             </b>
             <br>
             <button class="btn btn-primary" style="width:30%" (click)="closeduplicateqlid()"> OK </button>
+          </div> -->
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                  <b>Error</b>
+                </h4>
+              </div>
+              <div class="modal-body">
+                <p>Duplicate qlid in the form. Select a different qlid number
+                </p>
+              </div>
+              <div class="modal-footer">
+                <div class="row">
+                  <button class="btn btn-primary" (click)="closeduplicateqlid()"> OK </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
         <div *ngIf="emptyqlid" id="over">
-          <div id="box">
+          <!-- <div id="box">
             <b>
               <h4>Empty qlid in the form.
                 <br>
@@ -185,46 +172,110 @@
             </b>
             <br>
             <button class="btn btn-primary" style="width:30%" (click)="closeemptyqlid()"> OK </button>
+          </div> -->
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                  <b>Error</b>
+                </h4>
+              </div>
+              <div class="modal-body">
+                <p>Empty qlid in the form. Remove a qlid field or select a qlid number
+                </p>
+              </div>
+              <div class="modal-footer">
+                <div class="row">
+                  <button class="btn btn-primary" (click)="closeemptyqlid()"> OK </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
         <div *ngIf="success" id="over">
-          <div id="box">
+          <!-- <div id="box">
             <b>
               <h4>Form submitted successfully </h4>
             </b>
             <br>
             <button class="btn btn-primary" style="width:30%" (click)="redirect()"> OK </button>
+          </div> -->
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                  <b>Success</b>
+                </h4>
+              </div>
+              <div class="modal-body">
+                <p>Form submitted successfully
+                </p>
+              </div>
+              <div class="modal-footer">
+                <div class="row">
+                  <button class="btn btn-primary" (click)="redirect()"> OK </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
         <div *ngIf="error" id="over">
-          <div id="box">
+          <!-- <div id="box">
             <b>
               <h4>Form submission failed </h4>
             </b>
             <br>
             <button class="btn btn-primary" style="width:30%" (click)="closeerror()"> OK </button>
+          </div> -->
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">
+                  <b>Error</b>
+                </h4>
+              </div>
+              <div class="modal-body">
+                <p>Form submission failed
+                </p>
+              </div>
+              <div class="modal-footer">
+                <div class="row">
+                  <button class="btn btn-primary" (click)="closeerror()"> OK </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
         <div *ngIf="qlid.valid && routeexists[num]">
-          <div *ngIf="clicked" id="over">          
-            <div id="box">
+          <div *ngIf="clicked" id="over">
+            <!-- <div id="box">
               <div> <h4>{{routeexistserror}}</h4></div>
                  <b><h4>Click CONTINUE to deactive from existing route or NO if you don't want to add to this new route</h4></b><br><br>
           <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-danger" id="other" (click)="deactivateemployee(num,f)"> Continue </button>
           <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary" id="close" (click)="close_add_popup(num)"> No </button>
+          </div> -->
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="exampleModalLabel">
+                    <b>Route Exists</b>
+                  </h4>
+                </div>
+                <div class="modal-body">
+                  <p>{{routeexistserror}} Click CONTINUE to deactive from existing route or NO if you don't want to add to this
+                    new route
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <div class="row">
+                    <button class="btn btn-danger" (click)="deactivateemployee(num,f)"> Continue</button>
+                    <button class="btn btn-primary" (click)="close_add_popup(num)"> No </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-          </div>
-
-
-
-
-
-
-
         <div class="row form-group">
           <div class="col-sm-3 ">
             <label>First Name</label>
@@ -239,7 +290,7 @@
             <input type="text" name="lastName{{Numbersofemp[num]}}" placeholder="{{employee[num].lname}}" class="form-control" disabled>
           </div>
         </div>
-        <div class="row form-group">         
+        <div class="row form-group">
           <div class="col-sm-3 ">
             <label>Drop Type
             </label>
@@ -252,26 +303,27 @@
               disabled>
           </div>
           <div class="col-sm-3 ">
-              <label>Destination</label>
-              <input type="text" name="destination{{Numbersofemp[num]}}" placeholder="{{employee[num].dest}}" maxlength="10" class="form-control"
-                disabled>
-            </div>
+            <label>Destination</label>
+            <input type="text" name="destination{{Numbersofemp[num]}}" placeholder="{{employee[num].dest}}" maxlength="10" class="form-control"
+              disabled>
+          </div>
         </div>
         <div class="row form-group">
-            <div class="col-sm-3 ">
-                <label>Contact Number</label>
-                <input type="text" name="contactNumber{{Numbersofemp[num]}}" placeholder="{{employee[num].phone}}" maxlength="10" class="form-control"
-                  disabled>
-              </div>
+          <div class="col-sm-3 ">
+            <label>Contact Number</label>
+            <input type="text" name="contactNumber{{Numbersofemp[num]}}" placeholder="{{employee[num].phone}}" maxlength="10" class="form-control"
+              disabled>
+          </div>
           <div class="col-sm-3 ">
             <label>Pickup Time</label>
-            <input required [ngModelOptions]="{standalone: true}" ngModel  #PickupTime="ngModel" name="{{num}}" type="time" placeholder="Pickup Time"
+            <input required [ngModelOptions]="{standalone: true}" ngModel #PickupTime="ngModel" name="{{num}}" type="time" placeholder="Pickup Time"
               class="form-control" (change)=createTime(PickupTime)>
           </div>
         </div>
       </div>
+      <br>
+      <br>
+      <button class="btn btn-default" id="submit" [disabled]="f.invalid" (click)="submit(f)">Submit</button>
     </div>
-    <button class="btn btn-default" [disabled]="f.invalid" (click)="submit(f)">Submit</button>
-
   </div>
 </form>
