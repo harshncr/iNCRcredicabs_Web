@@ -90,21 +90,21 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
     //   });
     // }
     
-    if(sessionStorage.getItem('role') != null && sessionStorage.getItem('role') != 'null'
-      && sessionStorage.getItem('role') != "" && sessionStorage.getItem('role') != undefined
-      && sessionStorage.getItem('role') != 'undefined'
-      && sessionStorage.getItem('empFName') != null && sessionStorage.getItem('role') != 'null'
-      && sessionStorage.getItem('role') != "" && sessionStorage.getItem('role') != undefined
-      && sessionStorage.getItem('role') != 'undefined'
-    ){
-      console.log(sessionStorage.getItem('role'));
-      if(sessionStorage.getItem('role') != 'ADMIN'){
-        this.router.navigateByUrl('/employee-dash');
-      }
-      if(sessionStorage.getItem('empFName') != undefined){
-        this.empFName = sessionStorage.getItem('empFName');
-      }
-    }else{
+    // if(sessionStorage.getItem('role') != null && sessionStorage.getItem('role') != 'null'
+    //   && sessionStorage.getItem('role') != "" && sessionStorage.getItem('role') != undefined
+    //   && sessionStorage.getItem('role') != 'undefined'
+    //   && sessionStorage.getItem('empFName') != null && sessionStorage.getItem('role') != 'null'
+    //   && sessionStorage.getItem('role') != "" && sessionStorage.getItem('role') != undefined
+    //   && sessionStorage.getItem('role') != 'undefined'
+    // ){
+    //   console.log(sessionStorage.getItem('role'));
+    //   if(sessionStorage.getItem('role') != 'ADMIN'){
+    //     this.router.navigateByUrl('/employee-dash');
+    //   }
+    //   if(sessionStorage.getItem('empFName') != undefined){
+    //     this.empFName = sessionStorage.getItem('empFName');
+    //   }
+    // }else{
       this.employeeService.getRole().subscribe((data) => {
         if(data != null || data != "" || data != undefined){
           this.empFName = data.empFName;
@@ -115,10 +115,9 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
             this.router.navigateByUrl('/employee-dash');
           }
         }
-        
         setTimeout(this.onRoleChange.emit(), 1000);
       });
-    }
+    // }
 
     if(this.reports){
       this.filterReport = this._dashData.getItem();

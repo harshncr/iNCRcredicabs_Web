@@ -67,9 +67,9 @@ export class LoginComponent implements OnInit {
             // }
 
             
-            sessionStorage.setItem('role', data.roleName);
-            sessionStorage.setItem('empFName', data.empFName);
-            if(sessionStorage.getItem('role') != 'ADMIN'){
+            // sessionStorage.setItem('role', data.roleName);
+            // sessionStorage.setItem('empFName', data.empFName);
+            if(data.roleName != 'ADMIN'){
               this.router.navigateByUrl('/employee-dash');
             }
           }

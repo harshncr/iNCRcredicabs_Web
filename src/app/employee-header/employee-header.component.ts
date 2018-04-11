@@ -21,6 +21,17 @@ export class EmployeeHeaderComponent implements OnInit {
 
   ngOnInit() {
     this.checkLoginStatus();
+    this.employeeService.getRole().subscribe((data) => {
+      if(data != null || data != "" || data != undefined){
+        console.log(data);
+        if(data.roleName == 'ADMIN'){
+          this.admin = true;
+        }else{
+          this.admin = false;
+        }
+        this.empFName = data.empFName;
+      }
+    });
     // if(localStorage.getItem('role') != null && localStorage.getItem('role') != 'null'
     //   && localStorage.getItem('role') != "" && localStorage.getItem('role') != undefined
     //   && typeof localStorage.getItem('role') != 'undefined'
@@ -34,20 +45,22 @@ export class EmployeeHeaderComponent implements OnInit {
     //     this.empFName = localStorage.getItem('empFName');
     //   }
     // }else{    
-    if(
-      sessionStorage.getItem('role') != null && sessionStorage.getItem('role') != 'null'
-      && sessionStorage.getItem('role') != "" && sessionStorage.getItem('role') != undefined
-      && typeof sessionStorage.getItem('role') != 'undefined'
-    ){
-      console.log(sessionStorage.getItem('role'));
-      if(sessionStorage.getItem('role') == 'ADMIN'){
-        this.admin = true;
-      }
 
-      if(typeof sessionStorage.getItem('empFName') != undefined && sessionStorage.getItem('empFName') != null){
-        this.empFName = sessionStorage.getItem('empFName');
-      }
-    }else{
+
+    // if(
+    //   sessionStorage.getItem('role') != null && sessionStorage.getItem('role') != 'null'
+    //   && sessionStorage.getItem('role') != "" && sessionStorage.getItem('role') != undefined
+    //   && typeof sessionStorage.getItem('role') != 'undefined'
+    // ){
+    //   console.log(sessionStorage.getItem('role'));
+    //   if(sessionStorage.getItem('role') == 'ADMIN'){
+    //     this.admin = true;
+    //   }
+
+    //   if(typeof sessionStorage.getItem('empFName') != undefined && sessionStorage.getItem('empFName') != null){
+    //     this.empFName = sessionStorage.getItem('empFName');
+    //   }
+    // }else{
       // let resp;
       // this.employeeService.getRole().subscribe((data) => {
       //   if(data != null || data != "" || data != undefined){
@@ -62,7 +75,7 @@ export class EmployeeHeaderComponent implements OnInit {
       //   }        
       //   setTimeout(this.onRoleChange.emit(), 1000);
       // });
-    }
+    // }
 
     //// check every 90 seconds whether user is logged in!
     setInterval(()=>{this.checkLoginStatus()}, 90000);
