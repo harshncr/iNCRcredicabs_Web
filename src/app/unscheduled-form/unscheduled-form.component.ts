@@ -211,13 +211,13 @@ export class UnscheduledFormComponent implements OnInit {
           "qlid": this.employee[i].qlid,
           "guard": f.value.GuardNeeded,
           "picktime": this.PickupTime[i],
-          "pickup": (this.employee[i].source as string).substring(0, 25),
+          "pickup": (this.employee[i].source as string).substring(0, 21),
           "drop": this.employee[i].type,
           "start": f.value.RouteStartDate,
           "end": f.value.RouteEndDate,
           "vendor": f.value.VendorName,
           "cost": f.value.Cost,
-          "cabno": f.value.CabNumber,
+          "cabno": (f.value.CabNumber as string).toUpperCase(),
         };
 
         console.log(jsonstring);
