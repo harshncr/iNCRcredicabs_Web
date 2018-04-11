@@ -22,6 +22,11 @@ export class VendorService {
     })
     
   }
+  getVendorByKey(body)
+  {
+    return this._http.post(env.environment.url+"/VendorService/VendorDetails/id",JSON.stringify({vendor_id:body})).map(response=>response.json());
+  }
+  
   searchVendor(body){
     
     return this._http.post(env.environment.url+"/VendorService/SearchVendor",body).map((response)=>{
@@ -48,6 +53,9 @@ export class VendorService {
     return this._http.post(env.environment.url+"/VendorService/EnableVendor",body).map((response)=>{
       return response.json();
     })
+  }
+  getimage(body): Observable<any>{
+    return this._http.post(env.environment.url+"/VendorService/downloadimage", body);
   }
 
 }

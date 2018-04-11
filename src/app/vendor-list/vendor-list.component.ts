@@ -87,14 +87,16 @@ export class VendorListComponent implements OnInit {
     console.log("8");
   }
   view(vendor){
-    localStorage.removeItem('Driver');
-    localStorage.removeItem('Cab');
-    localStorage.removeItem('Vendor');
-  localStorage.setItem('Vendor', JSON.stringify(vendor));
-
+    console.log(vendor);
+  //   localStorage.removeItem('Driver');
+  //   localStorage.removeItem('Cab');
+  //   localStorage.removeItem('Vendor');
+  // localStorage.setItem('Vendor', JSON.stringify(vendor));
+    this.vendor_id = vendor.id ;
+    console.log(this.vendor_id);
     //this.selectedItem=vendor;
     //this._vendorData.setItem(this.selectedItem);
-    this.router.navigate(['view-vendor']);
+    this.router.navigate(['view-vendor', this.vendor_id]);
   }
 
   search(){
@@ -195,16 +197,18 @@ export class VendorListComponent implements OnInit {
   }
   update(vendor)
   {
-    localStorage.removeItem('Driver');
-    localStorage.removeItem('Cab');
-    localStorage.removeItem('Vendor');
-  localStorage.setItem('Vendor', JSON.stringify(vendor));
-   // this._Data.vendor = vendor;
+  //   localStorage.removeItem('Driver');
+  //   localStorage.removeItem('Cab');
+  //   localStorage.removeItem('Vendor');
+  // localStorage.setItem('Vendor', JSON.stringify(vendor));
+  //  // this._Data.vendor = vendor;
+   console.log(vendor);
    // console.log(this._Data.vendor);
-    
-   // this.selectedItem=vendor;
-   // this._vendorData.setItem(this.selectedItem);
-    this.router.navigate(['update-vendor']);
+   this.vendor_id = vendor.id ;
+   console.log(this.vendor_id);
+   //this.selectedItem=vendor;
+   //this._vendorData.setItem(this.selectedItem);
+   this.router.navigate(['update-vendor', this.vendor_id]);
   }
   popUp(){
     this.new=true;

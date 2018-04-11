@@ -1,8 +1,11 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { CabData } from '../cab-list/cabData';
 import { CabService } from '../cab.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Data } from '../Model/Data';
+import { VendorListComponent } from '../vendor-list/vendor-list.component';
+import { VendorService } from '../vendor.service';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-cab-update',
@@ -26,6 +29,9 @@ upDate:Date;
 dlDate:Date;
 hrDate:Date;
 Date:Date;
+public i;
+public f=[];
+
 validateStatus : boolean;
  Rcert1 = new FormData();
  Fcert1 = new FormData();
@@ -39,12 +45,26 @@ validateStatus : boolean;
  message9="";     message10="";     message11="";      
  message12="";     message13="";      message14="";   
  message15 = "";    message16="";     message17="";
-  constructor(private _cabData:CabData, private _cabService:CabService,private elem:ElementRef, private router:Router) { }
-
+ public cab_id;
+ public sub;
+  constructor(private _cabData:CabData,private sanitizer:DomSanitizer ,public httpService:VendorService ,private _cabService:CabService,private elem:ElementRef, private router:Router, private route:ActivatedRoute) { }
+public showLoading=true;
   ngOnInit() {
+    this.i=0;
     //this.cab=this._cabData.getItem();
-    this.cab = JSON.parse(localStorage.getItem('Cab'));
-    console.log(this.cab);
+    // this.cab = JSON.parse(localStorage.getItem('Cab'));
+    this.sub = this.route.params.subscribe(params => {
+      this.cab_id = +params['cab_id'];
+      console.log(this.cab_id);
+    });
+    let JSONStr = "{'request':{'cab_id': '"+this.cab_id+"'}}";
+    // console.log(body);
+    this._cabService.searchCab(JSONStr).subscribe((response)=>{
+      
+      this.cab=response.result[0];
+      this.showLoading=false;
+      console.log(this.cab);
+    });
   }
   image1_Rcert()
   {
@@ -53,8 +73,10 @@ validateStatus : boolean;
     //this.Rcert1 =new FormData();
     let file=files[0];
     let filename = 'Rcert.' + file.name.split(".")[1];
-    this.cab.Rcert = this.cab.cab_no + "_a" + filename;
-    this.Rcert1.append('file_upload',file,this.cab.Rcert);
+    this.cab.reg_certi = this.cab.cab_no + "_" + filename;
+    console.log(this.cab.reg_certi);
+    this.Rcert1.append('file_upload',file,this.cab.reg_certi);
+    this.f[this.i++]=this.Rcert1;
 
   }
   image2_Pcert()
@@ -64,8 +86,9 @@ validateStatus : boolean;
      // let Pcert =new FormData();
       let file1=files1[0];
       let filename1 = 'Pcert.' + file1.name.split(".")[1];
-      this.cab.Pcert = this.cab.cab_no + "_" + filename1;
-      this.Pcert1.append('file_upload',file1,this.cab.Pcert);
+      this.cab.poll_certi = this.cab.cab_no + "_" + filename1;
+      this.Pcert1.append('file_upload',file1,this.cab.reg_certi);
+      this.f[this.i++]=this.Pcert1;
       
   }
   image3_Fcert()
@@ -75,9 +98,9 @@ validateStatus : boolean;
      this.Fcert1 =new FormData();
       let file2=files2[0];
       let filename2 = 'Fcert.' + file2.name.split(".")[1];
-      this.cab.Fcert = this.cab.cab_no + "_" + filename2;
-      this.Fcert1.append('file_upload',file2,this.cab.Fcert);
-
+      this.cab.fit_certi = this.cab.cab_no + "_" + filename2;
+      this.Fcert1.append('file_upload',file2,this.cab.fit_certi);
+      this.f[this.i++]=this.Fcert1;
   }
   image4_Icert()
   {
@@ -86,8 +109,9 @@ validateStatus : boolean;
     this.Icert1 =new FormData();
     let file4=files4[0];
     let filename4 = 'icert.' + file4.name.split(".")[1];
-    this.cab.icert = this.cab.cab_no + "_" + filename4;
-    this.Icert1.append('file_upload',file4,this.cab.icert);
+    this.cab.insur_certi = this.cab.cab_no + "_" + filename4;
+    this.Icert1.append('file_upload',file4,this.cab.insur_certi);
+    this.f[this.i++]=this.Icert1;
   }
   image5_Entry_Haryana()
   {
@@ -98,7 +122,7 @@ validateStatus : boolean;
       let filename5 = 'entry_tax_haryana_certi.' + file5.name.split(".")[1];
       this.cab.tax_haryana_certi = this.cab.cab_no + "_" + filename5;
       this.entry_tax_haryana_certi1.append('file_upload',file5,this.cab.tax_haryana_certi);
-      
+      this.f[this.i++]=this.entry_tax_haryana_certi1;
 
   }
   image6_Entry_Delhi()
@@ -110,7 +134,7 @@ validateStatus : boolean;
       let filename6 = 'entry_tax_delhi_certi.' + file6.name.split(".")[1];
       this.cab.tax_delhi_certi = this.cab.cab_no + "_" + filename6;
       this.entry_tax_delhi_certi1.append('file_upload',file6,this.cab.tax_delhi_certi);
-
+      this.f[this.i++]=this.entry_tax_delhi_certi1;
   }
   image7_Entry_Up()
   {
@@ -122,8 +146,45 @@ validateStatus : boolean;
     this.cab.tax_up_certi = this.cab.cab_no + "_" + filename7;
     this.entry_tax_up_certi1.append('file_upload',file7,this.cab.tax_up_certi);
     console.log("up "+this.cab.tax_up_certi);
-
+    this.f[this.i++]=this.entry_tax_up_certi1;
   }
+  checkPresence1(){
+    if(this.cab.tax_delhi_certi == ''|| this.cab.tax_delhi_certi == null)
+    {
+      
+      return true;
+    }
+    else{
+      
+      return false;
+    }
+  }   
+  checkPresence2(){
+    if(this.cab.tax_haryana_certi == ''|| this.cab.tax_haryana_certi == null)
+    {
+      
+      return true;
+    }
+    else{
+      return false;
+    }
+  }   
+  checkPresence3(){
+    if(this.cab.tax_up_certi == ''|| this.cab.tax_up_certi == null)
+    {
+     
+      return true;
+    }
+    else{
+      return false;
+    }
+  } 
+
+ registration()
+ {
+
+ }
+
 
 
 
@@ -142,12 +203,18 @@ validateStatus : boolean;
 
         
             console.log("inside success!");
-          
+            
                   
             let file_upload= [this.Rcert1,this.Pcert1,this.Fcert1,this.Icert1,this.entry_tax_haryana_certi1,this.entry_tax_delhi_certi1,this.entry_tax_up_certi1]
-            for (let i=0;i<7;i++)
+            console.log("this is cool",this.f);
+            for (let i=0;i<this.f.length;i++)
             {
-              this._cabService.sendfile(file_upload[i]).subscribe();
+              if(this.f[i] != null)
+              {
+                
+                this._cabService.sendfile(this.f[i]).subscribe();
+              }
+                
             }
           }
 
@@ -166,7 +233,7 @@ validateStatus : boolean;
 validate(){
   let todays =new Date();
   let today = new Date();
-  today.setFullYear(today.getFullYear() -3);
+  today.setFullYear(today.getFullYear() -5);
   this.Date = new Date(this.cab.manufacture_date); 
   let today1=new Date();
   today1.setMonth(today1.getMonth() +1);
@@ -290,6 +357,11 @@ validate(){
    this. validateStatus=false;
    this.message11="date is above current date";
   }
+  if(this.Date<today)
+  {
+    this.validateStatus = false;
+    this.message11 = "date is expired";
+  }
   
 }
 else{
@@ -349,6 +421,7 @@ this.message17 = "it has been expired.";
 }
 }
 
+ 
 
 return this.validateStatus;
 }
@@ -384,6 +457,7 @@ this.message17 = '';
 //this.new=false;
 //}
 
+ 
 }
 
 

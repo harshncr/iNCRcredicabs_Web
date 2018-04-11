@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CabData } from '../cab-list/cabData';
 import { VendorData } from '../vendor-list/vendorData';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { VendorListComponent } from '../vendor-list/vendor-list.component';
 import { VendorService } from '../vendor.service';
 import { Vendor } from '../Model/vendor';
@@ -25,14 +25,27 @@ export class ViewCabComponent implements OnInit {
   public driverSecondary;
   filterValue: any;
   public message;
-  constructor(public _cabData: CabData,public _cabService:CabService,public _vendorData:VendorData, private _vendorService: VendorService, private router: Router) { }
+  public cab_id;
+  showLoading = true; 
+  constructor(public _cabData: CabData,public _cabService:CabService,public _vendorData:VendorData, private _vendorService: VendorService, private router: Router,private route:ActivatedRoute) { }
 
   ngOnInit() {
     //this.cab=this._cabData.getItem();
-    this.cab = JSON.parse(localStorage.getItem('Cab'));
-
+    // this.cab = JSON.parse(localStorage.getItem('Cab'));
+    this.cab = this.route.params.subscribe(params => {
+      this.cab_id = +params['cab_id'];
+      console.log(this.cab_id);
+    });
+    let JSONStr = "{'request':{'cab_id': '"+this.cab_id+"'}}";
+    // console.log(body);
+    this._cabService.searchCab(JSONStr).subscribe((response)=>{
+      
+      this.cab=response.result[0];
+      this.showLoading=false;
+      console.log(this.cab);
+    });
     
-    console.log(this.cab);
+    // console.log(this.cab);
     
     
   }
@@ -63,6 +76,39 @@ export class ViewCabComponent implements OnInit {
     
      //this.router.navigate(['view-vendor']);
    }
+   checkPresence1(){
+    if(this.cab.tax_delhi_certi == ''|| this.cab.tax_delhi_certi == null)
+    {
+      
+      return true;
+    }
+    else{
+      
+      return false;
+    }
+  }   
+  checkPresence2(){
+    if(this.cab.tax_haryana_certi == ''|| this.cab.tax_haryana_certi == null)
+    {
+      
+      return true;
+    }
+    else{
+      return false;
+    }
+  }   
+  checkPresence3(){
+    if(this.cab.tax_up_certi == ''|| this.cab.tax_up_certi == null)
+    {
+     
+      return true;
+    }
+    else{
+      return false;
+    }
+  }   
+ 
+
    
    addsecondarydriver(cab)
    {

@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { DriverData } from '../driver-list/driverData';
 import { DriverService } from '../driver.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Driver } from '../Model/driver';
 
 @Component({
@@ -20,7 +20,11 @@ export class DriverUpdateComponent implements OnInit {
   message2; message4; message6;
   message7; message8; message9;
  
-  constructor(public _driverData:DriverData,public _driverService:DriverService,private router:Router, private elem:ElementRef) { }
+  constructor(public _driverData:DriverData,public _driverService:DriverService,private router:Router, private elem:ElementRef, private route:ActivatedRoute) {
+   
+ 
+
+   }
   public driver:Driver;
   module= "vendor";
   navLocation = "/ Update Driver";
@@ -32,24 +36,39 @@ export class DriverUpdateComponent implements OnInit {
   public permanent_Address;
   public c_Plate_Nbr;
   public license_exp_date;
-  
-  
+  public driver_id:number;
+  private sub:any;
+  public showLoading=true;
+  public i;
+  public f=[];  
 
   ngOnInit() {
-    this.driver = JSON.parse(localStorage.getItem('Driver'));
+    this.i=0;
+    this.sub = this.route.params.subscribe(params => {
+      this.driver_id = +params['driver_id'];
+      console.log(this.driver_id);
+    });
+       this._driverService.getDriverByKey(this.driver_id).subscribe((response)=>{
+         this.driver = response.result[0];
+         this.showLoading=false;
+         console.log(this.driver);
+       })
+    
     //this.driver=this._driverData.getItem();
-    console.log(this.driver);
-
-  }
+    //console.log(this.driver);
+    //this.driver = JSON.parse(localStorage.getItem('Driver'));
+    //console.log(this.driver);
+   
+}
   image1_commercial()
   {
     let files1=this.elem.nativeElement.querySelector("#d_comercial_liscence").files;
     //let d_comercial_liscence =new FormData();
     let file1=files1[0];
     let filename1 = 'd_comercial_liscence.' + file1.name.split(".")[1];
-    this.driver.d_comercial_liscence = this.driver.license_num + "_" + filename1;
-   this.d_comercial_liscence.append('file_upload',file1,this.driver.d_comercial_liscence);
-
+    this.driver.d_comercial_liscence = this.driver.d_license_num + "_" + filename1;
+    this.d_comercial_liscence.append('file_upload',file1,this.driver.d_comercial_liscence);
+    this.f[this.i++]=this.d_comercial_liscence;
   }
   image2_police()
   {
@@ -57,9 +76,9 @@ export class DriverUpdateComponent implements OnInit {
     //let d_police_verification =new FormData();
     let file2=files2[0];
     let filename2 = 'd_police_verification.' + file2.name.split(".")[1];
-    this.driver.d_police_verification = this.driver.license_num + "_" + filename2;
+    this.driver.d_police_verification = this.driver.d_license_num + "_" + filename2;
     this.d_police_verification.append('file_upload',file2,this.driver.d_police_verification);
-
+    this.f[this.i++]=this.d_police_verification;
   }
   image3_local_add()
   {
@@ -67,9 +86,9 @@ export class DriverUpdateComponent implements OnInit {
     //let d_local_Address_proof =new FormData();
     let file3=files3[0];
     let filename3 = 'd_local_Address_proof.' + file3.name.split(".")[1];
-    this.driver.d_local_Address_proof = this.driver.license_num + "_" + filename3;
-    this.d_local_Address_proof.append('file_upload',file3,this.driver.d_local_Address_proof);
-    
+    this.driver.d_local_add_proof = this.driver.d_license_num + "_" + filename3;
+    this.d_local_Address_proof.append('file_upload',file3,this.driver.d_local_add_proof);
+    this.f[this.i++]=this.d_local_Address_proof;
   }
   image4_permanent_add()
   {
@@ -77,9 +96,9 @@ export class DriverUpdateComponent implements OnInit {
     //let d_permanent_address_proof =new FormData();
     let file4=files4[0];
     let filename4 = 'd_permanent_address_proof.' + file4.name.split(".")[1];
-    this.driver.d_permanent_address_proof = this.driver.license_num + "_" + filename4;
-    this.d_permanent_address_proof.append('file_upload',file4,this.driver.d_permanent_address_proof);
-
+    this.driver.d_permanent_add_proof = this.driver.d_license_num + "_" + filename4;
+    this.d_permanent_address_proof.append('file_upload',file4,this.driver.d_permanent_add_proof);
+    this.f[this.i++]=this.d_permanent_address_proof;
   }
   image5_photo()
   {
@@ -87,10 +106,21 @@ export class DriverUpdateComponent implements OnInit {
     //let d_photo =new FormData();
     let file5=files5[0];
     let filename5 = 'd_photo.' + file5.name.split(".")[1];
-    this.driver.d_license = this.driver.license_num + "_ab" + filename5;
-    this.d_photo.append('file_upload',file5,this.driver.d_license);
-
+    this.driver.license_num = this.driver.d_license_num + "_" + filename5;
+    this.d_photo.append('file_upload',file5,this.driver.license_num);
+    this.f[this.i++]=this.d_photo;
   }
+  verify1()
+  {
+    if(this.driver.d_local_add_proof == '' || this.driver.d_local_add_proof == null)
+    {
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
   upd(){
  
     if(this.validate() == true)
@@ -103,11 +133,18 @@ export class DriverUpdateComponent implements OnInit {
         console.log(response);
         if(response.result == "Insert Data success"){
           this.driver.message = response._body;
+          console.log("hum andar hain")
 
-          let file_upload= [this.d_comercial_liscence,this.d_police_verification,this.d_local_Address_proof,this.d_permanent_address_proof,this.d_photo]
-          for (let i=0;i<5;i++)
+          let file_upload= [this.d_comercial_liscence,this.d_police_verification,this.d_local_Address_proof,this.d_permanent_address_proof,this.d_photo];
+         
+          for (let i=0;i<this.f.length;i++)
           {
-            this._driverService.sendfile(file_upload[i]).subscribe();
+            console.log(this.f);
+            if(this.f[i] !=null)
+            {
+              console.log(this.f[i]);
+            this._driverService.sendfile(this.f[i]).subscribe();
+            }
           }
         }
      
@@ -157,7 +194,7 @@ export class DriverUpdateComponent implements OnInit {
             this.validatestatus = false;
             this.message3 = "Driver address cannot be empty";
     }
-    if(this.driver.license_num == null || this.driver.license_num == '')
+    if(this.driver.d_license_num == null || this.driver.d_license_num == '')
     {
       this.validatestatus = false;
       this.message4 = "Driver's License cannot be empty";

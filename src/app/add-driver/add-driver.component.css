@@ -1,3 +1,8 @@
+    input[type=file]::-webkit-file-upload-button{background: #ffffff;padding: 7px 12px;margin-right: 10px;border: 1px solid #cccccc;border-radius: 4px;cursor: pointer;}
+    input[type=file]::-webkit-file-upload-button:hover{background: #eeeeee;}  
+
+
+
 body{
     /* Safari 4-5, Chrome 1-9 */
       background: -webkit-gradient(radial, center center, 0, center center, 460, from(#1a82f7), to(#5cb85c));
@@ -66,16 +71,4 @@ body{
     display: block;
     font-size: 120%;
     margin-left:15%;
-}
-
-
-.btn-primary{
-    border:none;
-    background: transparent;
-}
-
-
-.add-driver-panel{
-    background-color: #0099bf;
-    color: #fff;
-    }
+} 

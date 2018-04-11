@@ -72,26 +72,26 @@ export class CabListComponent implements OnInit {
 
   view(cab){
 
-    localStorage.removeItem('Driver');
-    localStorage.removeItem('Vendor');
-    localStorage.removeItem('Cab');
-    localStorage.setItem('Cab', JSON.stringify(cab));
+    // localStorage.removeItem('Driver');
+    // localStorage.removeItem('Vendor');
+    // localStorage.removeItem('Cab');
+    // localStorage.setItem('Cab', JSON.stringify(cab));
     //this.selectedItem=cab;
     console.log(cab);
    // console.log(cab.cab_no);
     //this._cabData.setItem(this.selectedItem);
     //console.log(this._cabData.getItem());
-    this.router.navigate(['view-cab']);
+    this.router.navigate(['view-cab', cab.cab_id]);
     
   }
   update(cab){
-    localStorage.removeItem('Driver');
-    localStorage.removeItem('Vendor')
-    localStorage.setItem('Cab', JSON.stringify(cab));
-    console.log(cab);
+    // localStorage.removeItem('Driver');
+    // localStorage.removeItem('Vendor')
+    // localStorage.setItem('Cab', JSON.stringify(cab));
+    // console.log(cab);
     //this.selectedItem=cab;
     //this._cabData.setItem(this.selectedItem);
-    this.router.navigate(['cab-update']);
+    this.router.navigate(['cab-update' , cab.cab_id]);
   }
 
   search(){

@@ -1,9 +1,9 @@
 <app-header [module]="module" [navLocation]="navLocation"></app-header>
 
-
+<div *ngIf= "showLoading" class = "loader-animation"></div>
 
 <!--<div class="success">{{message}}</div>-->
-<div class="col-md-12">
+<div class="col-md-12" *ngIf ="!showLoading" >
 
   <div class="panel panel-default">
     <div class="panel-heading cab-update-panel clearfix">
@@ -62,179 +62,187 @@
               </select>
               <span class="text-danger"  ng-show="icert.$error.required">{{message4}}</span>
             </div>
-            <div class="col-sm-3">
-              <b>Cab Rate</b>
-              <br>
-              <input type="text" name="cab_rate" id="cab_rate" [(ngModel)]="cab.cab_rate" class="form-control">
-
-            </div>
-
+           
+            
+           
             <div class="col-sm-3">
               <b>Manufacture Date*</b>
               <br>
               <input type="date" name="date" id="date" [(ngModel)]="cab.manufacture_date" class="form-control">
               <span class="text-danger"  ng-show="icert.$error.required">{{message11}}</span>
             </div>
+       
 
           </div>
 
-          <legend>
-            Uploads
-          </legend>
-          <div class="form-group">
-            <div class="col-sm-4">
-              <b> Registration Certificate*:</b>
-              <input type="file" id="Rcert" name="Rcert" accept="image/jpeg,image/jpg" (change)="image1_Rcert()">
-              <span class="text-danger"  ng-show="Rcert.$error.required">{{message7}}</span>
-            </div>
-            <div class="col-sm-4">
-              <!-- <input type="text" name="pollution certificate" placeholder="pollution certificate" class="form-control">-->
-              <b>Pollution Certificate*:</b>
-              <input type="file" name="Pcert" id="Pcert" accept="image/jpeg,image/jpg" (change)="image2_Pcert()">
-              <span class="text-danger"  ng-show="Pcert.$error.required">{{message8}}</span>
-            </div>
-            <div class="col-sm-4">
-              <b>Fitness Certificate*:</b>
-              <input type="file" name="Fcert" id="Fcert" accept="image/jpeg,image/jpg" (change)="image3_Fcert()">
-              <span class="text-danger"  ng-show="Fcert.$error.required">{{message9}}</span>
-            </div>
+      <legend>
+        <b>Uploads</b>
+      </legend>
+      <div class="form-group">
+        <div class="col-sm-4">
+          <b> Registration Certificate*:</b>
+          <input type="file" id="Rcert" name="Rcert" accept="image/jpeg,image/jpg,image/x-png" (change)="image1_Rcert()">
+          <span class="text-danger"  ng-show="Rcert.$error.required">{{message7}}</span>
+        </div>
+        <div class="col-sm-4">
+          <!-- <input type="text" name="pollution certificate" placeholder="pollution certificate" class="form-control">-->
+          <b>Pollution Certificate*:</b>
+          <input type="file" name="Pcert" id="Pcert" accept="image/jpeg,image/jpg,image/x-png" (change)="image2_Pcert()">
+          <span class="text-danger"  ng-show="Pcert.$error.required">{{message8}}</span>
+        </div>
+        <div class="col-sm-4">
+          <b>Fitness Certificate*:</b>
+          <input type="file" name="Fcert" id="Fcert" accept="image/jpeg,image/jpg,image/x-png" (change)="image3_Fcert()">
+          <span class="text-danger"  ng-show="Fcert.$error.required">{{message9}}</span>
+        </div>
 
-          </div>
-          <div class="form-group">
+      </div>
+      <div class="form-group">
 
-            <div class="col-sm-4">
-              <b>Insurance Certificate*:</b>
-              <input type="file" name="icert" id="icert" accept="image/jpeg,image/jpg" (change)="image4_Icert()">
-              <span class="text-danger"  ng-show="icert.$error.required">{{message10}}</span>
-            </div>
-            <div class="col-sm-4">
-              <b> Entry Tax Haryana Certificate:</b>
-              <input type="file" id="entry_tax_haryana_certi" name="entry_tax_haryana_certi" accept="image/jpeg,image/jpg" (change)="image5_Entry_Haryana()">
-              <span class="text-danger"  ng-show="cert.$error.required">{{message10}}</span>
-            </div>
-            <div class="col-sm-4">
-              <!-- <input type="text" name="pollution certificate" placeholder="pollution certificate" class="form-control">-->
-              <b>Entry Tax Delhi Certificate:</b>
-              <input type="file" name="entry_tax_delhi_certi" id="entry_tax_delhi_certi" accept="image/jpeg,image/jpg" (change)="image6_Entry_Delhi()">
-            </div>
-          </div>
+        <div class="col-sm-4">
+          <b>Insurance Certificate*:</b>
+          <input type="file" name="icert" id="icert" accept="image/jpeg,image/jpg,image/x-png" (change)="image4_Icert()">
+          <span class="text-danger"  ng-show="icert.$error.required">{{message10}}</span>
+        </div>
+        <div class="col-sm-4">
+          <b> Entry Tax Haryana Certificate:</b>
+          <input type="file" id="entry_tax_haryana_certi" name="entry_tax_haryana_certi" accept="image/jpeg,image/jpg,image/x-png" (change)="image5_Entry_Haryana()">
+          <span class="text-danger"  ng-show="cert.$error.required">{{message10}}</span>
+        </div>
+        <div class="col-sm-4">
+          <!-- <input type="text" name="pollution certificate" placeholder="pollution certificate" class="form-control">-->
+          <b>Entry Tax Delhi Certificate:</b>
+          <input type="file" name="entry_tax_delhi_certi" id="entry_tax_delhi_certi" accept="image/jpeg,image/jpg,image/x-png" (change)="image6_Entry_Delhi()">
+        </div>
+      </div>
 
-          <div class="form-group">
-            <div class="col-sm-4">
-              <b>Entry Tax UP Certificate:</b>
-              <input type="file" name="entry_tax_up_certi" id="entry_tax_up_certi" accept="image/jpeg,image/jpg" (change)="image7_Entry_Up()">
-            </div>
-          </div>
+      <div class="form-group">
+        <div class="col-sm-4">
+          <b>Entry Tax UP Certificate:</b>
+          <input type="file" name="entry_tax_up_certi" id="entry_tax_up_certi" accept="image/jpeg,image/jpg,image/x-png" (change)="image7_Entry_Up()">
+        </div>
+      </div>
 
-          <legend>Certificates</legend>
-          <div class="form-group">
-            <div class="col-sm-3">
-              <b>Registration Certificate*</b>
-              <br>
-              <!-- <a ng-href="/usr/share/tomcat8/webapps/vendor-documents//img.jpeg">link1</a> -->
-              <a href="/tmp/vendor-documents/{{cab.reg_certi}}" target="_blank">
-                Registration Certificate
-              </a>
+      <legend>Cerificates</legend>
+      <div class="form-group">
+        <div class="col-sm-3">
+         <b>Registration Certificate*</b>
+          <br>
+          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.reg_certi]" class="btn btn-default btn-md" style="background:white;">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span> 
+           </button>
+      </div>
+      
+        <div class="col-sm-3">
+          <b>Pollution Certificate*</b>
+          <br>
+          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.poll_certi]" class="btn btn-default btn-md" style="background:white;">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
+           </button>
+         
+        </div>
 
+        <div class="col-sm-3">
+          <b>Fitness Certificate*</b>
+          <br>
+           <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.fit_certi]" class="btn btn-default btn-md" style="background:white;"> 
+           
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span> 
+          </button> 
+           
+        </div>
 
-            </div>
-            <div class="col-sm-3">
-              <b>Pollution Certificate*</b>
-              <br>
-              <a href="/tmp/vendor-documents/{{cab.poll_certi}}" target="_blank">
-                Pollution Certificate
-              </a>
-            </div>
-            <div class="col-sm-3">
-              <b>Fitness Certificate*</b>
-              <br>
-              <a href="/tmp/vendor-documents/{{cab.fit_certi}}" target="_blank">
-                Fitness Certificate
-              </a>
-            </div>
-            <div class="col-sm-3">
-              <b>Insurance Certificate*</b>
-              <br>
-              <a href="/tmp/vendor-documentss/{{cab.insur_certi}}" target="_blank">
-                Insurance Certificate
-              </a>
-            </div>
-            <div class="col-sm-3">
-              <b>Entry Tax Haryana Certificate</b>
-              <br>
-              <a href="/tmp/vendor-documents/{{cab.tax_haryana_certi}}" target="_blank">
-                Entry Tax Haryana Certificate
-              </a>
-            </div>
-            <div class="col-sm-3">
-              <b>Entry Tax Delhi Certificate</b>
-              <br>
-              <a href="/tmp/vendor-documents/{{cab.tax_delhi_certi}}" target="_blank">
-                Entry Tax Delhi Certificate
-              </a>
-            </div>
-            <div class="col-sm-3">
-              <b>Entry Tax UP Certificate</b>
-              <br>
-              <a href="/tmp/vendor-documents/{{cab.tax_up_certi}}" target="_blank">
-                Entry Tax UP Certificate
-              </a>
-            </div>
-          </div>
+        <div class="col-sm-3">
+          <b>Insurance Certificate*</b>
+          <br>
+          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.insur_certi]" class="btn btn-default btn-md" style="background:white;">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
+           </button>
+          
+        </div>
+        
+        <div class="col-sm-3" style="white-space: nowrap;">
+          <b>Entry Tax Delhi Certificate</b>
+          <br>
+          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.tax_delhi_certi]" class="btn btn-default btn-md" style="background:white;">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span> 
+           </button>
+            <span *ngIf="checkPresence1()" class="glyphicon glyphicon-remove-sign"></span>
+         
+          
+        </div>
 
-
-
-
-          <legend>Expiry Dates</legend>
-          <div class="form-group">
-            <div class="col-sm-3">
-              <b>Pollution Cerificate</b>
-              <br>
-              <input type="date" name="poll_exp" id="poll_exp" [(ngModel)]="cab.poll_exp" class="form-control">
-              <span class="text-danger"  ng-show="pdate.$error.required">{{message12}}</span>
-            </div>
-            <div class="col-sm-3">
-              <b>Fitness Cerificate</b>
-              <br>
-              <input type="date" name="fit_exp" id="fit_exp" [(ngModel)]="cab.fit_exp" class="form-control">
-              <span class="text-danger"  ng-show="fdate.$error.required">{{message13}}</span>
-            </div>
-            <div class="col-sm-3">
-              <b>Insurance Cerificate</b>
-              <br>
-              <input type="date" name="insur_exp" id="insur_exp" [(ngModel)]="cab.insur_exp" class="form-control">
-              <span class="text-danger"  ng-show="idate.$error.required">{{message14}}</span>
-            </div>
-            <div class="col-sm-3">
-              <b>Tax Entry Haryana Cerificate</b>
-              <br>
-              <input type="date" name="tax_haryana_exp" id="tax_haryana_exp" [(ngModel)]="cab.tax_haryana_exp" class="form-control">
-              <span class="text-danger"  ng-show="hrdate.$error.required">{{message15}}</span>
-            </div>
-            <div class="col-sm-3">
-              <b>Tax Entry Delhi Cerificate</b>
-              <br>
-              <input type="date" name="tax_delhi_exp" id="tax_delhi_exp" [(ngModel)]="cab.tax_delhi_exp" class="form-control">
-              <span class="text-danger"  ng-show="update.$error.required">{{message17}}</span>
-            </div>
-            <div class="col-sm-3">
-              <b>Tax Entry UP Cerificate</b>
-              <br>
-              <input type="date" name="tax_up_exp" id="tax_up_exp" [(ngModel)]="cab.tax_up_exp" class="form-control">
-              <span class="text-danger"  ng-show="icert.$error.required">{{message16}}</span>
-            </div>
-
-          </div>
+        <div class="col-sm-3" style="white-space: nowrap;">
+          <b>Entry Tax UP Certificate</b>
+          <br>
+          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.tax_up_certi]" class="btn btn-default btn-md" style="background:white;">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
+           </button>
+            <span *ngIf="checkPresence3()" class="glyphicon glyphicon-remove-sign"></span>
+           
+       
+        </div>
+        <div class="col-sm-3" style="white-space: nowrap;" >
+          <b>Entry Tax Haryana Certificate</b>
+          <br>
+          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.tax_haryana_certi]" class="btn btn-default btn-md" style="background:white;">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span> 
+           </button>
+            <span *ngIf="checkPresence2()" class="glyphicon glyphicon-remove-sign"></span>
+          
+        </div>
+      </div>
 
 
 
 
-          <!-- Command -->
+      <legend>Expiry Dates</legend>
+      <div class="form-group">
+        <div class="col-sm-3">
+          <b>Pollution Certificate</b>
+          <br>
+          <input type="date" name="poll_exp" id="poll_exp" [(ngModel)]="cab.poll_exp" class="form-control">
+          <span class="text-danger"  ng-show="pdate.$error.required">{{message12}}</span>
+        </div>
+        <div class="col-sm-3">
+          <b>Fitness Certificate</b>
+          <br>
+          <input type="date" name="fit_exp" id="fit_exp" [(ngModel)]="cab.fit_exp" class="form-control">
+          <span class="text-danger"  ng-show="fdate.$error.required">{{message13}}</span>
+        </div>
+        <div class="col-sm-3">
+          <b>Insurance Certificate</b>
+          <br>
+          <input type="date" name="insur_exp" id="insur_exp" [(ngModel)]="cab.insur_exp" class="form-control">
+          <span class="text-danger"  ng-show="idate.$error.required">{{message14}}</span>
+        </div>
+        <div class="col-sm-3" style="white-space: nowrap;">
+          <b>Tax Entry Haryana Certificate</b>
+          <br>
+          <input type="date" name="tax_haryana_exp" id="tax_haryana_exp" [(ngModel)]="cab.tax_haryana_exp" class="form-control">
+          <span class="text-danger"  ng-show="hrdate.$error.required">{{message15}}</span>
+        </div>
+        <div class="col-sm-3" style="white-space: nowrap;">
+          <b>Tax Entry Delhi Certificate</b>
+          <br>
+          <input type="date" name="tax_delhi_exp" id="tax_delhi_exp" [(ngModel)]="cab.tax_delhi_exp" class="form-control">
+          <span class="text-danger"  ng-show="update.$error.required">{{message17}}</span>
+        </div>
+        <div class="col-sm-3">
+          <b>Tax Entry UP Certificate</b>
+          <br>
+          <input type="date" name="tax_up_exp" id="tax_up_exp" [(ngModel)]="cab.tax_up_exp" class="form-control">
+          <span class="text-danger"  ng-show="icert.$error.required">{{message16}}</span>
+        </div>
 
-        </fieldset>
-      </form>
-    </div>
-  </div>
+      </div>
 
+
+
+
+      <!-- Command -->
+
+    </fieldset>
+  </form>
 </div>
 <!-- /.col-lg-12 -->

@@ -11,15 +11,33 @@
         outline:none;
     }
      
-
-
-    .view-cab-panel{
-        background-color: #0099bf;
-        color: #fff;
+    .loader-animation{
+        margin-left:45%;
+        border: 5px solid #f3f3f3; /* Light grey */
+        border-top: 5px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin-right: 50%;
+        animation: spin 2s linear infinite;
         }
-    
-    .btn-primary{
-        border:none;
-        background: transparent;
-    }
-    
+        @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+        }
+        
+        @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+        
+        }
+        .btn-primary{
+            border:none;
+            background: transparent;
+        }
+        
+        
+        .view-cab-panel{
+            background-color: #0099bf;
+            color: #fff;
+            }

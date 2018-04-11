@@ -72,27 +72,30 @@ export class DriverListComponent implements OnInit {
 
 
   view(driver){
-    localStorage.removeItem('Driver');
-    localStorage.removeItem('Cab');
-    localStorage.removeItem('Vendor');
-    localStorage.setItem('Driver', JSON.stringify(driver));
+    // localStorage.removeItem('Driver');
+    // localStorage.removeItem('Cab');
+    // localStorage.removeItem('Vendor');
+    // localStorage.setItem('Driver', JSON.stringify(driver));
     //this.selectedItem=driver;
     console.log(driver);
+    this.driver_id = driver.driver_id;
     //this._driverData.setItem(this.selectedItem);
     //console.log(this._driverData.getItem());
-    this.router.navigate(['view-driver']);
+    this.router.navigate(['view-driver',this.driver_id]);
+    
   }
   update(driver)
   { 
-    localStorage.removeItem('Driver');
-    localStorage.removeItem('Cab');
-    localStorage.removeItem('Vendor');
-    localStorage.setItem('Driver', JSON.stringify(driver));
+    // localStorage.removeItem('Driver');
+    // localStorage.removeItem('Cab');
+    // localStorage.removeItem('Vendor');
+    // localStorage.setItem('Driver', JSON.stringify(driver));
     //this.selectedItem=driver;
-    //console.log(driver);
+    console.log(driver);
+    this.driver_id = driver.driver_id;   
     //this._driverData.setItem(this.selectedItem);
-    //console.log(this._driverData.getItem());
-    this.router.navigate(['driver-update']);
+    console.log(this.driver_id);
+    this.router.navigate(['driver-update',this.driver_id]);
   }
 
   driverlist(){

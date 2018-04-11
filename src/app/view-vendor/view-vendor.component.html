@@ -1,7 +1,8 @@
 <app-header [module]="module" [navLocation]="navLocation"></app-header>
+<div *ngIf = "showLoading" class = "loader-animation"></div>
 <div>
 
-  <div>
+  <div *ngIf = "!showLoading">
     <div class="success">{{message}}</div>
     <div class="col-md-12">
 

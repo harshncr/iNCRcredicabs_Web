@@ -6,9 +6,9 @@ export class Driver {
     message;
     d_comercial_liscence;
     d_police_verification;
-    d_local_Address_proof;
-    d_permanent_address_proof;
-    d_license;
+    d_local_add_proof;
+    d_permanent_add_proof;
+    d_license_num;
     d_permanent_add;
     d_local_add;
     d_name;

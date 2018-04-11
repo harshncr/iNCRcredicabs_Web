@@ -43,6 +43,7 @@ import { EmployeeChangePasswordComponent }        from './employee-change-passwo
 import { SosContactsComponent }                   from './sos-contacts/sos-contacts.component';
 import { AddContactComponent }                    from './add-contact/add-contact.component';
 import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-detail.component';
+import { ImageDetailsComponent } from './image-details/image-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login',   pathMatch: 'full' },
@@ -95,19 +96,20 @@ const routes: Routes = [
   { path: 'roster/editroute',         component: EditRouteComponent },
   { path: 'roster/viewrdetail/:cab/:shift/:seats/:routes/:vendor',       component: RosterRouteDetailComponent},
   { path: 'vendor-list',              component: VendorListComponent },
-  { path: 'view-vendor',              component: ViewVendorComponent },
+  { path: 'view-vendor/:vendor_id',              component: ViewVendorComponent },
   { path: 'add-vendor',               component: AddVendorComponent },
-  { path: 'update-vendor',            component: UpdateVendorComponent },
+  { path: 'update-vendor/:vendor_id',            component: UpdateVendorComponent },
   { path: 'cab-list',                 component: CabListComponent },
-  { path: 'view-cab',                 component: ViewCabComponent },
+  { path: 'view-cab/:cab_id',                 component: ViewCabComponent },
   { path: 'driver-list',              component: DriverListComponent },
-  { path: 'view-driver',              component: ViewDriverComponent },
-  { path: 'cab-update',               component: CabUpdateComponent },
+  { path: 'view-driver/:driver_id',              component: ViewDriverComponent },
+  { path: 'cab-update/:cab_id',               component: CabUpdateComponent },
   { path: 'add-driver',               component: AddDriverComponent },
   { path: 'add-cab',                  component: AddCabComponent },
   { path: 'driver-list',              component: DriverListComponent },
-  { path: 'driver-update',            component: DriverUpdateComponent },
+  { path: 'driver-update/:driver_id',            component: DriverUpdateComponent },
   { path: 'relationship',            component:RelationshipFormComponent },
+  {path:'image-details/:certi',     component:ImageDetailsComponent},
 
 ];
 

@@ -71,7 +71,7 @@ export class AddCabComponent implements OnInit {
   }
 
   add_cab(){
-
+  
     if(this.validate() == true){
       let files=this.elem.nativeElement.querySelector("#Rcert").files;
       let Rcert =new FormData();
@@ -156,7 +156,7 @@ export class AddCabComponent implements OnInit {
                     this.new=true;
                   }else{
                           
-                    let file_upload= [Rcert,Pcert,Fcert,icert,this.entry_tax_haryana_certi,this.entry_tax_delhi_certi,this.entry_tax_up_certi]
+                    let file_upload= [Rcert,Pcert,Fcert,icert,entry_tax_haryana_certi,entry_tax_delhi_certi,entry_tax_up_certi]
                     for (let i=0;i<7;i++)
                     {
                       this.httpService.sendfile(file_upload[i]).subscribe();

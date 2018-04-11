@@ -1,0 +1,7 @@
+<app-header [module]="module" [navLocation]="navLocation" [loadb]="loadb"></app-header>
+<div *ngIf="showLoading" class="loader-animation"></div>
+<div *ngIf="!showLoading">
+        <div class="success">{{message}}</div>
+<img [src]='photo()'>
+</div>
+

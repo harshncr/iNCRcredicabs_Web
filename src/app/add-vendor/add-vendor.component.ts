@@ -23,7 +23,7 @@ export class AddVendorComponent {
   public pan_id;
   public gst_num;
   public agreement_expiry_date:Date;
-  public cabs_provided;
+  public cabs_provided=0;
   public business_address;
   public supervisor_name?:string="";
   public sup_contact_num?:string="";
@@ -89,7 +89,7 @@ export class AddVendorComponent {
         validateStatus = false;
         this.message1 = 'First name cannot exceed 50 characters';
       }
-{
+      else{
       if(this.vendor_name.match(vendname) == null){
         validateStatus = false;
         this.message1 = 'First name will accept only alphabets';
@@ -162,16 +162,18 @@ export class AddVendorComponent {
       }
       
       //if(parseInt(this.cabs_provided) < 1){
-      if((this.cabs_provided+'').match(cabzeropattern) != null){
-        validateStatus = false;
-        this.message8 = 'Cabs Provided cannot be less than 1';
+
+
+    //   if((this.cabs_provided+'').match(cabzeropattern) != null){
+    //     validateStatus = false;
+    //     this.message8 = 'Cabs Provided cannot be less than 1';
         
-      }
+    //   }
       
-    if((this.cabs_provided+'').match(cabdecimalpattern) != null){
-        validateStatus = false;
-        this.message8 = 'Cabs Provided cannot be a fractional no!';
-      }
+    // if((this.cabs_provided+'').match(cabdecimalpattern) != null){
+    //     validateStatus = false;
+    //     this.message8 = 'Cabs Provided cannot be a fractional no!';
+    //   }
 
       
 

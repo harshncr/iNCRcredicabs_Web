@@ -1,8 +1,8 @@
 <app-header [module]="module" [navLocation]="navLocation"></app-header>
-
+<div *ngIf = "showLoading" class = "loader-animation"></div>
 <div>
 
-  <div>
+  <div *ngIf = "!showLoading">
     <div class="success">{{message}}</div>
     <div class="col-md-12 ">
 
@@ -79,11 +79,6 @@
                   <span class="text-danger" ng-show="gst_num.$error.required">{{message7}}</span>
                 </div>
 
-                <div class="col-sm-3">
-                  <b>Cabs Provided*</b>
-                  <input type="text" name="cabs_prov" [(ngModel)]="vendor.cabs_prov" class="form-control">
-                  <span class="text-danger" ng-show="gst_num.$error.required">{{message8}}</span>
-                </div>
 
               </div>
 

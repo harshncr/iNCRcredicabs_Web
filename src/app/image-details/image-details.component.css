@@ -1,20 +1,4 @@
-
-
-    input {
-        background-color:transparent;
-        border: 0px solid;
-        height:30px;
-        width:260px;
-        box-shadow: none;
-    }
-    input:focus {
-        outline:none;
-    }
-   .pull-right.button{
-       position: absolute;
-       right:75%
-   }
-   .loader-animation{
+.loader-animation{
     margin-left:45%;
     border: 5px solid #f3f3f3; /* Light grey */
     border-top: 5px solid #3498db; /* Blue */

@@ -1,210 +1,257 @@
 <app-header [module]="module" [navLocation]="navLocation"></app-header>
+<div *ngIf = "showLoading" class = "loader-animation"></div>
 <div>
+  
+  <div *ngIf = "!showLoading" >
+    <div class="col-md-8 col-md-offset-2">
+        <div class="row">
+            <div class="pull-right">
+              <button type="button" routerLinkActive = "active" [routerLink]="['/driver-update' ,driver.driver_id]" class="btn btn-primary">Edit</button>
+              <button routerLink="/driver-list" type="submit" class="btn btn-basic">Cancel</button>
+            </div>
+          </div>
+      <form class="form-horizontal" role="form">
 
-  <div>
-    <div class="col-md-12">
+        <fieldset>
 
-      <div class="panel panel-default">
-        <div class="panel-heading view-driver-panel clearfix">
-          <h4 class="panel-title">Personal Information Details
-            <span class="pull-right">
-              <button type="button" routerLink="/driver-update" class=" btn-primary">Edit</button> |
-              <button routerLink="/driver-list" type="submit" class="btn-primary">Cancel</button>
-            </span>
-          </h4>
-        </div>
-        <div class="panel-body">
-
-          <form class="form-horizontal" role="form">
-
-            <fieldset>
-
-              <!-- Form Name -->
+          <!-- Form Name -->
 
 
-              <!-- Text input-->
-              <!--<legend>Choose Driver Type</legend>
-            <div class="form-group">
-                <div class="col-sm-5">
-                <input type="radio" value="primary" name="d_type" [(ngModel)]="driver.driver_type"> Primary Driver
-                <input type="radio" value="secondary" name="d_type" [(ngModel)]="driver.driver_type"> Secondary Driver
-                </div>
+          <!-- Text input-->
+          <!--<legend>Choose Driver Type</legend>
+          <div class="form-group">
+              <div class="col-sm-5">
+              <input type="radio" value="primary" name="d_type" [(ngModel)]="driver.driver_type"> Primary Driver
+              <input type="radio" value="secondary" name="d_type" [(ngModel)]="driver.driver_type"> Secondary Driver
+              </div>
+          </div>-->
+
+          <legend>Personal Information Details</legend>
+
+          <div class="form-group">
+            <div class="col-sm-3">
+              <p>
+                <b> First Name*</b>
+              </p>
+              <input type="text" name="first_Name" [(ngModel)]="driver.d_name" placeholder="First Name" class="form-control">
+
+            </div>
+
+            <div class="col-sm-3">
+              <p>
+                <b> Phone Number*</b>
+              </p>
+              <input type="text" name="dPhone_Nbr" [(ngModel)]="driver.d_contact_num" placeholder="Phone Number" maxlength="10"
+                class="form-control">
+
+            </div>
+          </div>
+
+
+
+
+          <!--
+            <div class="col-sm-3">
+              <input type="text" name="DriverId" [(ngModel)]="DriverId" placeholder="Driver Id" class="form-control">
+              <span class="text-danger" ng-show="DriverId.$error.required">{{message3}}</span>
             </div>-->
 
-              <legend></legend>
-
-              <div class="form-group">
-                <div class="col-sm-3">
-                  <p>
-                    <b> First Name*</b>
-                  </p>
-                  <input type="text" name="first_Name" [(ngModel)]="driver.d_name" placeholder="First Name" class="form-control">
-
-                </div>
-
-                <div class="col-sm-3">
-                  <p>
-                    <b> Phone Number*</b>
-                  </p>
-                  <input type="text" name="dPhone_Nbr" [(ngModel)]="driver.d_contact_num" placeholder="Phone Number" maxlength="10" class="form-control">
-
-                </div>
-              </div>
-
-
-
-
-              <!--
-              <div class="col-sm-3">
-                <input type="text" name="DriverId" [(ngModel)]="DriverId" placeholder="Driver Id" class="form-control">
-                <span class="text-danger" ng-show="DriverId.$error.required">{{message3}}</span>
-              </div>-->
 
 
 
 
 
+          <!--<div class="col-sm-3">
+              <input type="email" name="Email"  [(ngModel)]="Email" placeholder="Email" class="form-control">
+              <span class="text-danger" ng-show="Email.$error.required">{{message5}}</span>
+            </div>
+           -->
 
-              <!--<div class="col-sm-3">
-                <input type="email" name="Email"  [(ngModel)]="Email" placeholder="Email" class="form-control">
-                <span class="text-danger" ng-show="Email.$error.required">{{message5}}</span>
-              </div>
-             -->
-
-              <!-- Text input-->
-
-
-              <!-- Address Section -->
-              <!-- Form Name -->
-              <legend>Address Details</legend>
-              <!-- Text input-->
-              <div class="form-group">
-                <div class="col-sm-9">
-                  <p>
-                    <b>Present Address</b>
-                  </p>
-                  <input type="text" name="local_Address" [(ngModel)]="driver.d_local_add" placeholder="Present Address" class="form-control">
-
-                </div>
-
-                <div class="col-sm-9">
-                  <p>
-                    <b>Permanent Address*</b>
-                  </p>
-                  <input type="text" name="permanent_Address" [(ngModel)]="driver.d_permanent_add" placeholder="Permanent Address" class="form-control">
-
-                </div>
-              </div>
-
-              <!-- Emergency Contact Section -->
-              <!-- Form Name -->
-              <legend>Essential Information</legend>
-              <!-- Text input-->
-
-              <div class="form-group">
-                <div class="col-sm-4">
-                  <p>
-                    <b>Driving Liscense Number</b>
-                  </p>
-                  <input type="text" name="dl_Nbr" [(ngModel)]="driver.license_num" placeholder="Driving Liscense Number" maxlength="10" class="form-control">
-
-                </div>
-              </div>
+          <!-- Text input-->
 
 
-              <div class="form-group">
-                <div class="col-sm-3">
-                  <p>
-                    <b>License Expiry Date*</b>
-                  </p>
-                  <input type="date" name="license_exp_date" [(ngModel)]="driver.license_exp_date" placeholder="License Expiry Date" class="form-control">
+          <!-- Address Section -->
+          <!-- Form Name -->
+          <legend>Address Details</legend>
+          <!-- Text input-->
+          <div class="form-group">
+            <div class="col-sm-9">
+              <p>
+                <b>Present Address</b>
+              </p>
+              <input type="text" name="local_Address" [(ngModel)]="driver.d_local_add" placeholder="Present Address" class="form-control">
 
-                </div>
+            </div>
 
-                <!--      <div class="col-sm-3">
-              <p> <b> Vendor Name </b>  </p> <input type="text" name="vendor_Name" [(ngModel)]="vendor_Name" placeholder="Vendor Name" class="form-control">
-                <span class="text-danger" ng-show="vendor_Name.$error.required">{{message7}}</span>
-              </div>   -->
-              </div>
+            <div class="col-sm-9">
+              <p>
+                <b>Permanent Address*</b>
+              </p>
+              <input type="text" name="permanent_Address" [(ngModel)]="driver.d_permanent_add" placeholder="Permanent Address"
+                class="form-control">
 
+            </div>
+          </div>
 
-              <legend>Documents to be Uploaded</legend>
-              <div class="form-group">
-                <div class="col-sm-5">
-                  <b>Driver Commercial Liscence Document*</b>
-                  <br>
-                  <a href="/tmp/vendor-documents/{{driver.d_license}}" target="_blank">
-                    Driver License
-                  </a>
-                </div>
+          <!-- Emergency Contact Section -->
+          <!-- Form Name -->
+          <legend>Essential Information</legend>
+          <!-- Text input-->
 
-                <div class="col-sm-4">
-                  <b>Police Verification Document*</b>
-                  <br>
-                  <a href="/tmp/vendor-documents/{{driver.police_verification}}" target="_blank">
-                    Driver Police Verification
-                  </a>
-                </div>
-              </div>
+          <div class="form-group">
+            <div class="col-sm-4">
+              <p>
+                <b>Driving Liscense Number</b>
+              </p>
+              <input type="text" name="dl_Nbr" [(ngModel)]="driver.d_license_num" placeholder="Driving Liscense Number" maxlength="10"
+                class="form-control">
 
-              <div class="form-group">
-                <div class="col-sm-4">
-                  <b>Driver Present Address Proof</b>
-
-                  <br>
-                  <a href="/tmp/vendor-documents/{{driver.d_local_add_proof}}" target="_blank">
-                    Driver Present Address Proof
-                  </a>
-                </div>
-
-                <div class="col-sm-4">
-                  <b>Driver Permanent Address Proof*</b>
-                  <br>
-                  <a href="/tmp/vendor-documents/{{driver.d_permanent_add_proof}}" target="_blank">
-                    Driver Permanent Address Proof
-                  </a>
-                </div>
-
-                <div class="col-sm-4">
-                  <b>Driver Photo*</b>
-                  <br>
-                  <a href="/tmp/vendor-documents/{{driver.driver_photo}}" target="_blank">
-                    Driver Photo
-                  </a>
-                </div>
-              </div>
+            </div>
+          </div>
 
 
+          <div class="form-group">
+            <div class="col-sm-3">
+              <p>
+                <b>License Expiry Date*</b>
+              </p>
+              <input type="date" name="license_exp_date" [(ngModel)]="driver.license_exp_date" placeholder="License Expiry Date"
+                class="form-control">
+
+            </div>
+
+            <!--      <div class="col-sm-3">
+            <p> <b> Vendor Name </b>  </p> <input type="text" name="vendor_Name" [(ngModel)]="vendor_Name" placeholder="Vendor Name" class="form-control">
+              <span class="text-danger" ng-show="vendor_Name.$error.required">{{message7}}</span>
+            </div>   -->
+          </div>
+
+
+          <legend> Uploaded DOcuments</legend>
+          <div class="form-group">
+            <div class="col-sm-5">
+              <p>
+                <b>Driver Commercial Liscence Document*</b>
+              </p>
+              <input type="file" id="d_comercial_liscence" name="d_comercial_liscence" accept="image/x-png,image/jpeg" (change)="image1_commercial()">
+              <span class="text-danger" ng-show="d_comercial_liscence.$error.required">{{message6}}</span>
+            </div>
+
+            <div class="col-sm-4">
+              <p>
+                <b>Police Verification Document*</b>
+              </p>
+              <input type="file" id="d_police_verification" name="d_police_verification" accept="image/x-png,image/jpeg" (change)="image2_police()">
+              <span class="text-danger" ng-show="d_police_verification.$error.required">{{message7}}</span>
+            </div>
+          </div>
+         
+          <div class="form-group">
+            <div class="col-sm-4">
+              <p>
+                <b>Driver Present Address Proof</b>
+              </p>
+              <input type="file" id="d_local_Address_proof" name="d_local_Address_proof" accept="image/x-png,image/jpeg" (change)="image3_local_add()">
+              <span class="text-danger" ng-show="d_local_Address_proof.$error.required"></span>
+            </div>
+
+            <div class="col-sm-4">
+              <p>
+                <b>Driver Permanent Address Proof*</b>
+              </p>
+              <input type="file" id="d_permanent_address_proof" name="d_permanent_address_proof" accept="image/x-png,image/jpeg"
+                (change)="image4_permanent_add()">
+              <span class="text-danger" ng-show="d_permanent_address_proof.$error.required">{{message8}}</span>
+            </div>
+
+            <div class="col-sm-4">
+              <p>
+                <b>Driver Photo*</b>
+              </p>
+              <input type="file" id="d_photo" name="d_photo" accept="image/x-png,image/jpeg" (change)="image5_photo()">
+              <span class="text-danger" ng-show="d_photo.$error.required">{{message9}}</span>
+            </div>
+
+          </div>
+          <legend>Documents to be Uploaded</legend>
+          <div class="form-group">
+            <div class="col-sm-5">
+              <b>Driver Commercial Liscence Document*</b>
+              <br>
+              <button type="button" routerLinkActive="active" [routerLink]="['/image-details', driver.d_license]" class="btn btn-default btn-md" style="background:white;">
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
+                </button>
+            </div>
+
+            <div class="col-sm-4">
+              <b>Police Verification Document*</b>
+              <br>
+              <button type="button" routerLinkActive="active" [routerLink]="['/image-details', driver.police_verification]" class="btn btn-default btn-md" style="background:white;">
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
+                </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-4">
+              <b>Driver Present Address Proof</b>
+
+              <br>
+              <button type="button" routerLinkActive="active" [routerLink]="['/image-details', driver.d_local_add_proof]" class="btn btn-default btn-md" style="background:white;">
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
+                </button>
+                <span *ngIf = "verify1()" class= "glyphicon glyphicon-remove-sign"></span> 
+              
+            
+            </div>
+
+            <div class="col-sm-4">
+              <b>Driver Permanent Address Proof*</b>
+              <br>
+              <button type="button" routerLinkActive="active" [routerLink]="['/image-details', driver.d_permanent_add_proof]" class="btn btn-default btn-md" style="background:white;">
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
+                </button>
+            </div>
+
+            <div class="col-sm-4">
+              <b>Driver Photo*</b>
+              <br>
+              <button type="button" routerLinkActive="active" [routerLink]="['/image-details', driver.driver_photo]" class="btn btn-default btn-md" style="background:white;">
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
+                </button>
+            </div>
+          </div>
 
 
 
-              <!-- <div class="col-sm-3">
-                                <p><b>Character Certificate Document</b></p> 
-                                <input type="file" name="d_character_certi" file-Model="d_character_certi" placeholder="d_character_certi">
-                              </div>-->
-
-
-
-              <!--  <div class="col-sm-3">
-                                <p> <b>Medical Certificate Document </b></p>
-                                   <input type="file" name="d_medical_certificate" file-Model="d_medical_certificate" placeholder="d_medical_certificate">
-                              </div> -->
-
-
-
-              <!-- Command -->
 
 
 
 
-              <!-- Command -->
 
-            </fieldset>
-          </form>
-        </div>
-      </div>
+          <!-- <div class="col-sm-3">
+                              <p><b>Character Certificate Document</b></p> 
+                              <input type="file" name="d_character_certi" file-Model="d_character_certi" placeholder="d_character_certi">
+                            </div>-->
 
 
+
+          <!--  <div class="col-sm-3">
+                              <p> <b>Medical Certificate Document </b></p>
+                                 <input type="file" name="d_medical_certificate" file-Model="d_medical_certificate" placeholder="d_medical_certificate">
+                            </div> -->
+
+
+
+          <!-- Command -->
+
+
+
+
+          <!-- Command -->
+
+        </fieldset>
+      </form>
     </div>
     <!-- /.col-lg-12 -->
   </div>

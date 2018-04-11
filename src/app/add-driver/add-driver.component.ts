@@ -105,7 +105,7 @@ public success;
 
 
 
-let body = {"driver_license_num": this.driver_license_num, "Name":this.Name, "dPhone_Nbr":this.dPhone_Nbr, "local_Address":this.local_Address,"permanent_Address":this.permanent_Address,"c_Plate_Nbr":this.c_Plate_Nbr, "license_exp_date":this.license_exp_date,"d_comercial_liscence":this.d_comercial_liscence,"d_police_verification":this.d_police_verification,"d_local_Address_proof":this.d_local_Address_proof,"d_permanent_address_proof":this.d_permanent_address_proof,"d_photo":this.d_photo}
+let body = {"driver_license_num": this.driver_license_num, "Name":this.Name, "dPhone_Nbr":this.dPhone_Nbr, "local_Address":this.local_Address,"permanent_Address":this.permanent_Address, "license_exp_date":this.license_exp_date,"d_comercial_liscence":this.d_comercial_liscence,"d_police_verification":this.d_police_verification,"d_local_Address_proof":this.d_local_Address_proof,"d_permanent_address_proof":this.d_permanent_address_proof,"d_photo":this.d_photo}
 console.log(body);
 this.httpService.adddriver(body)
 .subscribe((response)=>{
@@ -116,7 +116,7 @@ if(this.message == "Data Found")
 {
 this.new = true;
 }else{
-let file_upload= [d_comercial_liscence,d_police_verification,this.d_local_Address_proof,d_permanent_address_proof,d_photo]
+let file_upload= [d_comercial_liscence,d_police_verification,d_local_Address_proof,d_permanent_address_proof,d_photo]
 for (let i=0;i<5;i++)
 {
 this.httpService.sendfile(file_upload[i]).subscribe();
@@ -156,19 +156,19 @@ let file5=this.elem.nativeElement.querySelector("#d_photo").files;
 
 if(this.Name!= null && this.Name !=""){
   if(this.Name.length > 30){
-    
-    validateStatus = false;
+    console.log(this.message1);
+    this.validateStatus = false;
     this.message1 = 'Driver name cannot exceed 30 characters';
   }
 {
   if(this.Name.match(dname) == null){
-    validateStatus = false;
+    this.validateStatus = false;
     this.message1 = 'Driver name will accept only alphabets';
   }
 }
 }
 else{
-  validateStatus = false;
+  this.validateStatus = false;
   this.message1 = 'Driver Name cannot be empty!';
 }
 
@@ -192,39 +192,36 @@ else{
 
 if(this.dPhone_Nbr != null){
   if(this.dPhone_Nbr.match(mobPattern) == null){
-    validateStatus = false;
+    this.validateStatus = false;
     this.message2 = 'Please enter a valid Phone number';
   }
 }else{
-  validateStatus = false;
+  this.validateStatus = false;
   this.message2 = 'Phone number cannot be empty!';
 }
 
 if(this.driver_license_num == null){
-  validateStatus = false;
+  this.validateStatus = false;
   this.message3 = 'Driver License Number cannot be empty!';
 }
 
 
 if(this.permanent_Address == null){
-  validateStatus = false;
+  this.validateStatus = false;
   this.message4 = 'Permanent Address cannot be empty!';
 }
-if(this.c_Plate_Nbr == null){
-  validateStatus = false;
-  this.message5 = 'Cab Plate number cannot be empty!';
-}
+
 
 
 if(this.license_exp_date == null){
-  validateStatus = false;
+  this.validateStatus = false;
   this.message6 = 'License Expiry Date cannot be empty!';
 }
 else{
   if(current_expiry < today)
   {
    
-    validateStatus = false;
+    this.validateStatus = false;
     this.message6 = "License has been expired ";
 
   }
@@ -234,62 +231,64 @@ else{
   //Now Image uploading
  if(file1.length != 0){
    let d_comercial_liscence = file1[0].name.split(".")[1];
-    if(d_comercial_liscence == 'jpeg' || d_comercial_liscence == 'jpg'){
+    if(d_comercial_liscence == 'jpeg' || d_comercial_liscence == 'jpg' || d_comercial_liscence == 'png'){
     }else{
-      validateStatus = false;
-      this.message7 = 'Uploaded Driver Liscense is not in valid format i.e. not (.jpg/.jpeg)';
+      this.validateStatus = false;
+      this.message7 = 'Uploaded Driver Liscense is not in valid format i.e. not (.jpg/.jpeg/.png)';
     }
   }
   else{
-    validateStatus = false;
+    this.validateStatus = false;
     this.message7 = 'Driver Liscense is mandatory to be uploaded';
   }
 
 
   if(file2.length != 0){
     let d_police_verification = file2[0].name.split(".")[1];
-     if(d_police_verification == 'jpeg' || d_police_verification == 'jpg'){
+     if(d_police_verification == 'jpeg' || d_police_verification == 'jpg' || d_police_verification == 'png'){
      }else{
-       validateStatus = false;
-       this.message8 = 'Uploaded Police Verification is not in valid format i.e. not (.jpg/.jpeg)';
+       this.validateStatus = false;
+       this.message8 = 'Uploaded Police Verification is not in valid format i.e. not (.jpg/.jpeg/.png)';
      }
    }
-   else{validateStatus = false;
+   else{this.validateStatus = false;
     this.message8 = 'Driver Police Verification is mandatory to be uploaded';
   }
 
   if(file3.length != 0){
     let d_local_Address_proof = file3[0].name.split(".")[1];
-     if(d_local_Address_proof == 'jpeg' || d_local_Address_proof == 'jpg'){
+     if(d_local_Address_proof == 'jpeg' || d_local_Address_proof == 'jpg'|| d_local_Address_proof == 'png'){
      }
      else{
-       validateStatus = false;
-       this.message9 = 'Uploaded Driver Present Address Proof is not in valid format i.e. not (.jpg/.jpeg)';
+       this.validateStatus = false;
+       this.message9 = 'Uploaded Driver Present Address Proof is not in valid format i.e. not (.jpg/.jpeg/.png)';
      }
    }
   
 
   if(file4.length != 0){
     let d_permanent_address_proof = file4[0].name.split(".")[1];
-     if(d_permanent_address_proof == 'jpeg' || d_permanent_address_proof == 'jpg'){
+     if(d_permanent_address_proof == 'jpeg' || d_permanent_address_proof == 'jpg' || d_permanent_address_proof == 'png'){
      }else{
-       validateStatus = false;
-       this.message10 = 'Uploaded Driver Permanent Address Proof is not in valid format i.e. not (.jpg/.jpeg)';
+       this.validateStatus = false;
+       this.message10 = 'Uploaded Driver Permanent Address Proof is not in valid format i.e. not (.jpg/.jpeg/.png)';
      }
    }
-   else{validateStatus = false;
+   else{
+     this.validateStatus = false;
     this.message10 = 'Driver Permanent Address Proof is mandatory to be uploaded';
   }
   
   if(file5.length != 0){
     let d_photo = file1[0].name.split(".")[1];
-     if(d_photo == 'jpeg' || d_photo == 'jpg'){
+     if(d_photo == 'jpeg' || d_photo == 'jpg' || d_photo == 'png'){
      }else{
-       validateStatus = false;
-       this.message11 = 'Uploaded Driver Photo is not in valid format i.e. not (.jpg/.jpeg)';
+       this.validateStatus = false;
+       this.message11 = 'Uploaded Driver Photo is not in valid format i.e. not (.jpg/.jpeg/.png)';
      }
    }
-   else{validateStatus = false;
+   else{
+     this.validateStatus = false;
     this.message11 = 'Driver Photo is mandatory to be uploaded';
   }
  

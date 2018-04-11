@@ -1,188 +1,147 @@
-<app-header [module]="module" [navLocation]="navLocation"></app-header>
+<app-header [module] = "module" [navLocation] = "navLocation"></app-header>
 <!-- Name Section -->
 <div>
 </div>
 <div>
-  <div class="col-md-12">
-    <div class="success">{{success}}</div>
-    <div class="row">
-
-      <div class="panel panel-default">
-        <div class="panel-heading add-driver-panel clearfix">
-          <h4 class="panel-title"> Driver Details
-            <span class="pull-right">
-
-              <button type="submit" (click)="driver_add()" class=" btn-primary">Save</button> |
-              <button type="submit" routerLink="/driver-list" class=" btn-primary">Cancel</button>
-
-              <div *ngIf="new" id="over">
-                <div id="box">
-                  <b>
-                    <h4>Driver Details Already Exists !!!</h4>
-                  </b>
-                  <br>
-                  <br>
-                  <!-- <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-success"id="other" (click)=update()> Update </button> -->
-                  <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary" id="close" (click)=close()> Close </button>
-                </div>
+  <div class="col-md-8 col-md-offset-2">
+      <div class="success">{{success}}</div>
+      <div class="row">
+          <div class="form-group">
+              <div class="pull-right">
+                
+                  <button type="submit" (click)="driver_add()" class="btn btn-primary">Save</button>
+                  <button type="submit" routerLink = "/driver-list" class="btn btn-basic">Cancel</button>              
+                
+                  <div *ngIf="new" id="over">
+                    <div id="box">
+                           <b><h4>Driver Details Already Exists !!!</h4></b><br><br>
+                    <!-- <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-success"id="other" (click)=update()> Update </button> -->
+                    <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary"id="close" (click)=close()> Close </button>
+                    </div>
+                    </div>
+                    
+                    
+      
               </div>
-            </span>
-          </h4>
+            </div>
+      
+    <form class="form-horizontal" role="form">
+      <fieldset>
+
+  <!-- Form Name -->
+   
+       
+        <!-- Text input-->
+        <legend>Driver License Number*</legend>
+        <div class="form-group">
+            <div class="col-sm-5">
+            <p> <b> Driver License Number*</b> </p> <input type="text" name="driver_license_num" [(ngModel)]="driver_license_num" placeholder="Driver License Number" class="form-control"> 
+            <span class="text-danger" ng-show="driver_license_num.$error.required">{{message3}}</span>  
         </div>
-        <div class="panel-body">
-          <form class="form-horizontal" role="form">
-            <fieldset>
-
-              <!-- Form Name -->
-
-
-              <!-- Text input-->
-              <legend></legend>
-              <div class="form-group">
-                <div class="col-sm-5">
-                  <p>
-                    <b> Driver License Number*</b>
-                  </p>
-                  <input type="text" name="driver_license_num" [(ngModel)]="driver_license_num" placeholder="Driver License Number"
-                    class="form-control">
-                  <span class="text-danger" ng-show="driver_license_num.$error.required">{{message3}}</span>
-                </div>
-              </div>
-
-              <legend>Personal Information Details</legend>
-              <div class="form-group">
-                <div class="col-sm-3">
-                  <p>
-                    <b>Name*</b>
-                  </p>
-                  <input type="text" name="Name" [(ngModel)]="Name" placeholder="Name" class="form-control">
-                  <span class="text-danger" ng-show="Name.$error.required">{{message1}}</span>
-                </div>
-
-                <div class="col-sm-3">
-                  <p>
-                    <b> Phone Number*</b>
-                  </p>
-                  <input type="text" name="dPhone_Nbr" [(ngModel)]="dPhone_Nbr" placeholder="Phone Number" maxlength="10"
-                    class="form-control">
-                  <span class="text-danger" ng-show="dPhone_Nbr.$error.required">{{message2}}</span>
-                </div>
-              </div>
-
-
-              <!-- Text input-->
-
-
-              <!-- Address Section -->
-              <!-- Form Name -->
-              <legend>Address Details</legend>
-              <!-- Text input-->
-              <div class="form-group">
-                <div class="col-sm-9">
-                  <p>
-                    <b>Present Address</b>
-                  </p>
-                  <input type="text" name="local_Address" [(ngModel)]="local_Address" placeholder="Present Address" class="form-control">
-                </div>
-
-                <div class="col-sm-9">
-                  <p>
-                    <b>Permanent Address*</b>
-                  </p>
-                  <input type="text" name="permanent_Address" [(ngModel)]="permanent_Address" placeholder="Permanent Address"
-                    class="form-control">
-                  <span class="text-danger" ng-show="permanent_Address.$error.required">{{message4}}</span>
-                </div>
-              </div>
-
-              <!-- Emergency Contact Section -->
-              <!-- Form Name -->
-              <legend>Essential Information</legend>
-              <!-- Text input-->
-
-
-              <!--  <div class="col-sm-4">  
-                            <p> <b>Driving Liscense Number</b> </p>   <input type="text" name="dl_Nbr" [(ngModel)]="dl_Nbr" placeholder="Driving Liscense Number" maxlength="10" class="form-control">
-                              <span class="text-danger" ng-show="dl_Nbr.$error.required">{{message5}}</span>
-                            </div>-->
-
-
-              <div class="form-group">
-                <div class="col-sm-3">
-                  <p>
-                    <b>License Expiry Date*</b>
-                  </p>
-                  <input type="date" name="license_exp_date" [(ngModel)]="license_exp_date" placeholder="License Expiry Date"
-                    class="form-control">
-                  <span class="text-danger" ng-show="license_exp_date.$error.required">{{message6}}</span>
-                </div>
-
-                <!--      <div class="col-sm-3">
-                          <p> <b> Vendor Name </b>  </p> <input type="text" name="vendor_Name" [(ngModel)]="vendor_Name" placeholder="Vendor Name" class="form-control">
-                            <span class="text-danger" ng-show="vendor_Name.$error.required">{{message7}}</span>
-                          </div>   -->
-              </div>
-
-
-              <legend>Documents to be Uploaded</legend>
-              <div class="form-group">
-                <div class="col-sm-5">
-                  <p>
-                    <b>Driver Commercial Liscence Document*</b>
-                  </p>
-                  <input type="file" id="d_comercial_liscence" name="d_comercial_liscence" accept="image/x-png,image/gif,image/jpeg">
-                  <span class="text-danger" ng-show="d_comercial_liscence.$error.required">{{message7}}</span>
-                </div>
-
-                <div class="col-sm-4">
-                  <p>
-                    <b>Police Verification Document*</b>
-                  </p>
-                  <input type="file" id="d_police_verification" name="d_police_verification" accept="image/x-png,image/gif,image/jpeg">
-                  <span class="text-danger" ng-show="d_police_verification.$error.required">{{message8}}</span>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-sm-4">
-                  <p>
-                    <b>Driver Present Address Proof</b>
-                  </p>
-                  <input type="file" id="d_local_Address_proof" name="d_local_Address_proof" accept="image/x-png,image/gif,image/jpeg">
-                  <span class="text-danger" ng-show="d_local_Address_proof.$error.required">{{message9}}</span>
-                </div>
-
-                <div class="col-sm-4">
-                  <p>
-                    <b>Driver Permanent Address Proof*</b>
-                  </p>
-                  <input type="file" id="d_permanent_address_proof" name="d_permanent_address_proof" accept="image/x-png,image/gif,image/jpeg">
-                  <span class="text-danger" ng-show="d_permanent_address_proof.$error.required">{{message10}}</span>
-                </div>
-
-                <div class="col-sm-4">
-                  <p>
-                    <b>Driver Photo*</b>
-                  </p>
-                  <input type="file" id="d_photo" name="d_photo" accept="image/x-png,image/gif,image/jpeg">
-                  <span class="text-danger" ng-show="d_photo.$error.required">{{message11}}</span>
-                </div>
-              </div>
-
-
-
-
-
-              <!-- Command -->
-
-            </fieldset>
-          </form>
         </div>
-      </div>
+   
+        <legend>Personal Information Details</legend>
+        <div class="form-group">
+            <div class="col-sm-3">
+           <p> <b>Name*</b> </p>  <input type="text" name="Name" [(ngModel)]="Name" placeholder="Name" class="form-control">
+            <span class="text-danger" ng-show="Name.$error.required">{{message1}}</span>            
+          </div>
+              
+          <div class="col-sm-3">
+          <p> <b> Phone Number*</b> </p>   <input type="text" name="dPhone_Nbr" [(ngModel)]="dPhone_Nbr" placeholder="Phone Number" maxlength="10" class="form-control">
+            <span class="text-danger" ng-show="dPhone_Nbr.$error.required">{{message2}}</span>
+          </div>
+        </div> 
+ 
+     
+        <!-- Text input-->
+        
 
+<!-- Address Section -->
+        <!-- Form Name -->
+        <legend>Address Details</legend>
+        <!-- Text input-->
+        <div class="form-group">
+          <div class="col-sm-9">
+          <p><b>Present Address</b></p> <input type="text" name="local_Address"  [(ngModel)]="local_Address" placeholder="Present Address" class="form-control">
+          </div>
+        </div>
+          <div class="form-group">
+          <div class="col-sm-9">
+          <p> <b>Permanent Address*</b></p>  <input type="text" name="permanent_Address"  [(ngModel)]="permanent_Address" placeholder="Permanent Address" class="form-control">
+            <span class="text-danger" ng-show="permanent_Address.$error.required">{{message4}}</span>
+          </div>
+        </div>
+     
+       
+<!-- Emergency Contact Section -->
+        <!-- Form Name -->
+        <legend>Essential Information</legend>
+        <!-- Text input-->
+        
 
+        <!--  <div class="col-sm-4">  
+            <p> <b>Driving Liscense Number</b> </p>   <input type="text" name="dl_Nbr" [(ngModel)]="dl_Nbr" placeholder="Driving Liscense Number" maxlength="10" class="form-control">
+              <span class="text-danger" ng-show="dl_Nbr.$error.required">{{message5}}</span>
+            </div>-->
+      
 
-    </div>
-    <!-- /.col-lg-12 -->
-  </div>
-  <!-- /.row -->
+        <div class="form-group">
+          <div class="col-sm-3">
+          <p> <b>License Expiry Date*</b> </p> <input type="date" name="license_exp_date" [(ngModel)]="license_exp_date" placeholder="License Expiry Date" class="form-control">
+            <span class="text-danger" ng-show="license_exp_date.$error.required">{{message6}}</span>
+          </div>   
+          
+    <!--      <div class="col-sm-3">
+          <p> <b> Vendor Name </b>  </p> <input type="text" name="vendor_Name" [(ngModel)]="vendor_Name" placeholder="Vendor Name" class="form-control">
+            <span class="text-danger" ng-show="vendor_Name.$error.required">{{message7}}</span>
+          </div>   -->
+        </div>
+
+        
+        <legend>Documents to be Uploaded</legend>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <p><b>Driver Commercial Liscence Document*</b></p>
+                     <input type="file" id="d_comercial_liscence" name="d_comercial_liscence" accept="image/x-png,image/jpeg">
+                     <span class="text-danger" ng-show="d_comercial_liscence.$error.required">{{message7}}</span>
+                    </div>
+
+                <div class="col-sm-4">
+                    <p><b>Police Verification Document*</b> </p>
+                      <input type="file" id ="d_police_verification" name="d_police_verification" accept="image/x-png,image/jpeg">
+                      <span class="text-danger" ng-show="d_police_verification.$error.required">{{message8}}</span>
+                    </div> 
+                    
+                <div class="col-sm-4">
+                    <p><b>Driver Photo*</b></p> 
+                     <input type="file" id="d_photo" name="d_photo" accept="image/x-png,image/jpeg">
+                     <span class="text-danger" ng-show="d_photo.$error.required">{{message11}}</span>
+                   </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-4">
+                   <p> <b>Driver Present Address Proof</b> </p> 
+                     <input type="file" id="d_local_Address_proof" name="d_local_Address_proof" accept="image/x-png,image/jpeg">
+                     <span class="text-danger" ng-show="d_local_Address_proof.$error.required">{{message9}}</span>
+                    </div>
+
+                <div class="col-sm-4">
+                  <p> <b>Driver Permanent Address Proof*</b> </p>
+                    <input type="file" id="d_permanent_address_proof" name="d_permanent_address_proof" accept="image/x-png,image/jpeg">
+                    <span class="text-danger" ng-show="d_permanent_address_proof.$error.required">{{message10}}</span>
+                  </div>
+
+            </div>
+
+                      
+            
+                  
+
+<!-- Command -->
+      
+      </fieldset>
+    </form>
+  </div><!-- /.col-lg-12 -->
+</div><!-- /.row -->

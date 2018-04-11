@@ -1,9 +1,242 @@
-.update-driver-panel{
-    background-color: #0099bf;
+
+.invisible{
+    visibility: hidden;
+}
+.loader-animation{
+  margin-left:45%;
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 50%;
+  animation: spin 2s linear infinite;
+  }
+  @-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+  
+  }
+
+#over {
+    position: fixed; /* Sit on top of the page content */
+    /* display: none; Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+#box {
+    display: block;
+    position: relative;
+    top:30%;
+    left: 30%;
+    right: 0;
+    bottom: 0;
+    width: 40%;
+    height: 35%;
+   
+  /* margin: 0 auto; */
+  background:white;
+  padding: 67px;
+  border: 1px solid #fff;
+  /* border-radius: 20px/50px; */
+  text-align: center;
+}
+#close
+{
+    display: block;
+    font-size: 120%;
+    margin-right: 15%;
+} 
+#other
+{
+    display: block;
+    font-size: 120%;
+    margin-left:15%;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 21px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(224, 36, 36);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+
+
+/* Tooltip container */
+#tooltip {
+    position: relative;
+    display: inline-block;
+     /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+#tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgb(219, 79, 79);
     color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+#tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+#tooltip .tooltiptext {
+    width: 120px;
+    bottom: 100%;
+    left: 50%; 
+    margin-left: -60px; 
+    z-index: 1;
+    opacity: 0.75;
+    margin-bottom: -60px;  /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.vdisabled {
+  color: gray;
+  cursor: not-allowed;
+  pointer-events: none;
+ 
+}
+
+.driver-details-panel{
+  display: none;
+}
+.emp-list-link{cursor: pointer;}
+.emp-list-link:hover{text-decoration: none;color: #0000ff;}
+#filter-title{display: inline-block;margin: 0px;}
+#filter-panel{margin-bottom: 8px;}
+#filter-panel .panel-body{padding: 10px 10px 5px 10px;}
+#view-employee{height: 500px;}
+#filter-panel .form-group{margin-bottom: 8px;}
+.panel-info{margin-bottom: 5px;}
+.panel-info .panel-title{padding:0px;}
+.panel-heading{padding: 4px 4px 4px 15px;}
+.emp-panel-body{padding: 5px;}
+.view-employee-row-table tr td strong{padding-right: 15px;}
+.emp-quick-details{display: none;}
+.panel-title{padding: 7px; font-size: 18px;}
+.panel-heading{height: 45px;}
+.panel-danger{
+  margin-bottom: 5px; 
+}
+.panel-danger .panel-title{padding:0px;}
+
+#filter-panel .tooltip-text{
+    /* margin: 5px 50px 0px 0px; */
+    margin-left: -52px;
+    margin-top: 6px;
+}
+
+.tooltip-text{
+    display: none;
+    position: absolute;
+    background: #000000;
+    padding: 5px 15px;
+    color: #ffffff;
+    font-weight: bold;
+    z-index: 1;
+    border-radius: 10px;
+    opacity: 0.6;
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+#vendor-filter{
+  margin-left: 20px;
+}
+button.btn.btn-default.btn-md1{
+  width:40px;
+  height: 28px;
+  }
+  .glyphicon.glyphicon-pencil{
+    font-size: 14px;
+    height: 20px;
+    cursor: pointer;
+    }
+    .span.glyphicon.glyphicon-pencil{
+    width: 14px;
+    height: 20px;
+    
     }
 
-.btn-primary{
-    border:none;
-    background: transparent;
-}
+
+

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { VendorService } from '../vendor.service';
 import { DatePipe } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { VendorData } from '../vendor-list/vendorData';
 import { Vendor } from '../Model/vendor';
 import { Data} from '../Model/Data'
+import { CabService } from '../cab.service';
 @Component({
   selector: 'app-update-vendor',
   templateUrl: './update-vendor.component.html',
@@ -54,17 +55,32 @@ public message15; public message16;
   public vendor:Vendor;
   public img;
   //public vend=[];
+  public sub;
+  public vendor_id;
+  public showLoading =true;
   
  public selectedItem;
-  constructor(public datepipe:DatePipe,private _vendorService : VendorService,private router : Router, private _vendorData : VendorData, private _Data:Data) { }
+  constructor(public datepipe:DatePipe,private _vendorService : VendorService,private router : Router, private _vendorData : VendorData, private _Data:Data, private route:ActivatedRoute) { }
 
   ngOnInit() {
-    this.vendor = JSON.parse(localStorage.getItem('Vendor'));
+    //this.vendor = JSON.parse(localStorage.getItem('Vendor'));
       //localStorage.removeItem('Vendor')
  // this.vendor=this._Data.vendor;
   //this._vendorData.getItem();
+  this.sub = this.route.params.subscribe(params => {
+    this.vendor_id = +params['vendor_id'];
+    console.log(this.vendor_id);
+  });
+  let JSONStr = "{'request':{'vendor_id': '"+this.vendor_id+"'}}";
+  // console.log(body);
+  this._vendorService.searchVendor(JSONStr).subscribe((response)=>{
+    
+    this.vendor=response.result[0];
+    this.showLoading=false;
+    console.log(this.vendor);
+  });
   console.log(this.vendor);
- this.agreement_expiry_date=this.datepipe.transform(this.vendor.agreementExpiry,'mm/dd/yyyy');
+ //this.agreement_expiry_date=this.datepipe.transform(this.vendor.agreementExpiry,'mm/dd/yyyy');
 //  console.log(this.vendor);
   //this._vendorService.getVendors().subscribe(resp=>{
    // this.vend = resp.result;  })
@@ -108,15 +124,21 @@ public message15; public message16;
     let email = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i;
     let panPattern=("[A-Z]{5}[0-9]{4}[A-Z]{1}");
     let gstPattern=/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
-   
+    let vendname = /^([a-zA-Z]+|\s)*$/ ;
   
 
     if(this.vendor.name!= null && this.vendor.name !=""){
-      if(this.vendor.name.length > 20){
+      if(this.vendor.name.length > 50){
         this.validateStatus = false;
         this.message1 = 'First name cannot exceed 20 characters';
       }
+      else{
+        if(this.vendor.name.match(vendname) == null){
+          validateStatus = false;
+          this.message1 = 'First name will accept only alphabets';
+        }
     }
+  }
     else{
       this.validateStatus = false;
       this.message1 = 'First Name cannot be empty!';

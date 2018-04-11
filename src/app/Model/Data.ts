@@ -9,10 +9,11 @@ export class Data {
     public type=0;
     public occupancy = 0;
     public cab_rate;
-    public Rcert;
-    public Pcert;
-    public Fcert;
-    public icert;
+    public reg_certi;
+    public poll_certi;
+    public fit_certi;
+    public insur_certi;
+
     public tax_haryana_certi="";
     public tax_delhi_certi="";
     public tax_up_certi="";

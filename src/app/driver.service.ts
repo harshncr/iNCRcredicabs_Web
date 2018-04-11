@@ -19,6 +19,10 @@ export class DriverService {
         })
         
       }
+
+      getDriverByKey(body):Observable<any>{
+        return this._http.post(env.environment.url+'/VendorService/DriverDetails/id',JSON.stringify({driver_id:body})).map(response=>response.json());
+      }
       getDriver():Observable<any>{
         var data;
         //console.log(body);

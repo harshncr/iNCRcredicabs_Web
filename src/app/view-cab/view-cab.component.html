@@ -1,14 +1,15 @@
 <app-header [module]="module" [navLocation]="navLocation"></app-header>
+<div *ngIf = "showLoading" class = "loader-animation"></div>
 <div>
 
-  <div>
+  <div *ngIf = "!showLoading">
     <!--<div class="success">{{message}}</div>-->
     <div class="col-md-12">
     
         <div class="panel panel-default">
             <div class="panel-heading view-cab-panel clearfix">
               <h4 class="panel-title ">Cab Details <span class="pull-right">
-                  <button type="button" routerLink="/cab-update" class="btn-primary">Edit</button> |
+                  <button type="button" routerLinkActive = "active" [routerLink]="['/cab-update',cab.cab_id]" class="btn-primary">Edit</button> |
                   <button routerLink="/cab-list" type="submit" class="btn-primary">Cancel</button>
                 </span></h4>
             </div>
@@ -44,11 +45,7 @@
                           <br>
                           <input type="text" name="fuel" id="fuel" [(ngModel)]="cab.fuel" class="form-control">
                         </div>
-                        <div class="col-sm-3">
-                          <b>Cab Rate</b>
-                          <br>
-                          <input type="text" name="cab_rate" id="cab_rate" [(ngModel)]="cab.cab_rate" class="form-control">
-                        </div>
+                      
             
                         <div class="col-sm-3">
                           <b>Manufacture Date</b>
@@ -58,108 +55,119 @@
             
                       </div>
             
-                      <legend>Cerificates</legend>
-                      <div class="form-group">
-                        <div class="col-sm-3">
-                          <b>Registration Certificate</b>
-                          <br>
-                          <!-- <a ng-href="/usr/share/tomcat8/webapps/vendor-documentsimg.jpeg">link1</a> -->
-                          <a href="/tmp/vendor-documents/{{cab.reg_certi}}" target="_blank">
-                            Registration Certificate
-                          </a>
-            
-            
-                        </div>
-                        <div class="col-sm-3">
-                          <b>Pollution Certificate</b>
-                          <br>
-                          <a href="/tmp/vendor-documents/{{cab.poll_certi}}" target="_blank">
-                            Pollution Certificate
-                          </a>
-                        </div>
-                        <div class="col-sm-3">
-                          <b>Fitness Certificate</b>
-                          <br>
-                          <a href="/tmp/vendor-documents/{{cab.fit_certi}}" target="_blank">
-                            Fitness Certificate
-                          </a>
-                        </div>
-                        <div class="col-sm-3">
-                          <b>Insurance Certificate</b>
-                          <br>
-                          <a href="/tmp/vendor-documents/{{cab.insur_certi}}" target="_blank">
-                            Insurance Certificate
-                          </a>
-                        </div>
-                        <div class="col-sm-3">
-                          <b>Entry Tax Haryana Certificate</b>
-                          <br>
-                          <a href="/tmp/vendor-documents/{{cab.tax_haryana_certi}}" target="_blank">
-                            Entry Tax Haryana Certificate
-                          </a>
-                        </div>
-                        <div class="col-sm-3">
-                          <b>Entry Tax Delhi Certificate</b>
-                          <br>
-                          <a href="/tmp/vendor-documents/{{cab.tax_delhi_certi}}" target="_blank">
-                            Entry Tax Delhi Certificate
-                          </a>
-                        </div>
-                        <div class="col-sm-3">
-                          <b>Entry Tax UP Certificate</b>
-                          <br>
-                          <a href="/tmp/vendor-documents/{{cab.tax_up_certi}}" target="_blank">
-                            Entry Tax UP Certificate
-                          </a>
-                        </div>
-                      </div>
-            
-                      <legend>Expiry Dates</legend>
-                      <div class="form-group">
-                        <div class="col-sm-3">
-                          <b>Pollution Cerificate</b>
-                          <br>
-                          <input type="text" name="poll_exp" id="poll_exp" [(ngModel)]="cab.poll_exp" class="form-control">
-                        </div>
-                        <div class="col-sm-3">
-                          <b>Fitness Cerificate</b>
-                          <br>
-                          <input type="text" name="fit_exp" id="fit_exp" [(ngModel)]="cab.fit_exp" class="form-control">
-                        </div>
-                        <div class="col-sm-3">
-                          <b>Insurance Cerificate</b>
-                          <br>
-                          <input type="text" name="insur_exp" id="insur_exp" [(ngModel)]="cab.insur_exp" class="form-control">
-                        </div>
-                        <div class="col-sm-3">
-                          <b>Tax Entry Haryana Cerificate</b>
-                          <br>
-                          <input type="text" name="tax_haryana_exp" id="tax_haryana_exp" placeholder="Expiry Date" [(ngModel)]="cab.tax_haryana_exp"
-                            class="form-control">
-                        </div>
-                        <div class="col-sm-3">
-                          <b>Tax Entry Delhi Cerificate</b>
-                          <br>
-                          <input type="text" name="tax_delhi_exp" id="tax_delhi_exp" placeholder="Expiry Date" [(ngModel)]="cab.tax_delhi_exp" class="form-control">
-                        </div>
-                        <div class="col-sm-3">
-                          <b>Tax Entry UP Cerificate</b>
-                          <br>
-                          <input type="text" name="tax_up_exp" id="tax_up_exp" placeholder="Expiry Date" [(ngModel)]="cab.tax_up_exp" class="form-control">
-                        </div>
-            
-                      </div>
-            
-            
-            
-                      <!-- Command -->
-            
-                    </fieldset>
-                  </form>
-            </div>
-          </div>
+          <legend>Cerificates</legend>
+      <div class="form-group">
+        <div class="col-sm-3">
+         <b>Registration Certificate*</b>
+          <br>
+          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.reg_certi]" class="btn btn-default btn-md" style="background:white;">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span> 
+           </button>
+      </div>
       
+        <div class="col-sm-3">
+          <b>Pollution Certificate*</b>
+          <br>
+          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.poll_certi]" class="btn btn-default btn-md" style="background:white;">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
+           </button>
+         
+        </div>
+
+        <div class="col-sm-3">
+          <b>Fitness Certificate*</b>
+          <br>
+          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.fit_certi]" class="btn btn-default btn-md" style="background:white;">
+          <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span> 
+          </button> 
+           
+        </div>
+
+        <div class="col-sm-3">
+          <b>Insurance Certificate*</b>
+          <br>
+          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.insur_certi]" class="btn btn-default btn-md" style="background:white;">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
+           </button>
+          
+        </div>
+        
+        <div class="col-sm-3" style="white-space: nowrap;">
+          <b>Entry Tax Delhi Certificate</b>
+          <br>
+          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.tax_delhi_certi]" class="btn btn-default btn-md" style="background:white;">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span> 
+           </button>
+            <span *ngIf="checkPresence1()" class="glyphicon glyphicon-remove-sign"></span>
+         
+          
+        </div>
+
+        <div class="col-sm-3" style="white-space: nowrap;">
+          <b>Entry Tax UP Certificate</b>
+          <br>
+          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.tax_up_certi]" class="btn btn-default btn-md" style="background:white;">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
+           </button>
+            <span *ngIf="checkPresence3()" class="glyphicon glyphicon-remove-sign"></span>
+           
+       
+        </div>
+        <div class="col-sm-3" style="white-space: nowrap;" >
+          <b>Entry Tax Haryana Certificate</b>
+          <br>
+          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.tax_haryana_certi]" class="btn btn-default btn-md" style="background:white;">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span> 
+           </button>
+            <span *ngIf="checkPresence2()" class="glyphicon glyphicon-remove-sign"></span>
+          
+        </div>
+      </div>
+
+          <legend>Expiry Dates</legend>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <b>Pollution Cerificate</b>
+              <br>
+              <input type="text" name="poll_exp" id="poll_exp" [(ngModel)]="cab.poll_exp" class="form-control">
+            </div>
+            <div class="col-sm-3">
+              <b>Fitness Cerificate</b>
+              <br>
+              <input type="text" name="fit_exp" id="fit_exp" [(ngModel)]="cab.fit_exp" class="form-control">
+            </div>
+            <div class="col-sm-3">
+              <b>Insurance Cerificate</b>
+              <br>
+              <input type="text" name="insur_exp" id="insur_exp" [(ngModel)]="cab.insur_exp" class="form-control">
+            </div>
+            <div class="col-sm-3">
+              <b>Tax Entry Haryana Cerificate</b>
+              <br>
+              <input type="text" name="tax_haryana_exp" id="tax_haryana_exp" placeholder="Expiry Date" [(ngModel)]="cab.tax_haryana_exp"
+                class="form-control">
+            </div>
+            <div class="col-sm-3">
+              <b>Tax Entry Delhi Cerificate</b>
+              <br>
+              <input type="text" name="tax_delhi_exp" id="tax_delhi_exp" placeholder="Expiry Date" [(ngModel)]="cab.tax_delhi_exp" class="form-control">
+            </div>
+            <div class="col-sm-3">
+              <b>Tax Entry UP Cerificate</b>
+              <br>
+              <input type="text" name="tax_up_exp" id="tax_up_exp" placeholder="Expiry Date" [(ngModel)]="cab.tax_up_exp" class="form-control">
+            </div>
+
+          </div>
+
+
+
+          <!-- Command -->
+
+        </fieldset>
+      </form>
     </div>
     <!-- /.col-lg-12 -->
   </div>
+  
   <!-- /.row -->
