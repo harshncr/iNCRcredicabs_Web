@@ -82,3 +82,15 @@ body{
     animation: spin 2s linear infinite;
   } 
    
+
+
+.add-driver-panel{
+    background-color: #0099bf;
+    color: #fff;
+    }
+
+    .btn-primary{
+        border:none;
+        background: transparent;
+    }
+    

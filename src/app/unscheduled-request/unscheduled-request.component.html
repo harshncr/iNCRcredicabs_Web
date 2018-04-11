@@ -83,7 +83,7 @@
 
     <div class="panel-body vendor-details-panel" id="urqst-{{i}}">
       <div class="row">
-        <div class="col-md-6" *ngIf="request?.Emp_Gender==='M';  else elseBlock">
+        <div class="col-md-6" *ngIf="request?.Emp_Gender==='M'||request?.Emp_Gender==='m';  else elseBlock">
           <strong> Gender:</strong> Male
         </div>
         <ng-template #elseBlock>
