@@ -127,55 +127,9 @@
           </div>
 
 
-          <legend> Uploaded DOcuments</legend>
-          <div class="form-group">
-            <div class="col-sm-5">
-              <p>
-                <b>Driver Commercial Liscence Document*</b>
-              </p>
-              <input type="file" id="d_comercial_liscence" name="d_comercial_liscence" accept="image/x-png,image/jpeg" (change)="image1_commercial()">
-              <span class="text-danger" ng-show="d_comercial_liscence.$error.required">{{message6}}</span>
-            </div>
-
-            <div class="col-sm-4">
-              <p>
-                <b>Police Verification Document*</b>
-              </p>
-              <input type="file" id="d_police_verification" name="d_police_verification" accept="image/x-png,image/jpeg" (change)="image2_police()">
-              <span class="text-danger" ng-show="d_police_verification.$error.required">{{message7}}</span>
-            </div>
-          </div>
-         
+          <legend>Documents Uploaded</legend>
           <div class="form-group">
             <div class="col-sm-4">
-              <p>
-                <b>Driver Present Address Proof</b>
-              </p>
-              <input type="file" id="d_local_Address_proof" name="d_local_Address_proof" accept="image/x-png,image/jpeg" (change)="image3_local_add()">
-              <span class="text-danger" ng-show="d_local_Address_proof.$error.required"></span>
-            </div>
-
-            <div class="col-sm-4">
-              <p>
-                <b>Driver Permanent Address Proof*</b>
-              </p>
-              <input type="file" id="d_permanent_address_proof" name="d_permanent_address_proof" accept="image/x-png,image/jpeg"
-                (change)="image4_permanent_add()">
-              <span class="text-danger" ng-show="d_permanent_address_proof.$error.required">{{message8}}</span>
-            </div>
-
-            <div class="col-sm-4">
-              <p>
-                <b>Driver Photo*</b>
-              </p>
-              <input type="file" id="d_photo" name="d_photo" accept="image/x-png,image/jpeg" (change)="image5_photo()">
-              <span class="text-danger" ng-show="d_photo.$error.required">{{message9}}</span>
-            </div>
-
-          </div>
-          <legend>Documents to be Uploaded</legend>
-          <div class="form-group">
-            <div class="col-sm-5">
               <b>Driver Commercial Liscence Document*</b>
               <br>
               <button type="button" routerLinkActive="active" [routerLink]="['/image-details', driver.d_license]" class="btn btn-default btn-md" style="background:white;">
@@ -190,28 +144,17 @@
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
                 </button>
             </div>
+            <div class="col-sm-4">
+                <b>Driver Permanent Address Proof*</b>
+                <br>
+                <button type="button" routerLinkActive="active" [routerLink]="['/image-details', driver.d_permanent_add_proof]" class="btn btn-default btn-md" style="background:white;">
+                  <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
+                  </button>
+              </div>
           </div>
 
           <div class="form-group">
-            <div class="col-sm-4">
-              <b>Driver Present Address Proof</b>
-
-              <br>
-              <button type="button" routerLinkActive="active" [routerLink]="['/image-details', driver.d_local_add_proof]" class="btn btn-default btn-md" style="background:white;">
-                <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
-                </button>
-                <span *ngIf = "verify1()" class= "glyphicon glyphicon-remove-sign"></span> 
-              
             
-            </div>
-
-            <div class="col-sm-4">
-              <b>Driver Permanent Address Proof*</b>
-              <br>
-              <button type="button" routerLinkActive="active" [routerLink]="['/image-details', driver.d_permanent_add_proof]" class="btn btn-default btn-md" style="background:white;">
-                <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
-                </button>
-            </div>
 
             <div class="col-sm-4">
               <b>Driver Photo*</b>
@@ -220,6 +163,17 @@
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
                 </button>
             </div>
+            <div class="col-sm-4">
+                <b>Driver Present Address Proof</b>
+  
+                <br>
+                <button type="button" routerLinkActive="active" [routerLink]="['/image-details', driver.d_local_add_proof]" class="btn btn-default btn-md" style="background:white;">
+                  <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
+                  </button>
+                  <span *ngIf = "verify1()" class= "glyphicon glyphicon-remove-sign"></span> 
+                
+              
+              </div>
           </div>
 
 

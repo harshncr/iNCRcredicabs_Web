@@ -8,3 +8,22 @@
     background-color: #0099bf;
     color: #fff;
     }
+    .loader {
+        border: 3px solid #000000;
+        border-radius: 50%;
+        border-top: 3px solid #FF0000;
+        width: 5px;
+        height: 5px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+      } 
+      @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+       

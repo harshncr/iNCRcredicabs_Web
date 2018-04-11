@@ -10,15 +10,16 @@ import { Driver } from '../Model/driver';
   styleUrls: ['./driver-update.component.css']
 })
 export class DriverUpdateComponent implements OnInit {
-  d_comercial_liscence= new FormData;
+  public d_comercial_liscence= new FormData;
   public d_police_verification= new FormData;
   public d_local_Address_proof= new FormData;
   public d_permanent_address_proof= new FormData;
   public d_photo=new FormData;
-  validatestatus:boolean;
+  public validatestatus:boolean;
   message1; message3; message5;
   message2; message4; message6;
   message7; message8; message9;
+  message10;
  
   constructor(public _driverData:DriverData,public _driverService:DriverService,private router:Router, private elem:ElementRef, private route:ActivatedRoute) {
    
@@ -66,9 +67,10 @@ export class DriverUpdateComponent implements OnInit {
     //let d_comercial_liscence =new FormData();
     let file1=files1[0];
     let filename1 = 'd_comercial_liscence.' + file1.name.split(".")[1];
-    this.driver.d_comercial_liscence = this.driver.d_license_num + "_" + filename1;
-    this.d_comercial_liscence.append('file_upload',file1,this.driver.d_comercial_liscence);
+    this.driver.d_license = this.driver.d_license_num + "_" + filename1;
+    this.d_comercial_liscence.append('file_upload',file1,this.driver.d_license);
     this.f[this.i++]=this.d_comercial_liscence;
+    console.log(this.driver.d_license);
   }
   image2_police()
   {
@@ -76,9 +78,10 @@ export class DriverUpdateComponent implements OnInit {
     //let d_police_verification =new FormData();
     let file2=files2[0];
     let filename2 = 'd_police_verification.' + file2.name.split(".")[1];
-    this.driver.d_police_verification = this.driver.d_license_num + "_" + filename2;
-    this.d_police_verification.append('file_upload',file2,this.driver.d_police_verification);
+    this.driver.police_verification = this.driver.d_license_num + "_" + filename2;
+    this.d_police_verification.append('file_upload',file2,this.driver.police_verification);
     this.f[this.i++]=this.d_police_verification;
+   
   }
   image3_local_add()
   {
@@ -106,8 +109,8 @@ export class DriverUpdateComponent implements OnInit {
     //let d_photo =new FormData();
     let file5=files5[0];
     let filename5 = 'd_photo.' + file5.name.split(".")[1];
-    this.driver.license_num = this.driver.d_license_num + "_" + filename5;
-    this.d_photo.append('file_upload',file5,this.driver.license_num);
+    this.driver.driver_photo = this.driver.d_license_num + "_" + filename5;
+    this.d_photo.append('file_upload',file5,this.driver.driver_photo);
     this.f[this.i++]=this.d_photo;
   }
   verify1()
@@ -163,6 +166,7 @@ export class DriverUpdateComponent implements OnInit {
 
   validate()
   {
+    this.validatestatus = true;
     this.refreshErrorValues();
     let mobPattern = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
     let file1=this.elem.nativeElement.querySelector("#d_comercial_liscence").files;
@@ -172,6 +176,26 @@ export class DriverUpdateComponent implements OnInit {
     let file5=this.elem.nativeElement.querySelector("#d_photo").files;
     let today = new Date();
     let current_expiry = new Date(this.driver.license_exp_date);
+    let dname = /^([a-zA-Z]+|\s)*$/;
+
+    if(this.driver.d_name!= null && this.driver.d_name !=""){
+      if(this.driver.d_name.length > 30){
+        console.log(this.message1);
+        this.validatestatus = false;
+        this.message1 = 'Driver name cannot exceed 30 characters';
+      }
+    {
+      if(this.driver.d_name.match(dname) == null){
+        this.validatestatus = false;
+        this.message1 = 'Driver name will accept only alphabets';
+      }
+    }
+    }
+    else{
+      this.validatestatus = false;
+      this.message1 = 'Driver Name cannot be empty!';
+    }
+    
     if(this.driver.d_contact_num != null && this.driver.d_contact_num != "")
     {
       if(this.driver.d_contact_num.match(mobPattern) == null)
@@ -184,11 +208,7 @@ export class DriverUpdateComponent implements OnInit {
       this.validatestatus = false;
       this.message2 = "Phone number cannot be empty"
     }
-    if(this.driver.d_name == null || this.driver.d_name == '')
-    {
-      this.validatestatus = false ;
-      this.message1 = "Driver name cannot be empty";
-    }
+   
     if(this.driver.d_permanent_add == null || this.driver.d_permanent_add == ''){
             
             this.validatestatus = false;
@@ -214,61 +234,53 @@ export class DriverUpdateComponent implements OnInit {
       }
     }
   
-  // if(file1.length != 0){
-  //   let d_comercial_liscence = file1[0].name.split(".")[1];
-  //    if(d_comercial_liscence == 'jpeg' || d_comercial_liscence == 'jpg'){
-  //    }else{
-  //      this.validatestatus = false;
-  //      this.message6 = 'Uploaded Driver Liscense is not in valid format i.e. not (.jpg/.jpeg)';
-  //    }
-  //  }
-  //  else{
-  //    this.validatestatus = false;
-  //    this.message6 = 'Driver Liscense is mandatory to be uploaded';
-  //  }
+  if(file1.length != 0){
+    let d_comercial_liscence = file1[0].name.split(".")[1];
+     if(d_comercial_liscence == 'jpeg' || d_comercial_liscence == 'jpg' || d_comercial_liscence == 'png'){
+     }else{
+       this.validatestatus = false;
+       this.message6 = 'Uploaded Driver Liscense is not in valid format i.e. not (.jpg/.jpeg/.png)';
+     }
+   }
+  
  
  
-  //  if(file2.length != 0){
-  //    let d_police_verification = file2[0].name.split(".")[1];
-  //     if(d_police_verification == 'jpeg' || d_police_verification == 'jpg'){
-  //     }else{
-  //       this.validatestatus = false;
-  //       this.message7 = 'Uploaded Police Verification is not in valid format i.e. not (.jpg/.jpeg)';
-  //     }
-  //   }
-  //   else
-  //   {
-  //     this.validatestatus = false;
-  //    this.message7 = 'Driver Police Verification is mandatory to be uploaded';
+   if(file2.length != 0){
+     let d_police_verification = file2[0].name.split(".")[1];
+      if(d_police_verification == 'jpeg' || d_police_verification == 'jpg' || d_police_verification == 'png'){
+      }else{
+        this.validatestatus = false;
+        this.message7 = 'Uploaded Police Verification is not in valid format i.e. not (.jpg/.jpeg/.png)';
+      }
+    }
    
+    if(file3.length != 0){
+      let d_local_Address_proof = file3[0].name.split(".")[1];
+       if(d_local_Address_proof == 'jpeg' || d_local_Address_proof == 'jpg' || d_local_Address_proof == 'png'){
+       }else{
+         this.validatestatus = false;
+         this.message10 = 'Uploaded Local Address Proof is not in valid format i.e. not (.jpg/.jpeg/.png)';
+       }
+     }
+ 
     
-  //   }
-  //   if(file4.length != 0){
-  //     let d_permanent_address_proof = file4[0].name.split(".")[1];
-  //      if(d_permanent_address_proof == 'jpeg' || d_permanent_address_proof == 'jpg'){
-  //      }else{
-  //        this.validatestatus = false;
-  //        this.message8 = 'Uploaded Driver Permanent Address Proof is not in valid format i.e. not (.jpg/.jpeg)';
-  //      }
-  //    }
-  //    else{
-  //      this.validatestatus = false;
-  //     this.message8 = 'Driver Permanent Address Proof is mandatory to be uploaded';
-  //   }
+    if(file4.length != 0){
+      let d_permanent_address_proof = file4[0].name.split(".")[1];
+       if(d_permanent_address_proof == 'jpeg' || d_permanent_address_proof == 'jpg' || d_permanent_address_proof == 'png'){
+       }else{
+         this.validatestatus = false;
+         this.message8 = 'Uploaded Driver Permanent Address Proof is not in valid format i.e. not (.jpg/.jpeg/.png)';
+       }
+     }
     
-  //   if(file5.length != 0){
-  //     let d_photo = file1[0].name.split(".")[1];
-  //      if(d_photo == 'jpeg' || d_photo == 'jpg'){
-  //      }else{
-  //        this.validatestatus = false;
-  //        this.message9 = 'Uploaded Driver Photo is not in valid format i.e. not (.jpg/.jpeg)';
-  //      }
-  //    }
-  //    else
-  //    {
-  //      this.validatestatus = false;
-  //     this.message9 = 'Driver Photo is mandatory to be uploaded';
-  //   }
+    if(file5.length != 0){
+      let d_photo = file1[0].name.split(".")[1];
+       if(d_photo == 'jpeg' || d_photo == 'jpg' || d_photo == 'png'){
+       }else{
+         this.validatestatus = false;
+         this.message9 = 'Uploaded Driver Photo is not in valid format i.e. not (.jpg/.jpeg/.png)';
+       }
+     }
    
   
   return this.validatestatus;
@@ -285,7 +297,7 @@ export class DriverUpdateComponent implements OnInit {
     this.message7 = '';
     this.message8 = '';
     this.message9 = '';
-    
+    this.message10 = '';
 
   }
 

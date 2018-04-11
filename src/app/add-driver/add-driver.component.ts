@@ -12,7 +12,7 @@ import { DriverService } from '../driver.service';
   styleUrls: ['./add-driver.component.css']
 })
 export class AddDriverComponent implements OnInit {
-  validateStatus: boolean;
+  public validateStatus: boolean;
   module = "vendor";
   navLocation = "/ Add Driver";
 
@@ -139,7 +139,7 @@ this.validate();
 
 
 validate(){
-let validateStatus:boolean = true;
+this.validateStatus = true;
 this.refreshErrorValues();
 let mobPattern = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
 let dname = /^([a-zA-Z]+|\s)*$/;

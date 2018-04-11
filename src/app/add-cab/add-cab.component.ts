@@ -63,15 +63,19 @@ export class AddCabComponent implements OnInit {
   public message15;
   public message16;
   public message17;
+  public message18;
+  public message19;
+  public message20;
   public new:boolean=false;
   public success;
+  showloader:boolean;
   constructor(private httpService : CabService,private elem:ElementRef, private route : Router) { }
 
   ngOnInit() {
   }
 
   add_cab(){
-  
+    
     if(this.validate() == true){
       let files=this.elem.nativeElement.querySelector("#Rcert").files;
       let Rcert =new FormData();
@@ -234,6 +238,9 @@ changeCabType(value){
 
     let file4=this.elem.nativeElement.querySelector("#icert").files;
 
+    let file5=this.elem.nativeElement.querySelector("#entry_tax_haryana_certi").files;
+    let file6=this.elem.nativeElement.querySelector("#entry_tax_delhi_certi").files;
+    let file7=this.elem.nativeElement.querySelector("#entry_tax_up_certi").files;
  
 
    
@@ -268,11 +275,11 @@ changeCabType(value){
    
     if(file1.length!=0){
     let Rcert = file1[0].name.split(".")[1];
-      if(Rcert == 'jpeg' || Rcert == 'jpg' ){        
+      if(Rcert == 'jpeg' || Rcert == 'jpg' || Rcert == 'png' ){        
       }   
       else{
         this.validateStatus = false;
-      this.message7 = "Image Format Invalid Choose .jpeg Or .jpg";
+      this.message7 = "Image Format Invalid Choose .jpeg, .jpg or .png";
       }
      }else{
       this.validateStatus = false;
@@ -281,10 +288,10 @@ changeCabType(value){
 
     if(file2.length!=0){
       let Pcert:string =file2[0].name.split(".")[1];
-      if(Pcert == "jpeg" ||  Pcert == "jpg" ){
+      if(Pcert == "jpeg" ||  Pcert == "jpg" ||  Pcert == "png" ){
       }else{
         this.validateStatus = false;
-      this.message8 = "Image Format Invalid Choose .jpeg Or .jpg";
+      this.message8 = "Image Format Invalid Choose .jpeg, .jpg or .png";
       }   
      }else{
       this.validateStatus = false;
@@ -293,10 +300,10 @@ changeCabType(value){
 
     if(file3.length!=0){
       let Fcert:string =file3[0].name.split(".")[1];
-      if(Fcert == "jpeg" || Fcert == "jpg" ){
+      if(Fcert == "jpeg" || Fcert == "jpg" || Fcert == "png"){
       }else{
         this.validateStatus = false;
-        this.message9= "Image Format Invalid Choose .jpeg Or .jpg";
+        this.message9= "Image Format Invalid Choose .jpeg, .jpg or .png";
       }
      }else{
       this.validateStatus = false;
@@ -305,15 +312,40 @@ changeCabType(value){
 
     if(file4.length!=0){
       let icert:string =file4[0].name.split(".")[1];
-      if(icert == "jpeg" || icert == "jpg" ){
+      if(icert == "jpeg" || icert == "jpg" || icert == "png" ){
       }else{
         this.validateStatus = false;
-      this.message10 = "Image Format Invalid Choose .jpeg Or .jpg";
+      this.message10 = "Image Format Invalid Choose .jpeg, .jpg or .png";
       }
      }else{
       this.validateStatus= false;
       this.message10 = "Image Cannot Be Null";
     }
+
+    if(file5.length!=0){
+      let entry_tax_haryana_certi:string =file4[0].name.split(".")[1];
+      if(entry_tax_haryana_certi == "jpeg" || entry_tax_haryana_certi == "jpg" || entry_tax_haryana_certi == "png" ){
+      }else{
+        this.validateStatus = false;
+      this.message18 = "Image Format Invalid Choose .jpeg, .jpg or .png";
+      }
+     }
+     if(file6.length!=0){
+      let entry_tax_delhi_certi:string =file4[0].name.split(".")[1];
+      if(entry_tax_delhi_certi == "jpeg" || entry_tax_delhi_certi == "jpg" || entry_tax_delhi_certi == "png" ){
+      }else{
+        this.validateStatus = false;
+      this.message19 = "Image Format Invalid Choose .jpeg, .jpg or .png";
+      }
+     }
+     if(file7.length!=0){
+      let entry_tax_up_certi:string =file4[0].name.split(".")[1];
+      if(entry_tax_up_certi == "jpeg" || entry_tax_up_certi == "jpg" || entry_tax_up_certi == "png" ){
+      }else{
+        this.validateStatus = false;
+      this.message20 = "Image Format Invalid Choose .jpeg, .jpg or .png";
+      }
+     }
 
 
 
@@ -422,7 +454,9 @@ refreshErrorValues(){
   this.message15 = '';
   this.message16 = '';
   this.message17 = '';
-
+  this.message18 = '';
+  this.message19 = '';
+  this.message20 = '';
 }
 
 // update(){

@@ -114,7 +114,7 @@ public message15; public message16;
   }
   validate(){
     this.refreshErrorValues();
-    let validateStatus:boolean = true;
+    this.validateStatus = true;
    // let validateStatus:boolean = true;
     let today = new Date();
     today.setMonth(today.getMonth() + 1);
@@ -134,7 +134,7 @@ public message15; public message16;
       }
       else{
         if(this.vendor.name.match(vendname) == null){
-          validateStatus = false;
+          this.validateStatus = false;
           this.message1 = 'First name will accept only alphabets';
         }
     }
@@ -186,8 +186,8 @@ public message15; public message16;
     }
   }
   else{
-   validateStatus=false;
-    this.message6='cannot be empty';
+       this.validateStatus=false;
+        this.message6='cannot be empty';
   }
     if(this.vendor.agreementExpiry != null){
       if(this.expiryDate<=today){
@@ -196,7 +196,7 @@ public message15; public message16;
       }
       }
       else{
-        validateStatus=false;
+        this.validateStatus=false;
         this.message7='cannot be empty';
       }
     if(this.vendor.cabs_prov== null){

@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 export class Driver {
     license_exp_date;
     message;
-    d_comercial_liscence;
-    d_police_verification;
+    d_license;
+  
     d_local_add_proof;
     d_permanent_add_proof;
     d_license_num;
@@ -14,7 +14,7 @@ export class Driver {
     d_name;
     driver_id;
     d_contact_num;
-    license_num;
+  
     driver_photo;
     police_verification;
 }

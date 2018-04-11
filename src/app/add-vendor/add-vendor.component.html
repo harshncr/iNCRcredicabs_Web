@@ -11,8 +11,8 @@
         <div class="panel panel-default">
           <div class="panel-heading add-vendor-panel clearfix">
             <h4 class="panel-title"> Vendor Details
-              <span class="pull-right">
-
+                <span class="pull-right">
+                    <div *ngIf = "showLoader" class = "loader"></div>
                 <button type="button" (click)="add_vendor()" class=" btn-primary" ng-disabled="myform.$invalid">Save</button> |
                 <button type="button" routerLink="/vendor-list" class=" btn-primary">Cancel</button>
 
@@ -20,10 +20,11 @@
             </h4>
           </div>
           <div class="panel-body">
-
+             
             <form class="form-horizontal" role="form" name="myform">
               <fieldset>
 
+                 
                 <!-- Form Name -->
                 <legend>Personal Information Details</legend>
 

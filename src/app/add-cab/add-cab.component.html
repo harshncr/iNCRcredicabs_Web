@@ -12,7 +12,7 @@
           <div class="panel-heading add-cab-panel clearfix">
             <h4 class="panel-title"> Personal Information Details
               <span class="pull-right">
-
+                <div *ngIf = "showLoader" class = "loader"></div>
                 <button type="button" (click)="add_cab()" class=" btn-primary">Save</button> |
                 <button type="button" routerLink="/cab-list" class=" btn-primary">Cancel</button>
 
@@ -95,18 +95,18 @@
                 <div class="form-group">
                   <div class="col-sm-4">
                     <b> Registration Certificate*:</b>
-                    <input type="file" id="Rcert" name="Rcert" accept="image/jpeg,image/jpg">
+                    <input type="file" id="Rcert" name="Rcert" accept="image/jpeg,image/jpg,image/png">
                     <span class="text-danger"  ng-show="Rcert.$error.required">{{message7}}</span>
                   </div>
                   <div class="col-sm-4">
                     <!-- <input type="text" name="pollution certificate" placeholder="pollution certificate" class="form-control">-->
                     <b>Pollution Certificate*:</b>
-                    <input type="file" name="Pcert" id="Pcert" accept="image/jpeg,image/jpg">
+                    <input type="file" name="Pcert" id="Pcert" accept="image/jpeg,image/jpg,image/png">
                     <span class="text-danger"  ng-show="Pcert.$error.required">{{message8}}</span>
                   </div>
                   <div class="col-sm-4">
                     <b>Fitness Certificate*:</b>
-                    <input type="file" name="Fcert" id="Fcert" accept="image/jpeg,image/jpg">
+                    <input type="file" name="Fcert" id="Fcert" accept="image/jpeg,image/jpg,image/png">
                     <span class="text-danger"  ng-show="Fcert.$error.required">{{message9}}</span>
                   </div>
 
@@ -116,24 +116,27 @@
 
                   <div class="col-sm-4">
                     <b>Insurance Certificate*:</b>
-                    <input type="file" name="icert" id="icert" accept="image/jpeg,image/jpg">
+                    <input type="file" name="icert" id="icert" accept="image/jpeg,image/jpg,image/png">
                     <span class="text-danger"  ng-show="icert.$error.required">{{message10}}</span>
                   </div>
                   <div class="col-sm-4">
                     <b> Entry Tax Haryana Certificate:</b>
-                    <input type="file" id="entry_tax_haryana_certi" name="entry_tax_haryana_certi" accept="image/jpeg,image/jpg">
+                    <input type="file" id="entry_tax_haryana_certi" name="entry_tax_haryana_certi" accept="image/jpeg,image/jpg,image/png">
+                    <span class="text-danger"  ng-show="entry_tax_haryana_certi.$error.required">{{message18}}</span>
                   </div>
                   <div class="col-sm-4">
                     <!-- <input type="text" name="pollution certificate" placeholder="pollution certificate" class="form-control">-->
                     <b>Entry Tax Delhi Certificate:</b>
-                    <input type="file" name="entry_tax_delhi_certi" id="entry_tax_delhi_certi" accept="image/jpeg,image/jpg">
+                    <input type="file" name="entry_tax_delhi_certi" id="entry_tax_delhi_certi" accept="image/jpeg,image/jpg,image/png">
+                    <span class="text-danger"  ng-show="entry_tax_delhi_certi.$error.required">{{message19}}</span>
                   </div>
                 </div>
 
                 <div class="form-group">
                   <div class="col-sm-4">
                     <b>Entry Tax UP Certificate:</b>
-                    <input type="file" name="entry_tax_up_certi" id="entry_tax_up_certi" accept="image/jpeg,image/jpg">
+                    <input type="file" name="entry_tax_up_certi" id="entry_tax_up_certi" accept="image/jpeg,image/jpg,image/png">
+                    <span class="text-danger"  ng-show="entry_tax_up_certi.$error.required">{{message20}}</span>
                   </div>
                 </div>
 
