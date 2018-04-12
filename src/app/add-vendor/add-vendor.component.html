@@ -1,5 +1,16 @@
 <app-header [module]="module" [navLocation]="navLocation"></app-header>
-<!-- Name Section -->
+<div id="myNav" class="overlay">
+
+  <!-- Button to close the overlay navigation -->
+ <!-- <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a> -->
+
+  <!-- Overlay content -->
+  <div class="overlay-content">
+    <!-- <img src="../../assets/img/loader.gif"> -->
+    <div class="loader-animation" ></div>
+  </div>
+
+</div>
 <div>
 
 
@@ -12,7 +23,7 @@
           <div class="panel-heading add-vendor-panel clearfix">
             <h4 class="panel-title"> Vendor Details
                 <span class="pull-right">
-                    <div *ngIf = "showLoader" class = "loader"></div>
+                  
                 <button type="button" (click)="add_vendor()" class=" btn-primary" ng-disabled="myform.$invalid">Save</button> |
                 <button type="button" routerLink="/vendor-list" class=" btn-primary">Cancel</button>
 

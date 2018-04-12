@@ -83,11 +83,11 @@ public showLoading=true;
   {
     console.log("kuch hua");
     let files1=this.elem.nativeElement.querySelector("#Pcert").files;
-     // let Pcert =new FormData();
+      //let Pcert1 =new FormData();
       let file1=files1[0];
       let filename1 = 'Pcert.' + file1.name.split(".")[1];
       this.cab.poll_certi = this.cab.cab_no + "_" + filename1;
-      this.Pcert1.append('file_upload',file1,this.cab.reg_certi);
+      this.Pcert1.append('file_upload',file1,this.cab.poll_certi);
       this.f[this.i++]=this.Pcert1;
       
   }

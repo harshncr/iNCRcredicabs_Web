@@ -1,8 +1,32 @@
 <!-- Name Section -->
 <app-header [module]="module" [navLocation]="navLocation" [loadb]="loadb"></app-header>
 <div>
+  
+    <div *ngIf="new" id="over" >
+        <div id="box">
+          <b>
+            <h4>Cab Details Already Exists !!!</h4>
+          </b>
+          <br>
+          <br>
+          <!-- <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-success"id="other" (click)=update()> Update </button> -->
+          <button style="float:right;width:30%;" class="btn btn-danger" id="close" (click)=close()> Close </button>
+        </div>
+      </div>
 
-  <div>
+  <div id="myNav" class="overlay">
+
+    <!-- Button to close the overlay navigation -->
+   <!--<a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a> -->
+  
+    <!-- Overlay content -->
+    <div class="overlay-content">
+      <!-- <img src="../../assets/img/loader.gif"> -->
+      <div class="loader-animation" ></div>
+    </div>
+  
+  </div>
+  
 
     <div class="col-md-12">
       <div class="success">{{success}}</div>
@@ -12,23 +36,14 @@
           <div class="panel-heading add-cab-panel clearfix">
             <h4 class="panel-title"> Personal Information Details
               <span class="pull-right">
-                <div *ngIf = "showLoader" class = "loader"></div>
+                
+                    
+               
                 <button type="button" (click)="add_cab()" class=" btn-primary">Save</button> |
                 <button type="button" routerLink="/cab-list" class=" btn-primary">Cancel</button>
 
 
 
-                <div *ngIf="new" id="over">
-                  <div id="box">
-                    <b>
-                      <h4>Cab Details Already Exists !!!</h4>
-                    </b>
-                    <br>
-                    <br>
-                    <!-- <button style="float:left;width:30%;" class="btn btn-secondary btn-sm btn-success"id="other" (click)=update()> Update </button> -->
-                    <button style="float:right;width:30%;" class="btn btn-secondary btn-sm btn-primary" id="close" (click)=close()> Close </button>
-                  </div>
-                </div>
               </span>
             </h4>
           </div>

@@ -76,7 +76,10 @@ export class AddCabComponent implements OnInit {
 
   add_cab(){
     
+    // document.getElementById("overlay").style.display = "block";
+    
     if(this.validate() == true){
+      this.openNav();
       let files=this.elem.nativeElement.querySelector("#Rcert").files;
       let Rcert =new FormData();
       let file=files[0];
@@ -153,11 +156,14 @@ export class AddCabComponent implements OnInit {
         this.httpService.addcab(body)
         .subscribe((response)=>{
                 console.log(response);
+                this.closeNav();
                 if(response.status==200){
                   this.message=response._body;
                   if(this.message == "Data Found")
                   {
+                    this.closeNav();
                     this.new=true;
+                    
                   }else{
                           
                     let file_upload= [Rcert,Pcert,Fcert,icert,entry_tax_haryana_certi,entry_tax_delhi_certi,entry_tax_up_certi]
@@ -170,6 +176,7 @@ export class AddCabComponent implements OnInit {
                     //this._cabData.setType("primary");
                     // this._cabData.setCabId(this.license_plate_number);
                     // this._cabData.setVenId(this.vendor_id);
+                   
                     console.log("Image Uploaded");
                     this.success = response._body;
                     this.route.navigate(['cab-list']) ;
@@ -206,7 +213,7 @@ changeCabType(value){
     let todays = new Date();
   
     let today = new Date();
-    today.setFullYear(today.getFullYear() -3);
+    today.setFullYear(today.getFullYear() -5);
     this.mDate = new Date(this.  Mdate); 
     let today1=new Date();
     today1.setMonth(today1.getMonth() +1);
@@ -355,6 +362,12 @@ changeCabType(value){
      this. validateStatus=false;
      this.message11="date is above current date";
     }
+    if(this.mDate<today)
+    {
+    this.validateStatus = false;
+    this.message11 ="date is expired";
+
+    }
     
   }
 else{
@@ -433,6 +446,14 @@ if(this.entry_tax_delhi_exp_date!=null && this.entry_tax_delhi_exp_date!=""){
     //   this.message14 = "Please Select Insurance Certificate Expiry Date.";
     // }
   return this.validateStatus;
+}
+
+openNav(){
+
+  document.getElementById("myNav").style.width = "100%";
+}
+closeNav(){
+  document.getElementById("myNav").style.width = "0%";
 }
 
 refreshErrorValues(){

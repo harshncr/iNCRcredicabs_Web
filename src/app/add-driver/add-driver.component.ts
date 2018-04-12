@@ -58,7 +58,9 @@ public success;
 }
 
   driver_add(){
+    
     if(this.validate()==true){
+      this.openNav();
      let files1=this.elem.nativeElement.querySelector("#d_comercial_liscence").files;
       let d_comercial_liscence =new FormData();
       let file1=files1[0];
@@ -110,10 +112,12 @@ console.log(body);
 this.httpService.adddriver(body)
 .subscribe((response)=>{
 console.log(response);
+this.closeNav();
 if(response.status == 200){
 this.message = response._body;
 if(this.message == "Data Found")
 {
+  this.closeNav();
 this.new = true;
 }else{
 let file_upload= [d_comercial_liscence,d_police_verification,d_local_Address_proof,d_permanent_address_proof,d_photo]
@@ -294,6 +298,13 @@ else{
  
 
 return this.validateStatus;
+}
+openNav(){
+
+  document.getElementById("myNav").style.width = "100%";
+}
+closeNav(){
+  document.getElementById("myNav").style.width = "0%";
 }
 
 refreshErrorValues(){

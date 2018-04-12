@@ -49,15 +49,18 @@ export class AddVendorComponent {
 
   constructor(private httpService: VendorService,private router:Router) { }
   add_vendor(){
-    this.showLoader = true;
+   
     if(this.validate()==true){
+      this.openNav();
     let body = {"vendor_name": this.vendor_name, "business_type": this.business_type, "vendor_contact_num": this.vendor_contact_num, "vendor_mail_id": this.vendor_mail_id, "website": this.website, "pan_id": this.pan_id, "gst_num": this.gst_num, "agreement_expiry_date": this.agreement_expiry_date, "cabs_provided": this.cabs_provided, "business_address": this.business_address, "supervisor_name": this.supervisor_name, "sup_contact_num": this.sup_contact_num, "sup_mail_id": this.sup_mail_id,"manager_name": this.manager_name, "manager_contact_num": this.manager_contact_num, "manager_mail_id": this.manager_mail_id, "owner_name": this.owner_name, "owner_contact_num": this.owner_contact_num, "owner_mail_id": this.owner_mail_id}
     console.log(body);
     this.httpService.addVendor(body)
     .subscribe((response)=>{
         console.log(response);
+        this.closeNav();
         if(response.status == 200){
           this.message = response._body;
+         
           this.showLoader = false;
           this.router.navigate(['vendor-list']);
         }
@@ -281,6 +284,13 @@ export class AddVendorComponent {
     }
 
     return this.validateStatus;
+  }
+  openNav(){
+
+    document.getElementById("myNav").style.width = "100%";
+  }
+  closeNav(){
+    document.getElementById("myNav").style.width = "0%";
   }
 
   refreshErrorValues(){

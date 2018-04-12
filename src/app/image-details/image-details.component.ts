@@ -19,7 +19,7 @@ ngOnInit() {
     
     this.certificate=this.ac.snapshot.params['certi'];
     if(this.certificate == "" || this.certificate == null || this.certificate == "undefined")
-    {
+    {   this.showLoading =false;
        this.message = "Image Not Found";
     }
     else{
