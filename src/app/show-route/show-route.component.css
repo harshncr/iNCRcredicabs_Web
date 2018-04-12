@@ -10,7 +10,7 @@ input[type=file]::-webkit-file-upload-button:hover{background: #eeeeee;}
   margin:10px;
 }
 #popupbtn{
-  width:20%;
+  width:100px;
 }
 
 #glificons{
