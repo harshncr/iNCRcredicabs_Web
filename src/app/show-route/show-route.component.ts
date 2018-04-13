@@ -570,14 +570,13 @@ export class ShowRouteComponent implements OnInit {
         data => {
           console.log(data.fileName);
           if (data.fileName != "") {
-            console.log("data success: ");
-            console.log(environment.pullExcelfileUrl);
+            // console.log("data success: ");
+            // console.log(environment.pullExcelfileUrl);
             // this._http1.getfileurl().subscribe(
             //   data=>{this.urlpulldata=data;
             //   })
             console.log(this.urlpulldata);
-            window.open(environment.pullExcelfileUrl + "/" + data.fileName, '_blank');
-          }
+            window.open(environment.pullExcelRoster + "/" + data.fileName, '_blank');          }
           else {
             console.log("data fail: " + data.status);
           }

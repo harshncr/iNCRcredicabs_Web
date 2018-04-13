@@ -84,4 +84,5 @@ export const environment = {
   getDriverDetailUrl:         BASE_URL + "/RosterService/driver",
   getRouteDataUrl:            BASE_URL + "/RosterService/getRouteDetails",
   getStartAndEndUrl:          BASE_URL + "/RosterService/getStartEndDate",
+  pullExcelRoster:           BASE_URL + "/RosterService/pullExcel",
 };
