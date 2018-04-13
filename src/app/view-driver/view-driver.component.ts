@@ -25,9 +25,14 @@ export class ViewDriverComponent implements OnInit {
   public selectedItem: any;
   filterValue: any;
   public showLoading=true;
+  public showLoader = true;
+  public display;
+  public fault;
+  public message_image;
+  checked = true;
   
 
-  constructor(private sanitizer: DomSanitizer,public _driverData: DriverData, public _cabData: CabData, public _vendorData: VendorData, private router: Router,private _vendorService:VendorService, private _cabService:CabService,private route:ActivatedRoute,private _driverService:DriverService) { }
+  constructor(private sanitizer: DomSanitizer,public _driverData: DriverData, public _cabData: CabData, public _vendorData: VendorData, private router: Router,private _vendorService:VendorService, private _cabService:CabService,private route:ActivatedRoute,private _driverService:DriverService,private httpService:VendorService) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -101,4 +106,56 @@ export class ViewDriverComponent implements OnInit {
       return false;
     }
   }
+
+
+  image(certificate)
+  {
+    if(certificate == "" || certificate == null || typeof certificate == "undefined")
+    {
+    
+      this.openNav();
+      this.checked = false;
+      this.message_image = "image not found";
+
+    }
+    else{
+      this.checked = true;
+      this.message_image = '';
+     
+      this.openNav();
+    console.log(certificate);
+    let body = {"image": certificate}
+        this.httpService.getimage(body)
+        .subscribe((response)=>
+        {
+        if(response.status == 200)
+          {
+          this.display=response._body;
+         
+          
+          this.showLoader= false;
+          }
+        
+        })
+      }
+  }
+
+
+  photo()
+  {
+    return this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+this.display);
+   }
+
+  openNav()
+  {
+
+    document.getElementById("myNav").style.width = "100%"
+  }
+
+  closeNav()
+  {
+    document.getElementById("myNav").style.width = "0%";
+    this.showLoader=true;
+  }
+
 }

@@ -1,4 +1,21 @@
 <app-header [module]="module" [navLocation]="navLocation"></app-header>
+<div id="myNav" class="overlay">
+
+    <!-- Button to close the overlay navigation -->
+   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a> 
+  
+    <!-- Overlay content -->
+   
+        <div  class="overlay-content">
+        <div *ngIf = "showLoader && checked" class = "loader-animation"></div>
+        <div>
+          <div class = "success">{{message_image}}</div>
+        <img *ngIf = "!showLoader" id ="img" [src]='photo()'>
+        </div>
+      <!-- <img src="../../assets/img/loader.gif"> -->
+     
+    </div>
+    </div>
 <div *ngIf = "showLoading" class = "loader-animation"></div>
 <div>
 
@@ -26,31 +43,31 @@
                         <div class="col-sm-3">
                           <b>Registration Number</b>
                           <br>
-                          <input type="text" name="cab_license_plate_no" id="cab_license_plate_no" [(ngModel)]="cab.cab_no" class="form-control">
+                          <input type="text" name="cab_license_plate_no" id="cab_license_plate_no" disabled [(ngModel)]="cab.cab_no" class="form-control">
             
                         </div>
             
                         <div class="col-sm-3">
                           <b>Model</b>
                           <br>
-                          <input type="text" name="cab_model" id="cab_model" [(ngModel)]="cab.model" class="form-control">
+                          <input type="text" name="cab_model" id="cab_model" disabled [(ngModel)]="cab.model" class="form-control">
                         </div>
                         <div class="col-sm-3">
                           <b>Cab Capacity</b>
                           <br>
-                          <input type="text" name="cab_type" id="cab_type" [(ngModel)]="cab.cab_type" class="form-control">
+                          <input type="text" name="cab_type" id="cab_type" disabled [(ngModel)]="cab.cab_type" class="form-control">
                         </div>
                         <div class="col-sm-3">
                           <b>Fuel</b>
                           <br>
-                          <input type="text" name="fuel" id="fuel" [(ngModel)]="cab.fuel" class="form-control">
+                          <input type="text" name="fuel" id="fuel" disabled [(ngModel)]="cab.fuel" class="form-control">
                         </div>
                       
             
                         <div class="col-sm-3">
                           <b>Manufacture Date</b>
                           <br>
-                          <input type="text" name="date" id="date" [(ngModel)]="cab.manufacture_date" class="form-control">
+                          <input type="text" name="date" id="date" disabled [(ngModel)]="cab.manufacture_date" class="form-control">
                         </div>
             
                       </div>
@@ -60,65 +77,70 @@
         <div class="col-sm-3">
          <b>Registration Certificate*</b>
           <br>
-          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.reg_certi]" class="btn btn-default btn-md" style="background:white;">
-            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span> 
-           </button>
+          <button type="button"  routerLinkActive="active"  (click) = "image(cab.reg_certi)"  class="btn btn-default btn-md"
+           style="background:white;">
+          <span class="glyphicon glyphicon-eye-open"  aria-hidden="true"  style="float:right;"> </span>
+            </button>
       </div>
       
         <div class="col-sm-3">
           <b>Pollution Certificate*</b>
           <br>
-          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.poll_certi]" class="btn btn-default btn-md" style="background:white;">
-            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
-           </button>
+          <button type="button"  routerLinkActive="active"  (click) = "image(cab.poll_certi)"  class="btn btn-default btn-md"
+           style="background:white;">
+          <span class="glyphicon glyphicon-eye-open"  aria-hidden="true"  style="float:right;"> </span>
+            </button>
          
         </div>
 
         <div class="col-sm-3">
           <b>Fitness Certificate*</b>
           <br>
-          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.fit_certi]" class="btn btn-default btn-md" style="background:white;">
-          <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span> 
-          </button> 
-           
+          <button type="button"  routerLinkActive="active"  (click) = "image(cab.fit_certi)"  class="btn btn-default btn-md"
+           style="background:white;">
+          <span class="glyphicon glyphicon-eye-open"  aria-hidden="true"  style="float:right;"> </span>
+            </button>
         </div>
 
         <div class="col-sm-3">
           <b>Insurance Certificate*</b>
           <br>
-          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.insur_certi]" class="btn btn-default btn-md" style="background:white;">
-            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
-           </button>
-          
+          <button type="button"  routerLinkActive="active"  (click) = "image(cab.insur_certi)"  class="btn btn-default btn-md"
+           style="background:white;">
+          <span class="glyphicon glyphicon-eye-open"  aria-hidden="true"  style="float:right;"> </span>
+          </button>
         </div>
-        
+         
         <div class="col-sm-3" style="white-space: nowrap;">
           <b>Entry Tax Delhi Certificate</b>
           <br>
-          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.tax_delhi_certi]" class="btn btn-default btn-md" style="background:white;">
-            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span> 
-           </button>
+          <button type="button"  routerLinkActive="active"  (click) = "image(cab.tax_delhi_certi)"  class="btn btn-default btn-md"
+           style="background:white;">
+          <span class="glyphicon glyphicon-eye-open"  aria-hidden="true"  style="float:right;"> </span>
+            </button>
             <span *ngIf="checkPresence1()" class="glyphicon glyphicon-remove-sign"></span>
+          </div>
+          
          
           
-        </div>
+        
 
         <div class="col-sm-3" style="white-space: nowrap;">
           <b>Entry Tax UP Certificate</b>
           <br>
-          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.tax_up_certi]" class="btn btn-default btn-md" style="background:white;">
-            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"> </span> 
-           </button>
-            <span *ngIf="checkPresence3()" class="glyphicon glyphicon-remove-sign"></span>
+          <button type="button"  routerLinkActive="active"  (click) = "image(cab.tax_up_certi)"  class="btn btn-default btn-md"style="background:white;">
+           <span class="glyphicon glyphicon-eye-open"  aria-hidden="true"  style="float:right;"> </span>
+          </button>
+          <span *ngIf="checkPresence3()" class="glyphicon glyphicon-remove-sign"></span>
            
        
         </div>
         <div class="col-sm-3" style="white-space: nowrap;" >
           <b>Entry Tax Haryana Certificate</b>
           <br>
-          <button type="button" routerLinkActive="active" [routerLink]="['/image-details', cab.tax_haryana_certi]" class="btn btn-default btn-md" style="background:white;">
-            <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float:right;"></span> 
-           </button>
+          <button type="button"  routerLinkActive="active"  (click) = "image(cab.tax_haryana_certi)"  class="btn btn-default btn-md"style="background:white;">
+              <span class="glyphicon glyphicon-eye-open"  aria-hidden="true"  style="float:right;"> </span>
+          </button>
             <span *ngIf="checkPresence2()" class="glyphicon glyphicon-remove-sign"></span>
           
         </div>
@@ -129,33 +151,33 @@
             <div class="col-sm-3">
               <b>Pollution Cerificate</b>
               <br>
-              <input type="text" name="poll_exp" id="poll_exp" [(ngModel)]="cab.poll_exp" class="form-control">
+              <input type="text" name="poll_exp" id="poll_exp" disabled [(ngModel)]="cab.poll_exp" class="form-control">
             </div>
             <div class="col-sm-3">
               <b>Fitness Cerificate</b>
               <br>
-              <input type="text" name="fit_exp" id="fit_exp" [(ngModel)]="cab.fit_exp" class="form-control">
+              <input type="text" name="fit_exp" id="fit_exp" disabled [(ngModel)]="cab.fit_exp" class="form-control">
             </div>
             <div class="col-sm-3">
               <b>Insurance Cerificate</b>
               <br>
-              <input type="text" name="insur_exp" id="insur_exp" [(ngModel)]="cab.insur_exp" class="form-control">
+              <input type="text" name="insur_exp" id="insur_exp" disabled [(ngModel)]="cab.insur_exp" class="form-control">
             </div>
             <div class="col-sm-3">
               <b>Tax Entry Haryana Cerificate</b>
               <br>
-              <input type="text" name="tax_haryana_exp" id="tax_haryana_exp" placeholder="Expiry Date" [(ngModel)]="cab.tax_haryana_exp"
+              <input type="text" name="tax_haryana_exp" id="tax_haryana_exp" disabled placeholder="Expiry Date" [(ngModel)]="cab.tax_haryana_exp"
                 class="form-control">
             </div>
             <div class="col-sm-3">
               <b>Tax Entry Delhi Cerificate</b>
               <br>
-              <input type="text" name="tax_delhi_exp" id="tax_delhi_exp" placeholder="Expiry Date" [(ngModel)]="cab.tax_delhi_exp" class="form-control">
+              <input type="text" name="tax_delhi_exp" id="tax_delhi_exp" disabled placeholder="Expiry Date" [(ngModel)]="cab.tax_delhi_exp" class="form-control">
             </div>
             <div class="col-sm-3">
               <b>Tax Entry UP Cerificate</b>
               <br>
-              <input type="text" name="tax_up_exp" id="tax_up_exp" placeholder="Expiry Date" [(ngModel)]="cab.tax_up_exp" class="form-control">
+              <input type="text" name="tax_up_exp" id="tax_up_exp" disabled placeholder="Expiry Date" [(ngModel)]="cab.tax_up_exp" class="form-control">
             </div>
 
           </div>

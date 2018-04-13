@@ -6,6 +6,7 @@ import { VendorListComponent } from '../vendor-list/vendor-list.component';
 import { VendorService } from '../vendor.service';
 import { Vendor } from '../Model/vendor';
 import { CabService } from '../cab.service';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 
 
@@ -14,10 +15,11 @@ import { CabService } from '../cab.service';
   templateUrl: './view-cab.component.html',
   styleUrls: ['./view-cab.component.css']
 })
-export class ViewCabComponent implements OnInit {
+export class ViewCabComponent implements OnInit 
+{
   module= "vendor";
   navLocation = "/ Cab Details";
-
+  public message_image;
   public selectedItem: any;
   public vendor;
   public cab;
@@ -26,8 +28,11 @@ export class ViewCabComponent implements OnInit {
   filterValue: any;
   public message;
   public cab_id;
+  checked = true;
   showLoading = true; 
-  constructor(public _cabData: CabData,public _cabService:CabService,public _vendorData:VendorData, private _vendorService: VendorService, private router: Router,private route:ActivatedRoute) { }
+  showLoader = true;
+  public display;
+  constructor(public _cabData: CabData,public _cabService:CabService,public _vendorData:VendorData, private _vendorService: VendorService, private router: Router,private route:ActivatedRoute, private httpService:VendorService, private sanitizer:DomSanitizer) { }
 
   ngOnInit() {
     //this.cab=this._cabData.getItem();
@@ -124,5 +129,52 @@ export class ViewCabComponent implements OnInit {
     this._cabData.setItem(this.selectedItem);
     this._cabData.setType("primary");
     this.router.navigate(['add-driver']);
+  }
+
+  image(certificate)
+  {
+    if(certificate  == "" || certificate == null || typeof certificate == "undefined")
+    {
+      this.openNav();
+      this.checked = false;
+      this.message_image = "image not found";
+      
+    }
+    else
+    {
+     this.message_image = '';
+     this.checked = true;
+      this.openNav();
+      
+      console.log(certificate);
+      let body = {"image": certificate}
+        this.httpService.getimage(body)
+        .subscribe((response)=>
+        {
+          if(response.status == 200)
+          {
+            this.display=response._body;
+            this.showLoader= false;
+          } 
+         
+        
+        })
+    }
+  }
+
+  openNav()
+  {
+
+  document.getElementById("myNav").style.width = "100%";
+  }
+  closeNav()
+  {
+  document.getElementById("myNav").style.width = "0%";
+  this.showLoader=true;
+  }
+
+  photo()
+  {
+  return this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+this.display);
   }
 }

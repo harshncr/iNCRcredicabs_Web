@@ -1,4 +1,21 @@
 <app-header [module]="module" [navLocation]="navLocation"></app-header>
+<div id="myNav" class="overlay">
+
+    <!-- Button to close the overlay navigation -->
+   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a> 
+  
+    <!-- Overlay content -->
+   
+        <div  class="overlay-content">
+        <div *ngIf = "showLoader && checked" class = "loader-animation"></div>
+        <div>
+            <div class="success">{{message_image}}</div>
+        <img *ngIf = "!showLoader" [src]='photo()'>
+        </div>
+      <!-- <img src="../../assets/img/loader.gif"> -->
+     
+    </div>
+    </div>  
 <div *ngIf="showLoading" class="loader-animation"></div>
 <div>
 
@@ -38,7 +55,7 @@
                   <p>
                     <b> First Name*</b>
                   </p>
-                  <input type="text" name="first_Name" [(ngModel)]="driver.d_name" placeholder="First Name" class="form-control">
+                  <input type="text" name="first_Name" [(ngModel)]="driver.d_name" disabled placeholder="First Name" class="form-control">
 
                 </div>
 
@@ -46,7 +63,7 @@
                   <p>
                     <b> Phone Number*</b>
                   </p>
-                  <input type="text" name="dPhone_Nbr" [(ngModel)]="driver.d_contact_num" placeholder="Phone Number" maxlength="10" class="form-control">
+                  <input type="text" name="dPhone_Nbr" [(ngModel)]="driver.d_contact_num"disabled placeholder="Phone Number" maxlength="10" class="form-control">
 
                 </div>
               </div>
@@ -83,7 +100,7 @@
                   <p>
                     <b>Present Address</b>
                   </p>
-                  <input type="text" name="local_Address" [(ngModel)]="driver.d_local_add" placeholder="Present Address" class="form-control">
+                  <input type="text" name="local_Address" [(ngModel)]="driver.d_local_add" disabled placeholder="Present Address" class="form-control">
 
                 </div>
 
@@ -91,7 +108,7 @@
                   <p>
                     <b>Permanent Address*</b>
                   </p>
-                  <input type="text" name="permanent_Address" [(ngModel)]="driver.d_permanent_add" placeholder="Permanent Address" class="form-control">
+                  <input type="text" name="permanent_Address" [(ngModel)]="driver.d_permanent_add" disabled placeholder="Permanent Address" class="form-control">
 
                 </div>
               </div>
@@ -106,7 +123,7 @@
                   <p>
                     <b>Driving Liscense Number</b>
                   </p>
-                  <input type="text" name="dl_Nbr" [(ngModel)]="driver.d_license_num" placeholder="Driving Liscense Number" maxlength="10"
+                  <input type="text" name="dl_Nbr" [(ngModel)]="driver.d_license_num" disabled placeholder="Driving Liscense Number" maxlength="10"
                     class="form-control">
 
                 </div>
@@ -118,7 +135,7 @@
                   <p>
                     <b>License Expiry Date*</b>
                   </p>
-                  <input type="date" name="license_exp_date" [(ngModel)]="driver.license_exp_date" placeholder="License Expiry Date" class="form-control">
+                  <input type="date" name="license_exp_date" [(ngModel)]="driver.license_exp_date" disabled placeholder="License Expiry Date" class="form-control">
 
                 </div>
 
@@ -129,12 +146,13 @@
               </div>
 
 
-              <legend>Documents Uploaded</legend>
+              
+              <legend>Documents to be Uploaded</legend>
               <div class="form-group">
                 <div class="col-sm-4">
                   <b>Driver Commercial Liscence Document*</b>
                   <br>
-                  <button type="button"  routerLinkActive="active"  [routerLink]="['/image-details', driver.d_license]"  class="btn btn-default btn-md"
+                  <button type="button"  routerLinkActive="active"  (click) = "image(driver.d_license)"  class="btn btn-default btn-md"
                      style="background:white;">
                     <span class="glyphicon glyphicon-eye-open"  aria-hidden="true"  style="float:right;"> </span>
                       </button>
@@ -143,46 +161,47 @@
                 <div class="col-sm-4">
                   <b>Police Verification Document*</b>
                   <br>
-                  <button type="button"  routerLinkActive="active"  [routerLink]="['/image-details', driver.police_verification]"  class="btn btn-default btn-md"
+                  <!-- <button type="button"  routerLinkActive="active"  [routerLink]="['/image-details', driver.police_verification]"  class="btn btn-default btn-md" -->
+                    <button type="button"  routerLinkActive="active"  (click) = "image(driver.police_verification)"  class="btn btn-default btn-md"
                      style="background:white;">
                     <span class="glyphicon glyphicon-eye-open"  aria-hidden="true"  style="float:right;"> </span>
                       </button>
                 </div>
+
                 <div class="col-sm-4">
                   <b>Driver Permanent Address Proof*</b>
                   <br>
-                  <button type="button"  routerLinkActive="active"  [routerLink]="['/image-details', driver.d_permanent_add_proof]"  class="btn btn-default btn-md"
+                  <button type="button"  routerLinkActive="active"  (click) = "image(driver.d_permanent_add_proof)"  class="btn btn-default btn-md"
                      style="background:white;">
                     <span class="glyphicon glyphicon-eye-open"  aria-hidden="true"  style="float:right;"> </span>
                       </button>
                 </div>
+
               </div>
 
               <div class="form-group">
 
 
+
                 <div class="col-sm-4">
                   <b>Driver Photo*</b>
                   <br>
-                  <button type="button"  routerLinkActive="active"  [routerLink]="['/image-details', driver.driver_photo]"  class="btn btn-default btn-md"
-                     style="background:white;">
+                  <button type="button"  routerLinkActive="active"  (click) = "image(driver.driver_photo)"  class="btn btn-default btn-md" style="background:white;">
                     <span class="glyphicon glyphicon-eye-open"  aria-hidden="true"  style="float:right;"> </span>
-                      </button>
+                  </button>
                 </div>
                 <div class="col-sm-4">
                   <b>Driver Present Address Proof</b>
 
                   <br>
-                  <button type="button"  routerLinkActive="active"  [routerLink]="['/image-details', driver.d_local_add_proof]"  class="btn btn-default btn-md"
-                     style="background:white;">
+                  <button type="button"  routerLinkActive="active"  (click) = "image(driver.d_local_add_proof)"  class="btn btn-default btn-md" style="background:white;">
                     <span class="glyphicon glyphicon-eye-open"  aria-hidden="true"  style="float:right;"> </span>
-                      </button>
-                      <span *ngIf="verify1()" class="glyphicon glyphicon-remove-sign"></span>
+                  </button>
+                  <span *ngIf="verify1()" class="glyphicon glyphicon-remove-sign"></span>
 
 
                 </div>
               </div>
-
 
 
 

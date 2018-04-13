@@ -8,6 +8,16 @@
     background: transparent;
 }
 
+input[type="text"]:disabled {
+    background: #ffffff;
+}
+input[type = "date"]:disabled{
+    background: #ffffff
+}
+input[type= "email"]:disabled{
+    background: #ffffff
+}
+
     
     input {
         background-color:transparent;

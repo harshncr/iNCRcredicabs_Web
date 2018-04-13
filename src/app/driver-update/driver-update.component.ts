@@ -3,7 +3,8 @@ import { DriverData } from '../driver-list/driverData';
 import { DriverService } from '../driver.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Driver } from '../Model/driver';
-
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { VendorService } from '../vendor.service';
 @Component({
   selector: 'app-driver-update',
   templateUrl: './driver-update.component.html',
@@ -20,8 +21,13 @@ export class DriverUpdateComponent implements OnInit {
   message2; message4; message6;
   message7; message8; message9;
   message10;
+  certificate;
+  public display;
+  public message_image;
+  checked = true;
+  
  
-  constructor(public _driverData:DriverData,public _driverService:DriverService,private router:Router, private elem:ElementRef, private route:ActivatedRoute) {
+  constructor(public _driverData:DriverData,public _driverService:DriverService,private router:Router, private elem:ElementRef, private route:ActivatedRoute,private httpService:VendorService,private sanitizer:DomSanitizer) {
    
  
 
@@ -40,6 +46,7 @@ export class DriverUpdateComponent implements OnInit {
   public driver_id:number;
   private sub:any;
   public showLoading=true;
+  public showLoader = true;
   public i;
   public f=[];  
 
@@ -124,7 +131,43 @@ export class DriverUpdateComponent implements OnInit {
     }
   }
 
-  upd(){
+  image(certificate)
+  {
+    console.log(certificate);
+    if(certificate == "" || certificate == null || typeof certificate == "undefined")
+    {
+      this.openNav();
+      this.checked = false;
+      this.message_image = "image not found";
+    }
+    else{
+      this.message_image  = "";
+      this.checked = true;
+      this.openNav();
+     
+    console.log(certificate);
+    let body = {"image": certificate}
+        this.httpService.getimage(body)
+        .subscribe((response)=>
+        {
+        if(response.status == 200)
+          {
+          this.display=response._body;
+          
+          this.showLoader= false;
+         
+          }
+        
+        })
+      }
+}
+photo(){
+  return this.sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+this.display);
+}
+ 
+
+  upd()
+  {
  
     if(this.validate() == true)
     {
@@ -285,6 +328,17 @@ export class DriverUpdateComponent implements OnInit {
   
   return this.validatestatus;
   }
+  openNav()
+  {
+
+    document.getElementById("myNav").style.width = "100%";
+  }
+  closeNav()
+  {
+    document.getElementById("myNav").style.width = "0%";
+    this.showLoader = true;
+  }
+
   refreshErrorValues()
   {
     this.validatestatus = true;
@@ -300,5 +354,11 @@ export class DriverUpdateComponent implements OnInit {
     this.message10 = '';
 
   }
-
 }
+
+
+
+
+
+  
+        

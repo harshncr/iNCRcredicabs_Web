@@ -87,7 +87,7 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { AddContactComponent } from './add-contact/add-contact.component';
 import { SosContactsComponent } from './sos-contacts/sos-contacts.component';
 import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-detail.component';
-import { ImageDetailsComponent } from './image-details/image-details.component';
+
 
 
 @NgModule({
@@ -146,7 +146,7 @@ import { ImageDetailsComponent } from './image-details/image-details.component';
     AddContactComponent,
     SosContactsComponent,
     RosterRouteDetailComponent,
-    ImageDetailsComponent
+   
   ],
   imports: [
     BrowserModule,

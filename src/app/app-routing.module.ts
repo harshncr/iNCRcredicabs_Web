@@ -43,7 +43,7 @@ import { EmployeeChangePasswordComponent }        from './employee-change-passwo
 import { SosContactsComponent }                   from './sos-contacts/sos-contacts.component';
 import { AddContactComponent }                    from './add-contact/add-contact.component';
 import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-detail.component';
-import { ImageDetailsComponent } from './image-details/image-details.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/login',   pathMatch: 'full' },
@@ -109,7 +109,7 @@ const routes: Routes = [
   { path: 'driver-list',              component: DriverListComponent },
   { path: 'driver-update/:driver_id',            component: DriverUpdateComponent },
   { path: 'relationship',            component:RelationshipFormComponent },
-  {path:'image-details/:certi',     component:ImageDetailsComponent},
+  
 
 ];
 
