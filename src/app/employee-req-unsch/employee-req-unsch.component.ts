@@ -248,15 +248,17 @@ export class EmployeeReqUnschComponent implements OnInit {
       //   endDateSeconds = '0' + endDateSeconds;
       // }
 
+      let hh=(parseInt(startDateHours)>parseInt(endDateHours))?startDateHours:endDateHours;
+      let mm=(parseInt(startDateMinutes)>parseInt(endDateMinutes))?startDateMinutes:endDateMinutes;
+      let ss=(parseInt(startDateSeconds)>parseInt(endDateSeconds))?startDateSeconds:endDateSeconds;
+
+
       let startDateStr = startDateYear+"-"+startDateMonth+"-"+startDateDay
-              +" "+startDateHours+':'+startDateMinutes+':'+startDateSeconds;
+              +" "+hh+':'+mm+':'+ss;
 
       let endDateStr = endDateYear+"-"+endDateMonth+"-"+endDateDay
-              +" "+endDateHours+':'+endDateMinutes+':'+endDateSeconds;
-
-      console.log('Start Date Str: ' + startDateStr);
-      console.log('End Date Str: ' + endDateStr);
-
+              +" "+hh+':'+mm+':'+ss;
+              
       let source = '';
       let destination = '';
 
