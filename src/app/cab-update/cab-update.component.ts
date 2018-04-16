@@ -316,18 +316,13 @@ export class CabUpdateComponent implements OnInit {
       let licensePattern=/^(([A-Za-z]){2,3}(|-)(?:[0-9]){1,2}(|-)(?:[A-Za-z]){2}(|-)([0-9]){1,4})|(([A-Za-z]){2,3}(|-)([0-9]){1,4})$/;
 
       
-    if(this.cab.cab_no != null && this.cab.cab_no.trim() != ''){
+    if(this.cab.cab_no == null && this.cab.cab_no.trim() == ''){
         
-        if(this.cab.cab_no.match(licensePattern)==null){
-          this.validateStatus = false;
-          this.message2 = "Invalid Registration Number!";
-        }
+        this.validateStatus  = false;
+        this.message2 = "Cab Registration Number cannot be Empty"
 
       }
-      else{
-        this.validateStatus = false;
-        this.message2 = "Registration Number Should Not Be Empty!";
-      }
+      
       if(this.cab.model == null || this.cab.model.trim() == ''){
         this.validateStatus = false;
         this.message3 = "Car Model Should Not Be Empty.";

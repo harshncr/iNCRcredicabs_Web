@@ -256,13 +256,8 @@ changeCabType(value){
       this.validateStatus = false;
       this.message2 = "License Plate Number Should Not Be Empty!";
     }
-    else{
-      if(this.license_plate_number.match(licensePattern)==null){
-        this.validateStatus = false;
-        this.message2 = "Invalid Registration Number!";
-      }
-  
-    }
+    
+    
      if(this.model == null || this.model.trim() == ''){
       this.validateStatus = false;
       this.message3 = "Car Model Should Not Be Empty.";
