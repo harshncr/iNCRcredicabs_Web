@@ -407,7 +407,7 @@ export class EmployeeReqUnschComponent implements OnInit {
   }
   
   onManagerChange(){
-    if(this.currentManagerSelection = 'MANAGER1'){
+    if(this.currentManagerSelection == 'MANAGER1'){
       this.counter = 1;
     }else{
       this.counter = 2;
