@@ -190,8 +190,8 @@ export class EmployeeReqUnschComponent implements OnInit {
       // let startDateHours = startDateTemp.getHours()+'';
       // let startDateMinutes = startDateTemp.getMinutes()+'';
       // let startDateSeconds = startDateTemp.getSeconds()+'';
-      let startDateDay = (startDateTemp.getDate() + 1)+'';
-      let startDateMonth = (startDateTemp.getMonth() + 1)+'';
+      let startDateDay = startDateTemp.getDate()+'';
+      let startDateMonth = (startDateTemp.getMonth()+1)+'';
       let startDateYear = startDateTemp.getFullYear()+'';
       // console.log(this.dropTime);
       let startDateHours = (this.pickupTime+'').split(':')[0];
@@ -218,9 +218,9 @@ export class EmployeeReqUnschComponent implements OnInit {
       //   startDateSeconds = '0' + startDateSeconds;
       // }
 
-      let endDateDay = (startDateTemp.getDate() + 1)+'';
-      let endDateMonth = (startDateTemp.getMonth() + 1)+'';
-      let endDateYear = startDateTemp.getFullYear()+'';
+      let endDateDay = endDateTemp.getDate()+'';
+      let endDateMonth = (endDateTemp.getMonth()+1)+'';
+      let endDateYear = endDateTemp.getFullYear()+'';
       // let endDateHours = startDateTemp.getHours()+'';
       // let endDateMinutes = startDateTemp.getMinutes()+'';
       // let endDateSeconds = startDateTemp.getSeconds()+'';
@@ -253,11 +253,16 @@ export class EmployeeReqUnschComponent implements OnInit {
       let ss=(parseInt(startDateSeconds)>parseInt(endDateSeconds))?startDateSeconds:endDateSeconds;
 
 
-      let startDateStr = startDateYear+"-"+startDateMonth+"-"+startDateDay
-              +" "+hh+':'+mm+':'+ss;
+      let _time = hh+':'+mm+':'+ss;
 
-      let endDateStr = endDateYear+"-"+endDateMonth+"-"+endDateDay
-              +" "+hh+':'+mm+':'+ss;
+      // let startDateStr = startDateYear+"-"+startDateMonth+"-"+startDateDay
+      //         +" "+startDateHours+':'+startDateMinutes+':'+startDateSeconds;
+
+      // let endDateStr = endDateYear+"-"+endDateMonth+"-"+endDateDay
+      //         +" "+endDateHours+':'+endDateMinutes+':'+endDateSeconds;
+      let startDateStr = startDateYear+"-"+startDateMonth+"-"+startDateDay+' '+_time;
+
+      let endDateStr = endDateYear+"-"+endDateMonth+"-"+endDateDay+' '+_time;
               
       let source = '';
       let destination = '';
