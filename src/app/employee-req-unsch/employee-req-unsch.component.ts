@@ -190,8 +190,8 @@ export class EmployeeReqUnschComponent implements OnInit {
       // let startDateHours = startDateTemp.getHours()+'';
       // let startDateMinutes = startDateTemp.getMinutes()+'';
       // let startDateSeconds = startDateTemp.getSeconds()+'';
-      let startDateDay = startDateTemp.getDay()+'';
-      let startDateMonth = startDateTemp.getMonth()+'';
+      let startDateDay = (startDateTemp.getDate() + 1)+'';
+      let startDateMonth = (startDateTemp.getMonth() + 1)+'';
       let startDateYear = startDateTemp.getFullYear()+'';
       // console.log(this.dropTime);
       let startDateHours = (this.pickupTime+'').split(':')[0];
@@ -218,8 +218,8 @@ export class EmployeeReqUnschComponent implements OnInit {
       //   startDateSeconds = '0' + startDateSeconds;
       // }
 
-      let endDateDay = startDateTemp.getDay()+'';
-      let endDateMonth = startDateTemp.getMonth()+'';
+      let endDateDay = (startDateTemp.getDate() + 1)+'';
+      let endDateMonth = (startDateTemp.getMonth() + 1)+'';
       let endDateYear = startDateTemp.getFullYear()+'';
       // let endDateHours = startDateTemp.getHours()+'';
       // let endDateMinutes = startDateTemp.getMinutes()+'';
