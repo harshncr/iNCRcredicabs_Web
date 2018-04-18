@@ -282,13 +282,13 @@
         <!-- <div  [class]= "shift_arr[u]==4 ? 'panel panel-warning' : 'panel panel-info'"> -->
         <div class="panel panel-info">
             <div class="panel-heading clearfix">
-                <h4 class="panel-title pull-left" style="padding-top: 7.5px">
+                <h4 class="panel-title pull-left" id="fixedwidth-extra-small" style="padding-top: 7.5px">
                     Route : {{Max_arr[u]}}
                 </h4>
     
                 <!-- <input type="hidden" [(ngModel)]="cab_box_selected" value="cab_arr[u]" /> -->
                 <div>
-                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;margin-left:5%;">
+                    <h4 class="panel-title pull-left" id="fixedwidth-big" style="padding-top: 7.5px">
                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                         <span *ngIf="shift_arr[u] == 1"> 07:00 AM to 04:00 PM</span>
                         <span *ngIf="shift_arr[u] == 2"> 10:00 AM to 07:00 PM</span>
@@ -298,10 +298,10 @@
                     </h4>
                 </div>
     
-                <h4 class="panel-title pull-left" id="fixedwidth" style="padding-top: 7.5px;margin-left:5%;">
+                <h4 class="panel-title pull-left" id="fixedwidth-small" style="padding-top: 7.5px">
                     <span class="glyphicon glyphicon-bed" aria-hidden="true"></span> {{cab_arr[u]}}
                 </h4>
-                <h4 class="panel-title pull-left" style="padding-top: 7.5px;margin-left:3%;">
+                <h4 class="panel-title pull-left" id="fixedwidth-small" style="padding-top: 7.5px">
                     <span class="glyphicon glyphicon-user" aria-hidden="true"> </span> {{vendor_arr[u]}}
                 </h4>
     

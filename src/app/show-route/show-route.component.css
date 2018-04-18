@@ -28,9 +28,16 @@ float:right;
 #heading{
     height:200px;
 }
-#fixedwidth{
+#fixedwidth-extra-small{
   width:160px;
 }
+#fixedwidth-small{
+  width:200px;
+}
+#fixedwidth-big{
+  width:270px;
+}
+
 #emp{
     
     border:3px dotted lightgray;
