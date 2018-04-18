@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {    
     $('#login-error').hide();  
-    console.log(grecaptchaLoaded);
+    // console.log(grecaptchaLoaded);
     this.loginService.checkLoginStatus().subscribe(
       (data) => {
         if(data.login){

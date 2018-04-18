@@ -11,6 +11,7 @@ import { EmployeeService } from '../Services/employee.service';
 export class EmployeeHeaderComponent implements OnInit {
   admin = false;
   empFName = 'Me';
+  checkLoginIntervalId;
   @Output() onRoleChange: EventEmitter<any> = new EventEmitter();
   
   constructor(
@@ -78,7 +79,13 @@ export class EmployeeHeaderComponent implements OnInit {
     // }
 
     //// check every 90 seconds whether user is logged in!
-    setInterval(()=>{this.checkLoginStatus()}, 90000);
+    this.checkLoginIntervalId = setInterval(()=>{this.checkLoginStatus()}, 90000);
+  }
+  
+  ngOnDestroy() {
+    if (this.checkLoginIntervalId) {
+      clearInterval(this.checkLoginIntervalId);
+    }
   }
 
   checkLoginStatus(){
@@ -86,6 +93,7 @@ export class EmployeeHeaderComponent implements OnInit {
     console.log(now +'>>>> Checking login status....');
     this.loginService.checkLoginStatus().subscribe((data)=>{
       if(data['login'] == false){
+        clearInterval(this.checkLoginIntervalId);        
         return this.router.navigateByUrl('/no-session');
       }else{
         console.log('>>>> logged in!');

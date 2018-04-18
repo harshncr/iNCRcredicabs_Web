@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   router: Router;
   loginService: LoginService;
   empFName = 'Me';
+  checkLoginIntervalId;
   public showDownload; 
   public uploadValue:boolean=true;
   public filterReport='';
@@ -129,7 +130,13 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
     }
 
     //// check every 90 seconds whether user is logged in!
-    setInterval(()=>{this.checkLoginStatus()}, 90000);
+    this.checkLoginIntervalId = setInterval(()=>{this.checkLoginStatus()}, 90000);
+  }
+  
+  ngOnDestroy() {
+    if (this.checkLoginIntervalId) {
+      clearInterval(this.checkLoginIntervalId);
+    }
   }
 
   checkLoginStatus(){
@@ -137,6 +144,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
     console.log(now+'] Checking login status....');
     this.loginService.checkLoginStatus().subscribe((data)=>{
       if(data['login'] == false){
+        clearInterval(this.checkLoginIntervalId);
         return this.router.navigateByUrl('/no-session');
       }else{
         console.log('>>>> logged in!');
