@@ -262,7 +262,7 @@ export class EmployeeReqUnschComponent implements OnInit {
       //         +" "+endDateHours+':'+endDateMinutes+':'+endDateSeconds;
       let startDateStr = startDateYear+"-"+startDateMonth+"-"+startDateDay+' '+_time;
 
-      let endDateStr = endDateYear+"-"+endDateMonth+"-"+endDateDay+' '+_time;
+      let endDateStr = endDateYear+"-"+endDateMonth+"-"+endDateDay;//+' '+_time;
               
       let source = '';
       let destination = '';
