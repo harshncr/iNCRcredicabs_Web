@@ -44,6 +44,7 @@ import { SosContactsComponent }                   from './sos-contacts/sos-conta
 import { AddContactComponent }                    from './add-contact/add-contact.component';
 import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-detail.component';
 import { EmployeeCheckinCheckoutComponent } from './employee-checkin-checkout/employee-checkin-checkout.component';
+import { ComplaintsComponent } from './complaints/complaints.component';
 
 
 const routes: Routes = [
@@ -81,6 +82,10 @@ const routes: Routes = [
   {
     path:       'employee-dash/checkin-checkout',
     component:  EmployeeCheckinCheckoutComponent
+  },
+  {
+    path:       'employee-dash/complaints',
+    component:  ComplaintsComponent
   },
   { path: 'forgot-password',          component: ForgotPasswordComponent },
   { path: 'employee/view',            component: ViewEmployeeComponent },
