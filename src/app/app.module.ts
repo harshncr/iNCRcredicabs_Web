@@ -87,6 +87,7 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { AddContactComponent } from './add-contact/add-contact.component';
 import { SosContactsComponent } from './sos-contacts/sos-contacts.component';
 import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-detail.component';
+import { EmployeeCheckinCheckoutComponent } from './employee-checkin-checkout/employee-checkin-checkout.component';
 
 
 
@@ -146,6 +147,7 @@ import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-d
     AddContactComponent,
     SosContactsComponent,
     RosterRouteDetailComponent,
+    EmployeeCheckinCheckoutComponent,
    
   ],
   imports: [

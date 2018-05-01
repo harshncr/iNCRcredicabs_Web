@@ -1,0 +1,16 @@
+<app-employee-header></app-employee-header>
+<div class="container mobile-only">
+  <div class="alert alert-danger" *ngIf="showError">{{ message }}</div>
+  <div class="alert alert-success" *ngIf="showSuccess">{{ message }}</div>
+  <div id="checkin-button-container">
+    <button class="btn btn-default" (click)="onCheckin()">Check-In</button>
+  </div>
+  <br />
+  <div id="checkout-button-container">
+    <button class="btn btn-default" (click)="onCheckout()">Check-Out</button>
+  </div>
+
+  <div class="mobile-only-message">
+    <h1><strong class="text-center">This page is intended for use with mobile devices only!</strong></h1>
+  </div>
+</div>

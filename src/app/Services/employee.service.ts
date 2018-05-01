@@ -176,6 +176,26 @@ export class EmployeeService {
         });
     }
 
+    checkin(cd): Observable<any>{
+        return this.apiService.callApiService({
+            requestType: REQUEST_TYPE_POST,
+            url: `${environment.checkinUrl}`,
+            headers: this.headers,
+            body: JSON.stringify(cd),
+            shouldBlock: true
+        });
+    }
+
+    checkout(cd): Observable<any>{
+        return this.apiService.callApiService({
+            requestType: REQUEST_TYPE_POST,
+            url: `${environment.checkoutUrl}`,
+            headers: this.headers,
+            body: JSON.stringify(cd),
+            shouldBlock: true
+        });
+    }
+
     uploadExcel(formData): Observable<any>{
         return this.http.post(`${environment.uploadEmployeeExcelUrl}`, formData)
         .map(res => {

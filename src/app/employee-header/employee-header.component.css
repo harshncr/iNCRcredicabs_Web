@@ -160,6 +160,18 @@ hr{
     min-width: 166px;
 }
 
+.mobile-only{
+    display: none;
+    /* appearance: none; */
+}
+
+@media (max-width: 767px){
+    .mobile-only{
+        display: inline;
+        /* appearance: show; */
+    }
+}
+
 .dropdown-menu .nav-tabs{
     background: #ffffff;
 }

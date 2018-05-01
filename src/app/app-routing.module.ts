@@ -43,6 +43,7 @@ import { EmployeeChangePasswordComponent }        from './employee-change-passwo
 import { SosContactsComponent }                   from './sos-contacts/sos-contacts.component';
 import { AddContactComponent }                    from './add-contact/add-contact.component';
 import { RosterRouteDetailComponent } from './roster-route-detail/roster-route-detail.component';
+import { EmployeeCheckinCheckoutComponent } from './employee-checkin-checkout/employee-checkin-checkout.component';
 
 
 const routes: Routes = [
@@ -76,6 +77,10 @@ const routes: Routes = [
   {
     path:       'employee-dash/change-password',
     component:  EmployeeChangePasswordComponent
+  },
+  {
+    path:       'employee-dash/checkin-checkout',
+    component:  EmployeeCheckinCheckoutComponent
   },
   { path: 'forgot-password',          component: ForgotPasswordComponent },
   { path: 'employee/view',            component: ViewEmployeeComponent },
