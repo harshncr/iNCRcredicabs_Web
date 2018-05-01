@@ -28,7 +28,7 @@
                             <li class="list-group-item">
                                 <b>Mobile:</b>
                                 <br>
-                                <a>{{ emp?.empMobNbr }}</a>
+                                <a href="tel:{{ emp?.empMobNbr }}">{{ emp?.empMobNbr }}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>L1 Manager</b>
@@ -42,6 +42,7 @@
                                 <a>{{ emp.mgr2Name }}</a>
                                 <a>({{ emp?.empMgrQlid2 }})</a>
                             </li>
+                            <app-employee-checkin-checkout></app-employee-checkin-checkout>
                         </ul>
                     </div>
                     <!-- /.box-body -->
@@ -113,7 +114,7 @@
                                             <strong>Driver Name:</strong> {{ emp.driverDetails.driverName }}
                                         </li>
                                         <li class="list-group-item">
-                                            <strong>Mob: </strong>{{ emp.driverDetails.driverContact }}
+                                            <strong>Mob: </strong><a href="tel:{{emp.driverDetails.driverContact}}">{{ emp.driverDetails.driverContact }}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -144,6 +145,7 @@
                                                     <div class="col-sm-6 border-right">
                                                         <div class="description-block">
                                                             <h5 class="description-header">Mobile</h5>
+                                                            <a href="tel:{{obj.e_mob}}" class="mobile-only">{{obj.e_mob}}</a>
                                                             <span class="description-text"> {{obj.e_mob}}</span>
                                                         </div>
                                                         <!-- /.description-block -->
@@ -162,6 +164,7 @@
                                             </div>
                                         </div>
                                         <!-- /.widget-user -->
+                                        
                                     </div>
                                     <!-- /.col -->
                                 </div>

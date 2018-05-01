@@ -471,3 +471,19 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .cab-mate-body{
     overflow: auto;
 }
+
+.mobile-only{
+    display: none;
+}
+
+
+@media (max-width: 767px){
+    .mobile-only{
+        display: block;
+    }
+
+    .description-text{
+        display: none;
+    }
+
+}

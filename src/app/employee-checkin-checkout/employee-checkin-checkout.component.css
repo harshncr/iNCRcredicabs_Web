@@ -3,20 +3,19 @@
     width: 100%;
 }
 
+.btn-primary{
+    color: #fff;
+    background-color: #337ab7;
+}
+
+
 .mobile-only{
     display: none;
 }
 
-.mobile-only-message{
-    display: block;
-}
 
 @media (max-width: 767px){
     .mobile-only{
         display: block;
-    }
-
-    .mobile-only-message{
-        display: none;
     }
 }
