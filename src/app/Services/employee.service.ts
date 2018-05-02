@@ -210,6 +210,17 @@ export class EmployeeService {
         return this.uploadExcel(formData);
     }
 
+    sendFeedback(req): Observable<any>{
+        return this.apiService.callApiService({
+            requestType: REQUEST_TYPE_POST,
+            url: `${environment.feedbackUrl}`,
+            headers: this.headers,
+            body: JSON.stringify(req),
+            shouldBlock: true
+        });
+    }
+
+
     
     // checkManager(manager): Observable<any>{
     //     return this.apiService.callApiService({
