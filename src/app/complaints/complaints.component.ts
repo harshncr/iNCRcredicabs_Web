@@ -54,7 +54,7 @@ export class ComplaintsComponent implements OnInit {
 
   ngOnInit() {
     this.today = new Date();
-    // this.tripType="Scheduled";
+    this.showSuccess=false;
     this.showLoader = true;
   
     this._employeeService.employeeDash().subscribe((response)=>{
