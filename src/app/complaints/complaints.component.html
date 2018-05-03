@@ -39,7 +39,7 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-sm-6">
-                    <label>From Date</label>
+                    <label>Ride Date</label>
                     <input type="date" onkeydown="return false" class="form-control" id="fromDate" name="fromDate" [(ngModel)]="fromDate" (change)="altered.fromDate=true;validate()"
                       required>
                     <div class="error" *ngIf="formError.fromDate.error">
@@ -77,11 +77,11 @@
                   <div class="col-sm-6">
                     <label>Shift Timing </label>
                     <input *ngIf="!responseJSON.rosterInfo[0].shift_id && tripType!='Unscheduled'" type="text" class="form-control" disabled/>
-                    <span *ngIf="responseJSON.rosterInfo[0].shift_id">
-                      <span *ngIf="responseJSON.rosterInfo[0].shift_id == 1">07:00 AM - 04:00 PM</span>
-                      <span *ngIf="responseJSON.rosterInfo[0].shift_id == 2">10:00 AM - 07:00 PM</span>
-                      <span *ngIf="responseJSON.rosterInfo[0].shift_id == 4">12:00 PM - 09:00 PM</span>
-                      <span *ngIf="responseJSON.rosterInfo[0].shift_id == 3">Unsched Shift HR</span>
+                    <span *ngIf="responseJSON.rosterInfo[0].shift_id && tripType!='Unscheduled'">
+                      <span *ngIf="responseJSON.rosterInfo[0].shift_id == '1'">07:00 AM - 04:00 PM</span>
+                      <span *ngIf="responseJSON.rosterInfo[0].shift_id == '2'">10:00 AM - 07:00 PM</span>
+                      <span *ngIf="responseJSON.rosterInfo[0].shift_id == '3'">12:00 PM - 09:00 PM</span>
+                      <span *ngIf="responseJSON.rosterInfo[0].shift_id == '4'">Unsched Shift HR</span>
                     </span>
                     <input *ngIf="tripType=='Unscheduled'" type="text" class="form-control" id="shiftTime" name="shiftTime"  [(ngModel)]="shiftTime"  (change)="altered.shiftTime=true;validate()"/>
                   </div>

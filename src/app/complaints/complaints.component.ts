@@ -62,7 +62,7 @@ export class ComplaintsComponent implements OnInit {
       if(response.success){
         this.responseJSON = response;
         this.showError = false;
-        this.cabNumber=this.responseJSON.rosterInfor[0].cabNumber;
+        this.cabNumber=this.responseJSON.rosterInfo[0].Cab_number;
         // console.log(this.responseJSON);
       }else{
         this.showError = true;
@@ -84,13 +84,16 @@ export class ComplaintsComponent implements OnInit {
     todayStartOfDay.setSeconds(0);
     todayStartOfDay.setMilliseconds(0);
 
-    let fromDateSeconds = (new Date(this.fromDate)).getTime();
-    let todaySeconds = (new Date()).getTime();
-    let todayStartOfDaySeconds = todayStartOfDay.getTime();
-
+    let fromDateTemp =new Date(this.fromDate);
+    fromDateTemp.setHours(0);
+    fromDateTemp.setMinutes(0);
+    fromDateTemp.setSeconds(0);
+    fromDateTemp.setMilliseconds(0);
+    let fromDateTemp2 = (new Date(fromDateTemp)).getTime();
+    let todayDateTemp = todayStartOfDay.getTime();
 
     if(this.altered.fromDate){
-      if(fromDateSeconds >todayStartOfDaySeconds){
+      if(fromDateTemp2 >todayDateTemp){
         this.error = true;
         this.formError.fromDate.error = true;
         this.formError.fromDate.message = 'From date cannot be after today!';
@@ -141,7 +144,6 @@ export class ComplaintsComponent implements OnInit {
       type:  this.tripType, 
       comp: this.complaints,
       comments: this.comments,
-      // cab:"DL2cp1111"
       cab:this.cabNumber
     }
 
