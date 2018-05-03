@@ -30,7 +30,7 @@ export class NewValidators{
     }
 
     static invalidcabnumber(control:AbstractControl):ValidationErrors | null{
-        if(!((control.value as string).match(/(^[A-Za-z]{2}(\d{1}[A-Za-z]{3}|\d{2}[A-Za-z]{2})\d{4}$)|(^$)/)))
+        if(!((control.value as string).match((/^[A-Za-z]{2}\d{1}([A-Za-z]{1}|[A-Za-z]{3}|[A-Za-z]{2}|\d{1}[A-Za-z]{1}|\d{1}[A-Za-z]{2})\d{4}$/))))
             return {invalidcabnumber: true};
 
         return null;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../Model/employee';
 import { EmployeeService } from '../Services/employee.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-complaints',
@@ -10,8 +11,8 @@ import { EmployeeService } from '../Services/employee.service';
 export class ComplaintsComponent implements OnInit {
 
   ////-------------data for loader-------------
-  showLoader            = false;
-  loaderText            = "Loading...";
+  showLoader = false;
+  loaderText = "Loading...";
   ////-----------------------------------------
   showError = false;
   error = false;
@@ -27,52 +28,52 @@ export class ComplaintsComponent implements OnInit {
   complaints;
   comments;
 
-  formError={
-    fromDate: {error: false, message: ''},
-    pickupDrop: {error: false, message: ''},
-    tripType: {error: false, message: ''},
-    shiftTime: {error: false, message: ''},
-    cabNumber: {error: false, message: ''},
-    complaints: {error: false, message: ''},
-    comments: {error: false, message: ''}
+  formError = {
+    fromDate: { error: false, message: '' },
+    pickupDrop: { error: false, message: '' },
+    tripType: { error: false, message: '' },
+    shiftTime: { error: false, message: '' },
+    cabNumber: { error: false, message: '' },
+    complaints: { error: false, message: '' },
+    comments: { error: false, message: '' }
   }
 
-  altered={
-    fromDate:false,
-    pickupDrop:false,
-    tripType:false,
-    shiftTime:false,
-    cabNumber:false,
-    complaints:false,
-    comments:false
+  altered = {
+    fromDate: false,
+    pickupDrop: false,
+    tripType: false,
+    shiftTime: false,
+    cabNumber: false,
+    complaints: false,
+    comments: false
   }
 
 
   constructor(
-    private _employeeService:EmployeeService
-  ) {}
+    private _employeeService: EmployeeService
+  ) { }
 
   ngOnInit() {
     this.today = new Date();
-    this.showSuccess=false;
+    this.showSuccess = false;
     this.showLoader = true;
-  
-    this._employeeService.employeeDash().subscribe((response)=>{
+
+    this._employeeService.employeeDash().subscribe((response) => {
       this.showLoader = false;
-      if(response.success){
+      if (response.success) {
         this.responseJSON = response;
         this.showError = false;
-        this.cabNumber=this.responseJSON.rosterInfo[0].Cab_number;
+        this.cabNumber = this.responseJSON.rosterInfo[0].Cab_number;
         // console.log(this.responseJSON);
-      }else{
+      } else {
         this.showError = true;
       }
       this.showLoader = false;
     });
-  
+
   }
 
-  validate(){
+  validate() {
     this.refreshErrorValues();
     this.error = false;
     this.message = '';
@@ -84,36 +85,40 @@ export class ComplaintsComponent implements OnInit {
     todayStartOfDay.setSeconds(0);
     todayStartOfDay.setMilliseconds(0);
 
-    let fromDateTemp =new Date(this.fromDate);
+    let fromDateTemp = new Date(this.fromDate);
     fromDateTemp.setHours(0);
     fromDateTemp.setMinutes(0);
     fromDateTemp.setSeconds(0);
     fromDateTemp.setMilliseconds(0);
+
     let fromDateTemp2 = (new Date(fromDateTemp)).getTime();
     let todayDateTemp = todayStartOfDay.getTime();
 
-    if(this.altered.fromDate){
-      if(fromDateTemp2 >todayDateTemp){
+    if (this.altered.fromDate) {
+      
+      if(fromDateTemp2 < 0 || fromDateTemp2 == null || typeof fromDateTemp2 == "undefined"){
         this.error = true;
         this.formError.fromDate.error = true;
-        this.formError.fromDate.message = 'From date cannot be after today!';
+        this.formError.fromDate.message = 'Ride date is required!';
+      }
+
+      if (fromDateTemp2 > todayDateTemp ) {
+        this.error = true;
+        this.formError.fromDate.error = true;
+        this.formError.fromDate.message = 'Ride date cannot be after today!';
       }
     }
 
-    if(this.altered.shiftTime && this.tripType=="Unscheduled")
-    {
-      if(this.shiftTime.length<0)
-      {
+    if (this.altered.shiftTime && this.tripType == "Unscheduled") {
+      if (this.shiftTime.length < 0 || this.shiftTime == '' || this.shiftTime == null || typeof this.shiftTime == "undefined") {
         this.error = true;
         this.formError.shiftTime.error = true;
         this.formError.shiftTime.message = 'Required';
       }
     }
 
-    if(this.altered.tripType)
-    {
-      if(this.tripType.length<0)
-      {
+    if (this.altered.tripType) {
+      if (this.tripType.length < 0 || this.tripType == '' || this.tripType == null || typeof this.tripType == "undefined" ) {
         this.error = true;
         this.formError.tripType.error = true;
         this.formError.tripType.message = 'Required';
@@ -123,41 +128,45 @@ export class ComplaintsComponent implements OnInit {
     return this.error;
   }
 
-  refreshErrorValues(){
-    this.formError={
-      fromDate: {error: false, message: ''},
-      pickupDrop: {error: false, message: ''},
-      tripType: {error: false, message: ''},
-      shiftTime: {error: false, message: ''},
-      cabNumber: {error: false, message: ''},
-      complaints: {error: false, message: ''},
-      comments: {error: false, message: ''}
+  refreshErrorValues() {
+    this.formError = {
+      fromDate: { error: false, message: '' },
+      pickupDrop: { error: false, message: '' },
+      tripType: { error: false, message: '' },
+      shiftTime: { error: false, message: '' },
+      cabNumber: { error: false, message: '' },
+      complaints: { error: false, message: '' },
+      comments: { error: false, message: '' }
     }
   }
 
-  onSave(){
+  onSave() {
 
-    let request={
-      qlid:this.responseJSON.empQlid,
-      date: this.fromDate,
-      pd: this.pickupDrop,
-      type:  this.tripType, 
-      comp: this.complaints,
-      comments: this.comments,
-      cab:this.cabNumber
+    if (this.validate()) {
+      let request = {
+        qlid: this.responseJSON.empQlid,
+        date: this.fromDate,
+        pd: this.pickupDrop,
+        type: this.tripType,
+        comp: this.complaints,
+        comments: this.comments,
+        cab: this.cabNumber
+      }
+
+      this._employeeService.sendFeedback(request).subscribe(
+        (response) => {
+          console.log(response);
+          if (response) {
+            this.showSuccess = true;
+            this.message = "Your feedback has been saved.";
+          }
+
+        });
+    }else{
+      alert("Fill details");
     }
 
-    this._employeeService.sendFeedback(request).subscribe(
-      (response)=>{
-        console.log(response);
-        if(response)
-        {
-          this.showSuccess=true;
-          this.message="Your feedback has been saved.";
-        }
 
-      });
- 
   }
 
 

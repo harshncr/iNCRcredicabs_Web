@@ -53,6 +53,7 @@
                   <div class="col-sm-6">
                     <label>Pickup/Drop</label>
                     <select class="form-control" name="pickupDrop" (change)="altered.pickupDrop=true;validate()" [(ngModel)]="pickupDrop" required>
+                      <option value=" ">Select</option>
                       <option value="Pickup">Pickup</option>
                       <option value="Drop">Drop</option>
                     </select>
@@ -63,6 +64,7 @@
                   <div class="col-sm-6" >
                     <label>Type</label>
                     <select class="form-control" name="tripType" (change)="altered.tripType=true;validate()" [(ngModel)]="tripType" required>
+                      <option value=" ">Select</option>
                       <option value="Scheduled">Scheduled</option>
                       <option value="Unscheduled">Unscheduled</option>
                     </select>
@@ -77,13 +79,12 @@
                   <div class="col-sm-6">
                     <label>Shift Timing </label>
                     <input *ngIf="!responseJSON.rosterInfo[0].shift_id && tripType!='Unscheduled'" type="text" class="form-control" disabled/>
-                    <span *ngIf="responseJSON.rosterInfo[0].shift_id && tripType!='Unscheduled'">
+                    <span *ngIf="responseJSON.rosterInfo[0].shift_id ">
                       <span *ngIf="responseJSON.rosterInfo[0].shift_id == '1'">07:00 AM - 04:00 PM</span>
                       <span *ngIf="responseJSON.rosterInfo[0].shift_id == '2'">10:00 AM - 07:00 PM</span>
                       <span *ngIf="responseJSON.rosterInfo[0].shift_id == '3'">12:00 PM - 09:00 PM</span>
                       <span *ngIf="responseJSON.rosterInfo[0].shift_id == '4'">Unsched Shift HR</span>
                     </span>
-                    <input *ngIf="tripType=='Unscheduled'" type="text" class="form-control" id="shiftTime" name="shiftTime"  [(ngModel)]="shiftTime"  (change)="altered.shiftTime=true;validate()"/>
                   </div>
                   <div class="col-sm-6" >
                     <label>Cab Number</label>
