@@ -8,12 +8,6 @@
     <div *ngIf="message">
       {{ message }}
     </div>
-    <div *ngIf="dropMessage">
-      {{ dropMessage }}
-    </div>
-    <div *ngIf="pickupMessage">
-      {{ pickupMessage }}
-    </div>
   </div>
 </div>
 
@@ -35,29 +29,47 @@
     <div class="col-md-6 col-md-offset-3">
 
       <div class="panel panel-default">
-        <div class="panel-heading unsch-req-head clearfix">
+        <div class="panel-heading complaints-head clearfix">
           <h4 class="panel-title">Complaints</h4>
         </div>
         <div class="panel-body">
-          <div *ngIf="showLoader == false && empData && showSuccess == false" >
-            <form name="myForm" #f="ngForm" (ngSubmit)="onSave(f.value)" role="form">
+          <div *ngIf="showLoader == false" >
+            <form name="myForm" #f="ngForm" (ngSubmit)="onSave()" role="form">
               <!-- <legend style="margin-bottom: 25px; text-align: center;">Request Unscheduled Cab</legend> -->
               <div class="form-group">
                 <div class="row">
                   <div class="col-sm-6">
-                    <label>From Date</label>
+                    <label>Ride Date</label>
                     <input type="date" onkeydown="return false" class="form-control" id="fromDate" name="fromDate" [(ngModel)]="fromDate" (change)="altered.fromDate=true;validate()"
                       required>
                     <div class="error" *ngIf="formError.fromDate.error">
                       {{ formError.fromDate.message }}
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
                   <div class="col-sm-6">
-                    <label> To Date</label>
-                    <input type="date" onkeydown="return false" class="form-control" id="toDate" name="toDate" [(ngModel)]="toDate" (change)="altered.toDate=true;validate()"
-                      placeholder="To Date" required>
-                    <div class="error" *ngIf="formError.toDate.error">
-                      {{ formError.toDate.message }}
+                    <label>Pickup/Drop</label>
+                    <select class="form-control" name="pickupDrop" (change)="altered.pickupDrop=true;validate()" [(ngModel)]="pickupDrop" required>
+                      <option value=" ">Select</option>
+                      <option value="Pickup">Pickup</option>
+                      <option value="Drop">Drop</option>
+                    </select>
+                    <div class="error" *ngIf="formError.pickupDrop.error">
+                      {{ formError.pickupDrop.message }}
+                    </div>
+                  </div>
+                  <div class="col-sm-6" >
+                    <label>Type</label>
+                    <select class="form-control" name="tripType" (change)="altered.tripType=true;validate()" [(ngModel)]="tripType" required>
+                      <option value=" ">Select</option>
+                      <option value="Scheduled">Scheduled</option>
+                      <option value="Unscheduled">Unscheduled</option>
+                    </select>
+                    <div class="error" *ngIf="formError.tripType.error">
+                      {{ formError.tripType.message }}
                     </div>
                   </div>
                 </div>
@@ -65,82 +77,49 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-sm-6">
-                    <label>Pickup Area</label>
-                    <select class="form-control" name="Drop Location" (change)="onSelectedLocation($event.target.value)" [(ngModel)]="pickupArea">
-                      <option value="home">Home</option>
-                      <option value="office">Office</option>
-                      <option value="other">Other</option>
-                    </select>
-                    <div *ngIf="showPick">
-                      <input class="form-control show-textbox" name="pickup_address" placeholder="Pickup Address" type="text" maxlength="100" [(ngModel)]="pickupAddress">
-                    </div>
-                    <div class="error" *ngIf="formError.pickupArea.error">
-                      {{ formError.pickupArea.message }}
-                    </div>
+                    <label>Shift Timing </label>
+                    <input *ngIf="!responseJSON.rosterInfo[0].shift_id && tripType!='Unscheduled'" type="text" class="form-control" disabled/>
+                    <span *ngIf="responseJSON.rosterInfo[0].shift_id ">
+                      <span *ngIf="responseJSON.rosterInfo[0].shift_id == '1'">07:00 AM - 04:00 PM</span>
+                      <span *ngIf="responseJSON.rosterInfo[0].shift_id == '2'">10:00 AM - 07:00 PM</span>
+                      <span *ngIf="responseJSON.rosterInfo[0].shift_id == '3'">12:00 PM - 09:00 PM</span>
+                      <span *ngIf="responseJSON.rosterInfo[0].shift_id == '4'">Unsched Shift HR</span>
+                    </span>
                   </div>
-                  <div class="col-sm-6" *ngIf="showPickTime">
-                    <label>Pickup Time</label>
-                    <input type="time" class="form-control" id="time" name="pickup_time" [(ngModel)]="pickupTime" (change)="altered.pickupTime=true;validate()"
-                      required>
-                  </div>
-                </div>
-              </div>
-              <div *ngIf="showDefaultPickupAdd" class="form-group">
-                <div class="row">
-                  <div class="col-sm-12 col-lg-6">
-                    {{ defaultPickupAdd }}
+                  <div class="col-sm-6" >
+                    <label>Cab Number</label>
+                    <input type="text" class="form-control" id="cabNumber" name="cabNumber" readonly [(ngModel)]="cabNumber"  required/>
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <div class="row">
                   <div class="col-sm-6">
-                    <label>Drop Area </label>
-                    <select class="form-control" name="Drop_Area" (change)="onSelectedLocation($event.target.value)" [(ngModel)]="dropArea">
-                      <option value="home">Home</option>
-                      <option value="office">Office</option>
-                      <option value="other">Other</option>
+                    <label>Complaints</label>
+                    <select class="form-control" id="complaints" name="complaints"  [(ngModel)]="complaints">
+                     <option calue="Cab Condition">Cab Condition</option>
+                     <option calue="Driver issue">Driver issue</option>
+                     <option calue="Driving">Driving</option>
+                     <option calue="Cab Timing">Cab Timing</option>
+                     <option calue="Cab Condition">Cab Condition</option>
+                     <option calue="Trip route">Trip route</option>
+                     <option calue="Frequent cab change">Frequent cab change</option>
+                     <option calue="Frequent Driver Change">Frequent Driver Change</option>
+                     <option calue="Ac not working">Ac not working</option>
+                     <option calue="Taxi">Taxi</option>
+                     <option calue="Hygiene">Hygiene</option>
+                     <option calue="Others">Others</option>
                     </select>
-                    <div *ngIf="showDrop">
-                      <input class="form-control show-textbox" name="drop_address" placeholder="Drop Address" type="text" maxlength="100" [(ngModel)]="dropAddress">
+                    <div class="error" *ngIf="formError.complaints.error">
+                      {{ formError.complaints.message }}
                     </div>
-                    <div class="error" *ngIf="formError.dropArea.error">
-                      {{ formError.dropArea.message }}
-                    </div>
-                  </div>
-                  <div class="col-sm-6" *ngIf="showDropTime">
-                    <label>Drop Time</label>
-                    <input type="time" class="form-control" id="time" name="time" placeholder="Reaching Time" [(ngModel)]="dropTime" (change)="altered.dropTime=true;validate()"
-                      required>
-                  </div>
-                </div>
-              </div>
-              <div *ngIf="showDefaultDropAdd" class="form-group">
-                <div class="row">
-                  <div class="col-sm-12 col-lg-6">
-                    {{ defaultDropAdd }}
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-9">
-                    <label>Approver</label>
-                    <select class="form-control" id="approver" name="approver" (change)="onManagerChange()" [(ngModel)]="currentManagerSelection">
-                      <option value="MANAGER1" default selected>Level 1 Manager:
-                        <strong>{{ empData.mgr1Name }} ({{ empData.empMgrQlid1 }})</strong>
-                      </option>
-                      <option value="MANAGER2">Level 2 Manager:
-                        <strong>{{ empData.mgr2Name }} ({{ empData.empMgrQlid2 }})</strong>
-                      </option>
-                    </select>
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <legend></legend>
-                <Label>Reason for request </Label>
-                <textarea class="form-control" name="reason" type="textarea" id="message" maxlength="140" rows="4" [(ngModel)]="reason">
+                <Label>Comments</Label>
+                <textarea class="form-control" name="reason" placeholder="Enter Feedback here" type="textarea" id="comments" maxlength="140" rows="4" [(ngModel)]="comments">
                     </textarea>
               </div>
               <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Submit</button>
