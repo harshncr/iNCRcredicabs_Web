@@ -1,0 +1,14 @@
+<div class="loader-container" *ngIf="showLoader">
+  <table>
+    <tr>
+      <td>
+          <div class="loader-animation"></div>
+      </td>
+      <td>
+        <span class="loader-animation-text" *ngIf="loaderText">
+          {{loaderText}}
+        </span>
+      </td>
+    </tr>
+  </table>
+</div>

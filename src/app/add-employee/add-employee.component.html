@@ -24,13 +24,13 @@
 <app-loader-anim [showLoader]="showLoader" [loaderText]="loaderText"></app-loader-anim>
 
 <div class="row" style="margin-top:20px">
-  <div *ngIf="showLoader == false && showSuccess == false && showError == false" class="col-md-12" id="employee-form">
+  <div *ngIf="managersLoaded" class="col-md-12" id="employee-form">
 
     <div class="panel panel-default">
-      <div class="panel-heading add-emp-panel ">
-        <h4 class="panel-title ">Name and other information</h4>
-      </div>
-      <div class="panel=body">
+      <!-- <div class="panel-heading add-emp-panel "> -->
+        <!-- <h4 class="panel-title ">Name and other information</h4> -->
+      <!-- </div> -->
+      <div class="panel-body">
         
         <form name="myForm" #f="ngForm" (ngSubmit)="onSave(f.value)"  role="form">
           <fieldset>
@@ -39,7 +39,7 @@
         Name & Other Information
 
       -->
-            <!-- <legend>Name and other information</legend> -->
+            <legend>Add Employee</legend>
             <div class="form-group">
               <!-- Input Field Labels -->
               <div class="row">
@@ -54,8 +54,10 @@
               <!-- Input field row -->
               <div class="row">
                 <div class="col-sm-3">
-                  <input type="text" name="Emp_Qlid" maxlength="8" class="form-control imp-ph" [(ngModel)]="emp.empQlid" (change)="validate();altered.empQlid=true"
-                    pattern="^\w\w\d\d\d\d\d\d$" required>
+                  <input
+                    type="text" name="Emp_Qlid" maxlength="8" class="form-control imp-ph"
+                    [(ngModel)]="emp.empQlid" (change)="validate();altered.empQlid=true"
+                    pattern="^\w\w\d\d\d\d\d\d$" required [disabled]="textInputDisabled">
                 </div>
               </div>
               <!-- Error row -->
@@ -101,21 +103,29 @@
             Employee First Name
           -->
                 <div class="col-sm-3">
-                  <input type="text" name="Emp_FName" maxlength="15" class="form-control imp-ph" [(ngModel)]="emp.empFName" pattern="\w*" (change)="validate();altered.empFName=true"
-                    required>
+                  <input
+                    type="text" name="Emp_FName" maxlength="15" class="form-control imp-ph"
+                    [(ngModel)]="emp.empFName" pattern="\w*"
+                    (change)="validate();altered.empFName=true" required
+                    [disabled]="textInputDisabled">
                 </div>
                 <!--
             Employee Middle Name
           -->
                 <div class="col-sm-3">
-                  <input type="text" name="Emp_MName" maxlength="15" class="form-control" [(ngModel)]="emp.empMName" (change)="validate();altered.empMName=true">
+                  <input
+                    type="text" name="Emp_MName" maxlength="15" class="form-control"
+                    [(ngModel)]="emp.empMName" (change)="validate();altered.empMName=true"
+                    [disabled]="textInputDisabled">
                 </div>
                 <!--
             Employee Last Name
           -->
                 <div class="col-sm-3">
-                  <input type="text" name="Emp_LName" maxlength="15" class="form-control imp-ph" [(ngModel)]="emp.empLName" (change)="validate();altered.empLName=true"
-                    required>
+                  <input
+                    type="text" name="Emp_LName" maxlength="15" class="form-control imp-ph"
+                    [(ngModel)]="emp.empLName" (change)="validate();altered.empLName=true"
+                    required [disabled]="textInputDisabled">
                 </div>
               </div>
               <!-- Error row -->
@@ -174,13 +184,17 @@
               <div class="row">
                 <!-- Employee Contact no -->
                 <div class="col-sm-3">
-                  <input type="number" name="Emp_Mob" maxlength="10" class="form-control imp-ph" [(ngModel)]="emp.empMobNbr" (change)="validate();altered.empMobNbr=true"
-                    required>
+                  <input
+                    type="number" name="Emp_Mob" maxlength="10" class="form-control imp-ph"
+                    [(ngModel)]="emp.empMobNbr" (change)="validate();altered.empMobNbr=true"
+                    required [disabled]="textInputDisabled">
                 </div>
                 <!-- Employee Gender -->
                 <div class="col-sm-3">
-                  <select type="gender" name="Emp_Gender" class="form-control" [(ngModel)]="emp.empGender" (change)="validate();altered.empGender=true"
-                    required>
+                  <select
+                    type="gender" name="Emp_Gender" class="form-control"
+                    [(ngModel)]="emp.empGender" (change)="validate();altered.empGender=true"
+                    required  [disabled]="textInputDisabled">
                     <option class="imp-select-option" value="" dsisabled selected>Gender*</option>
                     <option value="M">Male</option>
                     <option value="F">Female</option>
@@ -188,8 +202,10 @@
                 </div>
                 <!-- Employee Role -->
                 <div class="col-sm-3">
-                  <select type="role" name="Roles_Id" class="form-control" [(ngModel)]="emp.rolesId" (change)="validate();altered.rolesId=true"
-                    required>
+                  <select
+                    type="role" name="Roles_Id" class="form-control" [(ngModel)]="emp.rolesId"
+                    (change)="validate();altered.rolesId=true" required
+                    [disabled]="textInputDisabled">
                     <option value="" dsisabled selected>Role*</option>
                     <option value="5">Intern</option>
                     <option value="4">Contractor</option>
@@ -227,11 +243,12 @@
             <div class="form-group">
               <!-- Input Field Labels -->
               <div class="row">
-                <div class="col-sm-3">
+                <!-- Remove in future -->
+                <!-- <div class="col-sm-3">
                   <span class="input-label fadeIn">
                     <strong>Home Phone</strong>
                   </span>
-                </div>
+                </div> -->
                 <div class="col-sm-3">
                   <span class="input-label">
                     <strong>Emergency Phone No
@@ -239,39 +256,45 @@
                     </strong>
                   </span>
                 </div>
-                <div class="col-sm-3">
+                <!-- Remove in future -->
+                <!-- <div class="col-sm-3">
                   <span class="input-label">
                     <strong>Blood Group
                       <span class="imp">*</span>
                     </strong>
                   </span>
-                </div>
-              </div>
+                </div>-->
+              </div> 
               <!-- Input field row -->
               <div class="row">
                 <!-- Home Phone No -->
-                <div class="col-sm-3">
+                <!-- Remove in future -->
+                <!-- <div class="col-sm-3">
                   <input type="number" name="Emp_Home" maxlength="10" class="form-control" [(ngModel)]="emp.empHomeNbr" (change)="validate();altered.empHomeNbr=true">
-                </div>
+                </div> -->
                 <!-- Emergency Phone No -->
                 <div class="col-sm-3">
-                  <input type="number" name="Emp_Emergency" class="form-control imp-ph" maxlength="10" (change)="validate();altered.empEmergNbr=true"
-                    [(ngModel)]="emp.empEmergNbr">
+                  <input
+                    type="number" name="Emp_Emergency" class="form-control imp-ph"
+                    maxlength="10" (change)="validate();altered.empEmergNbr=true"
+                    [(ngModel)]="emp.empEmergNbr" [disabled]="textInputDisabled">
                 </div>
+                <!-- Remove in future -->
                 <!-- Blood Group -->
-                <div class="col-sm-3">
+                <!-- <div class="col-sm-3">
                   <input type="text" name="Emp_BloodGrp" maxlength="3" class="form-control imp-ph" [(ngModel)]="emp.empBloodGrp" (change)="validate();altered.empBloodGrp=true">
-                </div>
-              </div>
+                </div>-->
+              </div> 
               <!-- Error row -->
               <div class="row">
+                <!-- Remove in future -->
                 <!-- Home Phone No Error -->
-                <div class="col-sm-3">
+                <!-- <div class="col-sm-3">
                   <div *ngIf="formError.empHomeNbr.error && (altered.empHomeNbr
                 || saveClicked)" class="text-danger form-error">
                     {{ formError.empHomeNbr.message }}
                   </div>
-                </div>
+                </div> -->
                 <!-- Emergency Phone No Error -->
                 <div class="col-sm-3">
                   <div *ngIf="formError.empEmergNbr.error && (altered.empEmergNbr
@@ -279,13 +302,14 @@
                     {{ formError.empEmergNbr.message }}
                   </div>
                 </div>
+                <!-- Remove in future -->
                 <!-- Blood Group Error -->
-                <div class="col-sm-3">
+                <!-- <div class="col-sm-3">
                   <div *ngIf="formError.empBloodGrp.error && (altered.empBloodGrp
                 || saveClicked)" class="text-danger form-error">
                     {{ formError.empBloodGrp.message }}
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="form-group">
@@ -308,14 +332,22 @@
               <!-- L1 Manager Name -->
               <div class="row">
                 <div class="col-sm-5">
-                  <input list="manager-list-lvl1" name="manager-name" maxlength="100" class="form-control" [(ngModel)]="selectedManager1" (change)="setManagerQlid1($event.target.value);validate();altered.empMgrQlid1=true">
+                  <input
+                    list="manager-list-lvl1" name="manager-lvl1-name" maxlength="100"
+                    class="form-control" [(ngModel)]="selectedManager1"
+                    (change)="setManagerQlid1($event.target.value);validate();altered.empMgrQlid1=true"
+                    [disabled]="textInputDisabled">
                   <datalist *ngIf="mgrArr" id="manager-list-lvl1">
                     <option *ngFor="let mgr of mgrArr" value="{{mgr.mgrFName}} {{mgr.mgrLName}} : {{mgr.mgrQlid}}"></option>
                   </datalist>
                 </div>
                 <!-- L1 Manager QLID -->
                 <div class="col-sm-3">
-                  <input type="text" name="Emp_Mgr_Qlid1" maxlength="8" class="form-control imp-ph" [(ngModel)]="emp.empMgrQlid1" (change)="onMgrQlid1Change($event.target.value);validate();altered.empMgrQlid1=true">
+                  <input
+                    type="text" name="Emp_Mgr_Qlid1" maxlength="8" class="form-control imp-ph"
+                    [(ngModel)]="emp.empMgrQlid1"
+                    (change)="onMgrQlid1Change($event.target.value);validate();altered.empMgrQlid1=true"
+                    [disabled]="textInputDisabled">
                 </div>
               </div>
               <!-- Error row -->
@@ -352,21 +384,28 @@
               <!-- (change) = "setManagerQlid2($event.target.value)" -->
               <div class="row">
                 <div class="col-sm-5">
-                  <input list="manager-list-lvl2" name="manager-name" maxlength="100" class="form-control" [(ngModel)]="selectedManager2" (change)="setManagerQlid2($event.target.value);validate();altered.empMgrQlid2=true">
+                  <input
+                    list="manager-list-lvl2" name="manager-lvl2-name" maxlength="100" class="form-control"
+                    [(ngModel)]="selectedManager2"
+                    (change)="setManagerQlid2($event.target.value);validate();altered.empMgrQlid2=true"
+                    [disabled]="textInputDisabled">
                   <datalist *ngIf="mgrArr != null" id="manager-list-lvl2">
                     <option *ngFor="let mgr of mgrArr" value="{{mgr.mgrFName}} {{mgr.mgrLName}} : {{mgr.mgrQlid}}"></option>
                   </datalist>
                 </div>
                 <!-- Manager QLID -->
                 <div class="col-sm-3">
-                  <input type="text" name="Emp_Mgr_Qlid2" maxlength="8" class="form-control imp-ph" [(ngModel)]="emp.empMgrQlid2" (change)="onMgrQlid2Change($event.target.value);validate();altered.empMgrQlid2=true;
-                validate()">
+                  <input
+                    type="text" name="Emp_Mgr_Qlid2" maxlength="8" class="form-control imp-ph"
+                    [(ngModel)]="emp.empMgrQlid2"
+                    (change)="onMgrQlid2Change($event.target.value);validate();altered.empMgrQlid2=true;validate()"
+                    [disabled]="textInputDisabled">
                 </div>
               </div>
               <!-- Error row -->
               <div class="row">
                 <!-- Manager QLID Error -->
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                 </div>
                 <div class="col-sm-3">
                   <div *ngIf="formError.empMgrQlid2.error && (altered.empMgrQlid2
@@ -395,7 +434,10 @@
               <div class="row">
                 <!-- Employee Address Line 1 -->
                 <div class="col-sm-9">
-                  <input type="text" name="Emp_Address1" maxlength="100" class="form-control imp-ph" [(ngModel)]="emp.empAddLine1" (change)="validate();altered.empAddLine1=true">
+                  <input
+                    type="text" name="Emp_Address1" maxlength="100" class="form-control imp-ph"
+                    [(ngModel)]="emp.empAddLine1" (change)="validate();altered.empAddLine1=true"
+                    [disabled]="textInputDisabled">
                 </div>
               </div>
               <!-- Error row -->
@@ -424,7 +466,10 @@
               <div class="row">
                 <!-- Employee Address Line 2 -->
                 <div class="col-sm-9">
-                  <input type="text" name="Emp_Address2" maxlength="100" class="form-control imp-ph" [(ngModel)]="emp.empAddLine2" (change)="validate();altered.empAddLine2=true">
+                  <input
+                    type="text" name="Emp_Address2" maxlength="100" class="form-control imp-ph"
+                    [(ngModel)]="emp.empAddLine2" (change)="validate();altered.empAddLine2=true"
+                    [disabled]="textInputDisabled">
                 </div>
               </div>
               <!-- Error row -->
@@ -466,18 +511,24 @@
               <div class="row">
                 <!-- Employee Zone -->
                 <div class="col-sm-3">
-                  <input type="text" name="Emp_Zone" maxlength="15" class="form-control imp-ph" [(ngModel)]="emp.empZone" (change)="validate();altered.empZone=true"
-                    required>
+                  <input
+                    type="text" name="Emp_Zone" maxlength="15" class="form-control imp-ph"
+                    [(ngModel)]="emp.empZone" (change)="validate();altered.empZone=true"
+                    required [disabled]="textInputDisabled">
                 </div>
                 <!-- Employee Postal Code (PIN) -->
                 <div class="col-sm-3">
-                  <input type="number" name="Emp_PIN" max="999999" class="form-control imp-ph" [(ngModel)]="emp.empPin" (change)="validate();altered.empPin=true"
-                    required>
+                  <input
+                    type="number" name="Emp_PIN" max="999999" class="form-control imp-ph"
+                    [(ngModel)]="emp.empPin" (change)="validate();altered.empPin=true"
+                    required [disabled]="textInputDisabled">
                 </div>
                 <!-- Employee Pickup Location -->
                 <div class="col-sm-3">
-                  <input type="text" name="Emp_Pickup" maxlength="20" class="form-control imp-ph" [(ngModel)]="emp.empPickupArea" (change)="validate();altered.empPickupArea=true"
-                    required>
+                  <input
+                    type="text" name="Emp_Pickup" maxlength="20" class="form-control imp-ph"
+                    [(ngModel)]="emp.empPickupArea" (change)="validate();altered.empPickupArea=true"
+                    required [disabled]="textInputDisabled">
                 </div>
               </div>
               <!-- Error row -->
@@ -517,6 +568,9 @@
             </div>
           </fieldset>
         </form>
+
+        <app-loader-anim-inline [showLoader]="showSaveLoader" [loaderText]="textOnSave"></app-loader-anim-inline>
+
       </div>
     </div>
 

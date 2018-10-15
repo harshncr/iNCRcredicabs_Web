@@ -22,11 +22,19 @@ export class AddEmployeeComponent implements OnInit {
   loaderText              = "Loading...";
   ////-----------------------------------------
 
+  //// For loader that appears after clicking on "Save"
+  showSaveLoader          = false;
+
+  //// Text to show along with loader when "save" is clicked!
+  textOnSave              = "Saving.... Please Wait!";
+
+  textInputDisabled       = false;
   showError               = false;
   showSuccess             = false;
   mgr:string              = null;
   mgrSuggestion           = false;
   saveClicked             = false;
+  managersLoaded          = false;
 
   emp: Employee;
   mgrReq:MgrRequest;
@@ -34,7 +42,6 @@ export class AddEmployeeComponent implements OnInit {
   selectedManager1:string;
   selectedManager2:string;
   mgrArr:Array<Manager> = [];
-  // validMgrQlids = [];
 
   //// Stores which fields have been altered by the user....
   altered = {
@@ -83,6 +90,8 @@ export class AddEmployeeComponent implements OnInit {
     this.emp = new Employee();
     this.emp.empGender = '';
     this.emp.rolesId = '';
+    this.emp.empEmergNbr = '9999999999';
+    this.emp.empBloodGrp = 'O+';
   }
 
   ngOnInit() {
@@ -90,6 +99,7 @@ export class AddEmployeeComponent implements OnInit {
     this.employeeService.getAllManagers().subscribe((data) => {
       this.mgrArr = data;
       this.showLoader = false;
+      this.managersLoaded = true;
     });
   }
 
@@ -123,6 +133,7 @@ export class AddEmployeeComponent implements OnInit {
     }
 
     if(mgrIndex1 == -1 || this.mgrArr == null || this.mgrArr == undefined){
+      this.selectedManager1 = '';
       return;
     }
 
@@ -143,6 +154,7 @@ export class AddEmployeeComponent implements OnInit {
     }
 
     if(mgrIndex2 == -1 || this.mgrArr == null || this.mgrArr == undefined){
+      this.selectedManager2 = '';
       return;
     }
 
@@ -152,27 +164,44 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   onSave(f){
-    this.showLoader = true;
+    // this.showLoader = true;
     this.saveClicked = true;
+    this.textInputDisabled = true;
+    this.showSaveLoader = true;
+    this.showError = false;
+    this.showSuccess = false;
+    this.refreshErrorValues();
+    this.scrollToBottom();
+
     if(this.validate()){
       this.employeeService.addEmployee(this.emp).subscribe((data) => {
         console.log(data);
         if(data.success){
           this.showSuccess = true;
           this.showError = false;
-          this.message = "Employee successfully added to the Database!";       
+          this.message = "Employee successfully added!";
         }else{
-          this.formError = data;
+          console.log("saari problem ki jadd!");
+          this.formError = Object.assign({}, this.formError, data);
           this.showError = true;
-        }        
+        }
+
+        this.textInputDisabled = false;
+        this.showSaveLoader = false;
+        this.scrollToTop();
       });
       
     }else{
       this.showSuccess = false;
       this.showError = true;
-      this.message = "Employee could not be added to the Database!";
+      this.message = "Employee could not be added!";
+
+      this.textInputDisabled = false;
+      this.showSaveLoader = false;
+      this.scrollToTop();
     }
-    this.showLoader = false;
+
+    // this.showLoader = false;
   }
 
   newEmployee(){
@@ -258,7 +287,6 @@ export class AddEmployeeComponent implements OnInit {
     }
 
     if(this.emp.empMobNbr != null){
-      // console.log(mobPattern.test(this.emp.empMobNbr));
       if(mobPattern.test(this.emp.empMobNbr) == false){
         validateStatus = false;
         this.formError.empMobNbr.error = true;
@@ -483,6 +511,9 @@ export class AddEmployeeComponent implements OnInit {
     this.emp.empHomeNbr     = '';
     this.emp.empEmergNbr    = '';
     this.emp.empBloodGrp    = '';
+
+    this.showError = false;
+    this.showSuccess = false;
   }
 
   resetAltered(){
@@ -503,5 +534,14 @@ export class AddEmployeeComponent implements OnInit {
     this.altered.empHomeNbr = false;
     this.altered.empEmergNbr = false;
     this.altered.empBloodGrp = false;
+  }
+
+  scrollToTop(){
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  }
+
+  scrollToBottom(){
+    window.scrollTo(0,document.body.scrollHeight);
   }
 }
